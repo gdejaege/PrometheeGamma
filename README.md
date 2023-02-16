@@ -20,7 +20,7 @@ Installation :
 pip install matplotlib
 ```
 
-# How to run
+## How to run
 
 The runnable file is the file main_promethee_gamma.py in the src directory. <br />
 
