@@ -1,4 +1,3 @@
-
 class PreferenceFunction:
     """
     This class represent the preference funtion used by the Promethee Gamma method
