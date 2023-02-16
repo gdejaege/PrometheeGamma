@@ -19,3 +19,14 @@ Installation :
 ```
 pip install matplotlib
 ```
+
+# How to run
+
+The runnable file is the file main_promethee_gamma.py in the src directory. <br />
+
+When you are in a terminal in the src directory, you can run it with
+```
+python3 main_promethee_gamma.py
+```
+
+A csv file is needed to enter the data. An example is provided in the Data directory.
