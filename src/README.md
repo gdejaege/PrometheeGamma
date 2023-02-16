@@ -61,8 +61,10 @@ This file (in french) is used to indicate the progress of the project and any av
 
 ## Code
 
-- Le code est organisé en classe selon le principe de l'orienté objet et commenté
+- Le code est organisé en classe selon le principe de l'orienté objet et commenté.
 
 ### A améliorer
 
 - Le code doit être simplifié à certain endroit, et certain commentaires doivent encore être complétés/ajoutés.
+
+- ...
