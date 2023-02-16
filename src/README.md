@@ -13,7 +13,7 @@ This file (in french) is used to indicate the progress of the project and any av
 
 - Des informations à propos de la fonction de préférence des critères et de ses paramètres. Pouvoir visualiser cette fonction de préférence. <br/>
 
-- Des types de fonctions de préférence supplémentaire (pour le moment, seuls deux sot pris en charge, l'usuelle et la linéaire). <br/>
+- Des types de fonctions de préférence supplémentaire (pour le moment, seuls deux sont prises en charge, l'usuelle et la linéaire). <br/>
 
 - La possibilité de sauvegarder les modifications effectuées, c'est-à-dire créer un bouton "save" pour enregistrer le tableau au format csv. <br/>
 
@@ -48,9 +48,9 @@ This file (in french) is used to indicate the progress of the project and any av
 
 ### A modifier/améliorer
 
-- Le processus d'obtention et d'affichage des résultat n'est pas optimal. Il eput provoquer des latences lorsque de nombreux recalcul sont demandés lors de l'utilisation des sliders. Il faut encore optimiser tout cela. <br/>
+- Le processus d'obtention et d'affichage des résultat n'est pas optimal. Il peut provoquer des latences lorsque de nombreux recalculs sont demandés lors de l'utilisation des sliders. Il faut encore optimiser tout cela. <br/>
 
-- Le graphe orthogonal n'est pas terminé. Les résultats qu'il montre pour le moment ne sont qu'une approximation des résultats correctes. (L'implémentation et la vilualisation des thresholds est à (re)faire). <br/>
+- Le graphe orthogonal n'est pas terminé. Les résultats qu'il montre pour le moment ne sont qu'une approximation des résultats corrects. (L'implémentation et la vilualisation des thresholds est à (re)faire). <br/>
 
 - La visualisation graphique ne fonctionne correctement qu'avec un petit nombre de donnée. Dans le cas contraire, le schéma dépasse les bordures de l'application. De plus, les traits montrant l'indifférence et l'incomparabilité peuvent se superposer, rendant le schéma illisible. Il faut donc encore l'améliorer. Une possibilité de zoom et de déplacement à l'aide d'une "main" seraient aussi bienvenu. <br/>
 
