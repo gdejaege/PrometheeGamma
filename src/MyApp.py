@@ -354,13 +354,29 @@ class MyApp:
         """
         Open a new window with a canvas space to display result in schematic form
         """
+
+        size = len(self.units) * 80 + 100
+
         n = Toplevel(self.tab2)
         n.title('Graphical results')
         n.geometry("800x600")
 
-        c = Canvas(n, height=600, width=800)
-        c.pack()
+        frame=Frame(n, width=800, height=600)
+        frame.pack(expand=True, fill=BOTH)
+        c=Canvas(frame,bg='#FFFFFF',width=750,height=550,scrollregion=(0,0,size,size))
+        hbar=Scrollbar(frame,orient=HORIZONTAL)
+        hbar.pack(side=BOTTOM,fill=X)
+        hbar.config(command=c.xview)
+        vbar=Scrollbar(frame,orient=VERTICAL)
+        vbar.pack(side=RIGHT,fill=Y)
+        vbar.config(command=c.yview)
+        c.config(width=750,height=850)
+        c.config(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
+        c.pack(side=LEFT,expand=True,fill=BOTH)
 
-        desssin = Schema(self.method.get_alternatives(), self.method.get_matrix_results(), c)
+        #c = Canvas(n, height=size, width=size)
+        #c.pack()
+
+        desssin = Schema(self.method.get_alternatives(), self.method.get_matrix_results(), c, size)
         desssin.build(self.method.get_scores())
         desssin.add_lines()

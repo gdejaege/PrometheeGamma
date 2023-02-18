@@ -5,12 +5,13 @@ class Schema():
     """
     Draw a schema that represents results of Promethee Gamma method
     """
-    def __init__(self, als:list, r:list, m:Canvas):
+    def __init__(self, als:list, r:list, m:Canvas, size:int):
         self.alternatives = als
         self.nb_als = len(als)
         self.matrix = r
         self.construction = {}
         self.master = m
+        self.x = size//2
 
 
     def build(self, scores:dict) -> None:
@@ -20,7 +21,7 @@ class Schema():
         r = self.rank(scores=scores)
         for i in range(len(r)):
             y = (i+1)*80
-            x = 400 - (len(r[i])-1)*40
+            x = self.x - (len(r[i])-1)*40
             for j in range(len(r[i])):
                 self.construction[r[i][j]] = Alternative(r[i][j], self.master, x+j*80, y)
 
