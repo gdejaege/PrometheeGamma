@@ -52,7 +52,7 @@ This file (in french) is used to indicate the progress of the project and any av
 
 - Le graphe orthogonal n'est pas terminé. Les résultats qu'il montre pour le moment ne sont qu'une approximation des résultats corrects. (L'implémentation et la vilualisation des thresholds est à (re)faire). <br/>
 
-- La visualisation graphique ne fonctionne correctement qu'avec un petit nombre de donnée. Dans le cas contraire, le schéma dépasse les bordures de l'application. De plus, les traits montrant l'indifférence et l'incomparabilité peuvent se superposer, rendant le schéma illisible. Il faut donc encore l'améliorer. Une possibilité de zoom et de déplacement à l'aide d'une "main" seraient aussi bienvenu. <br/>
+- Dans la visualisation graphique, les traits montrant l'indifférence et l'incomparabilité peuvent se superposer, rendant le schéma illisible. Il faut donc encore l'améliorer. Possibilité de zoom et de déplacement à l'aide d'une "main" ? <br/>
 
 - Les couleurs ? <br/>
 
