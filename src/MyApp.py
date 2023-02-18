@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog as fd
-from customtkinter import (CTk, CTkEntry, CTkTabview, CTkTextbox, CTkLabel, CTkButton, CTkSlider, set_default_color_theme)
+from customtkinter import (CTk, CTkEntry, CTkTabview, CTkTextbox, CTkLabel, CTkButton, CTkSlider, CTkToplevel, CTkFrame, CTkScrollbar, CTkCanvas, set_default_color_theme)
 from PrometheeGamma import PrometheeGamma
 from Criterion import Criterion
 from OrthogonalGraph import OrthogonalGraph
@@ -357,26 +357,25 @@ class MyApp:
 
         size = len(self.units) * 80 + 100
 
-        n = Toplevel(self.tab2)
+        n=CTkToplevel(self.tab2)
         n.title('Graphical results')
         n.geometry("800x600")
 
-        frame=Frame(n, width=800, height=600)
-        frame.pack(expand=True, fill=BOTH)
-        c=Canvas(frame,bg='#FFFFFF',width=750,height=550,scrollregion=(0,0,size,size))
-        hbar=Scrollbar(frame,orient=HORIZONTAL)
+        self.frame=CTkFrame(master=n, width=800, height=600)
+        self.frame.pack(expand=True, fill=BOTH)
+        c=CTkCanvas(self.frame,bg='#FFFFFF',width=750,height=550,scrollregion=(0,0,size,size))
+        hbar=CTkScrollbar(master=self.frame,orientation=HORIZONTAL, command=c.xview)
         hbar.pack(side=BOTTOM,fill=X)
-        hbar.config(command=c.xview)
-        vbar=Scrollbar(frame,orient=VERTICAL)
+        vbar=CTkScrollbar(self.frame,orientation=VERTICAL, command=c.yview)
         vbar.pack(side=RIGHT,fill=Y)
-        vbar.config(command=c.yview)
-        c.config(width=750,height=850)
-        c.config(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
+        c.configure(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
         c.pack(side=LEFT,expand=True,fill=BOTH)
 
-        #c = Canvas(n, height=size, width=size)
-        #c.pack()
+        self.frame.bind("<MouseWheel>", self._on_mousewheel)
 
         desssin = Schema(self.method.get_alternatives(), self.method.get_matrix_results(), c, size)
         desssin.build(self.method.get_scores())
         desssin.add_lines()
+    
+    def _on_mousewheel(self, event):
+        self.frame.yview_scroll(-1*(event.delta/120), "units")
