@@ -2,7 +2,7 @@ from PreferenceFunction import PreferenceFunction
 
 class Criterion:
     """
-    Class to represent a criterion of the Promethee Gamma method.
+    Class to represent a criterion of the PROMETHEE γ method.
     """
     def __init__(self, name=None, weight=0.0) -> None:
         self.name = name
@@ -10,11 +10,11 @@ class Criterion:
         self.preference_function = PreferenceFunction()  # init the preference function
         self.pi_c_matrix = []
         """
-        pi_c_ij = F_c(d_c(unit_i - unit_j))
+        self.pi_c_matrix[i][j] = πc_ij = Fc(dc(ai, aj)): "how much ai is preferred over aj on criterion c"
         """
         self.phi_c_list = []
         """
-        phi_c_i = (1/n-1) * S_{j=1}^{n} (pi_c_ij - pi_c_ji)
+        self.phi_c_list[i] = φc(ai) = (1/n-1) * ∑_{j=1}^{n} (πc_ij - πc_ji)
         """
         self.column = []
 
@@ -92,21 +92,25 @@ class Criterion:
         return len(self.column)
 
 
-    def build_pi_c_matrix_and_phi_c_list(self) -> None:
+    def build_pi_c_matrix(self) -> None:
         """
-        Build the pi matrix and the phi list of the criterion, 
+        Build the pi matrix and the phi list of the criterion \n
+        πc_ij = Fc(dc(ai, aj)): "how much ai is preferred over aj on criterion c" \n
+        Fc is the preference function 
+        and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of ai and aj on the criterion c
         """
         for i in range(len(self.column)):
             self.pi_c_matrix.append([])
             for j in range(len(self.column)):
                 pi_c_ij = self.preference_function.compute_preference(self.column[i] - self.column[j])
                 self.pi_c_matrix[i].append(pi_c_ij)
-        self.build_phi_c_list()
 
 
     def build_phi_c_list(self) -> None:
         """
-        Build the phi list that corresponds to the criterion
+        Build the phi list that corresponds to the criterion \n
+        phi list: [φc(a1), φc(a2), ..., φc(ai), ..., φc(an)] where φc(ai): the mono-criterion net flow of ai on criterion c
+        and n the number of alternatives
         """
         for i in range(len(self.column)):
             phi_c_i = 0.0
@@ -118,14 +122,19 @@ class Criterion:
 
     def get_phi_c_list(self) -> list:
         """
-        Get the phi list of the criterion
+        Get the phi list of the criterion \n
+        phi list: [φc(a1), φc(a2), ..., φc(ai), ..., φc(an)] where φc(ai): the mono-criterion net flow of ai on criterion c
+        and n the number of alternatives
         """
         return self.phi_c_list
 
 
     def get_gamma_c_ij(self, i:int, j:int) -> float:
         """
-        Get the value of Gamma c ij
+        Get the value of γc_ij \n
+        γc_ij = wc · (φc(ai) - φc(aj))
+        when fc(ai) > fc(aj) and γc_ij = 0 otherwise,
+        where wc is the weight associated to the criterion
         """
         val = 0.0
         if(self.column[i]>self.column[j]):
@@ -133,7 +142,7 @@ class Criterion:
         return val
 
 
-    def print_criterion(self) -> None:
+    #def print_criterion(self) -> None:
         """
         Print all information about the criterion
         """

@@ -7,8 +7,10 @@ class PrometheeGamma:
     such as the gamma matrix and the matrix of results
     """
     def __init__(self) -> None:
-        # self.units = []  # the list of Units
-        self.criteria = []  # the list of criteria
+        self.criteria = []
+        """
+        the list of criteria
+        """
         self.T_i = 0.0
         self.T_j = 0.0
         self.P_f = 1.0
@@ -16,22 +18,18 @@ class PrometheeGamma:
 
         self.gamma_matrix = []
         """
-        gamma_matrix = [ [g11, g12, ... , g1j, ... , g1n]
-                         [g21, g22, ... , g2j, ... , g2n]
+        gamma_matrix = [ [γ11, γ12, ... , γ1j, ... , γ1n]
+                         [γ21, γ22, ... , γ2j, ... , γ2n]
                          [...]
-                         [gi1, gi2, ... , gij , ..., gin]
+                         [γi1, γi2, ... , γij , ..., γin]
                          [...]
-                         [gn1, gn2, ... , gnj, ... , gnn] ]
-        where g = gamma ; n = number of units ; i and j the index of the matrix
+                         [γn1, γn2, ... , γnj, ... , γnn] ]
+        where n = number of alternatives ; i and j the index of the matrix
         """
-
         self.matrix_I = []
         self.matrix_J = []
-        self.matrix_Pij = []
-        self.matrix_Pji = []
-
+        self.matrix_P = []
         self.matrix_results =[]
-
         self.scores = {}
 
 
@@ -87,8 +85,7 @@ class PrometheeGamma:
         self.gamma_matrix.clear()
         self.matrix_I.clear()
         self.matrix_J.clear()
-        self.matrix_Pij.clear()
-        self.matrix_Pji.clear()
+        self.matrix_P.clear()
         self.matrix_results.clear()
         self.scores.clear()
 
@@ -119,7 +116,8 @@ class PrometheeGamma:
         Build the gamma matrix
         """
         for c in self.criteria:
-            c.build_pi_c_matrix_and_phi_c_list()
+            c.build_pi_c_matrix()
+            c.build_phi_c_list()
         n = self.criteria[0].get_number_of_units()
         #print(self.criteria[0].print_criterion())
         for i in range(n):
@@ -141,19 +139,16 @@ class PrometheeGamma:
     def build_matrix_IPJ(self) -> None:
         self.matrix_I = []
         self.matrix_J = []
-        self.matrix_Pij = []
-        self.matrix_Pji = []
+        self.matrix_P = []
         for i in range(len(self.gamma_matrix)):
             self.matrix_I.append([])
             self.matrix_J.append([])
-            self.matrix_Pij.append([])
-            self.matrix_Pji.append([])
+            self.matrix_P.append([])
             for j in range(len(self.gamma_matrix)):
                 gij = self.gamma_matrix[i][j]
                 gji = self.gamma_matrix[j][i]
                 self.matrix_I[i].append(self.T_i - max(gij, gji))
-                self.matrix_Pij[i].append((gij - gji)/self.P_f)
-                self.matrix_Pji[i].append((gji - gij)/self.P_f)
+                self.matrix_P[i].append((gij - gji)/self.P_f)
                 self.matrix_J[i].append(min(gij, gji)-self.T_j)
 
 
@@ -178,28 +173,21 @@ class PrometheeGamma:
 
 
     def build_matrix_P(self) -> None:
-        self.matrix_Pij = []
-        self.matrix_Pji = []
+        self.matrix_P = []
         for i in range(len(self.gamma_matrix)):
-            self.matrix_Pij.append([])
-            self.matrix_Pji.append([])
+            self.matrix_P.append([])
             for j in range(len(self.gamma_matrix)):
                 gij = self.gamma_matrix[i][j]
                 gji = self.gamma_matrix[j][i]
-                self.matrix_Pij[i].append((gij - gji)/self.P_f)
-                self.matrix_Pji[i].append((gji - gij)/self.P_f)
+                self.matrix_P[i].append((gij - gji)/self.P_f)
 
 
     def get_matrix_I(self) -> list:
         return self.matrix_I
 
 
-    def get_matrix_Pij(self) -> list:
-        return self.matrix_Pij
-
-
-    def get_matrix_Pji(self) -> list:
-        return self.matrix_Pji
+    def get_matrix_P(self) -> list:
+        return self.matrix_P
 
 
     def get_matrix_J(self) -> list:
@@ -221,8 +209,8 @@ class PrometheeGamma:
             for j in range(len(self.units)):
                 Iij = self.matrix_I[i][j]
                 Jij = self.matrix_J[i][j]
-                Pij = self.matrix_Pij[i][j]
-                Pji = self.matrix_Pji[i][j]
+                Pij = self.matrix_P[i][j]
+                Pji = self.matrix_P[j][i]
                 ai = self.units[i]
                 aj = self.units[j]
                 if(Iij >= max(Pij , Pji, Iij , Jij )):
