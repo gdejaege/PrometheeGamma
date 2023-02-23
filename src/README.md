@@ -42,15 +42,13 @@ This file (in french) is used to indicate the progress of the project and any av
 
 ### A ajouter
 
-- Aide à la détermination - voire détermination automatique - de la valeur des nouveaux paramètres introduits par PROMETHEE Gamma.
-
 - ... <br/>
 
 ### A modifier/améliorer
 
 - Le processus d'obtention et d'affichage des résultat n'est pas optimal. Il peut provoquer des latences lorsque de nombreux recalculs sont demandés lors de l'utilisation des sliders. Il faut encore optimiser tout cela. <br/>
 
-- Le graphe orthogonal n'est pas terminé. Les résultats qu'il montre pour le moment ne sont qu'une approximation des résultats corrects. (L'implémentation et la vilualisation des thresholds est à (re)faire). <br/>
+- Le graphe orthogonal n'est pas tout à fait terminé (il manque la visualisation des thresholds). <br/>
 
 - Dans la visualisation graphique, les traits montrant l'indifférence et l'incomparabilité peuvent se superposer, rendant le schéma illisible. Il faut donc encore l'améliorer. Possibilité de zoom et de déplacement à l'aide d'une "main" ? <br/>
 
@@ -68,3 +66,15 @@ This file (in french) is used to indicate the progress of the project and any av
 - Le code doit être simplifié à certain endroit, et certain commentaires doivent encore être complétés/ajoutés.
 
 - ...
+
+
+
+## TODO
+
+- Choix des fonctions de préférences avec visualisation dans l'onglet Data.
+
+- Intégration directe des graphes de résultats dans la fenêtre de l'application (possibilité de switch d'une vue à l'autre avec un système de curseur (ou similaire) juste en-dessous des sliders).
+
+- Possibilité d'enregistrer les résultats.
+
+- Troisième onglet : aide au choix des paramètres. Se renseigner pour effecctuer une procédure d'élicitation (preference learning). Chercher une méthode qui convient à ce projet.
