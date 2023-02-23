@@ -29,4 +29,4 @@ When you are in a terminal in the src directory, you can run it with
 python3 main_promethee_gamma.py
 ```
 
-A csv file is needed to enter the data. An example is provided in the Data directory.
+A csv file is needed to enter the data. Examples are provided in the Data directory.
