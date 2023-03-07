@@ -41,15 +41,15 @@ class Tabular:
         for i in range(nb):
             x = self.xc + i*141
             self.criteria.append(CriterionColumn(master=self.master, x=x, y=self.yc))
-            if(names != None):
+            if(names != None and names != []):
                 self.criteria[i].set_name(names[i])
-            if(weights != None):
+            if(weights != None and weights != []):
                 self.criteria[i].set_weight(weights[i])
-            if(types != None):
+            if(types != None and types != []):
                 self.criteria[i].set_typePF(types[i])
-            if(pc != None):
+            if(pc != None and pc != []):
                 self.criteria[i].set_pc(pc[i])
-            if(qc != None):
+            if(qc != None and qc != []):
                 self.criteria[i].set_qc(qc[i])
         self.xc = x
 
@@ -108,19 +108,21 @@ class Tabular:
 
     def extracts_data(self) -> tuple:
         """
-        Return the lists: (criteria, weights, pc, qc, units)
+        Return the lists: (criteria, weights, type_pf, pc, qc, units)
         """
         criteria = []
         weights = []
+        type_pf = []
         pc = []
         qc = []
         units = []
         for i in range(len(self.criteria)):
             criteria.append(self.criteria[i].get_name())
             weights.append(self.criteria[i].get_weight())
+            type_pf.append(self.criteria[i].get_typePF())
             pc.append(self.criteria[i].get_pc())
             qc.append(self.criteria[i].get_qc())
         for j in range(len(self.units)):
             units.append(self.units[j].get_row())
 
-        return (criteria, weights, pc, qc, units)
+        return (criteria, weights, type_pf, pc, qc, units)

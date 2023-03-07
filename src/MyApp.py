@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import ttk
+#from tkinter import ttk
 from tkinter import filedialog as fd
 from customtkinter import (CTk, CTkEntry, CTkTabview, CTkTextbox, CTkLabel, CTkButton, CTkSlider, CTkToplevel, CTkFrame, CTkScrollbar, CTkCanvas, set_default_color_theme)
 from PrometheeGamma import PrometheeGamma
@@ -10,17 +10,38 @@ from Tabular import Tabular
 
 class MyApp:
     """
-    Main class of the Promethee Gamma app. 
+    Main class of the Promethee Gamma app
     """
-    def __init__(self, master=None):
-        self.units = []  # Matrix of units
-        self.criteria = []  # List of criteria. The index correspond to the column number.
-        self.p = []
-        self.q = []
+    def __init__(self, master=None) -> None:
+        self.units = []
+        """
+        Matrix of units
+        """
+        self.criteria = []
+        """
+        List of criteria. The index correspond to the column number
+        """
         self.f = []
+        """
+        List of preference function's types
+        """
+        self.p = []
+        """
+        List of preference parameters
+        """
+        self.q = []
+        """
+        List of indiferrence parameters
+        """
         self.weights = []
+        """
+        List of criteria's weight
+        """
         self.method = PrometheeGamma()
-        self.pf_types = {0:'usual', 1:'linear'}
+        """
+        The used method
+        """
+        self.pf_types = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"}
         
         # build ui
         self.ctk1 = CTk(master)
@@ -33,7 +54,7 @@ class MyApp:
         
         self.tabview = CTkTabview(self.ctk1, fg_color="#ffffff")
         self.tabview.pack(expand=True, fill="both")
-        
+
 
         ##########
         ## Data ##
@@ -86,9 +107,9 @@ class MyApp:
         label_Tj.place(x=10, y=40)
         label_Pf.place(x=10, y=70)
         
-        self.Ti = StringVar(master=self.tab2, value="0.0")
-        self.Tj = StringVar(master=self.tab2, value="0.0")
-        self.Pf = StringVar(master=self.tab2, value="1.0")
+        self.Ti = DoubleVar(master=self.tab2, value=0.0)
+        self.Tj = DoubleVar(master=self.tab2, value=0.0)
+        self.Pf = DoubleVar(master=self.tab2, value=1.0)
         self.entry_Ti = CTkEntry(master=self.tab2, textvariable=self.Ti, width=50)
         self.entry_Ti.bind("<Return>", command=self.command_entry_Ti)
         self.entry_Tj = CTkEntry(master=self.tab2, textvariable=self.Tj, width=50)
@@ -100,13 +121,13 @@ class MyApp:
         self.entry_Pf.place(x=250, y=70)
         
         self.slider_Ti= CTkSlider(master=self.tab2, from_=0, to=1, number_of_steps=100, command=self.command_slider_Ti)
-        self.slider_Ti.set(output_value=float(self.Ti.get()) ,from_variable_callback=True)
+        self.slider_Ti.set(output_value=self.Ti.get() ,from_variable_callback=True)
         self.slider_Ti.place(x=310, y=15)
         self.slider_Tj= CTkSlider(master=self.tab2, from_=0, to=1, number_of_steps=100, command=self.command_slider_Tj)
-        self.slider_Tj.set(output_value=float(self.Tj.get()) ,from_variable_callback=True)
+        self.slider_Tj.set(output_value=self.Tj.get() ,from_variable_callback=True)
         self.slider_Tj.place(x=310, y=45)
         self.slider_Pf= CTkSlider(master=self.tab2, from_=1, to=100, number_of_steps=1000, command=self.command_slider_Pf)
-        self.slider_Pf.set(output_value=float(self.Pf.get()) ,from_variable_callback=True)
+        self.slider_Pf.set(output_value=self.Pf.get() ,from_variable_callback=True)
         self.slider_Pf.place(x=310, y=75)
 
         self.text_b2 = StringVar(master=self.tab2, value="Obtain results")
@@ -174,7 +195,7 @@ class MyApp:
         """
         get the new data from the tabular in the tab Data
         """
-        (self.criteria, self.weights, self.p, self.q, self.units) = self.data_tab.extracts_data()
+        (self.criteria, self.weights, self.f, self.p, self.q, self.units) = self.data_tab.extracts_data()
         """
         print(self.criteria)
         print(self.weights)
@@ -197,7 +218,10 @@ class MyApp:
         self.method.clear()
         for i in range(len(self.criteria)):
             g = Criterion(self.criteria[i], float(self.weights[i]))
-            g.set_pf(self.pf_types[int(self.f[i])], pc=float(self.p[i]), qc=float(self.q[i]))
+            ####
+            print(self.f, self.p, self.q)
+            ####
+            g.set_pf(type=int(self.f[i]), pc=float(self.p[i]), qc=float(self.q[i]))
             for j in range(len(self.units)):
                 g.add_unit(float(self.units[j][i+1]))
             self.method.add_criterion(g)
@@ -225,9 +249,9 @@ class MyApp:
         """
         Compute the results with the method
         """
-        self.method.set_T_i(float(self.Ti.get()))
-        self.method.set_T_j(float(self.Tj.get()))
-        self.method.set_P_f(float(self.Pf.get()))
+        self.method.set_T_i(self.Ti.get())
+        self.method.set_T_j(self.Tj.get())
+        self.method.set_P_f(self.Pf.get())
         self.method.build_matrix_IPJ()
         self.method.final()
         self.print_results()
@@ -247,12 +271,12 @@ class MyApp:
         """
         Command funtion of entry_Ti
         """
-        val = float(self.Ti.get())
+        val = self.Ti.get()
         val = round(min(1.0, max(0.0, val)), 2)
-        self.Ti.set(str(val))
+        self.Ti.set(val)
         self.slider_Ti.set(output_value=val, from_variable_callback=True)
         self.compute_change_Ti(val)
-        if(val > float(self.Tj.get())):
+        if(val > self.Tj.get()):
             self.changing_Tj_from_Ti(val)
     
 
@@ -261,9 +285,9 @@ class MyApp:
         Command function of slider Ti
         """
         newval = round(newval, 2)
-        self.Ti.set(str(newval))
+        self.Ti.set(newval)
         self.compute_change_Ti(newval)
-        if(newval > float(self.Tj.get())):
+        if(newval > self.Tj.get()):
             self.changing_Tj_from_Ti(newval)
 
 
@@ -281,12 +305,12 @@ class MyApp:
         """
         Command funtion of entry_Tj
         """
-        val = float(self.Tj.get())
+        val = self.Tj.get()
         val = round(min(1.0, max(0.0, val)), 2)
-        self.Tj.set(str(val))
+        self.Tj.set(val)
         self.slider_Tj.set(output_value=val ,from_variable_callback=True)
         self.compute_change_Tj(val)
-        if(val < float(self.Ti.get())):
+        if(val < self.Ti.get()):
             self.changing_Ti_from_Tj(val)
     
 
@@ -295,20 +319,20 @@ class MyApp:
         Command function of slider Tj
         """
         newval = round(newval, 2)
-        self.Tj.set(str(newval))
+        self.Tj.set(newval)
         self.compute_change_Tj(newval)
-        if(newval < float(self.Ti.get())):
+        if(newval < self.Ti.get()):
             self.changing_Ti_from_Tj(newval)
 
 
     def changing_Tj_from_Ti(self, newval) -> None:
-        self.Tj.set(str(newval))
+        self.Tj.set(newval)
         self.slider_Tj.set(output_value=newval ,from_variable_callback=True)
         self.compute_change_Tj(newval)
 
 
     def changing_Ti_from_Tj(self, newval) -> None:
-        self.Ti.set(str(newval))
+        self.Ti.set(newval)
         self.slider_Ti.set(output_value=newval ,from_variable_callback=True)
         self.compute_change_Ti(newval)
 
@@ -324,9 +348,9 @@ class MyApp:
         """
         Handler of the Pf entry
         """
-        val = float(self.Pf.get())
+        val = self.Pf.get()
         val = round(min(100.0, max(1.0, val)), 2)
-        self.Pf.set(str(val))
+        self.Pf.set(val)
         self.slider_Pf.set(output_value=val ,from_variable_callback=True)
         self.compute_change_Pf(val)
     
@@ -336,7 +360,7 @@ class MyApp:
         Handler of the Pf slider
         """
         newval = round(newval, 2)
-        self.Pf.set(str(newval))
+        self.Pf.set(newval)
         self.compute_change_Pf(newval)
 
 
@@ -346,7 +370,7 @@ class MyApp:
         """
         g = self.method.get_gamma_matrix()
         r = self.method.get_matrix_results()
-        graph = OrthogonalGraph(g, r, Ti=float(self.Ti.get()), Tj=float(self.Tj.get()))
+        graph = OrthogonalGraph(g, r, Ti=self.Ti.get(), Tj=self.Tj.get())
         graph.show()
 
 
@@ -354,13 +378,10 @@ class MyApp:
         """
         Open a new window with a canvas space to display result in schematic form
         """
-
         size = len(self.units) * 80 + 100
-
         n=CTkToplevel(self.tab2)
         n.title('Graphical results')
         n.geometry("800x600")
-
         self.frame=CTkFrame(master=n, width=800, height=600)
         self.frame.pack(expand=True, fill=BOTH)
         c=CTkCanvas(self.frame,bg='#FFFFFF',width=750,height=550,scrollregion=(0,0,size,size))
@@ -370,12 +391,11 @@ class MyApp:
         vbar.pack(side=RIGHT,fill=Y)
         c.configure(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
         c.pack(side=LEFT,expand=True,fill=BOTH)
-
         self.frame.bind("<MouseWheel>", self._on_mousewheel)
-
         desssin = Schema(self.method.get_alternatives(), self.method.get_matrix_results(), c, size)
         desssin.build(self.method.get_scores())
         desssin.add_lines()
     
+
     def _on_mousewheel(self, event):
         self.frame.yview_scroll(-1*(event.delta/120), "units")

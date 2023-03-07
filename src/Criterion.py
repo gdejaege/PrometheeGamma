@@ -19,14 +19,14 @@ class Criterion:
         self.column = []
 
 
-    def set_pf(self, type=None, pc=None, qc=None) -> None:
+    def set_pf(self, type:int, pc=0.0, qc=0.0) -> None:
         """
         Set the preference function
         """
         if(type != None):
-            self.preference_function.set_type(type)
-            self.preference_function.set_pc(pc)
-            self.preference_function.set_qc(qc)
+            self.preference_function.set_type(new_type=type, p=pc, q=qc)
+            #self.preference_function.set_pc(pc)
+            #self.preference_function.set_qc(qc)
 
 
     def set_name(self, n:str) -> None:
@@ -57,11 +57,11 @@ class Criterion:
         return self.weight
 
 
-    def get_pf(self) -> PreferenceFunction:
+    def get_pf(self) -> int:
         """
-        Get the preference function
+        Get the type of the preference function
         """
-        return self.preference_function
+        return self.preference_function.get_type()
     
 
     def add_unit(self, val) -> None:
