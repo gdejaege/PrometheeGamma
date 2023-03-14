@@ -39,7 +39,7 @@ class PreferenceFunctionWindow:
         ax3.set_xticks([0])
         ax3.text(49.5, -0.05, "p")
 
-        canvas1 = FigureCanvasTkAgg(self.fig1, master=self.root)  # A tk.DrawingArea.
+        canvas1 = FigureCanvasTkAgg(self.fig1, master=self.root)
         canvas1.draw()
         canvas1.get_tk_widget().grid(row=0, columnspan=3)
 

@@ -7,6 +7,7 @@ from Criterion import Criterion
 from OrthogonalGraph import OrthogonalGraph
 from Schema import Schema
 from Tabular import Tabular
+from ResultsVisualisation import ResultsVisualisation
 
 class MyApp:
     """
@@ -76,13 +77,6 @@ class MyApp:
         self.ctklabel_data_note = CTkLabel(self.tab1, text="Only csv files are accepted", fg_color="#ffffff", text_color="#000000", corner_radius=5)
         self.ctklabel_data_note.pack(side="top")
         #self.ctkb1.place(relx=0.1, rely=0.1)
-        
-        """
-        # text_box
-        self.ctktextbox1 = CTkTextbox(self.tab1)
-        self.ctktextbox1.configure(fg_color="#dfdfdf", text_color="#000000")
-        self.ctktextbox1.place(relx=0.05, rely=0.25, relheight=0.7, relwidth=0.9)
-        """
 
         # tabular
         self.data_tab = Tabular(master=self.tab1, x=50, y=125)
@@ -132,15 +126,17 @@ class MyApp:
 
         self.text_b2 = StringVar(master=self.tab2, value="Obtain results")
         self.b2 = CTkButton(self.tab2, textvariable=self.text_b2, command=self.execute, fg_color="#6cffff", text_color="#000000")
-        self.b2.place(relx=0.25, y=120, anchor="center")
+        self.b2.place(relx=0.5, y=120, anchor="center")
 
-        self.texbox_results = CTkTextbox(self.tab2, text_color="#000000", fg_color="#cfcfcf")
+        self.r_visualisation = ResultsVisualisation(master=self.tab2, method=self.method, fg_color="#ffffff")
+        self.r_visualisation.place(relx=0.02, y=150, relheight=0.6, relwidth=0.96)
+        # self.texbox_results = CTkTextbox(self.tab2, text_color="#000000", fg_color="#cfcfcf")
 
-        self.b3 = CTkButton(self.tab2, text="See orthogonal graph", command=self.button_orthogonal_graph, fg_color="#6cffff", text_color="#000000")
-        self.b3.place(relx=0.75, y=200, anchor="center")
+        #self.b3 = CTkButton(self.tab2, text="See orthogonal graph", command=self.button_orthogonal_graph, fg_color="#6cffff", text_color="#000000")
+        #self.b3.place(relx=0.75, y=200, anchor="center")
 
-        self.b4 = CTkButton(self.tab2, text="See graphical results", command=self.open_window_canvas, fg_color="#6cffff", text_color="#000000")
-        self.b4.place(relx=0.75, y=250, anchor="center")
+        #self.b4 = CTkButton(self.tab2, text="See graphical results", command=self.open_window_canvas, fg_color="#6cffff", text_color="#000000")
+        #self.b4.place(relx=0.75, y=250, anchor="center")
 
         # Main widget
         self.mainwindow = self.ctk1
@@ -157,7 +153,6 @@ class MyApp:
         """
         Open and read a source file at csv format
         """
-        # self.ctktextbox1.delete("1.0", "end")
         self.criteria.clear()
         self.weights.clear()
         self.q.clear()
@@ -168,7 +163,6 @@ class MyApp:
         file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("all files","*.*")))
         for line in file:
             line = line.strip()
-            #self.ctktextbox1.insert("end", line+"\n")
             temp = line.split(',')
             if(temp[0] == 'c'):
                 self.criteria = temp[1:]
@@ -196,13 +190,6 @@ class MyApp:
         get the new data from the tabular in the tab Data
         """
         (self.criteria, self.weights, self.f, self.p, self.q, self.units) = self.data_tab.extracts_data()
-        """
-        print(self.criteria)
-        print(self.weights)
-        print(self.p)
-        print(self.q)
-        print(self.units)
-        """
 
 
     def execute(self) -> None:
@@ -213,14 +200,11 @@ class MyApp:
         self.get_data()
 
         self.text_b2.set("Reload results")
-        self.texbox_results.place(relx=0.05, rely=0.4, relheight=0.55, relwidth=0.43)
+        #self.texbox_results.place(relx=0.05, rely=0.4, relheight=0.55, relwidth=0.43)
 
         self.method.clear()
         for i in range(len(self.criteria)):
             g = Criterion(self.criteria[i], float(self.weights[i]))
-            ####
-            print(self.f, self.p, self.q)
-            ####
             g.set_pf(type=int(self.f[i]), pc=float(self.p[i]), qc=float(self.q[i]))
             for j in range(len(self.units)):
                 g.add_unit(float(self.units[j][i+1]))
@@ -233,18 +217,6 @@ class MyApp:
         self.compute_results()
 
 
-    def print_results(self) -> None:
-        """
-        Display the results in a textbox 
-        """
-        self.texbox_results.delete("1.0", "end")
-        for i in range(len(self.units)):
-            line = ""
-            for e in self.method.get_matrix_results()[i]:
-                line += str(e) + ", "
-            self.texbox_results.insert("end", line+"\n")
-
-
     def compute_results(self) -> None:
         """
         Compute the results with the method
@@ -254,7 +226,7 @@ class MyApp:
         self.method.set_P_f(self.Pf.get())
         self.method.build_matrix_IPJ()
         self.method.final()
-        self.print_results()
+        self.r_visualisation.update()
     
 
     def compute_change_Ti(self, val) -> None:
@@ -264,7 +236,7 @@ class MyApp:
         self.method.set_T_i(val)
         self.method.build_matrix_I()
         self.method.final()
-        self.print_results()
+        self.r_visualisation.update()
     
 
     def command_entry_Ti(self, event) -> None:
@@ -298,7 +270,7 @@ class MyApp:
         self.method.set_T_j(val)
         self.method.build_matrix_J()
         self.method.final()
-        self.print_results()
+        self.r_visualisation.update()
     
 
     def command_entry_Tj(self, event) -> None:
@@ -341,7 +313,7 @@ class MyApp:
         self.method.set_P_f(val)
         self.method.build_matrix_P()
         self.method.final()
-        self.print_results()
+        self.r_visualisation.update()
 
 
     def command_entry_Pf(self, event) -> None:
@@ -372,30 +344,3 @@ class MyApp:
         r = self.method.get_matrix_results()
         graph = OrthogonalGraph(g, r, Ti=self.Ti.get(), Tj=self.Tj.get())
         graph.show()
-
-
-    def open_window_canvas(self) -> None:
-        """
-        Open a new window with a canvas space to display result in schematic form
-        """
-        size = len(self.units) * 80 + 100
-        n=CTkToplevel(self.tab2)
-        n.title('Graphical results')
-        n.geometry("800x600")
-        self.frame=CTkFrame(master=n, width=800, height=600)
-        self.frame.pack(expand=True, fill=BOTH)
-        c=CTkCanvas(self.frame,bg='#FFFFFF',width=750,height=550,scrollregion=(0,0,size,size))
-        hbar=CTkScrollbar(master=self.frame,orientation=HORIZONTAL, command=c.xview)
-        hbar.pack(side=BOTTOM,fill=X)
-        vbar=CTkScrollbar(self.frame,orientation=VERTICAL, command=c.yview)
-        vbar.pack(side=RIGHT,fill=Y)
-        c.configure(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
-        c.pack(side=LEFT,expand=True,fill=BOTH)
-        self.frame.bind("<MouseWheel>", self._on_mousewheel)
-        desssin = Schema(self.method.get_alternatives(), self.method.get_matrix_results(), c, size)
-        desssin.build(self.method.get_scores())
-        desssin.add_lines()
-    
-
-    def _on_mousewheel(self, event):
-        self.frame.yview_scroll(-1*(event.delta/120), "units")
