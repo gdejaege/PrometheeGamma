@@ -19,8 +19,8 @@ class OrthogonalGraph:
         self.yv = []
         self.yr = []
 
-        self.canvas_ograph.get_tk_widget().pack(expand=True, fill='both')
-        toolbar.pack(side=BOTTOM, fill=X)
+        self.canvas_ograph.get_tk_widget().pack(expand=True)
+        toolbar.pack(side=BOTTOM)
 
     
     def set_gamma_matrix_and_results(self, gamma_matrix:list, matrix_results:list):
@@ -45,14 +45,13 @@ class OrthogonalGraph:
                     self.xr.append(self.gamma_matrix[i][j])
                     self.yr.append(self.gamma_matrix[j][i])
 
-        
-        ax.set_title("Orthogonal graph")
         ax.plot(self.xv, self.yv, 'go',markersize=2)
         ax.plot(self.xr, self.yr, 'ro',markersize=2)
         ax.plot(self.xb, self.yb, 'bo',markersize=2)
         ax.set_xlabel('γij')
         ax.set_ylabel('γji')
-        ax.axis([0, 2, 0, 2])
+        ax.axis([0, 1.2, 0, 1.2])
+        ax.set_box_aspect(1.0)
 
         self.canvas_ograph.draw()
 

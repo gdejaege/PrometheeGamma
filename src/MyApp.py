@@ -129,14 +129,7 @@ class MyApp:
         self.b2.place(relx=0.5, y=120, anchor="center")
 
         self.r_visualisation = ResultsVisualisation(master=self.tab2, method=self.method, fg_color="#ffffff")
-        self.r_visualisation.place(relx=0.02, y=150, relheight=0.6, relwidth=0.96)
-        # self.texbox_results = CTkTextbox(self.tab2, text_color="#000000", fg_color="#cfcfcf")
-
-        #self.b3 = CTkButton(self.tab2, text="See orthogonal graph", command=self.button_orthogonal_graph, fg_color="#6cffff", text_color="#000000")
-        #self.b3.place(relx=0.75, y=200, anchor="center")
-
-        #self.b4 = CTkButton(self.tab2, text="See graphical results", command=self.open_window_canvas, fg_color="#6cffff", text_color="#000000")
-        #self.b4.place(relx=0.75, y=250, anchor="center")
+        self.r_visualisation.place(relx=0.02, y=150, relwidth=0.96, bordermode='inside')
 
         # Main widget
         self.mainwindow = self.ctk1
