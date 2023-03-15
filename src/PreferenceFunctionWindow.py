@@ -94,8 +94,8 @@ class PreferenceFunctionWindow:
         radiobutton_3 = CTkRadioButton(master=self.root, text="type 3: V-shape", command=self.radiobutton_event, variable= self.radio_var, value=3)
 
         radiobutton_4 = CTkRadioButton(master=self.root, text="type 4: Level", command=self.radiobutton_event, variable= self.radio_var, value=4)
-        radiobutton_5 = CTkRadioButton(master=self.root, text="type 2: Linear", command=self.radiobutton_event, variable= self.radio_var, value=5)
-        radiobutton_6 = CTkRadioButton(master=self.root, text="type 3: Gaussian", command=self.radiobutton_event, variable= self.radio_var, value=6)
+        radiobutton_5 = CTkRadioButton(master=self.root, text="type 5: Linear", command=self.radiobutton_event, variable= self.radio_var, value=5)
+        radiobutton_6 = CTkRadioButton(master=self.root, text="type 6: Gaussian", command=self.radiobutton_event, variable= self.radio_var, value=6)
 
         radiobutton_1.grid(row=1, column=0)
         radiobutton_2.grid(row=1, column=1)
