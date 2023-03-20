@@ -49,8 +49,18 @@ conflit -> contradiction entre deux choix de l'utilisateur
     - f_I = (x, y) où x = max(gamma_ij, gamma_ji) et y = |gamma_ij - gamma_ji| (frontière exacte = x + y/Pf)
     - f_J = (x, y) où x = min(gamma_ij, gamma_ji) et y = |gamma_ij - gamma_ji| (frontière exacte = x - y/Pf)
 
-3. Grâce au choix de l'utilisateur et à ces tuples, on calcule pour chaque paire (I_max, J_min, Pf_min, Pf_max)
+3. Grâce au choix de l'utilisateur et à ces tuples, on calcule pour chaque paire (I_min, I_max, J_min, J_max, Pf_min, Pf_max)
 
 4. On compare les paires
     - Abscence de conflit : on prend le plus petit I_max et le plus grand J_min comme valeurs de I et J ainsi que le plus grand Pf_min comme valeur de Pf
     - Conflit : optimisation pour minimiser le conflit
+
+
+
+
+
+- moyenne distance au sens des moindres carrés
+- pénalité distance de valeurs satisfaisantes
+
+
+essayer de trouver un indice de fiabilité -> pour savoir combien de question poser à l'utilisateur
