@@ -71,10 +71,8 @@ This file (in french) is used to indicate the progress of the project and any av
 
 ## TODO
 
-- Choix des fonctions de préférences avec visualisation dans l'onglet Data.
-
-- Intégration directe des graphes de résultats dans la fenêtre de l'application (possibilité de switch d'une vue à l'autre avec un système de curseur (ou similaire) juste en-dessous des sliders).
-
 - Possibilité d'enregistrer les résultats.
 
-- Troisième onglet : aide au choix des paramètres. Se renseigner pour effecctuer une procédure d'élicitation (preference learning). Chercher une méthode qui convient à ce projet.
+- Troisième onglet : aide au choix des paramètres
+
+- refactoring + schema explicatif code (Modelisation UML)
