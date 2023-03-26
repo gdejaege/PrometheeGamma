@@ -1,17 +1,23 @@
 from tkinter import filedialog as fd
-from Models.DataTabModel import DataTabModel
+from Models.DataModels.DataTabModel import DataTabModel
+from Views.DataTabView import DataTabView
+from customtkinter import (StringVar, IntVar, DoubleVar)
 
-class DataTabController:
-    def __init__(self, superController=None) -> None:
+class DataTabController(DataTabView.ViewListener):
+    def __init__(self, master) -> None:
         self.dataTabModel = DataTabModel()
-        self.superController = superController
+        self.dataTabView = DataTabView(master=master, listener=self)
 
 
-    def open_file(self):
+    def show(self):
+        self.dataTabView.show()
+        
+
+    def openFile(self):
         unames = []
         uval = []
         units = []
-        file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv")))
+        file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("all files","*.*")))
         for line in file:
             line = line.strip()
             temp = line.split(',')
@@ -31,3 +37,11 @@ class DataTabController:
                 units.append(temp)
         self.dataTabModel.setUnits(units)
         file.close()
+
+
+    def addCriterionColumn(self):
+        pass
+
+
+    def addUnitRow(self):
+        pass

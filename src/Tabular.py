@@ -1,6 +1,6 @@
 from tkinter import *
 from CriterionColumn import CriterionColumn
-from UnitRow import UnitRow
+from Views.SubViews.UnitRow import UnitRow
 from customtkinter import (CTkLabel, CTkButton)
 
 class Tabular:
