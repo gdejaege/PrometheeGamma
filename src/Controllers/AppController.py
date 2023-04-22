@@ -17,9 +17,9 @@ class AppController(AppView.ViewListener):
 
     def showDataTabView(self, master):
         dataTabController = DataTabController(master=master)
-        dataTabController.show()
+        dataTabController.showView()
 
 
     def showResultTabView(self, master):
         resultTabController = ResultTabController(master=master)
-        resultTabController.show()
+        resultTabController.showView()

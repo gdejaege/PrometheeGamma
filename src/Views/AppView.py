@@ -1,9 +1,14 @@
 from customtkinter import (CTk, CTkTabview)
-from Views.DataTabView import DataTabView
-from Views.ResultTabView import ResultTabView
-
 
 class AppView(CTk):
+    
+    class ViewListener:
+        def showDataTabView(self, master):
+            pass
+        def showResultTabView(self, master):
+            pass
+
+
     def __init__(self, fg_color = None, **kwargs):
         super().__init__(fg_color, **kwargs)
 
@@ -16,7 +21,7 @@ class AppView(CTk):
         self.title("Promethee Gamma")
 
 
-    def setListener(self, listener):
+    def setListener(self, listener:ViewListener):
         self.listener = listener
 
 
@@ -42,10 +47,3 @@ class AppView(CTk):
             corner_radius=5,
             fg_color="#ffffff")
         self.listener.showResultTabView(master=self.resultTab)
-
-
-    class ViewListener:
-        def showDataTabView(self, master):
-            pass
-        def showResultTabView(self, master):
-            pass

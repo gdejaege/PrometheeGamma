@@ -11,7 +11,19 @@ class PreferenceFunction:
         self.qc = q
 
 
-    def set_type(self, new_type:IntVar, p:DoubleVar=DoubleVar(value=1.0), q:DoubleVar=DoubleVar(value=0.0)) -> None:
+    def getP(self):
+        return self.pc
+    
+
+    def getQ(self):
+        return self.qc
+    
+
+    def getType(self):
+        return self.type
+
+
+    def set_type(self, new_type:IntVar, p:DoubleVar, q:DoubleVar) -> None:
         """
         Set the function
         """

@@ -1,47 +1,98 @@
 from tkinter import filedialog as fd
-from Models.DataModels.DataTabModel import DataTabModel
+from Models.DataTabModel import DataTabModel
 from Views.DataTabView import DataTabView
-from customtkinter import (StringVar, IntVar, DoubleVar)
+from Views.SubViews.CriterionColumn import CriterionColumn
+from Views.SubViews.UnitRow import UnitRow
 
 class DataTabController(DataTabView.ViewListener):
     def __init__(self, master) -> None:
         self.dataTabModel = DataTabModel()
         self.dataTabView = DataTabView(master=master, listener=self)
+        self.criteriaColums = [CriterionColumn]
+        self.unitsRows = [UnitRow]
 
 
-    def show(self):
+    def showView(self):
+        """
+        show the dataTabView
+        """
         self.dataTabView.show()
         
 
-    def openFile(self):
-        unames = []
-        uval = []
-        units = []
+    def openFile(self, master):
         file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("all files","*.*")))
-        for line in file:
-            line = line.strip()
-            temp = line.split(',')
-            if(temp[0] == 'c'):
-                self.dataTabModel.setCiteria(temp[1:])
-            elif(temp[0] == 'w'):
-                self.dataTabModel.setWeights(temp[1:])
-            elif(temp[0] == 'q'):
-                self.dataTabModel.setIndifferenceParameters(temp[1:])
-            elif(temp[0] == 'p'):
-                self.dataTabModel.setPreferenceParameters(temp[1:])
-            elif(temp[0] == 'f'):
-                self.dataTabModel.setPreferenceFunctionsTypes(temp[1:])
-            else:
-                unames.append(temp[0])
-                uval.append(temp[1:])
-                units.append(temp)
-        self.dataTabModel.setUnits(units)
+        self.clearTab()
+        self.dataTabModel.readFile(file, master)
         file.close()
+        self.fillDataTab()
 
 
-    def addCriterionColumn(self):
-        pass
+    def fillDataTab(self):
+        nbCrit = self.dataTabModel.getNumberOfCriteria()
+        for i in range(len(self.criteriaColums), nbCrit):
+            (master, x, y) = self.dataTabView.getViewCData()
+            self.dataTabView.shiftRight()
+            c = self.dataTabModel.getCriterion(i)
+            cc = CriterionColumn(master=master, x=x, y=y, criterion=c)
+            self.criteriaColums.append(cc)
+        nbAlt = self.dataTabModel.getNumberOfAlternatives()
+        for j in range(len(self.unitsRows), nbAlt):
+            (master, x, y) = self.dataTabView.getViewUData()
+            self.dataTabView.shiftDown()
+            a = self.dataTabModel.getAlternative(j)
+            ur = UnitRow(master=master, x=x, y=y, alternative=a)
+            self.unitsRows.append(ur)
 
 
-    def addUnitRow(self):
-        pass
+    def addCriterionColumn(self, master, x, y):
+        self.dataTabView.shiftRight()
+        self.dataTabModel.addVoidCriterion(master)
+        c = self.dataTabModel.getCriterion()
+        cc = CriterionColumn(master=master, x=x, y=y, criterion=c)
+        self.criteriaColums.append(cc)
+        self.addOneColumnToAllUnits(master=master)
+
+    
+    def deleteCriterion(self):
+        if(len(self.criteriaColums) >= 2):
+            self.criteriaColums[-1].destroy()
+            self.criteriaColums.pop()
+            self.dataTabModel.deleteCriterion()
+            self.dataTabView.shiftLeft()
+            self.deleteOneColumnInAllUnits()
+        
+    
+    def addUnitRow(self, master, x: int, y: int):
+        self.dataTabView.shiftDown()
+        self.dataTabModel.addVoidAlternative(master)
+        a = self.dataTabModel.getAlternative()
+        ur = UnitRow(master=master, x=x, y=y, alternative=a)
+        self.unitsRows.append(ur)
+
+
+    def deleteUnit(self):
+        if(len(self.unitsRows) >= 2):
+            self.unitsRows[-1].destroy()
+            self.unitsRows.pop()
+            self.dataTabModel.deleteAlternative()
+            self.dataTabView.shiftUp()
+
+
+    def addOneColumnToAllUnits(self, master):
+        self.dataTabModel.addOneEvaluationInAllAlternatives(master=master)
+        for i in range(1, len(self.unitsRows)):
+            value = self.dataTabModel.getEvaluationOfAlternative(indexAlt=i, indexEval=-1)
+            self.unitsRows[i].add_column(value=value)
+
+
+    def deleteOneColumnInAllUnits(self):
+        for i in range(1, len(self.unitsRows)):
+            self.unitsRows[i].del_column()
+            self.dataTabModel.deleteEvaluationOfAlternative(indexAlt=i, indexEval=-1)
+
+
+    def clearTab(self):
+        while(len(self.criteriaColums)>1):
+            self.deleteCriterion()
+        while(len(self.unitsRows)>1):
+            self.deleteUnit()

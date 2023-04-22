@@ -1,13 +1,16 @@
-from PreferenceFunction import PreferenceFunction
+from customtkinter import (StringVar, IntVar, DoubleVar)
+from Models.PreferenceFunction import PreferenceFunction
 
 class Criterion:
     """
     Class to represent a criterion of the PROMETHEE γ method.
     """
-    def __init__(self, name=None, weight=0.0) -> None:
+    def __init__(self, name:StringVar=None, weight:DoubleVar=0.0, pfType:IntVar=None, p:DoubleVar=None, q:DoubleVar=None) -> None:
         self.name = name
         self.weight = weight
-        self.preference_function = PreferenceFunction()  # init the preference function
+        self.preference_function = PreferenceFunction(type=pfType, p=p, q=q)  # init the preference function
+        
+        
         self.pi_c_matrix = []
         """
         self.pi_c_matrix[i][j] = πc_ij = Fc(dc(ai, aj)): "how much ai is preferred over aj on criterion c"
@@ -19,41 +22,39 @@ class Criterion:
         self.column = []
 
 
-    def set_pf(self, type:int, pc=0.0, qc=0.0) -> None:
-        """
-        Set the preference function
-        """
-        if(type != None):
-            self.preference_function.set_type(new_type=type, p=pc, q=qc)
-            #self.preference_function.set_pc(pc)
-            #self.preference_function.set_qc(qc)
-
-
-    def set_name(self, n:str) -> None:
+    def setName(self, n:StringVar) -> None:
         """
         Set the name of the criterion
         """
         self.name = n
 
 
-    def set_weight(self, w:float) -> None:
+    def setWeight(self, w:DoubleVar) -> None:
         """
         Set the weight of the criterion
         """
         self.weight = w
 
 
-    def get_name(self) -> str:
+    def getName_str(self) -> str:
         """
         Get the name of the criterion
         """
-        return self.name
+        return self.name.get()
 
 
-    def get_weight(self) -> float:
+    def getWeight_float(self) -> float:
         """
         Get the weight of the criterion
         """
+        return self.weight.get()
+
+
+    def getName(self) -> StringVar:
+        return self.name
+    
+
+    def getWeight(self) -> DoubleVar:
         return self.weight
 
 
@@ -61,8 +62,24 @@ class Criterion:
         """
         Get the type of the preference function
         """
-        return self.preference_function.get_type()
+        return self.preference_function.getType_int()
     
+
+    def getP(self) -> DoubleVar:
+        return self.preference_function.getP()
+    
+
+    def getQ(self) -> DoubleVar:
+        return self.preference_function.getQ()
+    
+    def getPf(self) -> IntVar:
+        return self.preference_function.getType()
+
+
+
+############################################################################################################################
+
+
 
     def add_unit(self, val) -> None:
         """

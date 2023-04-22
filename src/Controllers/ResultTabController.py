@@ -5,5 +5,8 @@ class ResultTabController:
         self.resultTabView = ResultTabView(master=master)
 
     
-    def show(self) -> None:
-        self.resultTabView.show()
+    def showView(self) -> None:
+        """
+        show the resultTabView
+        """
+        #self.resultTabView.show()

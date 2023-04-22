@@ -1,12 +1,28 @@
-from customtkinter import (CTkButton, CTkLabel)
-#from Controllers.DataTabController import DataTabController
-from Views.SubViews.CriterionColumn import CriterionColumn
-from Views.SubViews.UnitRow import UnitRow
+from customtkinter import (CTkButton, CTkLabel, CTkEntry, StringVar, IntVar, DoubleVar)
 
 class DataTabView:
-    def __init__(self, master, listener) -> None:
+
+    class ViewListener:
+        def openFile(self):
+            pass
+        def addCriterionColumn(self, master, x:int, y:int):
+            pass
+        def addUnitRow(self, master, x:int, y:int):
+            pass
+        def deleteCriterion(self):
+            pass
+        def deleteUnit(self):
+            pass
+
+
+    def __init__(self, master, listener:ViewListener) -> None:
         self.master = master
         self.listener = listener
+
+        self.dico_pfTypes = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"}
+        """
+        Dictionary of preference function types
+        """
 
         self.xc = 191
         self.yc = 125
@@ -44,46 +60,53 @@ class DataTabView:
         self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu)
 
 
+    def getViewCData(self) ->tuple:
+        return (self.master, self.xc, self.yc)
+
+
+    def getViewUData(self) ->tuple:
+        return (self.master, self.xu, self.yu)
+
+
     def openFile(self) -> None:
-            self.listener.openFile()
+        self.listener.openFile(self.master)
+
+
+    def addCriterion(self) -> None:
+        self.listener.addCriterionColumn(master=self.master, x=self.xc, y=self.yc)
 
     
-    def addCriterion(self) -> None:
-        self.xc += 141
-        self.listener.addCriterionColumn()
+    def shiftRight(self):
         self.buttonAddCriterion.place(x=self.xc+150, y=self.yc)
         self.buttonDeleteCriterion.place(x=self.xc+150, y=self.yc+25)
+        self.xc += 141
+
+
+    def shiftLeft(self):
+        self.xc -= 141
+        self.buttonAddCriterion.place(x=self.xc+9, y=self.yc)
+        self.buttonDeleteCriterion.place(x=self.xc+9, y=self.yc+25)
+
+
+    def shiftUp(self):
+        self.yu -= 25
+        self.buttonAddUnit.place(x=self.xu, y=self.yu+5)
+        self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu+5)
+
+
+    def shiftDown(self):
+        self.yu += 25
+        self.buttonAddUnit.place(x=self.xu, y=self.yu+5)
+        self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu+5)
 
 
     def addUnit(self) -> None:
-        self.yu += 25
-        self.listener.addUnitRow()
-        self.buttonAddUnit.place(x=self.xu, y=self.yu+30)
-        self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu+30)
+        self.listener.addUnitRow(master=self.master, x=self.xu, y=self.yu)
 
 
     def deleteCriterion(self) -> None:
-        self.criteria[-1].destroy()
-        self.criteria.pop()
-        self.xc -= 141
-        for i in range(len(self.units)):
-            self.units[i].deleteColumn()
-        self.buttonAddCriterion.place(x=self.xc+150, y=self.yc)
-        self.buttonDeleteCriterion.place(x=self.xc+150, y=self.yc+25)
+        self.listener.deleteCriterion()
 
 
     def deleteUnit(self) -> None:
-        self.units[-1].destroy()
-        self.units.pop()
-        self.yu -= 25
-        self.buttonAddUnit.place(x=self.xu, y=self.yu+30)
-        self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu+30)
-
-
-    class ViewListener:
-        def openFile(self):
-            pass
-        def addCriterionColumn(self):
-            pass
-        def addUnitRow(self):
-            pass
+        self.listener.deleteUnit()

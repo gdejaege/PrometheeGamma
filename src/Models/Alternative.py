@@ -26,12 +26,9 @@ class Alternative:
         return self.name.get()
     
 
-    def getEvaluations(self) -> list[DoubleVar]:
-        return self.evaluations
+    def getEvaluation(self, index=-1) -> DoubleVar:
+        return self.evaluations[index]
     
 
-    def getEvaluations_float(self) -> list[float]:
-        eval = []
-        for e in self.evaluations:
-            eval.append(e.get())
-        return eval
+    def getSize(self) -> int:
+        return len(self.evaluations)

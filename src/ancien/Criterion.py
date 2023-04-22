@@ -1,16 +1,13 @@
-from customtkinter import (StringVar, IntVar, DoubleVar)
 from Models.DataModels.PreferenceFunction import PreferenceFunction
 
 class Criterion:
     """
     Class to represent a criterion of the PROMETHEE γ method.
     """
-    def __init__(self, name:StringVar=None, weight:DoubleVar=0.0, pfType:IntVar=None, p:DoubleVar=None, q:DoubleVar=None) -> None:
+    def __init__(self, name=None, weight=0.0) -> None:
         self.name = name
         self.weight = weight
-        self.preference_function = PreferenceFunction(type=pfType, p=p, q=q)  # init the preference function
-        
-        
+        self.preference_function = PreferenceFunction()  # init the preference function
         self.pi_c_matrix = []
         """
         self.pi_c_matrix[i][j] = πc_ij = Fc(dc(ai, aj)): "how much ai is preferred over aj on criterion c"
@@ -22,45 +19,50 @@ class Criterion:
         self.column = []
 
 
-    def setName(self, n:StringVar) -> None:
+    def set_pf(self, type:int, pc=0.0, qc=0.0) -> None:
+        """
+        Set the preference function
+        """
+        if(type != None):
+            self.preference_function.set_type(new_type=type, p=pc, q=qc)
+            #self.preference_function.set_pc(pc)
+            #self.preference_function.set_qc(qc)
+
+
+    def set_name(self, n:str) -> None:
         """
         Set the name of the criterion
         """
         self.name = n
 
 
-    def setWeight(self, w:DoubleVar) -> None:
+    def set_weight(self, w:float) -> None:
         """
         Set the weight of the criterion
         """
         self.weight = w
 
 
-    def getName_str(self) -> str:
+    def get_name(self) -> str:
         """
         Get the name of the criterion
         """
-        return self.name.get()
+        return self.name
 
 
-    def getWeight_float(self) -> float:
+    def get_weight(self) -> float:
         """
         Get the weight of the criterion
         """
-        return self.weight.get()
+        return self.weight
 
 
     def get_pf(self) -> int:
         """
         Get the type of the preference function
         """
-        return self.preference_function.getType_int()
-
-
-
-############################################################################################################################
-
-
+        return self.preference_function.get_type()
+    
 
     def add_unit(self, val) -> None:
         """
