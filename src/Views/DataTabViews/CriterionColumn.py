@@ -1,6 +1,6 @@
 from tkinter import *
 from customtkinter import (CTkEntry, CTkButton, CTkToplevel)
-from Views.SubViews.PreferenceFunctionWindow import PreferenceFunctionWindow
+from Views.DataTabViews.PreferenceFunctionWindow import PreferenceFunctionWindow
 from Models.Criterion import Criterion
 
 class CriterionColumn:

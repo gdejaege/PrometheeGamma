@@ -1,8 +1,8 @@
 from tkinter import filedialog as fd
 from Models.DataTabModel import DataTabModel
-from Views.DataTabView import DataTabView
-from Views.SubViews.CriterionColumn import CriterionColumn
-from Views.SubViews.UnitRow import UnitRow
+from Views.DataTabViews.DataTabView import DataTabView
+from Views.DataTabViews.CriterionColumn import CriterionColumn
+from Views.DataTabViews.UnitRow import UnitRow
 
 class DataTabController(DataTabView.ViewListener):
     def __init__(self, master) -> None:
