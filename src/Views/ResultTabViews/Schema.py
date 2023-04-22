@@ -14,6 +14,10 @@ class Schema():
         self.x = size//2
 
 
+    def show(self):
+        pass
+
+
     def build(self, scores:dict) -> None:
         """
         Build the schema

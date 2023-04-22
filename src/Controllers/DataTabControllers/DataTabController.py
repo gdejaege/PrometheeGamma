@@ -11,7 +11,6 @@ class DataTabController(DataTabView.ViewListener):
         self.criteriaColums = [CriterionColumn]
         self.unitsRows = [UnitRow]
 
-
     def showView(self):
         """
         show the dataTabView
@@ -96,3 +95,7 @@ class DataTabController(DataTabView.ViewListener):
             self.deleteCriterion()
         while(len(self.unitsRows)>1):
             self.deleteUnit()
+
+
+    def getModel(self):
+        return self.dataTabModel

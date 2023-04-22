@@ -3,14 +3,12 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 from tkinter import *
 
 class OrthogonalGraph:
-    def __init__(self, master, gamma_matrix:list, matrix_results:list) -> None:
+    def __init__(self, master) -> None:
         self.master = master
         self.fig = Figure()
-        self.gamma_matrix = gamma_matrix
-        self.matrix_results = matrix_results
         self.canvas_ograph = FigureCanvasTkAgg(self.fig, master=self.master)
-        toolbar = NavigationToolbar2Tk(self.canvas_ograph, self.master, pack_toolbar=False)
-        toolbar.update()
+        self.toolbar = NavigationToolbar2Tk(self.canvas_ograph, self.master, pack_toolbar=False)
+        self.toolbar.update()
 
         self.xb = []
         self.xv = []
@@ -19,8 +17,8 @@ class OrthogonalGraph:
         self.yv = []
         self.yr = []
 
-        self.canvas_ograph.get_tk_widget().pack(expand=True)
-        toolbar.pack(side=BOTTOM)
+        self.gamma_matrix = None
+        self.matrix_results = None
 
     
     def set_gamma_matrix_and_results(self, gamma_matrix:list, matrix_results:list):
@@ -28,7 +26,9 @@ class OrthogonalGraph:
         self.matrix_results = matrix_results
         
 
-    def show_graph(self):
+    def show(self):
+        self.canvas_ograph.get_tk_widget().pack(expand=True)
+        self.toolbar.pack(side=BOTTOM)
         self.fig.clear()
         ax = self.fig.add_subplot()
         self.clear_list()

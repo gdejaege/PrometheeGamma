@@ -1,13 +1,27 @@
 from customtkinter import (CTkLabel, DoubleVar, CTkEntry, CTkSlider, StringVar, CTkButton)
 
 class ResultTabView:
-    def __init__(self, master) -> None:
+    class ViewListener:
+        def changeOnTi(self, newValue:float):
+            pass
+        def changeOnTj(self, newValue:float):
+            pass
+        def changeOnPf(self):
+            pass
+        def obtainResults(self):
+            pass
+        def loadResultsVisualisation(self, master):
+            pass
+    
+    
+    def __init__(self, master, Ti:DoubleVar, Tj:DoubleVar, Pf:DoubleVar) -> None:
         self.master = master
+        self.listener = None
         
         # Parameters values
-        self.Ti = DoubleVar(master=self.master, value=0.0)
-        self.Tj = DoubleVar(master=self.master, value=0.0)
-        self.Pf = DoubleVar(master=self.master, value=1.0)
+        self.Ti = Ti
+        self.Tj = Tj
+        self.Pf = Pf
 
         # Labels
         self.label_Ti = CTkLabel(master=self.master, text="Global indifference threshold (Ti):", text_color="#000000", justify="left", padx=10, pady=10)
@@ -34,8 +48,9 @@ class ResultTabView:
         self.textButtonObtainResults = StringVar(master=self.master, value="Obtain results")
         self.buttonObtainResults = CTkButton(self.master, textvariable=self.textButtonObtainResults, command=self.onClickButtonObtainResults, fg_color="#6cffff", text_color="#000000")
 
-        # Results visualisation screens
-        #self.r_visualisation = ResultsVisualisation(master=self.master, method=self.method, fg_color="#ffffff")
+
+    def setListener(self, l:ViewListener) -> None:
+        self.listener = l
 
 
     def show(self) -> None:
@@ -53,32 +68,77 @@ class ResultTabView:
 
         self.buttonObtainResults.place(relx=0.5, y=120, anchor="center")
 
-        #self.r_visualisation.place(relx=0.02, y=150, relwidth=0.96, bordermode='inside')
 
-
-    def commandEntryTi(self):
-        pass
-
+    def commandEntryTi(self, event) -> None:
+        """
+        Handler of the Ti entry
+        """
+        val = self.Ti.get()
+        val = round(min(1.0, max(0.0, val)), 2)
+        self.Ti.set(val)
+        self.slider_Ti.set(output_value=val, from_variable_callback=True)
+        self.listener.changeOnTi(val)
+        
 
     def commandEntryTj(self):
-        pass
+        """
+        Handler of the Tj entry
+        """
+        val = self.Tj.get()
+        val = round(min(1.0, max(0.0, val)), 2)
+        self.Tj.set(val)
+        self.slider_Tj.set(output_value=val, from_variable_callback=True)
+        self.listener.changeOnTj(val)
 
 
     def commandEntryPf(self):
-        pass
+        """
+        Handler of the Pf entry
+        """
+        val = self.Pf.get()
+        val = round(min(100.0, max(1.0, val)), 2)
+        self.Pf.set(val)
+        self.slider_Pf.set(output_value=val, from_variable_callback=True)
+        self.listener.changeOnPf()
 
 
-    def commandSliderTi(self):
-        pass
+    def commandSliderTi(self, newVal) -> None:
+        """
+        Handler of the Ti slider
+        """
+        val = round(newVal, 2)
+        self.Ti.set(val)
+        self.listener.changeOnTi(val)
 
 
-    def commandSliderTj(self):
-        pass
+    def commandSliderTj(self, newVal):
+        """
+        Handler of the Tj slider
+        """
+        val = round(newVal, 2)
+        self.Tj.set(val)
+        self.listener.changeOnTj(val)
 
 
-    def commandSliderPf(self):
-        pass
+    def commandSliderPf(self, newVal):
+        """
+        Handler of the Pf slider
+        """
+        val = round(newVal, 2)
+        self.Pf.set(val)
+        self.listener.changeOnPf()
+
+
+    def setSliderTiValue(self, val:float):
+        self.slider_Ti.set(output_value=val, from_variable_callback=True)
+
+
+    def setSliderTjValue(self, val:float):
+        self.slider_Tj.set(output_value=val, from_variable_callback=True)
 
 
     def onClickButtonObtainResults(self):
-        pass
+        self.listener.obtainResults()
+        if self.textButtonObtainResults.get() == "Obtain results":
+            self.textButtonObtainResults.set("Reload results")
+            self.listener.loadResultsVisualisation(self.master)

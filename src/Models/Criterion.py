@@ -10,7 +10,6 @@ class Criterion:
         self.weight = weight
         self.preference_function = PreferenceFunction(type=pfType, p=p, q=q)  # init the preference function
         
-        
         self.pi_c_matrix = []
         """
         self.pi_c_matrix[i][j] = πc_ij = Fc(dc(ai, aj)): "how much ai is preferred over aj on criterion c"
@@ -21,6 +20,10 @@ class Criterion:
         """
         self.column = []
 
+
+    ##################################
+    #### Getters and Setters part ####
+    ##################################
 
     def setName(self, n:StringVar) -> None:
         """
@@ -72,27 +75,22 @@ class Criterion:
     def getQ(self) -> DoubleVar:
         return self.preference_function.getQ()
     
+
     def getPf(self) -> IntVar:
         return self.preference_function.getType()
 
 
-
 ############################################################################################################################
 
+    ########################
+    ### Computation part ###
+    ########################
 
-
-    def add_unit(self, val) -> None:
+    def add_unit(self, val:float) -> None:
         """
-        Add a unit
+        Add a unit value
         """
         self.column.append(val)
-
-
-    def insert_unit(self, val, index) -> None:
-        """
-        Insert a unit at the given index
-        """
-        self.column.insert(index, val)
 
 
     def del_unit(self, index=-1) -> None:
@@ -100,13 +98,6 @@ class Criterion:
         Delete the unit at the given index. If no index is given, delete the last unit
         """
         self.column.pop(index)
-
-
-    def get_number_of_units(self) -> int:
-        """
-        Get the number of units
-        """
-        return len(self.column)
 
 
     def build_pi_c_matrix(self) -> None:
@@ -158,6 +149,10 @@ class Criterion:
             val = self.weight*(self.phi_c_list[i] - self.phi_c_list[j])
         return val
 
+
+    ###############
+    #### PRINT ####
+    ###############
 
     #def print_criterion(self) -> None:
         """

@@ -1,44 +1,52 @@
 from customtkinter import (CTkFrame, CTkTabview, CTkTextbox, CTkCanvas, CTkScrollbar)
-from PrometheeGamma import PrometheeGamma
-from Schema import Schema
-from OrthogonalGraph import OrthogonalGraph
 from tkinter import *
+from Views.ResultTabViews.OrthogonalGraph import OrthogonalGraph
+from Views.ResultTabViews.Schema import Schema
 
-class ResultsVisualisation(CTkTabview):
-    def __init__(self, master, method:PrometheeGamma, **kwargs):
-        super().__init__(master, **kwargs)
+class ResultsVisualisation():
+    class ViewListener:
+        def getMethod(self):
+            pass
+    
+    def __init__(self, master, **kwargs):
+        self.frame = CTkTabview(master=master, fg_color="#ffffff")
 
-        self.method = method
+        self.tab_tabular = self.frame.add("Tabular")
+        self.tab_ograph = self.frame.add("Orthogonal graph")
+        self.tab_rank = self.frame.add("Ranking")
 
-        self.tab_tabular = self.add("Tabular")
-        self.tab_ograph = self.add("Orthogonal graph")
-        self.tab_rank = self.add("Ranking")
-
-        ###############
-        ### tabular ###
-        ###############
+        # Results textbox
         self.texbox_results = CTkTextbox(self.tab_tabular, text_color="#000000", fg_color="#ffffff")
-        self.texbox_results.pack(expand=True, fill='both')
 
-        ########################
-        ### orthogonal graph ###
-        ########################
+        # Orthogonal graph
         self.o_graph = OrthogonalGraph(self.tab_ograph, [], [])
-        self.o_graph.show_graph()
 
-        ############
-        ### rank ###
-        ############
+        # rank
         self.size_canvas = len(self.method.get_alternatives()) * 80 + 100
         self.canvas=CTkCanvas(self.tab_rank, bg='#FFFFFF',width=750,height=550,scrollregion=(0,0,self.size_canvas,self.size_canvas))
-        hbar=CTkScrollbar(master=self.tab_rank,orientation=HORIZONTAL, command=self.canvas.xview)
-        hbar.pack(side=BOTTOM,fill=X)
-        vbar=CTkScrollbar(self.tab_rank, orientation=VERTICAL, command=self.canvas.yview)
-        vbar.pack(side=RIGHT,fill=Y)
-        self.canvas.configure(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
-        self.canvas.pack(side=LEFT,expand=True,fill=BOTH)
+        self.hbar=CTkScrollbar(master=self.tab_rank,orientation=HORIZONTAL, command=self.canvas.xview)
+        self.vbar=CTkScrollbar(self.tab_rank, orientation=VERTICAL, command=self.canvas.yview)
+        self.canvas.configure(xscrollcommand=self.hbar.set, yscrollcommand=self.vbar.set)
         self.tab_rank.bind("<MouseWheel>", self._on_mousewheel)
         self.desssin = Schema([], [], self.canvas, self.size_canvas)
+
+
+    def show(self):
+        # main
+        self.frame.place(relx=0.02, y=150, relwidth=0.96, bordermode='inside')
+        
+        # textbox
+        self.texbox_results.pack(expand=True, fill='both')
+        
+        # Orthogonal graph
+        self.o_graph.show()
+
+        # rank
+        self.hbar.pack(side=BOTTOM,fill=X)
+        self.vbar.pack(side=RIGHT,fill=Y)
+        self.canvas.pack(side=LEFT,expand=True,fill=BOTH)
+        self.desssin.show()
+
 
 
     def update(self):

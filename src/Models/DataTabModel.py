@@ -142,3 +142,21 @@ class DataTabModel:
 
     def deleteEvaluationOfAlternative(self, indexAlt:int, indexEval:int):
         self.alternatives[indexAlt].deleteEvaluation(indexEval)
+
+
+    def getAlternativesName(self):
+        names = []
+        for a in self.alternatives:
+            names.append(a.getName_str())
+        return names
+
+
+    ###################
+    ### Computation ###
+    ###################
+
+    def getGamma_ij_Criteria_k(self, i:int, j:int, criteria:int) -> float:
+        c = self.criteria[criteria]
+        c.build_pi_c_matrix()
+        c.build_phi_c_list()
+        return c.get_gamma_c_ij(i=i, j=j)
