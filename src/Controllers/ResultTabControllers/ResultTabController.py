@@ -1,6 +1,6 @@
 from Models.ResultTabModel import ResultTabModel
 from Views.ResultTabViews.ResultTabView import ResultTabView
-from Controllers.ResultTabControllers.ResultVisualisationController import ResultVisualisationController
+from Controllers.ResultTabControllers.ResultsVisualisationControllers.ResultVisualisationController import ResultVisualisationController
 
 class ResultTabController(ResultTabView.ViewListener):
     class Listener:
@@ -71,3 +71,4 @@ class ResultTabController(ResultTabView.ViewListener):
 
     def loadResultsVisualisation(self, master):
         self.resultsVisualisationController = ResultVisualisationController(master)
+        self.resultsVisualisationController.show()
