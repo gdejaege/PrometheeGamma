@@ -1,7 +1,7 @@
 from customtkinter import (CTkFrame, CTkTabview, CTkTextbox, CTkCanvas, CTkScrollbar)
 from tkinter import *
 from Views.ResultTabViews.OrthogonalGraph import OrthogonalGraph
-from Views.ResultTabViews.Schema import Schema
+from ancien.Schema import Schema
 
 class ResultsVisualisation():
     class ViewListener:

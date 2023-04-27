@@ -145,8 +145,9 @@ class Criterion:
         where wc is the weight associated to the criterion
         """
         val = 0.0
-        if(self.column[i]>self.column[j]):
-            val = self.weight*(self.phi_c_list[i] - self.phi_c_list[j])
+        if(i < len(self.column and j < len(self.column))):
+            if(self.column[i]>self.column[j]):
+                val = self.weight*(self.phi_c_list[i] - self.phi_c_list[j])
         return val
 
 

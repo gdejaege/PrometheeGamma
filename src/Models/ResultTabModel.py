@@ -51,5 +51,5 @@ class ResultTabModel:
         self.scores[alternativeName] += 1
 
 
-    def getScore(self, alternativeName:str):
-        return self.scores[alternativeName]
+    def getScores(self) -> dict:
+        return self.scores

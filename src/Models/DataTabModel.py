@@ -146,8 +146,8 @@ class DataTabModel:
 
     def getAlternativesName(self):
         names = []
-        for a in self.alternatives:
-            names.append(a.getName_str())
+        for a in range(1, len(self.alternatives)):
+            names.append(self.alternatives[a].getName_str())
         return names
 
 
@@ -159,4 +159,4 @@ class DataTabModel:
         c = self.criteria[criteria]
         c.build_pi_c_matrix()
         c.build_phi_c_list()
-        return c.get_gamma_c_ij(i=i, j=j)
+        return c.get_gamma_c_ij(i=i-1, j=j-1)

@@ -14,6 +14,10 @@ class ResultTabController(ResultTabView.ViewListener):
             pass
         def computeResults(self):
             pass
+        def getPrometheeGammaModel(self):
+            pass
+        def getDataTabModel(self):
+            pass
     
     def __init__(self, master) -> None:
         self.resultTabModel = ResultTabModel(master=master)
@@ -70,5 +74,10 @@ class ResultTabController(ResultTabView.ViewListener):
     
 
     def loadResultsVisualisation(self, master):
-        self.resultsVisualisationController = ResultVisualisationController(master)
+        models = (self.listener.getPrometheeGammaModel(), self.resultTabModel, self.listener.getDataTabModel())
+        self.resultsVisualisationController = ResultVisualisationController(master, models)
         self.resultsVisualisationController.show()
+
+
+    def refreshResultsVisualisation(self):
+        self.resultsVisualisationController.refresh()

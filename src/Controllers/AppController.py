@@ -8,6 +8,9 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         self.appView = AppView()
         self.appView.setListener(self)
         self.alreadyCompute = False
+        self.prometheeGamma = PrometheeGamma()
+        self.dataTabController = None
+        self.resultTabController = None
 
 
     def run(self) -> None:
@@ -17,10 +20,6 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         self.appView.show()
         self.appView.mainloop()
 
-        self.dataTabController = None
-        self.resultTabController = None
-        self.prometheeGamma = PrometheeGamma()
-
 
     def showDataTabView(self, master):
         self.dataTabController = DataTabController(master=master)
@@ -29,6 +28,7 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
 
     def showResultTabView(self, master):
         self.resultTabController = ResultTabController(master=master)
+        self.resultTabController.setListener(self)
         self.resultTabController.showView()
 
 
@@ -39,6 +39,7 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         self.prometheeGamma.setResultTabModel(resultTabModel)
         self.prometheeGamma.computeAll()
         self.alreadyCompute = True
+        self.resultTabController.refreshResultsVisualisation()
 
 
     def changeOnTiAndTj(self):
@@ -46,21 +47,33 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
             self.prometheeGamma.build_matrix_I()
             self.prometheeGamma.build_matrix_J()
             self.prometheeGamma.computeResults()
+            self.resultTabController.refreshResultsVisualisation()
 
 
     def changeOnTi(self):
         if self.alreadyCompute:
             self.prometheeGamma.build_matrix_I()
             self.prometheeGamma.computeResults()
+            self.resultTabController.refreshResultsVisualisation()
 
 
     def changeOnTj(self):
         if self.alreadyCompute:
             self.prometheeGamma.build_matrix_J()
             self.computeResults()
+            self.resultTabController.refreshResultsVisualisation()
 
 
     def changeOnPf(self):
         if self.alreadyCompute:
             self.prometheeGamma.build_matrix_P()
             self.computeResults()
+            self.resultTabController.refreshResultsVisualisation()
+
+
+    def getPrometheeGammaModel(self):
+        return self.prometheeGamma
+    
+
+    def getDataTabModel(self):
+        return self.getDataTabModel()
