@@ -29,6 +29,9 @@ class Alternative:
     def getEvaluation(self, index=-1) -> DoubleVar:
         return self.evaluations[index]
     
+    
+    def getEvaluation_float(self, index=-1) -> float:
+        return self.evaluations[index].get()
 
     def getSize(self) -> int:
         return len(self.evaluations)

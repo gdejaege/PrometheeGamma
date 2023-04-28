@@ -41,7 +41,7 @@ class ResultTabController(ResultTabView.ViewListener):
         self.resultTabView.show()
 
 
-    def changeOnTi(self, newValue: float):
+    def changeOnTi(self, newValue:float):
         Tj = self.resultTabModel.getTj_float()
         if newValue > Tj:
             self.resultTabModel.setTj(newValue)
@@ -51,7 +51,7 @@ class ResultTabController(ResultTabView.ViewListener):
             self.listener.changeOnTi()
 
 
-    def changeOnTj(self, newValue: float):
+    def changeOnTj(self, newValue:float):
         Ti = self.resultTabModel.getTi_float()
         if newValue < Ti:
             self.resultTabModel.setTi(newValue)

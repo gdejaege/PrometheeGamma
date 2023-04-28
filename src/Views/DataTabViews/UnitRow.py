@@ -9,8 +9,8 @@ class UnitRow:
         self.entry_name = CTkEntry(master=self.master, textvariable=alternative.getName())
         self.entry_name.place(x=self.x, y=self.y)
         self.valueEntries = []
-        for i in range(alternative.getSize()-1):
-            self.valueEntries.append(CTkEntry(master=self.master, textvariable=alternative.getEvaluation(i+1)))
+        for i in range(alternative.getSize()):
+            self.valueEntries.append(CTkEntry(master=self.master, textvariable=alternative.getEvaluation(i)))
             self.x = x+(i+1)*141
             self.valueEntries[i].place(x=self.x, y=self.y)
 

@@ -138,7 +138,7 @@ class ResultTabView:
 
 
     def onClickButtonObtainResults(self):
-        self.listener.obtainResults()
         if self.textButtonObtainResults.get() == "Obtain results":
             self.textButtonObtainResults.set("Reload results")
             self.listener.loadResultsVisualisation(self.master)
+        self.listener.obtainResults()

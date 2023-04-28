@@ -8,8 +8,8 @@ class DataTabController(DataTabView.ViewListener):
     def __init__(self, master) -> None:
         self.dataTabModel = DataTabModel()
         self.dataTabView = DataTabView(master=master, listener=self)
-        self.criteriaColums = [CriterionColumn]
-        self.unitsRows = [UnitRow]
+        self.criteriaColums = []
+        self.unitsRows = []
 
     def showView(self):
         """
@@ -53,7 +53,7 @@ class DataTabController(DataTabView.ViewListener):
 
     
     def deleteCriterion(self):
-        if(len(self.criteriaColums) >= 2):
+        if(len(self.criteriaColums) >= 1):
             self.criteriaColums[-1].destroy()
             self.criteriaColums.pop()
             self.dataTabModel.deleteCriterion()
@@ -70,7 +70,7 @@ class DataTabController(DataTabView.ViewListener):
 
 
     def deleteUnit(self):
-        if(len(self.unitsRows) >= 2):
+        if(len(self.unitsRows) >= 1):
             self.unitsRows[-1].destroy()
             self.unitsRows.pop()
             self.dataTabModel.deleteAlternative()
@@ -79,21 +79,21 @@ class DataTabController(DataTabView.ViewListener):
 
     def addOneColumnToAllUnits(self, master):
         self.dataTabModel.addOneEvaluationInAllAlternatives(master=master)
-        for i in range(1, len(self.unitsRows)):
+        for i in range(len(self.unitsRows)):
             value = self.dataTabModel.getEvaluationOfAlternative(indexAlt=i, indexEval=-1)
             self.unitsRows[i].add_column(value=value)
 
 
     def deleteOneColumnInAllUnits(self):
-        for i in range(1, len(self.unitsRows)):
+        for i in range(len(self.unitsRows)):
             self.unitsRows[i].del_column()
             self.dataTabModel.deleteEvaluationOfAlternative(indexAlt=i, indexEval=-1)
 
 
     def clearTab(self):
-        while(len(self.criteriaColums)>1):
+        while(len(self.criteriaColums)>0):
             self.deleteCriterion()
-        while(len(self.unitsRows)>1):
+        while(len(self.unitsRows)>0):
             self.deleteUnit()
 
 

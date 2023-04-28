@@ -4,21 +4,21 @@ from Models.Criterion import Criterion
 
 class DataTabModel:
     def __init__(self) -> None:
-        self.alternatives = [Alternative]
+        self.alternatives = []
         """
         List of alternatives. The index correspond to the row number.
         """
-        self.criteria = [Criterion]
+        self.criteria = []
         """
         List of criteria. The index correspond to the column number.
         """
 
 
-    def setUnits(self, new_units:list[Alternative]) -> None:
+    def setUnits(self, new_units:list) -> None:
         self.units = new_units
 
 
-    def setCiteria(self, new_criteria:list[Criterion]) -> None:
+    def setCiteria(self, new_criteria:list) -> None:
         self.criteria = new_criteria
 
 
@@ -59,7 +59,7 @@ class DataTabModel:
         self.addAlternative(name=name, data=data)
 
 
-    def addAlternative(self, name:StringVar, data:list[DoubleVar]):
+    def addAlternative(self, name:StringVar, data:list):
         a = Alternative(name=name, evaluations=data)
         self.alternatives.append(a)
 
@@ -85,9 +85,9 @@ class DataTabModel:
         self.criteria.clear()
 
 
-    def createAlternative(self, master, name:str, data:list[str]):
+    def createAlternative(self, master, name:str, data:list):
         n = StringVar(master=master, value=name)
-        l = [DoubleVar]
+        l = []
         for d in data:
             val = float(d)
             e = DoubleVar(master=master, value=val)
@@ -146,8 +146,8 @@ class DataTabModel:
 
     def getAlternativesName(self):
         names = []
-        for a in range(1, len(self.alternatives)):
-            names.append(self.alternatives[a].getName_str())
+        for a in self.alternatives:
+            names.append(a.getName_str())
         return names
 
 
@@ -155,8 +155,17 @@ class DataTabModel:
     ### Computation ###
     ###################
 
-    def getGamma_ij_Criteria_k(self, i:int, j:int, criteria:int) -> float:
-        c = self.criteria[criteria]
-        c.build_pi_c_matrix()
-        c.build_phi_c_list()
-        return c.get_gamma_c_ij(i=i-1, j=j-1)
+    def computeCriterionDependentValues(self):
+        for c in range(len(self.criteria)):
+            self.criteria[c].clearColumn()
+            for a in self.alternatives:
+                val = a.getEvaluation_float(c)
+                self.criteria[c].add_unit(val)
+            self.criteria[c].build_pi_c_matrix()
+            self.criteria[c].build_phi_c_list()
+
+
+    def getGamma_ij_Criteria_k(self, i:int, j:int, criterion:int) -> float:
+        c = self.criteria[criterion]
+        #print(c.getName_str())
+        return c.get_gamma_c_ij(i=i, j=j)

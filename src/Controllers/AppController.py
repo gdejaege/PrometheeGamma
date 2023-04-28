@@ -76,4 +76,4 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
     
 
     def getDataTabModel(self):
-        return self.getDataTabModel()
+        return self.dataTabController.getModel()

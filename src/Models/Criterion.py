@@ -5,7 +5,7 @@ class Criterion:
     """
     Class to represent a criterion of the PROMETHEE γ method.
     """
-    def __init__(self, name:StringVar=None, weight:DoubleVar=0.0, pfType:IntVar=None, p:DoubleVar=None, q:DoubleVar=None) -> None:
+    def __init__(self, name:StringVar, weight:DoubleVar, pfType:IntVar=None, p:DoubleVar=None, q:DoubleVar=None) -> None:
         self.name = name
         self.weight = weight
         self.preference_function = PreferenceFunction(type=pfType, p=p, q=q)  # init the preference function
@@ -100,6 +100,10 @@ class Criterion:
         self.column.pop(index)
 
 
+    def clearColumn(self):
+        self.column.clear()
+
+
     def build_pi_c_matrix(self) -> None:
         """
         Build the pi matrix and the phi list of the criterion \n
@@ -145,9 +149,10 @@ class Criterion:
         where wc is the weight associated to the criterion
         """
         val = 0.0
-        if(i < len(self.column and j < len(self.column))):
+        weight = self.weight.get()
+        if(i < len(self.column) and j < len(self.column)):
             if(self.column[i]>self.column[j]):
-                val = self.weight*(self.phi_c_list[i] - self.phi_c_list[j])
+                val = weight*(self.phi_c_list[i] - self.phi_c_list[j])
         return val
 
 

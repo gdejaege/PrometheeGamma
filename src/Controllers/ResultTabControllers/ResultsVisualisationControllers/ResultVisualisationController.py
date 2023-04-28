@@ -32,7 +32,7 @@ class ResultVisualisationController(ResultVisualisationView.ViewListener):
 
 
     def showRank(self, master):
-        self.rankController = RankController(master=master, dataTabModel=self.dataTabModel, resultTabModel=self.resultTabModel)
+        self.rankController = RankController(master=master, prometheeGamma=self.prometheeGamma, resultTabModel=self.resultTabModel, dataTabModel=self.dataTabModel)
         self.rankController.showView()
 
 

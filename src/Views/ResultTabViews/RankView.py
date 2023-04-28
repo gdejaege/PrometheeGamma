@@ -6,6 +6,8 @@ class RankView:
     class ViewListener:
         def getRankedAlternatives(self):
             pass
+        def getMatrixResults(self):
+            pass
 
     def __init__(self, master) -> None:
         self.master = master
@@ -66,10 +68,11 @@ class RankView:
                 self.construction[r[i][j]] = AlternativeView(r[i][j], self.canvas, x+j*80, y)
 
 
-    def add_lines(self, matrixResults:list) -> None:
+    def add_lines(self) -> None:
         """
         Add plain and dash lines to the schema
         """
+        matrixResults = self.listener.getMatrixResults()
         for i in range(len(matrixResults)):
             for j in range(i+1, len(matrixResults)):
                 x = matrixResults[i][j].split(' I ')
