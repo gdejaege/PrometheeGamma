@@ -3,10 +3,12 @@ from Controllers.ResultTabControllers.ResultsVisualisationControllers.Orthogonal
 from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabularController import TabularController
 from Controllers.ResultTabControllers.ResultsVisualisationControllers.RankController import RankController
 
-class ResultVisualisationController(ResultVisualisationView.ViewListener):
+class ResultVisualisationController:
+    """
+    Controller of the three tabs for visualization of the results.
+    """
     def __init__(self, master, models:tuple) -> None:
         self.resultVisualisationView = ResultVisualisationView(master=master)
-        self.resultVisualisationView.setListener(self)
 
         self.prometheeGamma = models[0]
         self.resultTabModel = models[1]
@@ -17,26 +19,26 @@ class ResultVisualisationController(ResultVisualisationView.ViewListener):
         self.rankController = None
 
 
-    def show(self):
+    def show(self) -> None:
+        """
+        Show the three tabs
+        """
         self.resultVisualisationView.show()
-
-
-    def showTabular(self, master):
+        master = self.resultVisualisationView.getTabularMaster()
         self.tabularController = TabularController(master=master, model=self.prometheeGamma)
         self.tabularController.showView()
-
-
-    def showOrthogonalGraph(self, master):
+        master = self.resultVisualisationView.getOrthogonalGraphMaster()
         self.orhtogonalGraphController = OrthogonalGraphController(master=master, model=self.prometheeGamma)
         self.orhtogonalGraphController.showView()
-
-
-    def showRank(self, master):
+        master = self.resultVisualisationView.getRankMaster()
         self.rankController = RankController(master=master, prometheeGamma=self.prometheeGamma, resultTabModel=self.resultTabModel, dataTabModel=self.dataTabModel)
         self.rankController.showView()
 
 
     def refresh(self):
+        """
+        Refresh the three tabs
+        """
         self.tabularController.refreshView()
         self.orhtogonalGraphController.refreshView()
         self.rankController.refreshView()
