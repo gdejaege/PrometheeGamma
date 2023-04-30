@@ -4,6 +4,9 @@ from Models.DataTabModel import DataTabModel
 from Models.PrometheeGamma import PrometheeGamma
 
 class RankController(RankView.ViewListener):
+    """
+    Controller of the Rank tab
+    """
     def __init__(self, master, prometheeGamma:PrometheeGamma, resultTabModel:ResultTabModel, dataTabModel:DataTabModel) -> None:
         self.dataTabModel = dataTabModel
         self.resultTabModel = resultTabModel
@@ -13,11 +16,17 @@ class RankController(RankView.ViewListener):
         self.rankView.setListener(self)
 
 
-    def showView(self):
+    def showView(self) -> None:
+        """
+        Show the Rank tab
+        """
         self.rankView.show()
 
 
-    def refreshView(self):
+    def refreshView(self) -> None:
+        """
+        Refresh the rank tab
+        """
         nb = self.dataTabModel.getNumberOfAlternatives()
         size = nb*80
         self.rankView.resizeCanvas(size)
@@ -26,8 +35,8 @@ class RankController(RankView.ViewListener):
 
     def getRankedAlternatives(self) -> list:
         """
-        Rank alternatives from scores \n
-        Return a sort list of alternatives
+        Rank alternatives from scores.
+        Return a sorted list of alternatives.
         """
         scores = self.resultTabModel.getScores()
         sortedDict = sorted(scores.items(), key=lambda x: x[1], reverse=True)
@@ -46,4 +55,7 @@ class RankController(RankView.ViewListener):
     
 
     def getMatrixResults(self):
+        """
+        Return the Matrix of the Promethee Gamma results
+        """
         return self.prometheeGamma.getMatrixResults()
