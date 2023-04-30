@@ -54,29 +54,44 @@ class Criterion:
 
 
     def getName(self) -> StringVar:
+        """
+        Return the criterion name in a StringVar object.
+        """
         return self.name
     
 
     def getWeight(self) -> DoubleVar:
+        """
+        Return the criterion weight in a DoubleVar object.
+        """
         return self.weight
 
 
     def get_pf(self) -> int:
         """
-        Get the type of the preference function
+        Return the type of the preference function.
         """
         return self.preference_function.getType_int()
     
 
     def getP(self) -> DoubleVar:
+        """
+        Return the preference threshold of the preference function in a DoubleVar object
+        """
         return self.preference_function.getP()
     
 
     def getQ(self) -> DoubleVar:
+        """
+        Return the indifference threshold of the preference function in a DoubleVar object
+        """
         return self.preference_function.getQ()
     
 
     def getPf(self) -> IntVar:
+        """
+        Return the type of the preference function in a IntVar object
+        """
         return self.preference_function.getType()
 
 
@@ -101,6 +116,9 @@ class Criterion:
 
 
     def clearColumn(self):
+        """
+        Clear all value in the column
+        """
         self.column.clear()
 
 
@@ -154,20 +172,3 @@ class Criterion:
             if(self.column[i]>self.column[j]):
                 val = weight*(self.phi_c_list[i] - self.phi_c_list[j])
         return val
-
-
-    ###############
-    #### PRINT ####
-    ###############
-
-    #def print_criterion(self) -> None:
-        """
-        Print all information about the criterion
-        """
-        print("\nCRITERION:")
-        print("name =", self.name, "weigt=", self.weight)
-        print("column =", self.column)
-        print("pi_c_matrix =", self.pi_c_matrix)
-        print("phi_c_list =", self.phi_c_list)
-        print("\nPREFERENCE FUNCTION:")
-        self.preference_function.print_p_fun()
