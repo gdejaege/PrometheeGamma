@@ -5,28 +5,40 @@ from Views.DataTabViews.CriterionColumn import CriterionColumn
 from Views.DataTabViews.UnitRow import UnitRow
 
 class DataTabController(DataTabView.ViewListener):
+    """
+    Controller of the data tab
+    """
     def __init__(self, master) -> None:
+        """
+        Constructor
+        """
         self.dataTabModel = DataTabModel()
         self.dataTabView = DataTabView(master=master, listener=self)
         self.criteriaColums = []
         self.unitsRows = []
 
-    def showView(self):
+    def showView(self) -> None:
         """
         show the dataTabView
         """
         self.dataTabView.show()
         
 
-    def openFile(self, master):
+    def openFile(self, master) -> None:
+        """
+        Open a file selected by the user, read its content and close it
+        """
         file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("all files","*.*")))
-        self.clearTab()
+        self.clearTable()
         self.dataTabModel.readFile(file, master)
         file.close()
-        self.fillDataTab()
+        self.fillDataTable()
 
 
-    def fillDataTab(self):
+    def fillDataTable(self) -> None:
+        """
+        fill in the data table with the content of the models
+        """
         nbCrit = self.dataTabModel.getNumberOfCriteria()
         for i in range(len(self.criteriaColums), nbCrit):
             (master, x, y) = self.dataTabView.getViewCData()
@@ -43,7 +55,11 @@ class DataTabController(DataTabView.ViewListener):
             self.unitsRows.append(ur)
 
 
-    def addCriterionColumn(self, master, x, y):
+    def addCriterionColumn(self, master, x:int, y:int) -> None:
+        """
+        Add a criterion and its column in the data table.
+        x and y are the coordinates of the new column.
+        """
         self.dataTabView.shiftRight()
         self.dataTabModel.addVoidCriterion(master)
         c = self.dataTabModel.getCriterion()
@@ -52,7 +68,10 @@ class DataTabController(DataTabView.ViewListener):
         self.addOneColumnToAllUnits(master=master)
 
     
-    def deleteCriterion(self):
+    def deleteCriterion(self) -> None:
+        """
+        delete the last criterion and its column in the data table.
+        """
         if(len(self.criteriaColums) >= 1):
             self.criteriaColums[-1].destroy()
             self.criteriaColums.pop()
@@ -61,7 +80,11 @@ class DataTabController(DataTabView.ViewListener):
             self.deleteOneColumnInAllUnits()
         
     
-    def addUnitRow(self, master, x: int, y: int):
+    def addUnitRow(self, master, x: int, y: int) -> None:
+        """
+        Add an alternative (a unit) and its row in the data table.
+        x and y are the coordinates of the new row.
+        """
         self.dataTabView.shiftDown()
         self.dataTabModel.addVoidAlternative(master)
         a = self.dataTabModel.getAlternative()
@@ -69,7 +92,10 @@ class DataTabController(DataTabView.ViewListener):
         self.unitsRows.append(ur)
 
 
-    def deleteUnit(self):
+    def deleteUnit(self) -> None:
+        """
+        Delete an alternative (a unit) and its row in the data table
+        """
         if(len(self.unitsRows) >= 1):
             self.unitsRows[-1].destroy()
             self.unitsRows.pop()
@@ -77,25 +103,39 @@ class DataTabController(DataTabView.ViewListener):
             self.dataTabView.shiftUp()
 
 
-    def addOneColumnToAllUnits(self, master):
+    def addOneColumnToAllUnits(self, master) -> None:
+        """
+        Add a column to the row of all alternatives.
+        This method must be called after adding a criterion if there is at least one alternative in the data table.
+        """
         self.dataTabModel.addOneEvaluationInAllAlternatives(master=master)
         for i in range(len(self.unitsRows)):
             value = self.dataTabModel.getEvaluationOfAlternative(indexAlt=i, indexEval=-1)
             self.unitsRows[i].add_column(value=value)
 
 
-    def deleteOneColumnInAllUnits(self):
+    def deleteOneColumnInAllUnits(self) -> None:
+        """
+        Delete a column in the row of all alternatives.
+        This method must be called after deleting a criterion if there is at least one alternative in the data table.
+        """
         for i in range(len(self.unitsRows)):
             self.unitsRows[i].del_column()
             self.dataTabModel.deleteEvaluationOfAlternative(indexAlt=i, indexEval=-1)
 
 
-    def clearTab(self):
+    def clearTable(self) -> None:
+        """
+        Clear the data table
+        """
         while(len(self.criteriaColums)>0):
             self.deleteCriterion()
         while(len(self.unitsRows)>0):
             self.deleteUnit()
 
 
-    def getModel(self):
+    def getModel(self) -> DataTabModel:
+        """
+        Return the current dataTabModel
+        """
         return self.dataTabModel
