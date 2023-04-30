@@ -74,6 +74,7 @@ class ResultTabModel:
         """
         Init the scores at zero
         """
+        self.scores.clear()
         for name in alternativesName:
             self.scores[name] = 0
 

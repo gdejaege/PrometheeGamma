@@ -49,12 +49,13 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         """
         Compute the result of the Promethee Gamma method
         """
-        dataTabModel = self.dataTabController.getModel()
-        resultTabModel = self.resultTabController.getModel()
-        self.prometheeGamma.setDataTabModel(dataTabModel)
-        self.prometheeGamma.setResultTabModel(resultTabModel)
+        if not self.alreadyCompute:
+            dataTabModel = self.dataTabController.getModel()
+            resultTabModel = self.resultTabController.getModel()
+            self.prometheeGamma.setDataTabModel(dataTabModel)
+            self.prometheeGamma.setResultTabModel(resultTabModel)
+            self.alreadyCompute = True
         self.prometheeGamma.computeAll()
-        self.alreadyCompute = True
         self.resultTabController.refreshResultsVisualisation()
 
 

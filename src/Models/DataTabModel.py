@@ -165,7 +165,7 @@ class DataTabModel:
         Add an evaluation in all alternatives.
         This method must be called when creating a new criterion.
         """
-        for i in range(1, len(self.alternatives)):
+        for i in range(len(self.alternatives)):
             val = DoubleVar(master=master, value=0.0)
             self.alternatives[i].addEvaluations(evaluation=val)
 

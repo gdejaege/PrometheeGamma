@@ -67,8 +67,8 @@ class PrometheeGamma:
         """
         Compute the gamma matrix
         """
-        self.dataTabModel.computeCriterionDependentValues()
         self.matrixGamma.clear()
+        self.dataTabModel.computeCriterionDependentValues()
         nbAlternatives = self.dataTabModel.getNumberOfAlternatives()
         nbCriteria = self.dataTabModel.getNumberOfCriteria()
         for i in range(nbAlternatives):
@@ -118,7 +118,7 @@ class PrometheeGamma:
         """
         Compute the matrixJ only
         """
-        self.matrixI.clear()
+        self.matrixJ.clear()
         Tj = self.resultTabModel.getTj_float()
         for i in range(len(self.matrixGamma)):
             self.matrixJ.append([])

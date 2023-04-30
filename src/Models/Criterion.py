@@ -108,13 +108,6 @@ class Criterion:
         self.column.append(val)
 
 
-    def del_unit(self, index=-1) -> None:
-        """
-        Delete the unit at the given index. If no index is given, delete the last unit
-        """
-        self.column.pop(index)
-
-
     def clearColumn(self):
         """
         Clear all value in the column
