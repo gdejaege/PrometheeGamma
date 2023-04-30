@@ -105,7 +105,7 @@ class ResultTabController(ResultTabView.ViewListener):
         return self.resultTabModel
     
 
-    def loadResultsVisualisation(self, master):
+    def loadResultsVisualisation(self, master) -> None:
         """
         Loads the three types of results visualizations and show them.
         """
@@ -114,7 +114,7 @@ class ResultTabController(ResultTabView.ViewListener):
         self.resultsVisualisationController.show()
 
 
-    def refreshResultsVisualisation(self):
+    def refreshResultsVisualisation(self) -> None:
         """
         Refresh the visualisation of the results
         """
