@@ -26,42 +26,46 @@ class PrometheeGamma:
         self.resultTabModel = None
 
 
-    def setDataTabModel(self, model:DataTabModel):
+    def setDataTabModel(self, model:DataTabModel) -> None:
+        """
+        Change the dataTabModel
+        """
         self.dataTabModel = model
 
 
-    def setResultTabModel(self, model:ResultTabModel):
+    def setResultTabModel(self, model:ResultTabModel) -> None:
+        """
+        Change the ResultTabModel
+        """
         self.resultTabModel = model
 
 
-    def getMatrixGamma(self):
+    def getMatrixGamma(self) -> list:
+        """
+        Return the Gamma Matrix
+        """
         return self.matrixGamma
     
 
-    def getMatrixResults(self):
+    def getMatrixResults(self) -> list:
+        """
+        Return the matrix of results
+        """
         return self.matrixResults
 
     
-    def clear(self) -> None:
+    def clearMatrixIJP(self) -> None:
         """
-        Clear all data
+        Clear matrixI, matrixJ and matrixP
         """
-        self.matrixGamma.clear()
-        self.matrixI.clear()
-        self.matrixJ.clear()
-        self.matrixP.clear()
-        self.matrixResults.clear()
-
-    
-    def clearMatrixIJP(self):
         self.matrixI.clear()
         self.matrixJ.clear()
         self.matrixP.clear()
 
 
-    def build_matrixGamma(self) -> None:
+    def computeGammaMatrix(self) -> None:
         """
-        Build the gamma matrix
+        Compute the gamma matrix
         """
         self.dataTabModel.computeCriterionDependentValues()
         self.matrixGamma.clear()
@@ -76,7 +80,10 @@ class PrometheeGamma:
                 self.matrixGamma[i].append(gamma_ij)
 
 
-    def build_matrix_IPJ(self) -> None:
+    def ComputeMatrixIJP(self) -> None:
+        """
+        Compute matrixI, matrixJ and matrixP
+        """
         self.clearMatrixIJP()
         Ti = self.resultTabModel.getTi_float()
         Tj = self.resultTabModel.getTj_float()
@@ -93,7 +100,10 @@ class PrometheeGamma:
                 self.matrixJ[i].append(min(gij, gji) - Tj)
 
 
-    def build_matrix_I(self) -> None:
+    def computeMatrixI(self) -> None:
+        """
+        Compute the matrixI only
+        """
         self.matrixI.clear()
         Ti = self.resultTabModel.getTi_float()
         for i in range(len(self.matrixGamma)):
@@ -104,7 +114,10 @@ class PrometheeGamma:
                 self.matrixI[i].append(Ti - max(gij, gji))
 
 
-    def build_matrix_J(self) -> None:
+    def computeMatrixJ(self) -> None:
+        """
+        Compute the matrixJ only
+        """
         self.matrixI.clear()
         Tj = self.resultTabModel.getTj_float()
         for i in range(len(self.matrixGamma)):
@@ -115,7 +128,10 @@ class PrometheeGamma:
                 self.matrixJ[i].append(min(gij, gji) - Tj)
 
 
-    def build_matrix_P(self) -> None:
+    def computeMatrixP(self) -> None:
+        """
+        Compute the matrixP only
+        """
         self.matrixP.clear()
         Pf = self.resultTabModel.getPf_float()
         for i in range(len(self.matrixGamma)):
@@ -126,8 +142,9 @@ class PrometheeGamma:
                 self.matrixP[i].append((gij - gji)/Pf)
 
 
-    def computeResults(self) -> None:
+    def computeMatrixResults(self) -> None:
         """
+        Compute the matrix of results \n
         ai Iγ aj ⇔ Iij ≥ max(Pij , Pji, Iij , Jij ), \n
         ai Jγ aj ⇔ Jij ≥ max(Pij , Pji, Iij , Jij ), \n
         ai Pγ aj ⇔ Pij ≥ max(Pij , Pji, Iij , Jij ), \n
@@ -157,7 +174,10 @@ class PrometheeGamma:
                     self.matrixResults[i].append(aj + " P " + ai)
 
 
-    def computeAll(self):
-        self.build_matrixGamma()
-        self.build_matrix_IPJ()
-        self.computeResults()
+    def computeAll(self) -> None:
+        """
+        Compute all matrix
+        """
+        self.computeGammaMatrix()
+        self.ComputeMatrixIJP()
+        self.computeMatrixResults()

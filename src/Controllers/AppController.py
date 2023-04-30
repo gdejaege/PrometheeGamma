@@ -64,9 +64,9 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         This method must be called if there is a simultaneous change of the thresholds Ti and Tj.
         """
         if self.alreadyCompute:
-            self.prometheeGamma.build_matrix_I()
-            self.prometheeGamma.build_matrix_J()
-            self.prometheeGamma.computeResults()
+            self.prometheeGamma.computeMatrixI()
+            self.prometheeGamma.computeMatrixJ()
+            self.prometheeGamma.computeMatrixResults()
             self.resultTabController.refreshResultsVisualisation()
 
 
@@ -76,8 +76,8 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         This method must be called if there is a change of the threshold Ti and not on Tj.
         """
         if self.alreadyCompute:
-            self.prometheeGamma.build_matrix_I()
-            self.prometheeGamma.computeResults()
+            self.prometheeGamma.computeMatrixI()
+            self.prometheeGamma.computeMatrixResults()
             self.resultTabController.refreshResultsVisualisation()
 
 
@@ -87,7 +87,7 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         This method must be called if there is a change of the threshold Tj and not on Ti.
         """
         if self.alreadyCompute:
-            self.prometheeGamma.build_matrix_J()
+            self.prometheeGamma.computeMatrixJ()
             self.computeResults()
             self.resultTabController.refreshResultsVisualisation()
 
@@ -98,7 +98,7 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         This method must be called if there is a change of the parameter Pf.
         """
         if self.alreadyCompute:
-            self.prometheeGamma.build_matrix_P()
+            self.prometheeGamma.computeMatrixP()
             self.computeResults()
             self.resultTabController.refreshResultsVisualisation()
 
