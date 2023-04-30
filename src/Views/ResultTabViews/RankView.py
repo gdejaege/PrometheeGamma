@@ -34,7 +34,7 @@ class RankView:
 
 
     def refresh(self):
-        self.drawCanvas
+        self.drawCanvas()
 
 
     def resizeCanvas(self, size:int):

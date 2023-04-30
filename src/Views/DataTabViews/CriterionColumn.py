@@ -7,7 +7,6 @@ class CriterionColumn:
     def __init__(self, master, x, y, criterion:Criterion) -> None:
         self.master = master
         self.dico_types = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"}
-
         self.pfType = criterion.getPf()
 
         self.entry_name = CTkEntry(master=master, textvariable=criterion.getName())
