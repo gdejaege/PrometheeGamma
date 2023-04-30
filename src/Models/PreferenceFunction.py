@@ -3,7 +3,7 @@ from customtkinter import (IntVar, DoubleVar)
 
 class PreferenceFunction:
     """
-    This class represent the preference funtion used by the Promethee Gamma method
+    This class represent the preference funtion used by the Promethee Gamma method.
     """
     def __init__(self, type:IntVar=None, p:DoubleVar=None, q:DoubleVar=None):
         self.type = type
@@ -11,16 +11,32 @@ class PreferenceFunction:
         self.qc = q
 
 
-    def getP(self):
+    def getP(self) -> DoubleVar:
+        """
+        Return the preference threshold in a DoubleVar object.
+        """
         return self.pc
     
 
     def getQ(self):
+        """
+        Return the indifference threshold in a DoubleVar object.
+        """
         return self.qc
     
 
     def getType(self):
+        """
+        Return the type of the preference function in an IntVar object.
+        """
         return self.type
+
+
+    def getType_int(self) -> int:
+        """
+        Return the type of the preference function.
+        """
+        return self.type.get()
 
 
     def set_type(self, new_type:IntVar, p:DoubleVar, q:DoubleVar) -> None:
@@ -80,13 +96,3 @@ class PreferenceFunction:
             if value > 0:
                 preference = np.exp(-value**2)
         return preference
-
-
-    def getType_int(self) -> int:
-        return self.type.get()
-
-
-    def print_p_fun(self) -> None:
-        print("type =", self.type.get())
-        print("pc =", self.pc.get())
-        print("qc =", self.qc.get())
