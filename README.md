@@ -20,13 +20,20 @@ Installation :
 pip install matplotlib
 ```
 
+- numpy <br />
+
+Installation : 
+```
+pip install numpy
+```
+
 ## How to run
 
-The runnable file is the file main_promethee_gamma.py in the src directory. <br />
+The runnable file is the file main.py in the src directory. <br />
 
 When you are in a terminal in the src directory, you can run it with
 ```
-python3 main_promethee_gamma.py
+python3 main.py
 ```
 
 A csv file is needed to enter the data. Examples are provided in the Data directory.
