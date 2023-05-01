@@ -7,6 +7,8 @@ class AppView(CTk):
             pass
         def showResultTabView(self, master):
             pass
+        def showHelpForParametersTabView(self, master):
+            pass
 
 
     def __init__(self, fg_color = None, **kwargs):
@@ -47,3 +49,14 @@ class AppView(CTk):
             corner_radius=5,
             fg_color="#ffffff")
         self.listener.showResultTabView(master=self.resultTab)
+
+        self.helpForParametersTab = self.tabview.add("Help for Parameters")
+        self.resultTab.configure(
+            #background="#000000",
+            #bg_color="#000080",
+            border_color="#000080",
+            corner_radius=5,
+            fg_color="#ffffff")
+        self.listener.showHelpForParametersTabView(master=self.helpForParametersTab)
+
+

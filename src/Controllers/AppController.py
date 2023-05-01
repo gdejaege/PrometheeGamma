@@ -1,6 +1,7 @@
 from Views.AppView import AppView
 from Controllers.DataTabControllers.DataTabController import DataTabController
 from Controllers.ResultTabControllers.ResultTabController import ResultTabController
+from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
 
 class AppController(AppView.ViewListener, ResultTabController.Listener):
@@ -18,6 +19,7 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         self.prometheeGamma = PrometheeGamma()
         self.dataTabController = None
         self.resultTabController = None
+        self.helpForParametersTabController = None
 
 
     def run(self) -> None:
@@ -43,6 +45,15 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         self.resultTabController = ResultTabController(master=master)
         self.resultTabController.setListener(self)
         self.resultTabController.showView()
+
+
+    def showHelpForParametersTabView(self, master) -> None:
+        """
+        Show the HelpForParameters tab
+        """
+        dataTabModel = self.dataTabController.getModel()
+        self.helpForParametersTabController = HelpForParametersTabController(master, dataTabModel)
+        self.helpForParametersTabController.showView()
 
 
     def computeResults(self) -> None:

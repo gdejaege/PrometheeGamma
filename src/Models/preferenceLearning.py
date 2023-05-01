@@ -79,11 +79,13 @@ class PreferenceLearning:
                 self.Jrange.setMin(e[1].getMin())
             elif e[1].getMax() <= self.Jrange.getMax():
                 self.Jrange.setMax(e[1].getMax())
-                
+
+        # Tests  
         print("Irange:")
         self.Irange.print()
         print("Jrange:")
         self.Jrange.print()
+
 
 
 """
