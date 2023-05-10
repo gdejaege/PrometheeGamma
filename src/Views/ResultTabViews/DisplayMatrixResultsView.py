@@ -2,7 +2,7 @@ from customtkinter import CTkTextbox
 
 class DisplayMatrixResultsView:
     def __init__(self, master) -> None:
-        self.texbox_results = CTkTextbox(master=master, text_color="#000000", fg_color="#ffffff")
+        self.texbox_results = CTkTextbox(master=master, text_color="#000000", fg_color="#ffffff", wrap='word')
 
 
     def show(self, matrixResults:list):

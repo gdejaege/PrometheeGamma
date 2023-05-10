@@ -55,6 +55,13 @@ class ResultTabController(ResultTabView.ViewListener):
         self.resultTabView.show()
 
 
+    def refresh(self) -> None:
+        """
+        Refresh the resultTabView
+        """
+        self.resultTabView.refresh()
+
+
     def changeOnTi(self, newValue:float) -> None:
         """"
         This method controls the reaction of the application following a modification of the value of parameter Ti by the user.

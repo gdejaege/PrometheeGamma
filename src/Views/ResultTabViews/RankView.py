@@ -16,7 +16,8 @@ class RankView:
         self.hbar=CTkScrollbar(master, orientation=HORIZONTAL, command=self.canvas.xview)
         self.vbar=CTkScrollbar(master, orientation=VERTICAL, command=self.canvas.yview)
         self.canvas.configure(xscrollcommand=self.hbar.set, yscrollcommand=self.vbar.set)
-        master.bind("<MouseWheel>", self._on_mousewheel)
+        #master.bind("<MouseWheel>", self._on_mousewheel)
+        self.canvas.bind("<MouseWheel>", self._on_mousewheel)
 
         self.listener = None
         self.construction = {}
@@ -53,7 +54,7 @@ class RankView:
 
 
     def _on_mousewheel(self, event):
-        self.master.yview_scroll(-1*(event.delta/120), "units")
+        self.canvas.yview_scroll(-1*(event.delta//120), "units")
 
 
     def build(self) -> None:

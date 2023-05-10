@@ -69,6 +69,12 @@ class ResultTabView:
         self.buttonObtainResults.place(relx=0.5, y=120, anchor="center")
 
 
+    def refresh(self):
+        self.commandEntryTi(0)
+        self.commandEntryTj(0)
+        self.commandEntryPf(0)
+
+
     def commandEntryTi(self, event) -> None:
         """
         Handler of the Ti entry
@@ -80,7 +86,7 @@ class ResultTabView:
         self.listener.changeOnTi(val)
         
 
-    def commandEntryTj(self):
+    def commandEntryTj(self, event):
         """
         Handler of the Tj entry
         """
@@ -91,7 +97,7 @@ class ResultTabView:
         self.listener.changeOnTj(val)
 
 
-    def commandEntryPf(self):
+    def commandEntryPf(self, event):
         """
         Handler of the Pf entry
         """

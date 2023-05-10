@@ -4,7 +4,7 @@ from Controllers.ResultTabControllers.ResultTabController import ResultTabContro
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
 
-class AppController(AppView.ViewListener, ResultTabController.Listener):
+class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForParametersTabController.Listener):
     """
     The main controller of the application.
     It allows to start and stop the application, but also to make the link between its different parts.
@@ -52,7 +52,7 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         Show the HelpForParameters tab
         """
         dataTabModel = self.dataTabController.getModel()
-        self.helpForParametersTabController = HelpForParametersTabController(master, dataTabModel)
+        self.helpForParametersTabController = HelpForParametersTabController(master, self, dataTabModel, self.prometheeGamma)
         self.helpForParametersTabController.showView()
 
 
@@ -127,3 +127,13 @@ class AppController(AppView.ViewListener, ResultTabController.Listener):
         Return the current data tab model
         """
         return self.dataTabController.getModel()
+    
+
+    def applyResultsOfHelp(self, results):
+        print(results)
+        (i, j, p) = results
+        resultTabModel = self.resultTabController.getModel()
+        resultTabModel.setTi(i)
+        resultTabModel.setTj(j)
+        resultTabModel.setPf(p)
+        self.resultTabController.refresh()

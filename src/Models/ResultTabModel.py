@@ -70,6 +70,13 @@ class ResultTabModel:
         self.incomparabilityThreshold.set(val)
 
 
+    def setPf(self, val:float) -> None:
+        """
+        Change the value of the preference parameter.
+        """
+        self.preferenceParameter.set(val)
+
+
     def initScores(self, alternativesName:list):
         """
         Init the scores at zero

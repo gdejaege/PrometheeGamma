@@ -14,17 +14,17 @@ class Range:
 
 
     def getValMin(self):
-        if type(self.min) is Range:
-            return self.min.getValMin()
-        else:
+        if type(self.min) is float:
             return self.min
+        else:
+            return self.min.getValMin()
     
 
     def getValMax(self):
-        if type(self.max) is Range:
-            return self.max.getValMax()
-        else:
+        if type(self.max) is float:
             return self.max
+        else:
+            return self.max.getValMax()
     
 
     def setMin(self, val):
@@ -40,14 +40,14 @@ class Range:
     
 
     def print(self):
-        if type(self.min) is Range:
-            print("Min=", self.min.getValMin())
-        else:
+        if type(self.min) is float:
             print("Min=", self.min)
-        if type(self.max) is Range:
-            print("Max=", self.max.getValMax())
         else:
+            print("Min=", self.min.getValMin())
+        if type(self.max) is float:
             print("Max=", self.max)
+        else:
+            print("Max=", self.max.getValMax())
 
 
     # operator <

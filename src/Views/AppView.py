@@ -30,7 +30,6 @@ class AppView(CTk):
     def show(self):
         self.tabview = CTkTabview(self, fg_color="#ffffff")
         self.tabview.pack(expand=True, fill="both")
-
         self.dataTab = self.tabview.add("Data")
         self.dataTab.configure(
             #background="#000000",
