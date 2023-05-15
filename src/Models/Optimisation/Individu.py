@@ -78,6 +78,8 @@ class Individu:
                 self.I += mutation
                 if self.I > 1:
                     self.I = 1
+                if self.I > self.J:
+                    self.J = self.I
             else:
                 self.I -= mutation
                 if self.I < 0:
@@ -91,6 +93,8 @@ class Individu:
                 self.J -= mutation
                 if self.J < 0:
                     self.J = 0
+                if self.I > self.J:
+                    self.I = self.J
         else:
             if sign == 1:
                 self.P += mutation

@@ -5,6 +5,7 @@ class Population:
     def __init__(self, size:int) -> None:
         self.population = []
         self.size = size
+        self.best = None
         for i in range(size):
             ind = Individu()
             ind.makeRandom()
@@ -18,16 +19,18 @@ class Population:
             self.reproduction(selectedPop)
             self.mutations()
         self.computeFitness(ListOfI, ListOfJ, listOfPreference)
-        for ind in self.population[:20]:
-            print("fitness =", ind.getFitness())
+        #for ind in self.population[:20]:
+        #    print("fitness =", ind.getFitness())
         self.population.sort(key=self.fit)
 
 
     def getBest(self):
         best = self.population[0]
-        i = best.getI()
-        j = best.getJ()
-        p = best.getP()
+        if best.getFitness() < self.best.getFitness():
+            self.best = best
+        i = self.best.getI()
+        j = self.best.getJ()
+        p = self.best.getP()
         print("fitness of best = ", best.getFitness())
         return (i, j, p)
 
@@ -39,6 +42,11 @@ class Population:
 
     def selection(self):
         self.population.sort(key=self.fit)
+        best = self.population[0]
+        if self.best == None:
+            self.best = best
+        elif best.getFitness() < self.best.getFitness():
+            self.best = best
         nbselected = self.size//5
         nbRandomSelected = self.size//20
         new_population = self.population[0:nbselected]

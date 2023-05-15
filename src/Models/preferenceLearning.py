@@ -83,7 +83,7 @@ class PreferenceLearning:
     def findOptimum(self):
         (listOfIrange, listOfJrange, listOfPreference) = self.computeRangeOfThresholdsForAllPairs()
         population = Population(100)
-        population.evolution(100, listOfIrange, listOfJrange, listOfPreference)
+        population.evolution(200, listOfIrange, listOfJrange, listOfPreference)
         (i, j, p) = population.getBest()
         print("I =", i, " J =", j, " P=", p)
         return (i, j, p)
