@@ -5,11 +5,13 @@ from Models.Range.RangeI import RangeI
 from Models.Range.RangeJ import RangeJ
 import random
 from Models.Optimisation.Population import Population
+from Models.Search.Search import Search
 
 class PreferenceLearning:
     def __init__(self, master, prometheeGamma:PrometheeGamma) -> None:
         self.prometheeGamma = prometheeGamma
         self.master = master
+        self.alternatives = []
         
         # Init values
         self.Irange = Range(0.0, 1.0)
@@ -23,14 +25,57 @@ class PreferenceLearning:
         self.Pminimum = 1
         self.Pmaximum = 100
         """
-
-        self.listOfPairs = []
+        self.questions = []
         """
         [(a1, a2, preference), (a1, a2, preference), ... ]
         """
+
+        self.listOfPairs = []
+        """
+        [(a1, a2), (a1, a2), ... ]
+        """
         self.listofPossibleThresholds = []
+        self.search = Search()
+
+    
+    def setAlternatives(self, alternatives:list):
+        self.alternatives = alternatives
 
 
+    def selectFirstQuestion(self):
+        self.questions.clear()
+        self.listOfPairs.clear()
+        while True:
+            a1 = random.choice(self.alternatives)
+            a2 = random.choice(self.alternatives)
+            if a1 != a2:
+                self.listOfPairs.append((a1, a2))
+                break
+        question = (a1, a2, IntVar(master=self.master, value=0))
+        self.questions.append(question)
+        return question
+    
+
+    def selectNextQuestion(self):
+        # TODO question choisie non aléatoirement
+
+        while True:
+            a1 = random.choice(self.alternatives)
+            a2 = random.choice(self.alternatives)
+            if a1 != a2 and ((a1, a2) not in self.listOfPairs) and ((a2, a1) not in self.listOfPairs):
+                self.listOfPairs.append((a1, a2))
+                break
+        question = (a1, a2, IntVar(master=self.master, value=0))
+        self.questions.append(question)
+        return question
+    
+
+    def itSearch(self):
+        (rI, rJ, p) = self.computeRangeOfThresholdsForOneQuestion(self.questions[-1])
+        self.search.iterativeSearch(rI, rJ, p)
+
+
+    """
     def createPairs(self, alternatives:list):
         possiblePairs = self.createAllPossiblePairs(alternatives)
         self.choosePairs(possiblePairs)
@@ -66,35 +111,40 @@ class PreferenceLearning:
 
     def getNumberOfPairs(self):
         return len(self.listOfPairs)
-    
+    """
 
-    def computeRangeOfThresholdsForAllPairs(self):
+    def computeRangeOfThresholdsForAllQuestions(self):
         listOfIrange = []
         listOfJrange = []
         listOfPreference = []
-        for pair in self.listOfPairs:
-            (i, j, p) = self.computeRangeOfThresholdsForOnePair(pair)
+        for q in self.questions:
+            (i, j, p) = self.computeRangeOfThresholdsForOneQuestion(q)
             listOfIrange.append(i)
             listOfJrange.append(j)
             listOfPreference.append(p)
         return (listOfIrange, listOfJrange, listOfPreference)
     
+    
 
     def findOptimum(self):
-        (listOfIrange, listOfJrange, listOfPreference) = self.computeRangeOfThresholdsForAllPairs()
+        (listOfIrange, listOfJrange, listOfPreference) = self.computeRangeOfThresholdsForAllQuestions()
+        search = Search()
+        (i, j, p) = search.exhaustiveSearch(listOfIrange, listOfJrange, listOfPreference)
+        """
         population = Population(100)
         population.evolution(200, listOfIrange, listOfJrange, listOfPreference)
         (i, j, p) = population.getBest()
+        """
         print("I =", i, " J =", j, " P=", p)
         return (i, j, p)
 
 
     
 
-    def computeRangeOfThresholdsForOnePair(self, pair:tuple):
-        (a1_t, a2_t, pref) = pair
-        a1 = a1_t[1]
-        a2 = a2_t[1]
+    def computeRangeOfThresholdsForOneQuestion(self, question:tuple):
+        (a1_t, a2_t, pref) = question
+        a1 = self.alternatives.index(a1_t)
+        a2 = self.alternatives.index(a2_t)
         preference = pref.get()
         if preference == 2:
             temp = a1
@@ -126,7 +176,7 @@ class PreferenceLearning:
         return (rI, rJ, preference)
 
 
-
+    """
     def computePossibleThresholdsForOnePair(self, pair:tuple):
         (a1_t, a2_t, pref) = pair
         a1 = a1_t[1]
@@ -181,8 +231,8 @@ class PreferenceLearning:
         for p in self.listOfPairs:
             result = self.computePossibleThresholdsForOnePair(p)
             self.listofPossibleThresholds.append(result)
-
-
+    """
+"""
     def chooseThresholds(self):
         for e in self.listofPossibleThresholds:
             if self.Irange.include(e[0]):
@@ -204,7 +254,7 @@ class PreferenceLearning:
         self.Irange.print()
         print("Jrange:")
         self.Jrange.print()
-
+"""
 
 
 """

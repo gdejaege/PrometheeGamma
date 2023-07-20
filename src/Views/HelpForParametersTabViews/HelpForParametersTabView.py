@@ -11,6 +11,8 @@ class HelpForParametersTabView:
             pass
         def apply(self):
             pass
+        def next(self):
+            pass
 
     def __init__(self, master) -> None:
         master.grid_columnconfigure(0, weight=1)
@@ -21,6 +23,7 @@ class HelpForParametersTabView:
         self.explanationLabel = CTkLabel(master=self.master, text=explanation, text_color="#000000", wraplength=580)
         self.button = CTkButton(master=self.master, text="Generate questions", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.generateQuestions)
         self.confirmButton = CTkButton(master=self.master, text="Confirm", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.confirm)
+        self.nextButton = CTkButton(master=self.master, text="Next", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.next)
         self.questionLabels = []
         self.questionsQCM = []
         self.resultsLabel = None
@@ -41,14 +44,21 @@ class HelpForParametersTabView:
         self.row +=1
 
 
-    def showQuestions(self, questions:list) -> None:
-        for q in questions:
-            l0 = self.alternativeInLabel(q[0])
-            l1 = self.alternativeInLabel(q[1])
-            self.placeQuestionLabel(l0, l1)
-            self.qcm(q[0].getName_str(), q[1].getName_str(), q[2])
-        self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
-        self.row += 1
+    def showNextQuestion(self, question:tuple, end:bool) -> None:
+        l0 = self.alternativeInLabel(question[0])
+        l1 = self.alternativeInLabel(question[1])
+        self.placeQuestionLabel(l0, l1)
+        self.qcm(question[0].getName_str(), question[1].getName_str(), question[2])
+        if end:
+            self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
+            self.row += 1
+        else :
+            self.nextButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
+
+
+    def next(self):
+        self.nextButton.grid_forget()
+        self.listener.next()
             
 
     def alternativeInLabel(self, a:Alternative) -> CTkLabel:

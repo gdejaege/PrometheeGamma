@@ -65,4 +65,9 @@ ainsi que dans un shcéma montrant le classement en fonction de la préférence,
 
 - Possibilité d'enregistrer les résultats.
 
-- Troisième onglet : aide au choix des paramètres
+### Troisième onglet :
+
+- afficher les questions une par une (et pas l'une à la suite de l'autre) (si choix des questions déterministique : question suivante peut être choisie en fonction de la réponse à la précédente)
+- modularité -> différentes manière de déterminer les paramètres -> pouvoir appeler un autre code facilement
+- déterminisme dans les valuers des paramètres en sortie -> tjrs les mêmes valeurs de paramètres pour les même données et les mêmes réponses aux questions -> essayer recherche (quasi) exhaustive avec pruning
+- éventuellement -> ranges valables pour les paramètres

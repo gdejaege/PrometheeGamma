@@ -17,47 +17,49 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener):
         self.questions = []
         self.results = None
         self.listener = listener
+        self.maxNumberOfQuestions = 5
 
 
     def showView(self):
+        """
+        Show the View
+        """
         self.helpForParametersTabView.show()
+
 
     def changeQCM(self):
         pass
 
 
     def confirm(self):
-        self.results = self.preferenceLearning.findOptimum()
-        self.helpForParametersTabView.showResults(results=self.results)
+        #self.results = self.preferenceLearning.findOptimum()
+        #self.helpForParametersTabView.showResults(results=self.results)
+        self.preferenceLearning.itSearch()
 
 
     def apply(self):
         self.listener.applyResultsOfHelp(self.results)
 
 
-    def showQuestions(self):
-        self.questions.clear()
+    def next(self):
+        self.preferenceLearning.itSearch()
+        question = self.preferenceLearning.selectNextQuestion()
+        self.questions.append(question)
+        self.helpForParametersTabView.showNextQuestion(question, len(self.questions) >= self.maxNumberOfQuestions)
+
+
+    def selectFirstQuestion(self):
         nbAlter = self.dataTabModel.getNumberOfAlternatives()
         alter = []
         for i in range(nbAlter):
             a = self.dataTabModel.getAlternative(i)
             alter.append(a)
-        self.preferenceLearning.createPairs(alter)
-        nbPairs = self.preferenceLearning.getNumberOfPairs()
-        for j in range(nbPairs):
-            p = self.preferenceLearning.getPair(j)
-            self.questions.append(p)
-        self.helpForParametersTabView.showQuestions(self.questions)
+        self.preferenceLearning.setAlternatives(alter)
+        question = self.preferenceLearning.selectFirstQuestion()
+        self.questions.append(question)
+        self.helpForParametersTabView.showNextQuestion(question, len(self.questions) >= self.maxNumberOfQuestions)
 
 
-
-        # example
-        # TODO Algorithme de choix d'alternative : 
-        # aléatoire ou trouver celles les plus susceptibles de donner des indications satisfaisantes
-        """
-        if self.dataTabModel.getNumberOfAlternatives() > 2:
-            a1 = self.dataTabModel.getAlternative(0)
-            a2 = self.dataTabModel.getAlternative(1)
-            self.questions.append((a1, a2))
-            self.helpForParametersTabView.showQuestions(self.questions)
-        """
+    def showQuestions(self):
+        self.questions.clear()
+        self.selectFirstQuestion()
