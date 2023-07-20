@@ -1,6 +1,5 @@
 from customtkinter import (CTkLabel, CTkButton, CTkRadioButton, IntVar, CTkFrame, CTkCanvas, CTkScrollbar, CTkScrollableFrame)
 from Models.Alternative import Alternative
-from Views.HelpForParametersTabViews.QuestionsTabView import QuestionsTabView
 
 class HelpForParametersTabView:
     class ViewListener:
@@ -15,63 +14,6 @@ class HelpForParametersTabView:
         def next(self):
             pass
 
-    def __init__(self, master) -> None:
-        self.master = master
-        self.master.grid_columnconfigure(0, weight=1)
-        self.questionsTabView = None
-        explanation = "In order to help determine the 3 parameters introduced by the PROMETHEE Gamma method, it is necessary to know your opinion on a small number of pairwise comparisons between alternatives. Please answer the questions below."
-        self.explanationLabel = CTkLabel(master=self.master, text=explanation, text_color="#000000", wraplength=580)
-        self.generateButton = CTkButton(master=self.master, text="Generate questions", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.generateQuestions)
-        self.confirmButton = CTkButton(master=self.master, text="Confirm", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.confirm)
-        self.nextButton = CTkButton(master=self.master, text="Next", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.next)
-        self.row = 0
-
-
-    def setListener(self, l:ViewListener):
-        self.listener = l
-
-
-    def show(self):
-        self.explanationLabel.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
-        self.row +=1
-        self.generateButton.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
-        self.row +=1
-
-
-    def showNextQuestion(self, question:tuple, end:bool) -> None:
-        self.questionsTabView.addQuestion(question)
-        if end:
-            self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
-            self.row += 1
-        else :
-            self.nextButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
-
-
-    def next(self):
-        self.nextButton.grid_forget()
-        self.listener.next()
-
-
-    def generateQuestions(self):
-        if self.questionsTabView != None:
-            self.questionsTabView.grid_forget()
-            self.row = 2
-            self.questionsTabView.destroy()
-        self.questionsTabView = QuestionsTabView(master=self.master, fg_color="#ffffff")
-        self.confirmButton.grid_forget()
-        #if self.resultsLabel != None:
-        #    self.resultsLabel.destroy()
-        #self.applyButton.grid_forget()
-        self.questionsTabView.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
-        self.row +=1
-        self.listener.showQuestions()
-
-
-    def confirm(self):
-        self.listener.confirm()
-
-
-    """
     def __init__(self, master) -> None:
         master.grid_columnconfigure(0, weight=1)
         master.grid_rowconfigure(0, weight=1)
@@ -186,4 +128,3 @@ class HelpForParametersTabView:
 
     def apply(self):
         self.listener.apply()
-    """
