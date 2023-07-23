@@ -34,7 +34,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener):
     def confirm(self):
         #self.results = self.preferenceLearning.findOptimum()
         #self.helpForParametersTabView.showResults(results=self.results)
-        results = self.preferenceLearning.itSearch()
+        results = self.preferenceLearning.getResults()
         self.helpForParametersTabView.showResults(results)
 
 
@@ -43,7 +43,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener):
 
 
     def next(self):
-        results = self.preferenceLearning.itSearch()
+        results = self.preferenceLearning.getResults()
         self.helpForParametersTabView.showResults(results)
         question = self.preferenceLearning.selectNextQuestion()
         self.questions.append(question)
@@ -65,3 +65,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener):
     def showQuestions(self):
         self.questions.clear()
         self.selectFirstQuestion()
+
+
+    def recomputeResults(self):
+        self.preferenceLearning.itSearch(True)

@@ -2,7 +2,7 @@ from customtkinter import (CTkLabel, CTkButton, CTkRadioButton, IntVar, CTkFrame
 from Models.Alternative import Alternative
 from Views.HelpForParametersTabViews.QuestionsTabView import QuestionsTabView
 
-class HelpForParametersTabView:
+class HelpForParametersTabView(QuestionsTabView.Listener):
     class ViewListener:
         def showQuestions(self):
             pass
@@ -13,6 +13,8 @@ class HelpForParametersTabView:
         def apply(self):
             pass
         def next(self):
+            pass
+        def recomputeResults(self):
             pass
 
     def __init__(self, master) -> None:
@@ -27,7 +29,9 @@ class HelpForParametersTabView:
         self.Ilabel = CTkLabel(master=self.master, text="I = 0 - 1", text_color="#000000")
         self.Jlabel = CTkLabel(master=self.master, text="J = 0 - 1", text_color="#000000")
         self.Plabel = CTkLabel(master=self.master, text="P = 1 - infinity", text_color="#000000")
+        self.applyButton = CTkButton(master=self.master, text="Use results in result tab", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.apply)
         self.row = 0
+        self.endCtrl = False
 
 
     def setListener(self, l:ViewListener):
@@ -39,11 +43,11 @@ class HelpForParametersTabView:
         self.row +=1
         self.generateButton.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
-        self.Ilabel.grid(row=self.row, column=0, padx=10, pady=(2, 0), sticky="n")
+        self.Ilabel.grid(row=self.row, column=0, padx=10, pady=(1, 0), sticky="n")
         self.row +=1
-        self.Jlabel.grid(row=self.row, column=0, padx=10, pady=(2, 0), sticky="n")
+        self.Jlabel.grid(row=self.row, column=0, padx=10, pady=(1, 0), sticky="n")
         self.row +=1
-        self.Plabel.grid(row=self.row, column=0, padx=10, pady=(2, 0), sticky="n")
+        self.Plabel.grid(row=self.row, column=0, padx=10, pady=(1, 0), sticky="n")
         self.row +=1
 
 
@@ -63,12 +67,41 @@ class HelpForParametersTabView:
         self.listener.next()
 
 
+    def confirm(self):
+        self.endCtrl = True
+        self.confirmButton.grid_forget()
+        self.row -= 1
+        self.applyButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
+        self.row += 1
+        self.listener.confirm()
+
+
+    def apply(self):
+        pass
+
+
+    def resetResults(self):
+        self.Ilabel.configure(text="I = 0 - 1")
+        self.Jlabel.configure(text="J = 0 - 1")
+        self.Plabel.configure(text="P = 1 - infinity")
+        self.Ilabel.update()
+        self.Jlabel.update()
+        self.Plabel.update()
+        
+
+
     def generateQuestions(self):
+        if self.endCtrl:
+            self.applyButton.grid_forget()
+            self.row -= 1
+            self.endCtrl = False
         if self.questionsTabView != None:
             self.questionsTabView.grid_forget()
-            self.row = 2
+            self.resetResults()
+            self.row = 5
             self.questionsTabView.destroy()
         self.questionsTabView = QuestionsTabView(master=self.master, fg_color="#ffffff")
+        self.questionsTabView.setListener(self)
         self.confirmButton.grid_forget()
         #if self.resultsLabel != None:
         #    self.resultsLabel.destroy()
@@ -76,10 +109,6 @@ class HelpForParametersTabView:
         self.questionsTabView.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
         self.listener.showQuestions()
-
-
-    def confirm(self):
-        self.listener.confirm()
 
 
     def showResults(self, results):
@@ -97,6 +126,16 @@ class HelpForParametersTabView:
         self.Ilabel.update()
         self.Jlabel.update()
         self.Plabel.update()
+
+
+    def updateInQCM(self):
+        self.listener.recomputeResults()
+        if self.endCtrl:
+            self.applyButton.grid_forget()
+            self.row -= 1
+            self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
+            self.row += 1
+
 
 
 

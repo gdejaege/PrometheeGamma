@@ -53,6 +53,7 @@ class PreferenceLearning:
                 break
         question = (a1, a2, IntVar(master=self.master, value=0))
         self.questions.append(question)
+        self.itSearch(True)
         return question
     
 
@@ -67,12 +68,23 @@ class PreferenceLearning:
                 break
         question = (a1, a2, IntVar(master=self.master, value=0))
         self.questions.append(question)
+        self.itSearch(False)
         return question
     
 
-    def itSearch(self):
-        (rI, rJ, p) = self.computeRangeOfThresholdsForOneQuestion(self.questions[-1])
-        return self.search.iterativeSearch(rI, rJ, p)
+    def itSearch(self, rst:bool) -> None:
+        if rst:
+            self.search.reset()
+            for q in self.questions:
+                (rI, rJ, p) = self.computeRangeOfThresholdsForOneQuestion(q)
+                self.search.iterativeSearch(rI, rJ, p)
+        else:
+            (rI, rJ, p) = self.computeRangeOfThresholdsForOneQuestion(self.questions[-1])
+            self.search.iterativeSearch(rI, rJ, p)
+    
+
+    def getResults(self):
+        return self.search.getResults()
 
 
     """

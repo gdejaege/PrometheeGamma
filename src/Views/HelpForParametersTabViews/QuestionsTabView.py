@@ -2,11 +2,22 @@ from customtkinter import (CTkTabview, CTkLabel, CTkRadioButton, IntVar)
 from Models.Alternative import Alternative
 
 class QuestionsTabView(CTkTabview):
+    class Listener:
+        def updateInQCM(self):
+            pass
+
+
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self.nb = 0
         self.masterList = []
         self.row = 0
+        self.listener = None
+
+
+    def setListener(self, l:Listener):
+        self.listener = l
+
 
     def addTab(self):
         self.nb += 1
@@ -58,4 +69,4 @@ class QuestionsTabView(CTkTabview):
 
 
     def radioButtonEvent(self):
-        pass
+        self.listener.updateInQCM()
