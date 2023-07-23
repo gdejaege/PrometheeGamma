@@ -72,7 +72,7 @@ class PreferenceLearning:
 
     def itSearch(self):
         (rI, rJ, p) = self.computeRangeOfThresholdsForOneQuestion(self.questions[-1])
-        self.search.iterativeSearch(rI, rJ, p)
+        return self.search.iterativeSearch(rI, rJ, p)
 
 
     """

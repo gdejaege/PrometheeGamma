@@ -32,6 +32,13 @@ class SearchState:
         self.listOfPreference = []
 
 
+    def getState(self) -> tuple:
+        """
+        Get the actual state of the search
+        """
+        return (self.Imin, self.Imax, self.Jmin, self.Jmax, self.Pmin, self.Pmax)
+
+
     def setImin(self, val):
         self.Imin = val
 

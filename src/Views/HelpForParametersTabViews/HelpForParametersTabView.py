@@ -24,6 +24,9 @@ class HelpForParametersTabView:
         self.generateButton = CTkButton(master=self.master, text="Generate questions", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.generateQuestions)
         self.confirmButton = CTkButton(master=self.master, text="Confirm", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.confirm)
         self.nextButton = CTkButton(master=self.master, text="Next", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.next)
+        self.Ilabel = CTkLabel(master=self.master, text="I = 0 - 1", text_color="#000000")
+        self.Jlabel = CTkLabel(master=self.master, text="J = 0 - 1", text_color="#000000")
+        self.Plabel = CTkLabel(master=self.master, text="P = 1 - infinity", text_color="#000000")
         self.row = 0
 
 
@@ -36,6 +39,12 @@ class HelpForParametersTabView:
         self.row +=1
         self.generateButton.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
+        self.Ilabel.grid(row=self.row, column=0, padx=10, pady=(2, 0), sticky="n")
+        self.row +=1
+        self.Jlabel.grid(row=self.row, column=0, padx=10, pady=(2, 0), sticky="n")
+        self.row +=1
+        self.Plabel.grid(row=self.row, column=0, padx=10, pady=(2, 0), sticky="n")
+        self.row +=1
 
 
     def showNextQuestion(self, question:tuple, end:bool) -> None:
@@ -45,10 +54,12 @@ class HelpForParametersTabView:
             self.row += 1
         else :
             self.nextButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
+            self.row += 1
 
 
     def next(self):
         self.nextButton.grid_forget()
+        self.row -= 1
         self.listener.next()
 
 
@@ -69,6 +80,24 @@ class HelpForParametersTabView:
 
     def confirm(self):
         self.listener.confirm()
+
+
+    def showResults(self, results):
+        (Imin, Imax, Jmin, Jmax, Pmin, Pmax) = results
+        Itext = "I = " + str(Imin) + " - " + str(Imax)
+        Jtext = "J = " + str(Jmin) + " - " + str(Jmax)
+        Ptext = "P = " + str(Pmin) + " - "
+        if Pmax > 100.0:
+            Ptext += "infinity"
+        else:
+            Ptext += str(Pmax)
+        self.Ilabel.configure(text=Itext)
+        self.Jlabel.configure(text=Jtext)
+        self.Plabel.configure(text=Ptext)
+        self.Ilabel.update()
+        self.Jlabel.update()
+        self.Plabel.update()
+
 
 
     """

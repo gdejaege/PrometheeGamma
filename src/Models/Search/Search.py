@@ -14,10 +14,11 @@ class Search:
         self.searchState = SearchState()
 
 
-    def iterativeSearch(self, rI:RangeI, rJ:RangeJ, preference:int):
+    def iterativeSearch(self, rI:RangeI, rJ:RangeJ, preference:int) -> tuple:
         self.searchState.addPair(rI, rJ, preference)
         self.searchState.update()
         self.searchState.print()
+        return self.searchState.getState()
 
 
     def searchPerInterval(self, ListOfI:list, ListOfJ:list, preference:list):
