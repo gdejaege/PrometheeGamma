@@ -4,7 +4,7 @@ from Models.Range.Range import Range
 from Models.Range.RangeI import RangeI
 from Models.Range.RangeJ import RangeJ
 import random
-from Models.Optimisation.Population import Population
+#from Models.Optimisation.Population import Population
 from Models.Search.Search import Search
 
 class PreferenceLearning:
