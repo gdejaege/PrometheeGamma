@@ -6,8 +6,6 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
     class ViewListener:
         def showQuestions(self):
             pass
-        def changeQCM(self):
-            pass
         def confirm(self):
             pass
         def apply(self):
@@ -54,10 +52,10 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
     def showNextQuestion(self, question:tuple, end:bool) -> None:
         self.questionsTabView.addQuestion(question)
         if end:
-            self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
+            self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
             self.row += 1
         else :
-            self.nextButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
+            self.nextButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
             self.row += 1
 
 
@@ -71,13 +69,13 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
         self.endCtrl = True
         self.confirmButton.grid_forget()
         self.row -= 1
-        self.applyButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
+        self.applyButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
         self.row += 1
         self.listener.confirm()
 
 
     def apply(self):
-        pass
+        self.listener.apply()
 
 
     def resetResults(self):
@@ -113,13 +111,25 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
 
     def showResults(self, results):
         (Imin, Imax, Jmin, Jmax, Pmin, Pmax) = results
-        Itext = "I = " + str(Imin) + " - " + str(Imax)
-        Jtext = "J = " + str(Jmin) + " - " + str(Jmax)
-        Ptext = "P = " + str(Pmin) + " - "
-        if Pmax > 100.0:
-            Ptext += "infinity"
+        if Imin == Imax:
+            Itext = "I = " + str(Imin)
         else:
-            Ptext += str(Pmax)
+            Itext = "I = " + str(Imin) + " - " + str(Imax)
+        if Jmin == Jmax:
+            Jtext = "J = " + str(Jmin)
+        else:
+            Jtext = "J = " + str(Jmin) + " - " + str(Jmax)
+        if Pmin == Pmax:
+            if Pmin > 100:
+                Ptext = "P = infinity"
+            else:
+                Ptext = "P = " + str(Pmin)
+        else:
+            Ptext = "P = " + str(Pmin) + " - "
+            if Pmax > 100.0:
+                Ptext += "infinity"
+            else:
+                Ptext += str(Pmax)
         self.Ilabel.configure(text=Itext)
         self.Jlabel.configure(text=Jtext)
         self.Plabel.configure(text=Ptext)
@@ -133,7 +143,7 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
         if self.endCtrl:
             self.applyButton.grid_forget()
             self.row -= 1
-            self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
+            self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
             self.row += 1
 
 

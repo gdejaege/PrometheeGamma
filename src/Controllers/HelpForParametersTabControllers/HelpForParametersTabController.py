@@ -27,24 +27,48 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener):
         self.helpForParametersTabView.show()
 
 
-    def changeQCM(self):
-        pass
-
-
     def confirm(self):
         #self.results = self.preferenceLearning.findOptimum()
         #self.helpForParametersTabView.showResults(results=self.results)
-        results = self.preferenceLearning.getResults()
-        self.helpForParametersTabView.showResults(results)
+        self.results = self.preferenceLearning.getResults()
+        self.helpForParametersTabView.showResults(self.results)
 
 
     def apply(self):
-        self.listener.applyResultsOfHelp(self.results)
+        (Imin, Imax, Jmin, Jmax, Pmin, Pmax) = self.results
+        i = None
+        j = None
+        p = None
+        if Imin == Imax:
+            i = Imin
+        else:
+            if Imax <= Jmax:
+                i = Imax
+            elif Imin <= Jmax:
+                i = Jmax
+            else:
+                # error ?
+                i = Imin
+        if Jmin == Jmax:
+            j = Jmin
+        else:
+            if Jmin >= i:
+                j = Jmin
+            elif Jmax >= i:
+                j = i
+            else:
+                # error ?
+                j = Jmax
+        if Pmin == Pmax:
+            p = Pmin
+        else:
+            p = (Pmin + Pmax)/2
+        self.listener.applyResultsOfHelp((i, j, p))
 
 
     def next(self):
-        results = self.preferenceLearning.getResults()
-        self.helpForParametersTabView.showResults(results)
+        self.results = self.preferenceLearning.getResults()
+        self.helpForParametersTabView.showResults(self.results)
         question = self.preferenceLearning.selectNextQuestion()
         self.questions.append(question)
         self.helpForParametersTabView.showNextQuestion(question, len(self.questions) >= self.maxNumberOfQuestions)

@@ -1,4 +1,4 @@
-from Models.Range.Range import Range
+from Models.HelpForParametersTabModels.Range.Range import Range
 
 class RangeJ(Range):
     def __init__(self, x: float, y: float, Pmax:float, Pmin:float) -> None:
