@@ -1,11 +1,10 @@
 from customtkinter import IntVar
 from Models.PrometheeGamma import PrometheeGamma
-from Models.Range.Range import Range
-from Models.Range.RangeI import RangeI
-from Models.Range.RangeJ import RangeJ
+from Models.HelpForParametersTabModels.Range.Range import Range
+from Models.HelpForParametersTabModels.Range.RangeI import RangeI
+from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
 import random
-#from Models.Optimisation.Population import Population
-from Models.Search.Search import Search
+from Models.HelpForParametersTabModels.Search.Search import Search
 
 class PreferenceLearning:
     def __init__(self, master, prometheeGamma:PrometheeGamma) -> None:

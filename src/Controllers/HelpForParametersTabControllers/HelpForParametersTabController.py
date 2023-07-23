@@ -1,7 +1,7 @@
 from Views.HelpForParametersTabViews.HelpForParametersTabView import HelpForParametersTabView
 from Models.DataTabModel import DataTabModel
 from Models.PrometheeGamma import PrometheeGamma
-from Models.preferenceLearning import PreferenceLearning
+from Models.HelpForParametersTabModels.preferenceLearning import PreferenceLearning
 
 class HelpForParametersTabController(HelpForParametersTabView.ViewListener):
     class Listener:

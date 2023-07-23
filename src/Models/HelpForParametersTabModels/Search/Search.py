@@ -1,7 +1,7 @@
-from Models.Search.State import State
-from Models.Search.SearchState import SearchState
-from Models.Range.RangeI import RangeI
-from Models.Range.RangeJ import RangeJ
+from Models.HelpForParametersTabModels.Search.State import State
+from Models.HelpForParametersTabModels.Search.SearchState import SearchState
+from Models.HelpForParametersTabModels.Range.RangeI import RangeI
+from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
 import copy
 import numpy as np
 

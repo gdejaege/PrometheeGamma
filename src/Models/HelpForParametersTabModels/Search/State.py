@@ -1,6 +1,6 @@
 from math import sqrt
-from Models.Range.RangeI import RangeI
-from Models.Range.RangeJ import RangeJ
+from Models.HelpForParametersTabModels.Range.RangeI import RangeI
+from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
 
 class State:
     def __init__(self) -> None:
