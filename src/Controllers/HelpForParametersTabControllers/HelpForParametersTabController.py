@@ -9,7 +9,8 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener):
             pass
 
     def __init__(self, master, listener:Listener, dataTabModel:DataTabModel, prometheeGamma:PrometheeGamma) -> None:
-        self.helpForParametersTabView = HelpForParametersTabView(master)
+        self.master = master
+        self.helpForParametersTabView = HelpForParametersTabView(self.master)
         self.helpForParametersTabView.setListener(self)
         self.dataTabModel = dataTabModel
         self.prometheeGamma = prometheeGamma
@@ -22,9 +23,19 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener):
 
     def showView(self):
         """
-        Show the View
+        Show theView
         """
         self.helpForParametersTabView.show()
+
+
+    def showPreferenceLearning(self):
+        self.helpForParametersTabView.hideStarter()
+        self.helpForParametersTabView.showPreferenceLearning()
+
+
+    def showCustom(self):
+        self.helpForParametersTabView.hideStarter()
+        self.helpForParametersTabView.showCustom()
 
 
     def confirm(self):
@@ -93,3 +104,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener):
 
     def recomputeResults(self):
         self.preferenceLearning.itSearch(True)
+
+
+    def cancel(self):
+        self.helpForParametersTabView.resetView()

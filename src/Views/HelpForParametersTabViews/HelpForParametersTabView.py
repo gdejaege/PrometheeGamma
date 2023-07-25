@@ -14,11 +14,22 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
             pass
         def recomputeResults(self):
             pass
+        def showPreferenceLearning(self):
+            pass
+        def showCustom(self):
+            pass
+        def cancel(self):
+            pass
 
     def __init__(self, master) -> None:
         self.master = master
         self.master.grid_columnconfigure(0, weight=1)
+        self.master.grid_columnconfigure(1, weight=1)
         self.questionsTabView = None
+        startText = "Please choose a method. The preference learning button will launch the application's built-in preference learning algorithm. The custom button will load the method you've previously integrated into the source code in the Custom class."
+        self.startLabel = CTkLabel(master=self.master, text=startText, text_color="#000000", wraplength=580)
+        self.preferenceLearningButton = CTkButton(master=self.master, text="Preference learning", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.startPreferenceLearning)
+        self.customButton = CTkButton(master=self.master, text="Custom", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.startCustom)
         explanation = "In order to help determine the 3 parameters introduced by the PROMETHEE Gamma method, it is necessary to know your opinion on a small number of pairwise comparisons between alternatives. Please answer the questions below."
         self.explanationLabel = CTkLabel(master=self.master, text=explanation, text_color="#000000", wraplength=580)
         self.generateButton = CTkButton(master=self.master, text="Generate questions", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.generateQuestions)
@@ -28,6 +39,7 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
         self.Jlabel = CTkLabel(master=self.master, text="J = 0 - 1", text_color="#000000")
         self.Plabel = CTkLabel(master=self.master, text="P = 1 - infinity", text_color="#000000")
         self.applyButton = CTkButton(master=self.master, text="Use results in result tab", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.apply)
+        self.cancelButton = CTkButton(master=self.master, text="Cancel", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.cancel)
         self.row = 0
         self.endCtrl = False
 
@@ -37,16 +49,44 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
 
 
     def show(self):
+        self.startLabel.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(20, 0), sticky="n")
+        self.row +=1
+        self.preferenceLearningButton.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="ne")
+        self.customButton.grid(row=self.row, column=1, padx=10, pady=(20, 0), sticky="nw")
+
+
+    def hideStarter(self):
+        self.row -= 1
+        self.startLabel.grid_forget()
+        self.preferenceLearningButton.grid_forget()
+        self.customButton.grid_forget()
+
+
+    def showPreferenceLearning(self):
         self.explanationLabel.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
         self.generateButton.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
-        self.Ilabel.grid(row=self.row, column=0, padx=10, pady=(1, 0), sticky="n")
+        self.Ilabel.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
         self.Jlabel.grid(row=self.row, column=0, padx=10, pady=(1, 0), sticky="n")
         self.row +=1
         self.Plabel.grid(row=self.row, column=0, padx=10, pady=(1, 0), sticky="n")
         self.row +=1
+        self.cancelButton.grid(row=10, column=0, padx=10, pady=(10,0), sticky="n")
+
+
+    def showCustom(self):
+        # TODO
+        self.cancelButton.grid(row=10, column=0, padx=10, pady=(10,0), sticky="n")
+
+
+    def startPreferenceLearning(self):
+        self.listener.showPreferenceLearning()
+
+
+    def startCustom(self):
+        self.listener.showCustom()
 
 
     def showNextQuestion(self, question:tuple, end:bool) -> None:
@@ -146,6 +186,18 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
             self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
             self.row += 1
 
+
+    def cancel(self):
+        self.listener.cancel()
+
+
+    def resetView(self):
+        for w in self.master.winfo_children():
+            w.grid_forget()
+        self.row = 0
+        self.endCtrl = False
+        self.resetResults()
+        self.show()
 
 
 

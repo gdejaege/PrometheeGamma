@@ -4,7 +4,7 @@
 ### Edit it as you wish.                                                  ###
 #############################################################################
 
-class Other:
+class Custom:
     def __init__(self) -> None:
         self.Imin = 0.0
         self.Imax = 1.0
