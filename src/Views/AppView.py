@@ -16,9 +16,10 @@ class AppView(CTk):
 
         self.listener = None
 
-        self.configure(cursor="arrow", height=500, width=800)
-        self.maxsize(2500, 2000)
-        self.minsize(600, 400)
+        self.geometry("500x500")
+        self.configure(cursor="arrow")
+        #self.maxsize(5000, 5000)
+        self.minsize(500, 500)
         self.resizable(True, True)
         self.title("Promethee Gamma")
 

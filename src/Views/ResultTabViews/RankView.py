@@ -23,9 +23,9 @@ class RankView:
         self.construction = {}
         self.graph = []
         self.xmin = 1000000
-        self.ymin = 1000000
+        self.ymin = 100
         self.xmax = 0
-        self.ymax = 0
+        self.ymax = 100
 
 
     def setListener(self, l:ViewListener):
@@ -71,6 +71,9 @@ class RankView:
 
 
     def _on_mousewheel(self, event):
+        """
+        Link mouse scroll to vertical canvas scrolling
+        """
         self.canvas.yview_scroll(-1*(event.delta//120), "units")
 
 
@@ -79,34 +82,24 @@ class RankView:
         Build the schema
         """
         r = self.listener.getRankedAlternatives()
+        self.ymin = 100
+        self.ymax = len(r)*100
+        self.xmin = 1000000
+        self.xmax = 0
         self.graph = []
         for i in range(len(r)):
             y = (i+1)*100
             x = self.size//2 - (len(r[i])-1)*50
             self.graph.append([])
+            if x < self.xmin:
+                self.xmin = x
             for j in range(len(r[i])):
-                a = AlternativeView(r[i][j], self.canvas, x+j*100, y, i, j)
+                xlength = x+j*100
+                a = AlternativeView(r[i][j], self.canvas, xlength, y, i, j)
                 self.construction[r[i][j]] = a
                 self.graph[i].append(a)
-        self.findExtremums()
-
-
-    def findExtremums(self):
-        self.xmin = 1000000
-        self.ymin = 1000000
-        self.xmax = 0
-        self.ymax = 0
-        for i in range(len(self.graph)):
-            for a in self.graph[i]:
-                (x, y) = a.get_coords()
-                if x < self.xmin:
-                    self.xmin = x
-                if y < self.ymin:
-                    self.ymin=y
-                if x > self.xmax:
-                    self.xmax = x
-                if y > self.ymax:
-                    self.ymax = y
+                if self.xmax < xlength:
+                    self.xmax = xlength
 
 
     def add_lines(self) -> None:
@@ -127,6 +120,9 @@ class RankView:
 
 
     def draw_line(self, a:AlternativeView, b:AlternativeView, dash=False):
+        """
+        Draw the lines
+        """
         (xa, ya) = a.get_coords()
         (xb, yb) = b.get_coords()
         if ya == yb:
@@ -136,7 +132,6 @@ class RankView:
             else:
                 h = round((xb - xa)/(self.xmax-self.xmin) * 20) + 35
                 points = (xa, ya+30), (xa + (xb-xa)/2, ya+h), (xb, yb+30)
-            #print(h)
         else:
             points = self.computePoints(a, b)
         if dash:
@@ -146,6 +141,9 @@ class RankView:
 
 
     def computePoints(self, a:AlternativeView, b:AlternativeView):
+        """
+        Compute the points sequence
+        """
         (xa, ya) = a.get_coords()
         (xb, yb) = b.get_coords()
         ra = a.getRow()
@@ -237,6 +235,16 @@ class RankView:
                 points.append((xa-45, yb-45))
                 points.append((xb, yb-30))
         return tuple(points)
+
+
+
+
+
+
+
+
+
+
 
 
     def draw_indiff_line(self, a:AlternativeView, b:AlternativeView):

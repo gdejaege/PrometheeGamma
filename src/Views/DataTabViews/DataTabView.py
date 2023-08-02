@@ -1,4 +1,5 @@
-from customtkinter import (CTkButton, CTkLabel, CTkEntry, StringVar, IntVar, DoubleVar)
+from customtkinter import (CTkButton, CTkLabel, CTkFrame)
+from Resources.ScrollableFrame import ScrollableFrame
 
 class DataTabView:
 
@@ -16,7 +17,16 @@ class DataTabView:
 
 
     def __init__(self, master, listener:ViewListener) -> None:
-        self.master = master
+        #master.grid_columnconfigure(0, weight=1)
+        #master.grid_rowconfigure(0, weight=1)
+        #self.master = CTkScrollableFrame(master=master, fg_color="#ffffff")
+        #self.master.grid_columnconfigure(0, weight=1)
+        
+        #self.master = master
+        self.root = master
+        self.scrollableFrame = ScrollableFrame(self.root)
+        self.scrollableFrame.pack(fill="both", expand=True)
+        self.master = self.scrollableFrame.frame()
         self.listener = listener
 
         self.dico_pfTypes = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"}
@@ -46,6 +56,11 @@ class DataTabView:
 
 
     def show(self) -> None:
+        #self.master.grid(row=0, column=0, padx=0, pady=(00, 0), sticky="nsew")
+        #self.openFileButton.grid(row=0, column=0, columnspan=10, sticky="n", padx=10, pady=(10,0))
+        #self.dataNoteLabel.grid(row=1, column=0, columnspan=10, sticky="n", padx=10, pady=(10,0))
+
+        
         self.openFileButton.place(relx=0.5, y=25, anchor='center')
         self.dataNoteLabel.place(relx=0.5, y=75, anchor='center')
 
@@ -58,6 +73,9 @@ class DataTabView:
         self.buttonAddUnit.place(x=self.xu, y=self.yu)
         self.buttonDeleteCriterion.place(x=self.xc, y=self.yc+25)
         self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu)
+        self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
+        
+        
 
 
     def getViewCData(self) ->tuple:
@@ -80,24 +98,26 @@ class DataTabView:
         self.buttonAddCriterion.place(x=self.xc+150, y=self.yc)
         self.buttonDeleteCriterion.place(x=self.xc+150, y=self.yc+25)
         self.xc += 141
-
+        self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
 
     def shiftLeft(self):
         self.xc -= 141
         self.buttonAddCriterion.place(x=self.xc+9, y=self.yc)
         self.buttonDeleteCriterion.place(x=self.xc+9, y=self.yc+25)
-
+        self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
 
     def shiftUp(self):
         self.yu -= 25
         self.buttonAddUnit.place(x=self.xu, y=self.yu+5)
         self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu+5)
+        self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
 
 
     def shiftDown(self):
         self.yu += 25
         self.buttonAddUnit.place(x=self.xu, y=self.yu+5)
         self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu+5)
+        self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
 
 
     def addUnit(self) -> None:

@@ -1,4 +1,5 @@
 from customtkinter import (CTkLabel, DoubleVar, CTkEntry, CTkSlider, StringVar, CTkButton)
+from Resources.ScrollableFrame import ScrollableFrame
 
 class ResultTabView:
     class ViewListener:
@@ -15,7 +16,10 @@ class ResultTabView:
     
     
     def __init__(self, master, Ti:DoubleVar, Tj:DoubleVar, Pf:DoubleVar) -> None:
-        self.master = master
+        self.root = master
+        self.scrollableFrame = ScrollableFrame(self.root)
+        self.scrollableFrame.pack(fill="both", expand=True)
+        self.master = self.scrollableFrame.frame()
         self.listener = None
         
         # Parameters values
@@ -67,6 +71,7 @@ class ResultTabView:
         self.slider_Pf.place(x=310, y=75)
 
         self.buttonObtainResults.place(relx=0.5, y=120, anchor="center")
+        self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 650), max(self.root.winfo_height(), 200)))
 
 
     def refresh(self):
@@ -147,4 +152,5 @@ class ResultTabView:
         if self.textButtonObtainResults.get() == "Obtain results":
             self.textButtonObtainResults.set("Reload results")
             self.listener.loadResultsVisualisation(self.master)
+            self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 650), max(self.root.winfo_height(), 800)))
         self.listener.obtainResults()

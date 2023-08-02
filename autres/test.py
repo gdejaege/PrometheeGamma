@@ -1,21 +1,34 @@
-#import numpy as np
-
-#rval0__1 = np.arange(0.01, 1.01, 0.01)
-#rval0_1 = [i for i in range(0, 101)]
+import tkinter as tk
 
 
-#print(rval0__1)
 
-p1 = (0,3)
+root = tk.Tk()
+root.geometry('250x300')
+#root.configure(cursor="arrow", height=2000, width=2000)
+#root.maxsize(5000, 5000)
+#root.minsize(150, 150)
 
-p2 = (5,6)
+root.update()
 
-p = []
-p.append(p1)
-p.append(p2)
-p = tuple(p)
-p3 = (0,3), (5,6)
+# Récupére la largeur
+width = root.winfo_width() 
+# Récupére la hauteur
+height = root.winfo_height()
+
+print("Largeur :", width)   # Affiche la largeur
+print("Hauteur :", height)  # Affiche la hauteur
+
+def pr():
+    # Récupére la largeur
+    width = root.winfo_width() 
+    # Récupére la hauteur
+    height = root.winfo_height()
+
+    print("Largeur :", width)   # Affiche la largeur
+    print("Hauteur :", height)  # Affiche la hauteur
 
 
-print(p)
-print(p3)
+b = tk.Button(root, text="test", command=pr)
+b.pack()
+
+root.mainloop()

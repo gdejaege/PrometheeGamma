@@ -13,7 +13,7 @@ class ResultVisualisationView:
         """
         Show the main frame
         """
-        self.frame.place(relx=0.02, y=150, relwidth=0.96, bordermode='inside')
+        self.frame.place(relx=0.02, y=150, relwidth=0.96, relheight=0.75, bordermode='inside')
 
 
     def getTabularMaster(self):

@@ -5,6 +5,7 @@ from tkinter import *
 class OrthogonalGraphView:
     def __init__(self, master, mGamma:list, mResults:list) -> None:
         self.master = master
+        self.master.grid_columnconfigure(0, weight=1)
         self.fig = Figure()
         self.canvas_ograph = FigureCanvasTkAgg(self.fig, master=self.master)
         self.toolbar = NavigationToolbar2Tk(self.canvas_ograph, self.master, pack_toolbar=False)
@@ -22,8 +23,8 @@ class OrthogonalGraphView:
 
     
     def show(self):
-        self.canvas_ograph.get_tk_widget().pack(expand=True)
-        self.toolbar.pack(side=BOTTOM)
+        self.canvas_ograph.get_tk_widget().grid(row=0,column=0, padx=10, pady=(10,0), sticky="n")
+        self.toolbar.grid(row=1,column=0, padx=10, pady=(10,0), sticky="n")
         self.makePoints()
         self.makeGraph()
         self.canvas_ograph.draw()
