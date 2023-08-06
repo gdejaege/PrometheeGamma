@@ -1,31 +1,29 @@
-from customtkinter import (CTkCanvas, CTkScrollbar)
-from tkinter import *
+from customtkinter import (CTkCanvas, CTkScrollbar, CTkFrame, CTkCheckBox, IntVar)
+from Resources.ScrollableFrame import ScrollableFrame
 from Views.ResultTabViews.AlternativeView import AlternativeView
 from aspose.pdf import (PsLoadOptions, Document)
 from aspose.pdf.devices import PngDevice, Resolution
 import io
-
-#import aspose.pdf as asp
-
-#from aspose.pdf.plugins 
-#import aspose.pydrawing as aspdraw
-#from aspose.pydrawing import
 from PIL import Image, ImageDraw
-#from wand.image import Image
 
 class RankView:
     class ViewListener:
-        pass
+        def checkBoxEvent(self):
+            pass
 
     def __init__(self, master) -> None:
-        self.master = master
-        self.size = 100
-        self.canvas=CTkCanvas(master, bg='#FFFFFF', width=750, height=550, scrollregion=(0,0,100,100))
-        self.hbar=CTkScrollbar(master, orientation=HORIZONTAL, command=self.canvas.xview)
-        self.vbar=CTkScrollbar(master, orientation=VERTICAL, command=self.canvas.yview)
+        self.leftFrame = CTkFrame(master, bg_color="#ffffff", fg_color="#ffffff")
+        self.scrollFrame = ScrollableFrame(master)
+        self.rightFrame = self.scrollFrame.frame()
+        
+        self.canvas=CTkCanvas(self.leftFrame, bg="#ffffff", highlightcolor="#ffffff", scrollregion=(0,0,100,100))
+        self.hbar=CTkScrollbar(self.leftFrame, orientation="horizontal", command=self.canvas.xview)
+        self.vbar=CTkScrollbar(self.leftFrame, orientation="vertical", command=self.canvas.yview)
         self.canvas.configure(xscrollcommand=self.hbar.set, yscrollcommand=self.vbar.set)
-        #master.bind("<MouseWheel>", self._on_mousewheel)
         self.canvas.bind("<MouseWheel>", self._on_mousewheel)
+
+        self.checkBoxList = []
+        self.alternatives = {}
 
         self.listener = None
         self.construction = {}
@@ -34,6 +32,23 @@ class RankView:
         self.ymin = 100
         self.xmax = 0
         self.ymax = 100
+
+
+    def buildAlternativesDict(self, aList:list):
+        self.alternatives = {}
+        for a in aList:
+            self.alternatives[a] = IntVar(master=self.rightFrame, value=1)
+
+
+    def BuildCheckBoxs(self):
+        self.checkBoxList.clear()
+        row=0
+        for key in self.alternatives.keys():
+            box = CTkCheckBox(master=self.rightFrame, text=key, text_color="#000000", variable=self.alternatives[key], command=self.listener.checkBoxEvent)
+            box.grid(row=row, column=0, sticky="w", padx=5, pady=(5,0))
+            row+=1
+            self.checkBoxList.append(box)
+
 
 
     def setListener(self, l:ViewListener):
@@ -47,9 +62,12 @@ class RankView:
         """
         Show the canvas area
         """
-        self.hbar.pack(side=BOTTOM, fill=X)
-        self.vbar.pack(side=RIGHT, fill=Y)
-        self.canvas.pack(side=LEFT, expand=True, fill=BOTH)
+        self.leftFrame.place(x=1, y=1, relheight=1.0, relwidth=0.7)
+        self.hbar.pack(side="bottom", fill="x")
+        self.vbar.pack(side="right", fill="y")
+        self.canvas.pack(side="left", expand=True, fill="both")
+
+        self.scrollFrame.place(relx=0.7, y=1, relheight=1.0, relwidth=0.3)
 
 
     def resizeCanvas(self, width:int, height:int):
@@ -71,23 +89,6 @@ class RankView:
         self.canvas.update()
 
 
-    def register(self) -> None:
-        """
-        Register the canvas image in a file
-        """
-        self.canvas.update()
-        self.canvas.postscript(file="./processing_files/rank.ps", colormode="color", width=self.xmax+100, height=self.ymax+100)
-        #self.convert_PS_to_PNG("./processing_files/rank.ps", "./rank.png")
-        #aspdraw.
-        #img_src = Image(filename="./processing_files/rank.ps")
-        #img_dest = img_src.convert('png')
-        #img_dest.save("./rank.png")
-        #img = Image.open("./processing_files/rank.ps")
-        #img.show()
-        #img.save("./rank.png")
-
-
-
     def _on_mousewheel(self, event):
         """
         Link mouse scroll to vertical canvas scrolling
@@ -104,19 +105,29 @@ class RankView:
         self.xmin = 1000000
         self.xmax = 0
         self.graph = []
+        columnLength = 0
         for i in range(len(r)):
-            y = (i+1)*100
-            x = lmax//2 - (len(r[i])-1)*50
-            self.graph.append([])
+            y = (columnLength+1)*100
+            x = lmax//2 + 50
+            for k in range(len(r[i])):
+                if self.alternatives[r[i][k]].get():
+                    x -= 50
             if x < self.xmin:
                 self.xmin = x
+            rowLength = 0
+            row = []
             for j in range(len(r[i])):
-                xlength = x+j*100
-                a = AlternativeView(r[i][j], self.canvas, xlength, y, i, j)
-                self.construction[r[i][j]] = a
-                self.graph[i].append(a)
-                if self.xmax < xlength:
-                    self.xmax = xlength
+                xlength = x+rowLength*100
+                if self.alternatives[r[i][j]].get():
+                    a = AlternativeView(name=r[i][j], canvas=self.canvas, x=xlength, y=y, row=columnLength, column=rowLength)
+                    self.construction[r[i][j]] = a
+                    row.append(a)
+                    rowLength += 1
+                    if self.xmax < xlength:
+                        self.xmax = xlength
+            if rowLength > 0:
+                columnLength += 1
+                self.graph.append(row)
         self.canvas.config(scrollregion=(0, 0, self.xmax+100, self.ymax+100))
 
 
@@ -128,10 +139,10 @@ class RankView:
             for j in range(i+1, len(matrixResults)):
                 x = matrixResults[i][j].split(' I ')
                 y = matrixResults[i][j].split(' J ')
-                if len(x) > 1:
+                if len(x) > 1 and self.alternatives[x[0]].get() and self.alternatives[x[1]].get():
                     #self.draw_indiff_line(a=self.construction[x[0]], b=self.construction[x[1]])
                     self.draw_line(a=self.construction[x[0]], b=self.construction[x[1]])
-                elif len(y) > 1:
+                elif len(y) > 1 and self.alternatives[y[0]].get() and self.alternatives[y[1]].get():
                     #self.draw_incomp_line(a=self.construction[y[0]], b=self.construction[y[1]])
                     self.draw_line(a=self.construction[y[0]], b=self.construction[y[1]], dash=True)
 
@@ -253,6 +264,23 @@ class RankView:
                 points.append((xb, yb-30))
         return tuple(points)
 
+
+
+
+    def register(self) -> None:
+        """
+        Register the canvas image in a file
+        """
+        self.canvas.update()
+        self.canvas.postscript(file="./processing_files/rank.ps", colormode="color", width=self.xmax+100, height=self.ymax+100)
+        #self.convert_PS_to_PNG("./processing_files/rank.ps", "./rank.png")
+        #aspdraw.
+        #img_src = Image(filename="./processing_files/rank.ps")
+        #img_dest = img_src.convert('png')
+        #img_dest.save("./rank.png")
+        #img = Image.open("./processing_files/rank.ps")
+        #img.show()
+        #img.save("./rank.png")
 
 
     def convert_PS_to_PNG(self, srcPath, destPath):

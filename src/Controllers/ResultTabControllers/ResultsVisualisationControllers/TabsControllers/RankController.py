@@ -15,34 +15,53 @@ class RankController(RankView.ViewListener):
         self.rankView = RankView(master)
         self.rankView.setListener(self)
 
+        self.ranked = None
+        self.lmax = None
+
 
     def showView(self) -> None:
         """
         Show the Rank tab
         """
         self.rankView.show()
+        self.showSelectionView()
         self.draw()
+
+
+    def showSelectionView(self):
+        aNames = self.dataTabModel.getAlternativesName()
+        self.rankView.buildAlternativesDict(aNames)
+        self.rankView.BuildCheckBoxs()
 
 
     def draw(self):
         """
         Draw the canvas
         """
-        r = self.getRankedAlternatives()
-        lmax = 0
-        for k in range(len(r)):
-            if len(r[k]) > lmax:
-                lmax = len(r[k])
-        self.rankView.resizeCanvas(width=lmax*100, height=len(r)*100)
+        self.ranked = self.getRankedAlternatives()
+        self.lmax = 0
+        for k in range(len(self.ranked)):
+            if len(self.ranked[k]) > self.lmax:
+                self.lmax = len(self.ranked[k])
+        self.rankView.resizeCanvas(width=self.lmax*100, height=len(self.ranked)*100)
         matrixResults = self.prometheeGamma.getMatrixResults()
-        self.rankView.drawCanvas(r, lmax, matrixResults)
+        self.rankView.drawCanvas(self.ranked, self.lmax, matrixResults)
 
 
     def refreshView(self) -> None:
         """
         Refresh the rank tab
         """
+        self.showSelectionView()
         self.draw()
+
+
+    def checkBoxEvent(self):
+        """
+        Handle of checkBoxEvent in the selection view
+        """
+        matrixResults = self.prometheeGamma.getMatrixResults()
+        self.rankView.drawCanvas(self.ranked, self.lmax, matrixResults)
 
 
     def getRankedAlternatives(self) -> list:
