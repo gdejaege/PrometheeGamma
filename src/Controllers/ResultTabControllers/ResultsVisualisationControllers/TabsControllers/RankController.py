@@ -21,16 +21,28 @@ class RankController(RankView.ViewListener):
         Show the Rank tab
         """
         self.rankView.show()
+        self.draw()
+
+
+    def draw(self):
+        """
+        Draw the canvas
+        """
+        r = self.getRankedAlternatives()
+        lmax = 0
+        for k in range(len(r)):
+            if len(r[k]) > lmax:
+                lmax = len(r[k])
+        self.rankView.resizeCanvas(width=lmax*100, height=len(r)*100)
+        matrixResults = self.prometheeGamma.getMatrixResults()
+        self.rankView.drawCanvas(r, lmax, matrixResults)
 
 
     def refreshView(self) -> None:
         """
         Refresh the rank tab
         """
-        nb = self.dataTabModel.getNumberOfAlternatives()
-        size = nb*80
-        self.rankView.resizeCanvas(size)
-        self.rankView.refresh()
+        self.draw()
 
 
     def getRankedAlternatives(self) -> list:
@@ -52,10 +64,3 @@ class RankController(RankView.ViewListener):
                 ranked.append([])
                 ranked[-1].append(sortedDict[i][0])
         return ranked
-    
-
-    def getMatrixResults(self):
-        """
-        Return the Matrix of the Promethee Gamma results
-        """
-        return self.prometheeGamma.getMatrixResults()

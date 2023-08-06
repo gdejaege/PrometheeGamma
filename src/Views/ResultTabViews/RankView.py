@@ -1,13 +1,21 @@
 from customtkinter import (CTkCanvas, CTkScrollbar)
 from tkinter import *
 from Views.ResultTabViews.AlternativeView import AlternativeView
+from aspose.pdf import (PsLoadOptions, Document)
+from aspose.pdf.devices import PngDevice, Resolution
+import io
+
+#import aspose.pdf as asp
+
+#from aspose.pdf.plugins 
+#import aspose.pydrawing as aspdraw
+#from aspose.pydrawing import
+from PIL import Image, ImageDraw
+#from wand.image import Image
 
 class RankView:
     class ViewListener:
-        def getRankedAlternatives(self):
-            pass
-        def getMatrixResults(self):
-            pass
+        pass
 
     def __init__(self, master) -> None:
         self.master = master
@@ -42,32 +50,42 @@ class RankView:
         self.hbar.pack(side=BOTTOM, fill=X)
         self.vbar.pack(side=RIGHT, fill=Y)
         self.canvas.pack(side=LEFT, expand=True, fill=BOTH)
-        self.drawCanvas()
 
 
-    def refresh(self):
-        """
-        Refresh the canvas
-        """
-        self.drawCanvas()
-
-
-    def resizeCanvas(self, size:int):
+    def resizeCanvas(self, width:int, height:int):
         """
         Resize the canvas
         """
-        self.size = size+120
-        self.canvas.config(scrollregion=(0, 0, self.size, self.size))
+        self.canvas.config(scrollregion=(0, 0, width+50, height+50))
 
 
-    def drawCanvas(self) -> None:
+    def drawCanvas(self, r:list, lmax:int, matrixResults:list) -> None:
         """
         Display result in a schematic ranking
         """
         self.canvas.delete('all')
         #size : self.tab_rank.winfo_screenwidth()
-        self.build()
-        self.add_lines()
+        #self.pilImage = Image.new()
+        self.build(r, lmax)
+        self.add_lines(matrixResults)
+        self.canvas.update()
+
+
+    def register(self) -> None:
+        """
+        Register the canvas image in a file
+        """
+        self.canvas.update()
+        self.canvas.postscript(file="./processing_files/rank.ps", colormode="color", width=self.xmax+100, height=self.ymax+100)
+        #self.convert_PS_to_PNG("./processing_files/rank.ps", "./rank.png")
+        #aspdraw.
+        #img_src = Image(filename="./processing_files/rank.ps")
+        #img_dest = img_src.convert('png')
+        #img_dest.save("./rank.png")
+        #img = Image.open("./processing_files/rank.ps")
+        #img.show()
+        #img.save("./rank.png")
+
 
 
     def _on_mousewheel(self, event):
@@ -77,11 +95,10 @@ class RankView:
         self.canvas.yview_scroll(-1*(event.delta//120), "units")
 
 
-    def build(self) -> None:
+    def build(self, r:list, lmax:int) -> None:
         """
         Build the schema
         """
-        r = self.listener.getRankedAlternatives()
         self.ymin = 100
         self.ymax = len(r)*100
         self.xmin = 1000000
@@ -89,7 +106,7 @@ class RankView:
         self.graph = []
         for i in range(len(r)):
             y = (i+1)*100
-            x = self.size//2 - (len(r[i])-1)*50
+            x = lmax//2 - (len(r[i])-1)*50
             self.graph.append([])
             if x < self.xmin:
                 self.xmin = x
@@ -100,13 +117,13 @@ class RankView:
                 self.graph[i].append(a)
                 if self.xmax < xlength:
                     self.xmax = xlength
+        self.canvas.config(scrollregion=(0, 0, self.xmax+100, self.ymax+100))
 
 
-    def add_lines(self) -> None:
+    def add_lines(self, matrixResults:list) -> None:
         """
         Add plain and dash lines to the schema
         """
-        matrixResults = self.listener.getMatrixResults()
         for i in range(len(matrixResults)):
             for j in range(i+1, len(matrixResults)):
                 x = matrixResults[i][j].split(' I ')
@@ -235,6 +252,41 @@ class RankView:
                 points.append((xa-45, yb-45))
                 points.append((xb, yb-30))
         return tuple(points)
+
+
+
+    def convert_PS_to_PNG(self, srcPath, destPath):
+            """
+            https://products.aspose.com/pdf/fr/python-net/conversion/ps-to-png/
+            """
+            
+            #path_infile = self.dataDir + infile       
+            options = PsLoadOptions()
+            #options.SupressErrors = True
+            # Open .ps document with created load options
+            document = Document(srcPath, options)
+            # Create Resolution object
+            resolution = Resolution(300)
+            device = PngDevice(resolution)
+            #pageCount = 1
+            #while pageCount <= document.Pages.Count:
+            stream = io.FileIO(file=destPath, mode="w")
+            #img = open(destPath, "w")
+                #imageStream = FileStream(self.dataDir + outfile + str(pageCount) + "_out.png" , FileMode.Create)
+                # Convert a particular page and save the image to stream
+            device.process(document.pages[1],stream)
+            #device.Process(document.Pages[pageCount], img)
+                # Close stream
+            #img.close()
+            stream.close()
+                #pageCount = pageCount + 1
+            print(srcPath + " converted into " + destPath)
+
+
+
+
+
+
 
 
 
