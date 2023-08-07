@@ -10,24 +10,99 @@ SPACE = 100 # The space between the center of 2 circles that represent alternati
 RADIUS = 30 # The radius of the circle that represents an alternative
 
 class RankView:
+    """
+    A class to display the rank graph of alternatives in a canvas
+
+    Attributes
+    ----------
+    leftFrame : CTkFrame
+        a frame that will contain the canvas
+    scrollFrame : ScrollableFrame
+        a srollableFrame that will contain the rightFrame
+    rightFrame : CTkFrame
+        a frame that will contain the checkBox for alternatives selections
+    canvas : CTkCanvas
+        a canvas that will contain the graph
+    hbar : CTkSrollbar
+        a horizontal scrollbar for the canvas
+    vbar : CTkScrollbar
+        a vertical scrollbar for the canvas
+    checkBoxList : list
+        a list that will contain all checkBoxes
+    alternatives : dict
+        a dictionary that will contain all alternatives names as keys and IntVar with value 0 or 1 as item. 
+        The value = 1 if the alternative is selected, 0 otherwise
+    listener : RankView.ViewListener
+        the view listener
+    construction : dict
+        a dictionary that will contain all alternatives names as keys and AlternativeViews as items
+    graph : list
+        a matrix of AlternativeView. It represents the rank graph
+    xmin : int
+        the lowest abscissa on the graph
+    ymin : int
+        the lowest ordinate of the graph
+    xmax : int
+        the highest abscissa on the graph
+    ymax : int
+        the highest ordinate of the graph
+
+    Methods
+    -------
+    buildAlternativesDict(aList:list)
+        Build the dictionary alternatives
+    BuildCheckBoxes()
+        Build the checkBoxes for alternatives selection
+    setListener(l:ViewListener)
+        Set the listener
+    show()
+        Show the view
+    resizeCanvas(width:int, height:int)
+        Resize the canvas
+    drawCanvas(r:list, lmax:int, matrixResults:list)
+        Display result in a schematic ranking
+    _on_mousewheel(event)
+        Link mouse scroll to vertical canvas scrolling
+    build(r:list, lmax:int)
+        Build the schema
+    add_lines(matrixResults:list)
+        Add plain and dash lines to the schema
+    draw_line(a:AlternativeView, b:AlternativeView, dash=False)
+        Draw the line between alternativeViews a and b. Dash must be set to True for dashed line
+    computePoints(a:AlternativeView, b:AlternativeView)
+        Compute the points sequence for the line between alternativeViews a and b
+    """
+
     class ViewListener:
+        """
+        An interface for the listener
+
+        Methods
+        -------
+        checkBoxEvent()
+            Handle checkBox events
+        """
         def checkBoxEvent(self):
             pass
 
     def __init__(self, master) -> None:
+        """
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame
+        """
+
         self.leftFrame = CTkFrame(master, bg_color="#ffffff", fg_color="#ffffff")
         self.scrollFrame = ScrollableFrame(master)
         self.rightFrame = self.scrollFrame.frame()
-        
         self.canvas=CTkCanvas(self.leftFrame, bg="#ffffff", highlightcolor="#ffffff", scrollregion=(0,0,100,100))
         self.hbar=CTkScrollbar(self.leftFrame, orientation="horizontal", command=self.canvas.xview)
         self.vbar=CTkScrollbar(self.leftFrame, orientation="vertical", command=self.canvas.yview)
         self.canvas.configure(xscrollcommand=self.hbar.set, yscrollcommand=self.vbar.set)
         self.canvas.bind("<MouseWheel>", self._on_mousewheel)
-
         self.checkBoxList = []
         self.alternatives = {}
-
         self.listener = None
         self.construction = {}
         self.graph = []
@@ -36,20 +111,24 @@ class RankView:
         self.xmax = 0
         self.ymax = SPACE
 
-
     def buildAlternativesDict(self, aList:list):
+        """Build the dictionary for alternatives selection
+
+        Parameters
+        ----------
+        aList : list
+            the list of alternative names
         """
-        Build the dictionary for alternatives selection
-        """
+
         self.alternatives = {}
         for a in aList:
             self.alternatives[a] = IntVar(master=self.rightFrame, value=1)
 
 
     def BuildCheckBoxes(self):
+        """Build the checkBoxes for alternatives selection
         """
-        Build the checkBoxes for alternatives selection
-        """
+
         self.checkBoxList.clear()
         row=0
         for key in self.alternatives.keys():
@@ -60,16 +139,21 @@ class RankView:
 
 
     def setListener(self, l:ViewListener):
+        """Set the listener
+
+        Parameters
+        ----------
+        l : RankView.ViewListener
+            the new listener
         """
-        Set the listener
-        """
+
         self.listener = l
         
 
     def show(self):
+        """Show the view
         """
-        Show the canvas area
-        """
+
         self.leftFrame.place(x=1, y=1, relheight=1.0, relwidth=0.75)
         self.hbar.pack(side="bottom", fill="x")
         self.vbar.pack(side="right", fill="y")
@@ -79,16 +163,31 @@ class RankView:
 
 
     def resizeCanvas(self, width:int, height:int):
-        """
-        Resize the canvas
+        """Resize the canvas
+
+        Parameters
+        ----------
+        width : int
+            the new width of the canvas
+        height : int
+            the new height of the canvas
         """
         self.canvas.config(scrollregion=(0, 0, width+SPACE, height+SPACE))
 
 
     def drawCanvas(self, r:list, lmax:int, matrixResults:list) -> None:
+        """Display result in a schematic ranking
+
+        Parameters
+        ----------
+        r : list
+            ranked list of alternatives
+        lmax : int
+            maximum length (width) of canvas
+        matrixResults : list
+            the result matrix of PROMETHEE Gamma method
         """
-        Display result in a schematic ranking
-        """
+
         self.canvas.delete('all')
         #self.pilImage = Image.new()
         self.build(r, lmax)
@@ -97,15 +196,25 @@ class RankView:
 
 
     def _on_mousewheel(self, event):
-        """
-        Link mouse scroll to vertical canvas scrolling
+        """Link mouse scroll to vertical canvas scrolling
+
+        Parameters
+        ----------
+        event : Event
+            mouse event (scrolling)
         """
         self.canvas.yview_scroll(-1*(event.delta//120), "units")
 
 
     def build(self, r:list, lmax:int) -> None:
-        """
-        Build the schema
+        """Build the schema
+
+        Parameters
+        ----------
+        r : list
+            the ranked list of alternatives
+        lmax : int
+            maximum length (width) of canvas
         """
         self.ymin = SPACE
         self.ymax = len(r)*SPACE
@@ -139,9 +248,14 @@ class RankView:
 
 
     def add_lines(self, matrixResults:list) -> None:
+        """Add plain and dash lines to the schema
+
+        Parameters
+        ----------
+        matrixResults : list
+            the result matrix of PROMETHEE Gamma method
         """
-        Add plain and dash lines to the schema
-        """
+
         for i in range(len(matrixResults)):
             for j in range(i+1, len(matrixResults)):
                 x = matrixResults[i][j].split(' I ')
@@ -153,11 +267,22 @@ class RankView:
 
 
     def draw_line(self, a:AlternativeView, b:AlternativeView, dash=False):
+        """Draw the line between alternativeViews a and b. 
+        
+        dash must be set to True for dashed line
+
+        Parameters
+        ----------
+        a : AlternativeView
+            an alternativeView
+        b : AlternativeView
+            an alternativeView
+        dash : bool, optional
+            True for dash line, False for plain line (default is False)
         """
-        Draw the lines
-        """
-        (xa, ya) = a.get_coords()
-        (xb, yb) = b.get_coords()
+
+        (xa, ya) = a.getCoords()
+        (xb, yb) = b.getCoords()
         if ya == yb:
             if xa > xb:
                 h = round((xa - xb)/(self.xmax-self.xmin) * 20) + RADIUS + 5
@@ -174,11 +299,18 @@ class RankView:
 
 
     def computePoints(self, a:AlternativeView, b:AlternativeView):
+        """Compute the points sequence for the line between alternativeViews a and b
+
+        Parameters
+        ----------
+        a : AlternativeView
+            an alternativeView
+        b : AlternativeView
+            an alternativeView
         """
-        Compute the points sequence for lines
-        """
-        (xa, ya) = a.get_coords()
-        (xb, yb) = b.get_coords()
+
+        (xa, ya) = a.getCoords()
+        (xb, yb) = b.getCoords()
         ra = a.getRow()
         rb = b.getRow()
         points = []

@@ -70,7 +70,7 @@ class ResultTabController(ResultTabView.ViewListener):
         Tj = self.resultTabModel.getTj_float()
         if newValue > Tj:
             self.resultTabModel.setTj(newValue)
-            self.resultTabView.setSliderTjValue(newValue)
+            self.resultTabView.setTjSliderValue(newValue)
             self.listener.changeOnTiAndTj()
         else:
             self.listener.changeOnTi()
@@ -84,7 +84,7 @@ class ResultTabController(ResultTabView.ViewListener):
         Ti = self.resultTabModel.getTi_float()
         if newValue < Ti:
             self.resultTabModel.setTi(newValue)
-            self.resultTabView.setSliderTiValue(newValue)
+            self.resultTabView.setTiSliderValue(newValue)
             self.listener.changeOnTiAndTj()
         else:
             self.listener.changeOnTj()

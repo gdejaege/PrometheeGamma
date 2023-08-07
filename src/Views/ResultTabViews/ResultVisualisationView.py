@@ -1,37 +1,84 @@
 from customtkinter import CTkTabview
 
 class ResultVisualisationView:
-    def __init__(self, master) -> None:
-        self.frame = CTkTabview(master=master, fg_color="#ffffff")
+    """
+    A class to visualise the results of PROMETHEE Gamma method
 
-        self.tab_tabular = self.frame.add("Tabular")
-        self.tab_ograph = self.frame.add("Orthogonal graph")
-        self.tab_rank = self.frame.add("Ranking")
+    Attributes
+    ----------
+    frame : CTkTabView
+        the frame that will contain the 3 tabs of the view
+    textboxTab : CTkFrame
+        the frame of textbox tab
+    ographTab : CTkFrame
+        the frame of orthogonal graph tab
+    rankGraphTab
+        the frame of rank graph tab
+
+    Methods
+    -------
+    show()
+        show the main frame
+    getTextBoxMaster()
+        return the master frame of textbox tab
+    getOrthogonalGraphMaster()
+        return the master frame of orthogonal graph tab
+    getRankGraphMaster():
+        return the master frame of rank graph tab
+    """
+
+    def __init__(self, master) -> None:
+        """
+        Parameters
+        ----------
+        master : CTkFrame
+            the parent master frame
+        """
+        
+        self.frame = CTkTabview(master=master, fg_color="#ffffff")
+        self.textboxTab = self.frame.add("Tabular")
+        self.ographTab = self.frame.add("Orthogonal graph")
+        self.rankGraphTab = self.frame.add("Ranking")
 
 
     def show(self):
+        """Show the main frame
         """
-        Show the main frame
-        """
+
         self.frame.place(relx=0.02, y=150, relwidth=0.96, relheight=0.75, bordermode='inside')
 
 
-    def getTabularMaster(self):
+    def getTextBoxMaster(self):
+        """Return the master frame of textbox tab
+
+        Return
+        ------
+        textboxTab : CTkFrame
+            the master frame of textbox tab
         """
-        Return the frame of the tabular tab
-        """
-        return self.tab_tabular
+
+        return self.textboxTab
     
 
     def getOrthogonalGraphMaster(self):
+        """Return the master frame of orthogonal graph tab
+
+        Return
+        ------
+        ographTab : CTkFrame
+            the master frame of orthogonal graph tab
         """
-        Return the frame of the orthogonal graph tab
-        """
-        return self.tab_ograph
+
+        return self.ographTab
     
 
-    def getRankMaster(self):
+    def getRankGraphMaster(self):
+        """Return the master frame of rank graph tab
+
+        Return
+        ------
+        rankGraphTab : CTkFrame
+            the master frame of rank graph tab
         """
-        Retunr the frame of the rank tab
-        """
-        return self.tab_rank
+
+        return self.rankGraphTab

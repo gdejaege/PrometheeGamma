@@ -24,13 +24,13 @@ class ResultVisualisationController:
         Show the three tabs
         """
         self.resultVisualisationView.show()
-        master = self.resultVisualisationView.getTabularMaster()
+        master = self.resultVisualisationView.getTextBoxMaster()
         self.tabularController = TabularController(master=master, model=self.prometheeGamma)
         self.tabularController.showView()
         master = self.resultVisualisationView.getOrthogonalGraphMaster()
         self.orhtogonalGraphController = OrthogonalGraphController(master=master, model=self.prometheeGamma)
         self.orhtogonalGraphController.showView()
-        master = self.resultVisualisationView.getRankMaster()
+        master = self.resultVisualisationView.getRankGraphMaster()
         self.rankController = RankController(master=master, prometheeGamma=self.prometheeGamma, resultTabModel=self.resultTabModel, dataTabModel=self.dataTabModel)
         self.rankController.showView()
 
