@@ -31,7 +31,7 @@ class RankController(RankView.ViewListener):
     def showSelectionView(self):
         aNames = self.dataTabModel.getAlternativesName()
         self.rankView.buildAlternativesDict(aNames)
-        self.rankView.BuildCheckBoxs()
+        self.rankView.BuildCheckBoxes()
 
 
     def draw(self):
@@ -43,7 +43,7 @@ class RankController(RankView.ViewListener):
         for k in range(len(self.ranked)):
             if len(self.ranked[k]) > self.lmax:
                 self.lmax = len(self.ranked[k])
-        self.rankView.resizeCanvas(width=self.lmax*100, height=len(self.ranked)*100)
+        self.rankView.resizeCanvas(width=self.lmax*100+200, height=len(self.ranked)*100+200)
         matrixResults = self.prometheeGamma.getMatrixResults()
         self.rankView.drawCanvas(self.ranked, self.lmax, matrixResults)
 

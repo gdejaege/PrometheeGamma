@@ -6,6 +6,9 @@ from aspose.pdf.devices import PngDevice, Resolution
 import io
 from PIL import Image, ImageDraw
 
+SPACE = 100 # The space between the center of 2 circles that represent alternatives
+RADIUS = 30 # The radius of the circle that represents an alternative
+
 class RankView:
     class ViewListener:
         def checkBoxEvent(self):
@@ -31,16 +34,22 @@ class RankView:
         self.xmin = 1000000
         self.ymin = 100
         self.xmax = 0
-        self.ymax = 100
+        self.ymax = SPACE
 
 
     def buildAlternativesDict(self, aList:list):
+        """
+        Build the dictionary for alternatives selection
+        """
         self.alternatives = {}
         for a in aList:
             self.alternatives[a] = IntVar(master=self.rightFrame, value=1)
 
 
-    def BuildCheckBoxs(self):
+    def BuildCheckBoxes(self):
+        """
+        Build the checkBoxes for alternatives selection
+        """
         self.checkBoxList.clear()
         row=0
         for key in self.alternatives.keys():
@@ -48,7 +57,6 @@ class RankView:
             box.grid(row=row, column=0, sticky="w", padx=5, pady=(5,0))
             row+=1
             self.checkBoxList.append(box)
-
 
 
     def setListener(self, l:ViewListener):
@@ -62,19 +70,19 @@ class RankView:
         """
         Show the canvas area
         """
-        self.leftFrame.place(x=1, y=1, relheight=1.0, relwidth=0.7)
+        self.leftFrame.place(x=1, y=1, relheight=1.0, relwidth=0.75)
         self.hbar.pack(side="bottom", fill="x")
         self.vbar.pack(side="right", fill="y")
         self.canvas.pack(side="left", expand=True, fill="both")
 
-        self.scrollFrame.place(relx=0.7, y=1, relheight=1.0, relwidth=0.3)
+        self.scrollFrame.place(relx=0.75, y=1, relheight=1.0, relwidth=0.25)
 
 
     def resizeCanvas(self, width:int, height:int):
         """
         Resize the canvas
         """
-        self.canvas.config(scrollregion=(0, 0, width+50, height+50))
+        self.canvas.config(scrollregion=(0, 0, width+SPACE, height+SPACE))
 
 
     def drawCanvas(self, r:list, lmax:int, matrixResults:list) -> None:
@@ -82,7 +90,6 @@ class RankView:
         Display result in a schematic ranking
         """
         self.canvas.delete('all')
-        #size : self.tab_rank.winfo_screenwidth()
         #self.pilImage = Image.new()
         self.build(r, lmax)
         self.add_lines(matrixResults)
@@ -100,26 +107,26 @@ class RankView:
         """
         Build the schema
         """
-        self.ymin = 100
-        self.ymax = len(r)*100
+        self.ymin = SPACE
+        self.ymax = len(r)*SPACE
         self.xmin = 1000000
         self.xmax = 0
         self.graph = []
         columnLength = 0
         for i in range(len(r)):
-            y = (columnLength+1)*100
-            x = lmax//2 + 50
+            y = (columnLength+1)*SPACE
+            x = lmax//2 + SPACE//2
             for k in range(len(r[i])):
                 if self.alternatives[r[i][k]].get():
-                    x -= 50
+                    x -= SPACE//2
             if x < self.xmin:
                 self.xmin = x
             rowLength = 0
             row = []
             for j in range(len(r[i])):
-                xlength = x+rowLength*100
+                xlength = x+rowLength*SPACE
                 if self.alternatives[r[i][j]].get():
-                    a = AlternativeView(name=r[i][j], canvas=self.canvas, x=xlength, y=y, row=columnLength, column=rowLength)
+                    a = AlternativeView(name=r[i][j], canvas=self.canvas, x=xlength, y=y, radius=RADIUS, row=columnLength, column=rowLength)
                     self.construction[r[i][j]] = a
                     row.append(a)
                     rowLength += 1
@@ -128,7 +135,7 @@ class RankView:
             if rowLength > 0:
                 columnLength += 1
                 self.graph.append(row)
-        self.canvas.config(scrollregion=(0, 0, self.xmax+100, self.ymax+100))
+        self.canvas.config(scrollregion=(self.xmin-SPACE, self.ymin-SPACE, self.xmax+SPACE, self.ymax+SPACE))
 
 
     def add_lines(self, matrixResults:list) -> None:
@@ -140,10 +147,8 @@ class RankView:
                 x = matrixResults[i][j].split(' I ')
                 y = matrixResults[i][j].split(' J ')
                 if len(x) > 1 and self.alternatives[x[0]].get() and self.alternatives[x[1]].get():
-                    #self.draw_indiff_line(a=self.construction[x[0]], b=self.construction[x[1]])
                     self.draw_line(a=self.construction[x[0]], b=self.construction[x[1]])
                 elif len(y) > 1 and self.alternatives[y[0]].get() and self.alternatives[y[1]].get():
-                    #self.draw_incomp_line(a=self.construction[y[0]], b=self.construction[y[1]])
                     self.draw_line(a=self.construction[y[0]], b=self.construction[y[1]], dash=True)
 
 
@@ -155,11 +160,11 @@ class RankView:
         (xb, yb) = b.get_coords()
         if ya == yb:
             if xa > xb:
-                h = round((xa - xb)/(self.xmax-self.xmin) * 20) + 35
-                points = (xb, yb+30), (xb + (xa-xb)/2, ya+h), (xa, ya+30)
+                h = round((xa - xb)/(self.xmax-self.xmin) * 20) + RADIUS + 5
+                points = (xb, yb+RADIUS), (xb + (xa-xb)/2, ya+h), (xa, ya+RADIUS)
             else:
-                h = round((xb - xa)/(self.xmax-self.xmin) * 20) + 35
-                points = (xa, ya+30), (xa + (xb-xa)/2, ya+h), (xb, yb+30)
+                h = round((xb - xa)/(self.xmax-self.xmin) * 20) + RADIUS + 5
+                points = (xa, ya+RADIUS), (xa + (xb-xa)/2, ya+h), (xb, yb+RADIUS)
         else:
             points = self.computePoints(a, b)
         if dash:
@@ -170,99 +175,103 @@ class RankView:
 
     def computePoints(self, a:AlternativeView, b:AlternativeView):
         """
-        Compute the points sequence
+        Compute the points sequence for lines
         """
         (xa, ya) = a.get_coords()
         (xb, yb) = b.get_coords()
         ra = a.getRow()
         rb = b.getRow()
         points = []
+        bSpace = 1.5*SPACE-5
+        space = SPACE-5
+        lSpace = 0.5*SPACE-5
         if ya > yb:
             pair = len(self.graph[rb])%2 == 0
-            if ya == yb + 100:
-                points = (xa, ya-30), (xb, yb+30)
+            if ya == yb + SPACE:
+                points = (xa, ya-RADIUS), (xb, yb+RADIUS)
             elif xa >= xb:
-                points.append((xb, yb+30))
+                points.append((xb, yb+RADIUS))
                 for r in range(ra-rb-1):
                     if len(self.graph[r+rb+1])%2 == 0:
                         if pair:
-                            points.append((xb+45, yb+45+r*100))
-                            points.append((xb+45, yb+145+r*100))
+                            points.append((xb+lSpace, yb+lSpace+r*SPACE))
+                            points.append((xb+lSpace, yb+bSpace+r*SPACE))
                         else:
-                            points.append((xb+95, yb+45+r*100))
-                            points.append((xb+95, yb+145+r*100))
+                            points.append((xb+space, yb+lSpace+r*SPACE))
+                            points.append((xb+space, yb+bSpace+r*SPACE))
                     else:
                         if pair:
-                            points.append((xb+95, yb+45+r*100))
-                            points.append((xb+95, yb+145+r*100))
+                            points.append((xb+space, yb+lSpace+r*SPACE))
+                            points.append((xb+space, yb+bSpace+r*SPACE))
                         else:
-                            points.append((xb+45, yb+45+r*100))
-                            points.append((xb+45, yb+145+r*100))
-                points.append((xb+45, ya-45))
-                points.append((xa, ya-30))
+                            points.append((xb+lSpace, yb+space+r*SPACE))
+                            points.append((xb+lSpace, yb+bSpace+r*SPACE))
+                points.append((xb+lSpace, ya-lSpace))
+                points.append((xa, ya-RADIUS))
             elif xa < xb:
-                points.append((xb, yb+30))
+                points.append((xb, yb+RADIUS))
                 for r in range(ra-rb-1):
                     if len(self.graph[r+rb+1])%2 == 0:
                         if pair:
-                            points.append((xb-45, yb+45+r*100))
-                            points.append((xb-45, yb+145+r*100))
+                            points.append((xb-lSpace, yb+lSpace+r*SPACE))
+                            points.append((xb-lSpace, yb+bSpace+r*SPACE))
                         else:
-                            points.append((xb-95, yb+45+r*100))
-                            points.append((xb-95, yb+145+r*100))
+                            points.append((xb-space, yb+lSpace+r*SPACE))
+                            points.append((xb-space, yb+bSpace+r*SPACE))
                     else:
                         if pair:
-                            points.append((xb-95, yb+45+r*100))
-                            points.append((xb-95, yb+145+r*100))
+                            points.append((xb-space, yb+lSpace+r*SPACE))
+                            points.append((xb-space, yb+bSpace+r*SPACE))
                         else:
-                            points.append((xb-45, yb+45+r*100))
-                            points.append((xb-45, yb+145+r*100))
-                points.append((xb-45, ya-45))
-                points.append((xa, ya-30))
+                            points.append((xb-lSpace, yb+lSpace+r*SPACE))
+                            points.append((xb-lSpace, yb+bSpace+r*SPACE))
+                points.append((xb-lSpace, ya-lSpace))
+                points.append((xa, ya-RADIUS))
         else:
             pair = len(self.graph[ra])%2 == 0
-            if yb == ya + 100:
-                points = (xb, yb-30), (xa, ya+30)
+            if yb == ya + SPACE:
+                points = (xb, yb-RADIUS), (xa, ya+RADIUS)
             elif xb >= xa:
-                points.append((xa, ya+30))
+                points.append((xa, ya+RADIUS))
                 for r in range(rb-ra-1):
                     if len(self.graph[r+ra+1])%2 == 0:
                         if pair:
-                            points.append((xa+45, ya+45+r*100))
-                            points.append((xa+45, ya+145+r*100))
+                            points.append((xa+lSpace, ya+lSpace+r*SPACE))
+                            points.append((xa+lSpace, ya+bSpace+r*SPACE))
                         else:
-                            points.append((xa+95, ya+45+r*100))
-                            points.append((xa+95, ya+145+r*100))
+                            points.append((xa+space, ya+lSpace+r*SPACE))
+                            points.append((xa+space, ya+bSpace+r*SPACE))
                     else:
                         if pair:
-                            points.append((xa+95, ya+45+r*100))
-                            points.append((xa+95, ya+145+r*100))
+                            points.append((xa+space, ya+lSpace+r*SPACE))
+                            points.append((xa+space, ya+bSpace+r*SPACE))
                         else:
-                            points.append((xa+45, ya+45+r*100))
-                            points.append((xa+45, ya+145+r*100))
-                points.append((xa+45, yb-45))
-                points.append((xb, yb-30))
+                            points.append((xa+lSpace, ya+lSpace+r*SPACE))
+                            points.append((xa+lSpace, ya+bSpace+r*SPACE))
+                points.append((xa+lSpace, yb-lSpace))
+                points.append((xb, yb-RADIUS))
             elif xb < xa:
-                #points = (xa, ya+30), (xa-45, ya+45), (xa-45, yb-45), (xb, yb-30)
-                points.append((xa, ya+30))
+                points.append((xa, ya+RADIUS))
                 for r in range(rb-ra-1):
                     if len(self.graph[r+ra+1])%2 == 0:
                         if pair:
-                            points.append((xa-45, ya+45+r*100))
-                            points.append((xa-45, ya+145+r*100))
+                            points.append((xa-lSpace, ya+lSpace+r*SPACE))
+                            points.append((xa-lSpace, ya+bSpace+r*SPACE))
                         else:
-                            points.append((xa-95, ya+45+r*100))
-                            points.append((xa-95, ya+145+r*100))
+                            points.append((xa-space, ya+lSpace+r*SPACE))
+                            points.append((xa-space, ya+bSpace+r*SPACE))
                     else:
                         if pair:
-                            points.append((xa-95, ya+45+r*100))
-                            points.append((xa-95, ya+145+r*100))
+                            points.append((xa-space, ya+lSpace+r*SPACE))
+                            points.append((xa-space, ya+bSpace+r*SPACE))
                         else:
-                            points.append((xa-45, ya+45+r*100))
-                            points.append((xa-45, ya+145+r*100))
-                points.append((xa-45, yb-45))
-                points.append((xb, yb-30))
+                            points.append((xa-lSpace, ya+lSpace+r*SPACE))
+                            points.append((xa-lSpace, ya+bSpace+r*SPACE))
+                points.append((xa-lSpace, yb-lSpace))
+                points.append((xb, yb-RADIUS))
         return tuple(points)
+
+
 
 
 
