@@ -205,7 +205,8 @@ class DataTabModel:
             val = float(d)
             e = DoubleVar(master=master, value=val)
             l.append(e)
-        self.addAlternative(n,l)
+        a = Alternative(name=n, evaluations=l)
+        self.alternatives.append(a)
 
 
     def createCriteria(self, master, criteriaNames:list, criteriaWeights:list, criteriaPreferenceFunctionType:list, criteriaP:list, criteriaQ:list) -> None:
@@ -236,7 +237,8 @@ class DataTabModel:
                 p = DoubleVar(master=master, value=float(criteriaP[i]))
             if(criteriaQ != None):
                 q = DoubleVar(master=master, value=float(criteriaQ[i]))
-            self.addCriterion(name=name, weight=weight, f=pfType, p=p, q=q)
+            c = Criterion(name=name, weight=weight, pfType=pfType, p=p, q=q)
+            self.criteria.append(c)
 
 
     def addOneEvaluationInAllAlternatives(self, master) -> None:
@@ -313,7 +315,7 @@ class DataTabModel:
             self.criteria[c].clearColumn()
             for a in self.alternatives:
                 val = a.getEvaluation_float(c)
-                self.criteria[c].add_unit(val)
+                self.criteria[c].addEvaluation(val)
             self.criteria[c].build_pi_c_matrix()
             self.criteria[c].build_phi_c_list()
 

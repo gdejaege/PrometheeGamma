@@ -1,19 +1,80 @@
 
 class Range:
+    """
+    A class to represent a range of values
+
+    Attributes
+    ----------
+    min : float | Range
+        the lowest value in the range or a range
+    max : float | Range
+        the highest value in the range or a range
+
+    Methods
+    -------
+    getMin()
+        return min, the lowest value in the range or a range
+    getMax()
+        return max, the highest value in the range or a range
+    getValMin()
+        return the lowest value of the range
+    getValMax()
+        return the highest value of the range
+    setMin(val)
+        set the min value
+    setMax(val)
+        set the max value
+    include(r)
+        test if r is strictly in the range
+    print()
+        print the extreme values of the range
+    """
+
     def __init__(self, min=None, max=None) -> None:
+        """
+        Parameters
+        ----------
+        min : float | Range
+            lowest value in the range or a range
+        max : float | Range
+            highest value in the range or a range
+        """
         self.min = min
         self.max = max
 
 
     def getMin(self):
+        """Return min, the lowest value in the range or a range
+        
+        Return
+        ------
+        min : float | Range
+            lowest value in the range or a range
+        """
         return self.min
     
 
     def getMax(self):
+        """Return max, the highest value in the range or a range
+        
+        Return
+        ------
+        max : float | Range
+            highest value in the range or a range
+        """
         return self.max
 
 
     def getValMin(self):
+        """Return the lowest value of the range
+
+        if min is a Range, call this function recursively, up to obtain a float value
+
+        Return
+        ------
+        min : float | Range
+            lowest value in the range or a range
+        """
         if type(self.min) is float:
             return self.min
         else:
@@ -21,6 +82,15 @@ class Range:
     
 
     def getValMax(self):
+        """Return the highest value of the range
+
+        if max is a Range, call this function recursively, up to obtain a float value
+
+        Return
+        ------
+        max : float | Range
+            highest value in the range or a range
+        """
         if type(self.max) is float:
             return self.max
         else:
@@ -28,18 +98,40 @@ class Range:
     
 
     def setMin(self, val):
+        """Set the min value
+
+        Parameters
+        ----------
+        val : float | Range
+            the new min value
+        """
         self.min = val
 
 
     def setMax(self, val):
+        """Set the max value
+        
+        Parameters
+        ----------
+        val : float | Range
+            the new max value
+        """
         self.max = val
 
 
     def include(self, r):
+        """Test if r is strictly in the range
+
+        Return
+        ------
+        True if r is strictly in the range, False otherwise
+        """
         return self.min < r and self.max > r 
     
 
     def print(self):
+        """Print the extreme values of the range
+        """
         if type(self.min) is float:
             print("Min=", self.min)
         else:

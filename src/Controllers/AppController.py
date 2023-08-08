@@ -4,7 +4,7 @@ from Controllers.ResultTabControllers.ResultTabController import ResultTabContro
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
 
-class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForParametersTabController.Listener):
+class AppController(ResultTabController.Listener, HelpForParametersTabController.Listener):
     """
     The main controller of the application.
     It allows to start and stop the application, but also to make the link between its different parts.
@@ -14,7 +14,6 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
         Constructor
         """
         self.appView = AppView()
-        self.appView.setListener(self)
         self.alreadyCompute = False
         self.prometheeGamma = PrometheeGamma()
         self.dataTabController = None
@@ -27,6 +26,10 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
         Launch the app
         """
         self.appView.show()
+        (dataTab, resultTab, helpForParametersTab) = self.appView.getTabs()
+        self.showDataTabView(dataTab)
+        self.showResultTabView(resultTab)
+        self.showHelpForParametersTabView(helpForParametersTab)
         self.appView.mainloop()
 
 
