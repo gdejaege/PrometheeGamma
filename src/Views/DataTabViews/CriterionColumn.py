@@ -3,7 +3,8 @@ from customtkinter import (CTkEntry, CTkButton, CTkToplevel)
 from Views.DataTabViews.PreferenceFunctionWindow import PreferenceFunctionWindow
 from Models.Criterion import Criterion
 
-TYPEDICT = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"} # a dictionnary to link each type of preference function with a number
+TYPEDICT = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"}
+"""a dictionnary to link each type of preference function with a number"""
 
 class CriterionColumn:
     """

@@ -13,7 +13,8 @@ class DataTabController(DataTabView.ViewListener):
         Constructor
         """
         self.dataTabModel = DataTabModel()
-        self.dataTabView = DataTabView(master=master, listener=self)
+        self.dataTabView = DataTabView(master=master)
+        self.dataTabView.setListener(self)
         self.criteriaColums = []
         self.unitsRows = []
 
