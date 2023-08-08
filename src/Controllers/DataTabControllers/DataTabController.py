@@ -30,9 +30,39 @@ class DataTabController(DataTabView.ViewListener):
         """
         file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("all files","*.*")))
         self.clearTable()
-        self.dataTabModel.readFile(file, master)
+        self.readFile(file, master)
         file.close()
         self.fillDataTable()
+
+
+    def readFile(self, file, master) -> None:
+        """Read a csv file and add its content in the model
+
+        Parameters
+        ----------
+        file : IO
+            file descriptor of the input file
+        master : CTkFrame
+            tkinter master frame
+        """
+        criteriaP = None
+        criteriaQ = None
+        for line in file:
+            line = line.strip()
+            temp = line.split(',')
+            if(temp[0] == 'c'):
+                criteriaNames = temp[1:]
+            elif(temp[0] == 'w'):
+                criteriaWeights = temp[1:]
+            elif(temp[0] == 'f'):
+                criteriaPreferenceFunctionType = temp[1:]
+            elif(temp[0] == 'p'):
+                criteriaP = temp[1:]
+            elif(temp[0] == 'q'):
+                criteriaQ = temp[1:]
+            else:
+                self.dataTabModel.createAlternative(master, temp[0], temp[1:])
+        self.dataTabModel.createCriteria(master, criteriaNames, criteriaWeights, criteriaPreferenceFunctionType, criteriaP, criteriaQ)
 
 
     def fillDataTable(self) -> None:
@@ -61,7 +91,7 @@ class DataTabController(DataTabView.ViewListener):
         x and y are the coordinates of the new column.
         """
         self.dataTabView.shiftRight()
-        self.dataTabModel.addVoidCriterion(master)
+        self.dataTabModel.addCriterion(master=master)
         c = self.dataTabModel.getCriterion()
         cc = CriterionColumn(master=master, x=x, y=y, criterion=c)
         self.criteriaColums.append(cc)
@@ -86,7 +116,7 @@ class DataTabController(DataTabView.ViewListener):
         x and y are the coordinates of the new row.
         """
         self.dataTabView.shiftDown()
-        self.dataTabModel.addVoidAlternative(master)
+        self.dataTabModel.addAlternative(master)
         a = self.dataTabModel.getAlternative()
         ur = UnitRow(master=master, x=x, y=y, alternative=a)
         self.unitsRows.append(ur)
