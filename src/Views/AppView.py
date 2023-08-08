@@ -17,6 +17,10 @@ class AppView(CTk):
 
     Methods
     -------
+    show()
+        show the app
+    getTabs()
+        return the 3 tabs of the app
     """
 
     def __init__(self, fg_color = None, **kwargs):

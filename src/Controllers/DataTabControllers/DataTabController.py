@@ -93,7 +93,8 @@ class DataTabController(DataTabView.ViewListener):
         self.dataTabView.shiftRight()
         self.dataTabModel.addCriterion(master=master)
         c = self.dataTabModel.getCriterion()
-        cc = CriterionColumn(master=master, x=x, y=y, criterion=c)
+        cc = CriterionColumn(master=master, criterion=c)
+        cc.show(x, y)
         self.criteriaColums.append(cc)
         self.addOneColumnToAllUnits(master=master)
 

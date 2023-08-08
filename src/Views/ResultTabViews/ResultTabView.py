@@ -7,7 +7,6 @@ class ResultTabView:
 
     Attributes
     ----------
-
     root : CTkFrame
         the parent master frame
     scrollableFrame : ScrollableFrame

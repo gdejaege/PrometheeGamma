@@ -17,12 +17,6 @@ class DataTabView:
 
 
     def __init__(self, master, listener:ViewListener) -> None:
-        #master.grid_columnconfigure(0, weight=1)
-        #master.grid_rowconfigure(0, weight=1)
-        #self.master = CTkScrollableFrame(master=master, fg_color="#ffffff")
-        #self.master.grid_columnconfigure(0, weight=1)
-        
-        #self.master = master
         self.root = master
         self.scrollableFrame = ScrollableFrame(self.root)
         self.scrollableFrame.pack(fill="both", expand=True)
@@ -56,11 +50,6 @@ class DataTabView:
 
 
     def show(self) -> None:
-        #self.master.grid(row=0, column=0, padx=0, pady=(00, 0), sticky="nsew")
-        #self.openFileButton.grid(row=0, column=0, columnspan=10, sticky="n", padx=10, pady=(10,0))
-        #self.dataNoteLabel.grid(row=1, column=0, columnspan=10, sticky="n", padx=10, pady=(10,0))
-
-        
         self.openFileButton.place(relx=0.5, y=25, anchor='center')
         self.dataNoteLabel.place(relx=0.5, y=75, anchor='center')
 

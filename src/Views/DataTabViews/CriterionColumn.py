@@ -3,37 +3,90 @@ from customtkinter import (CTkEntry, CTkButton, CTkToplevel)
 from Views.DataTabViews.PreferenceFunctionWindow import PreferenceFunctionWindow
 from Models.Criterion import Criterion
 
+TYPEDICT = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"} # a dictionnary to link each type of preference function with a number
+
 class CriterionColumn:
-    def __init__(self, master, x, y, criterion:Criterion) -> None:
+    """
+    A class to display a criterion column in PROMETHEE Gamma GUI application
+
+    master : CTkFrame
+        the master frame
+    pfType : IntVar
+        the type of the preference function used for this criterion
+    nameEntry : CTkEntry
+        the entry to modify the criterion name
+    weightEntry : CTkEntry
+        the entry to modify the criterion weight
+    typePfTextButton : StringVar
+        the variable text associated with the typePfButton
+    typePfButton : CTkButton
+        button that opens a PrefenceFunctionWindow to select a preference function
+    pcEntry : CTkEntry
+        the entry to modify the preference threshold associated to the preference function
+    qc entry : CTkEntry
+        the entry to modify the indifference threshold associated to the preference function
+    
+    Methods
+    -------
+    show()
+        show the column
+    buttonTypeEvent()
+        handle click event on the typePfButton
+     destroy()
+        destroy (erase and forget) the column
+    """
+
+    def __init__(self, master, criterion:Criterion) -> None:
+        """
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame
+        criterion : Criterion
+            the criterion of wich this class represents the column
+        """
         self.master = master
-        self.dico_types = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"}
         self.pfType = criterion.getPf()
-
-        self.entry_name = CTkEntry(master=master, textvariable=criterion.getName())
-        self.entry_weight = CTkEntry(master=master, textvariable=criterion.getWeight())
-        self.text_button_type = StringVar(master=master, value=self.dico_types[self.pfType.get()])
-        self.button_type = CTkButton(master=master, textvariable=self.text_button_type, command=self.buttonTypeEvent)
-        self.entry_pc = CTkEntry(master=master, textvariable=criterion.getP())
-        self.entry_qc = CTkEntry(master=master, textvariable=criterion.getQ())
-
-        self.entry_name.place(x=x, y=y)
-        self.entry_weight.place(x=x, y=y+25)
-        self.button_type.place(x=x, y=y+50)
-        self.entry_pc.place(x=x, y=y+75)
-        self.entry_qc.place(x=x, y=y+100)
-
+        self.nameEntry = CTkEntry(master=master, textvariable=criterion.getName())
+        self.weightEntry = CTkEntry(master=master, textvariable=criterion.getWeight())
+        self.typePfTextButton = StringVar(master=master, value=TYPEDICT[self.pfType.get()])
+        self.typePfButton = CTkButton(master=master, textvariable=self.typePfTextButton, command=self.buttonTypeEvent)
+        self.pcEntry = CTkEntry(master=master, textvariable=criterion.getP())
+        self.qcEntry = CTkEntry(master=master, textvariable=criterion.getQ())
         self.pfw = None
 
 
+    def show(self, x:int, y:int):
+        """Show the column
+
+        Parameters
+        ----------
+        x : int
+            x coordinate to place the column in the frame
+        y : int
+            y coordinate to place the column in the frame
+        """
+        self.nameEntry.place(x=x, y=y)
+        self.weightEntry.place(x=x, y=y+25)
+        self.typePfButton.place(x=x, y=y+50)
+        self.pcEntry.place(x=x, y=y+75)
+        self.qcEntry.place(x=x, y=y+100)
+
+
     def buttonTypeEvent(self):
+        """Handle click event on the typePfButton
+        """
         w = CTkToplevel(self.master)
         w.title("Preference functions")
-        self.pfw = PreferenceFunctionWindow(master=w, textvar=self.text_button_type, intvar=self.pfType)
+        self.pfw = PreferenceFunctionWindow(master=w, textvar=self.typePfTextButton, intvar=self.pfType, typesDict=TYPEDICT)
+        self.pfw.show()
 
     
     def destroy(self) -> None:
-        self.entry_name.destroy()
-        self.entry_weight.destroy()
-        self.button_type.destroy()
-        self.entry_pc.destroy()
-        self.entry_qc.destroy()
+        """Destroy (erase and forget) the column
+        """
+        self.nameEntry.destroy()
+        self.weightEntry.destroy()
+        self.typePfButton.destroy()
+        self.pcEntry.destroy()
+        self.qcEntry.destroy()
