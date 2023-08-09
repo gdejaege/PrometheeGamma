@@ -4,12 +4,63 @@ from Controllers.ResultTabControllers.ResultsVisualisationControllers.ResultVisu
 
 class ResultTabController(ResultTabView.ViewListener):
     """
-    Controller of the result tab
+    A class to control the result tab
+
+    Attributes
+    ----------
+    resultTabModel : ResultTabModel
+        the model of the result tab
+    resultTabView : ResultTabView
+        the view of the result tab
+    listener : ResultTabController.Listener
+        the listener of this class
+    resultsVisualisationController : ResultVisualisationController
+        the controller that control visualisation of results. It is a sub controller of this class
+
+    Methods
+    -------
+    setListener(l:Listener)
+        set the listener
+    showView()
+        show the resultTabView
+    refresh()
+        refresh the resultTabView
+    changeOnTi(newValue:float)
+        this method controls the reaction of the application following a modification of the value of parameter Ti by the user
+    changeOnTj(newValue:float)
+        this method controls the reaction of the application following a modification of the value of parameter Tj by the user
+    changeOnPf()
+        this method controls the reaction of the application following a modification of the value of parameter Pf by the user
+    obtainResults()
+        handle click on button Obtain Results
+    getModel()
+        return the current ResultTabModel
+    loadResultsVisualisation(master)
+        load the 3 types of results visualizations and show them
+    refreshResultsVisualisation()
+        refresh the results visualisation
     """
+
     class Listener:
         """
-        Interface. Listener of the ResultTabController
+        Interface for the listener of the ResultTabController
+
+        Methods
+        -------
+        changeOnTi()
+            inform the listener of a change on Ti
+        changeOnTj()
+            inform the listener of a change on Tj
+        changeOnTiAndTj()
+            inform the listener of a change on Ti and Tj
+        computeResults()
+            demand to the listener to compute the results
+        getPrometheeGammaModel()
+            demand to the listener to obtain the PrometheeGamma model
+        getDataTabModel()
+            demand to the listener to obtain the dataTab model
         """
+
         def changeOnTi(self):
             pass
         def changeOnTj(self):
@@ -28,8 +79,10 @@ class ResultTabController(ResultTabView.ViewListener):
 
     def __init__(self, master) -> None:
         """
-        Constructor
-        Init the ResultTabModel and the ResultTabView
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame for the result tab
         """
         self.resultTabModel = ResultTabModel(master=master)
         Ti = self.resultTabModel.getTi()
@@ -42,30 +95,30 @@ class ResultTabController(ResultTabView.ViewListener):
 
 
     def setListener(self, l:Listener) -> None:
-        """
-        Set the listener of this controller
+        """Set the listener
         """
         self.listener = l
 
     
     def showView(self) -> None:
-        """
-        show the resultTabView
+        """Show the resultTabView
         """
         self.resultTabView.show()
 
 
     def refresh(self) -> None:
-        """
-        Refresh the resultTabView
+        """Refresh the resultTabView
         """
         self.resultTabView.refresh()
 
 
     def changeOnTi(self, newValue:float) -> None:
-        """"
-        This method controls the reaction of the application following a modification of the value of parameter Ti by the user.
-        newValue is the new value of the parameter Ti.
+        """"This method controls the reaction of the application following a modification of the value of parameter Ti by the user
+
+        Parameters
+        ----------
+        newValue : float
+            the new value of Ti parameter
         """
         Tj = self.resultTabModel.getTj_float()
         if newValue > Tj:
@@ -77,9 +130,12 @@ class ResultTabController(ResultTabView.ViewListener):
 
 
     def changeOnTj(self, newValue:float) -> None:
-        """"
-        This method controls the reaction of the application following a modification of the value of parameter Tj by the user.
-        newValue is the new value of the parameter Tj.
+        """"This method controls the reaction of the application following a modification of the value of parameter Tj by the user
+
+        Parameters
+        ----------
+        newValue : float
+            the new value of Tj parameter
         """
         Ti = self.resultTabModel.getTi_float()
         if newValue < Ti:
@@ -91,30 +147,39 @@ class ResultTabController(ResultTabView.ViewListener):
     
     
     def changeOnPf(self) -> None:
-        """"
-        This method controls the reaction of the application following a modification of the value of parameter Pf by the user.
-        newValue is the new value of the parameter Pf.
+        """"This method controls the reaction of the application following a modification of the value of parameter Pf by the user
+
+        Parameters
+        ----------
+        newValue : float
+            the new value of Pf parameter
         """
         self.listener.changeOnPf()
 
 
     def obtainResults(self) -> None:
-        """"
-        This method controls the reaction of the application following a click on the button Obtain Results.
+        """"Handle click on button Obtain Results
         """
         self.listener.computeResults()
 
     
     def getModel(self) -> ResultTabModel:
-        """
-        Return the current ResultTabModel
+        """Return the current ResultTabModel
+
+        Return
+        ------
+        resultTabModel : ResultTabModel
         """
         return self.resultTabModel
     
 
     def loadResultsVisualisation(self, master) -> None:
-        """
-        Loads the three types of results visualizations and show them.
+        """Loads the 3 types of results visualizations and show them
+
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame for the result tab
         """
         models = (self.listener.getPrometheeGammaModel(), self.resultTabModel, self.listener.getDataTabModel())
         self.resultsVisualisationController = ResultVisualisationController(master, models)
@@ -122,7 +187,6 @@ class ResultTabController(ResultTabView.ViewListener):
 
 
     def refreshResultsVisualisation(self) -> None:
-        """
-        Refresh the visualisation of the results
+        """Refresh the results visualisation
         """
         self.resultsVisualisationController.refresh()

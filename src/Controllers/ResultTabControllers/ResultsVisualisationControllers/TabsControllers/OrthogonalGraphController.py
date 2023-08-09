@@ -3,27 +3,47 @@ from Models.PrometheeGamma import PrometheeGamma
 
 class OrthogonalGraphController:
     """
-    Controller of the orthogonal graph tab
+    A class to control the orthogonal graph tab
+
+    Attributes
+    ----------
+    model : PrometheeGamma
+        the model for Promethee Gamma method. It contains the results of the method
+    orthogonalGraphView : OrthogonalGraphView
+        the view to display the orthogonal graph
+
+    Methods
+    -------
+    showView()
+        show the orthogonal graph tab
+    refreshView()
+        refresh the orthogonal graph tab
     """
+
     def __init__(self, master, model:PrometheeGamma) -> None:
-        self.master = master
+        """
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame
+        model : PrometheeGamma
+            the model for Promethee Gamma method. It contains the results of the method
+        """
+
         self.model = model
         matrixGamma = self.model.getMatrixGamma()
         matrixResults = self.model.getMatrixResults()
-
-        self.orthogonalGraphView = OrthogonalGraphView(self.master, matrixGamma, matrixResults)
+        self.orthogonalGraphView = OrthogonalGraphView(master, matrixGamma, matrixResults)
 
 
     def showView(self) -> None:
-        """
-        Show the orthogonal graph tab
+        """Show the orthogonal graph tab
         """
         self.orthogonalGraphView.show()
 
 
     def refreshView(self) -> None:
-        """
-        Refresh the tab
+        """Refresh the orthogonal graph tab
         """
         matrixGamma = self.model.getMatrixGamma()
         matrixResults = self.model.getMatrixResults()
