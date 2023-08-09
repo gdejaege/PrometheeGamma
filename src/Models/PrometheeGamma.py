@@ -97,6 +97,14 @@ class PrometheeGamma:
     def getMatrixGamma(self) -> list:
         """Return the Gamma Matrix
 
+        matrixGamma = [ [γ11, γ12, ... , γ1j, ... , γ1n] \n
+                         [γ21, γ22, ... , γ2j, ... , γ2n] \n
+                         [...] \n
+                         [γi1, γi2, ... , γij , ..., γin] \n
+                         [...] \n
+                         [γn1, γn2, ... , γnj, ... , γnn] ] \n
+        where n = number of alternatives ; i and j the index of the matrix
+
         Return
         ------
         matrixGamma : list
@@ -107,6 +115,11 @@ class PrometheeGamma:
 
     def getMatrixResults(self) -> list:
         """Return the matrix of results
+
+        example with 3 alternatives, a1, a2 and a3: \n
+        matrixResults = [ [a1 I a1, a1 P a2, a1 I a3] \n
+                         [a1 P a2, a2 I a2, a2 J a3] \n
+                         [a3 I a1, a3 J a2, a3 I a3] ]
 
         Return
         ------

@@ -2,10 +2,86 @@ from customtkinter import (CTkLabel, CTkButton)
 from Views.HelpForParametersTabViews.QuestionsTabView import QuestionsTabView
 
 class PreferenceLearningView:
+    """
+    A class to display questions and others component for prefenrence learning algorithm
+
+    Attributes
+    ----------
+    master : CTkFrame
+        the parent master frame
+    questionsTabView : CTkTabView
+        the tabView that will contain the questions
+    explanationLabel : CTkLabel
+        a label to display the explanation text for preference learning algorithm
+    generateButton : CTkButton
+        a button to generate questions for preference learning algorithm
+    confirmButton : CTkButton
+        a button to confirm the answers
+    nextButton : CTkButton
+        a button to generate the next question
+    Ilabel : CTkLabel
+        a label to display the value of the indifference parameter
+    Jlabel : CTkLabel
+        a label to display the value of the incomparability parameter
+    Plabel : CTkLabel
+        a label to display the value of the preference parameter
+    applyButton : CTkButton
+        a button to apply the results in result tab
+    cancelButton : CTkButton
+        a button to cancel selection of a method
+    row : int
+        the row for positionning elements with grid method
+    endCtrl : bool
+        control variable to keep in memory the state of the algorithm (ended or not ended)
+    listener : ViewListener
+        the listener of this view
+
+    Methods
+    -------
+    setListener(l:ViewListener)
+        set the listener
+    show()
+        show the view
+    showNextQuestion(question:tuple, end:bool)
+        show the next question of preference learning algorithm
+    next()
+        handle click on nextButton
+    confirm()
+        handle click on confirmButton
+    apply()
+        handle click on applyButton
+    resetResults()
+        reset the results (reset labels)
+    generateQuestions()
+        reset algorithm and (re)start it
+    showResults(results:tuple)
+        show the results in labels (ILabel, JLabel and PLabel)
+    updateInQCM()
+        handle event in questions
+    cancel()
+        handle click on cancelButton
+    resetView()
+        reset the view, i.e. forget all widget displayed and restart
+    """
 
     class ViewListener:
         """
         An interface for the listener of this view
+
+        Methods
+        -------
+        showQuestions()
+            show the questions
+        confirm()
+            Control the reaction of the app after a click on the confirm button
+        apply()
+            Control the reaction of the app after a click on the apply button
+        next()
+            Control the reaction of the app after a click on the next button
+        recomputeResults()
+            Recompute the results
+        cancel()
+            Control the reaction of the app after a click on the cancel button
         """
 
         def showQuestions(self):
@@ -23,7 +99,14 @@ class PreferenceLearningView:
 
 
     def __init__(self, master) -> None:
+        """
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame
+        """
         self.master = master
+        self.questionsTabView = None
         explanation = "In order to help determine the 3 parameters introduced by the PROMETHEE Gamma method, it is necessary to know your opinion on a small number of pairwise comparisons between alternatives. Please answer the questions below."
         self.explanationLabel = CTkLabel(master=self.master, text=explanation, text_color="#000000", wraplength=580)
         self.generateButton = CTkButton(master=self.master, text="Generate questions", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.generateQuestions)
@@ -34,7 +117,6 @@ class PreferenceLearningView:
         self.Plabel = CTkLabel(master=self.master, text="P = 1 - infinity", text_color="#000000")
         self.applyButton = CTkButton(master=self.master, text="Use results in result tab", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.apply)
         self.cancelButton = CTkButton(master=self.master, text="Cancel", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.cancel)
-        self.questionsTabView = None
         self.row = 0
         self.endCtrl = False
         self.listener = None
@@ -123,7 +205,6 @@ class PreferenceLearningView:
         self.Plabel.update()
         
 
-
     def generateQuestions(self):
         """Reset algorithm and (re)start it
         """
@@ -139,9 +220,6 @@ class PreferenceLearningView:
         self.questionsTabView = QuestionsTabView(master=self.master, fg_color="#ffffff")
         self.questionsTabView.setListener(self)
         self.confirmButton.grid_forget()
-        #if self.resultsLabel != None:
-        #    self.resultsLabel.destroy()
-        #self.applyButton.grid_forget()
         self.questionsTabView.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
         self.listener.showQuestions()

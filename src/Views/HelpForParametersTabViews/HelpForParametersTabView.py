@@ -5,40 +5,20 @@ from Resources.ScrollableFrame import ScrollableFrame
 
 class HelpForParametersTabView(QuestionsTabView.Listener):
     """
-    A class to display the content of the helpForParameters tab
+    A class to display the starting content of the helpForParameters tab
 
     Attributes
     ----------
+    sframe : ScrollableFrame
+        the scrollableFrame
     master : CTkFrame
-        the parent master frame
-    questionsTabView : CTkTabView
-        the tabView that will contain the questions
+        the master frame
     startLabel : CTkLabel
         a label to display the strarting Text
     preferenceLearningButton : CTkButton
         a button to select the built-in preferenceLearning algorithm
-    explanationLabel : CTkLabel
-        a label to display the explanation text for preference learning algorithm
-    generateButton : CTkButton
-        a button to generate questions for preference learning algorithm
-    confirmButton : CTkButton
-        a button to confirm the answers
-    nextButton : CTkButton
-        a button to generate the next question
-    Ilabel : CTkLabel
-        a label to display the value of the indifference parameter
-    Jlabel : CTkLabel
-        a label to display the value of the incomparability parameter
-    Plabel : CTkLabel
-        a label to display the value of the preference parameter
-    applyButton : CTkButton
-        a button to apply the results in result tab
-    cancelButton : CTkButton
-        a button to cancel selection of a method
     row : int
         the row for positionning elements with grid method
-    endCtrl : bool
-        control variable to keep in memory the state of the algorithm (ended or not ended)
     listener : ViewListener
         the listener of this view
 
@@ -46,38 +26,18 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
     -------
     setListener(l:ViewListener)
         set the listener
+    getMaster()
+        return the master frame of the tab
     show()
         show the view
-    hideStarter()
+    hide()
         hide the starter
-    showPreferenceLearning()
-        show the preference learning components
-    showCustom()
-        show the custom components
+    restart()
+        reinitialize the variables for display
     startPreferenceLearning()
         start the preference learning method
     startCustom()
         start the custom method
-    showNextQuestion(question:tuple, end:bool)
-        show the next question of preference learning algorithm
-    next()
-        handle click on nextButton
-    confirm()
-        handle click on confirmButton
-    apply()
-        handle click on applyButton
-    resetResults()
-        reset the results (reset labels)
-    generateQuestions()
-        reset algorithm and (re)start it
-    showResults(results:tuple)
-        show the results in labels (ILabel, JLabel and PLabel)
-    updateInQCM()
-        handle event in questions
-    cancel()
-        handle click on cancelButton
-    resetView()
-        reset the view, i.e. forget all widget displayed and restart
     """
 
     class ViewListener:
@@ -120,6 +80,13 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
 
 
     def getMaster(self):
+        """Return the master frame of the tab
+
+        Return
+        ------
+        master : CTkFrame
+            the master frame
+        """
         return self.master
 
 
@@ -146,6 +113,10 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
 
 
     def restart(self):
+        """Reinitialize the variables for display
+
+        They can be destroy in Custom module, so, for stability, we redifine them.
+        """
         startText = "Please choose a method. The preference learning button will launch the application's built-in preference learning algorithm. The custom button will load the Custom module."
         self.startLabel = CTkLabel(master=self.master, text=startText, text_color="#000000", wraplength=580)
         self.preferenceLearningButton = CTkButton(master=self.master, text="Preference learning", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.startPreferenceLearning)
