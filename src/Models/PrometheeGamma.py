@@ -94,6 +94,10 @@ class PrometheeGamma:
         self.resultTabModel = model
 
 
+    def isComputed(self) -> bool:
+        return len(self.matrixGamma) > 0
+
+
     def getMatrixGamma(self) -> list:
         """Return the Gamma Matrix
 

@@ -4,6 +4,8 @@ from Views.HelpForParametersTabViews.PreferenceLearningView import PreferenceLea
 from Models.DataTabModel import DataTabModel
 from Models.PrometheeGamma import PrometheeGamma
 
+import tkinter.messagebox
+
 MAX_NUMBER_OF_QUESTIONS = 5
 
 class PreferenceLearningController(PreferenceLearningView.ViewListener):
@@ -91,19 +93,25 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
     def selectFirstQuestion(self):
         nbAlter = self.dataTabModel.getNumberOfAlternatives()
-        alter = []
-        for i in range(nbAlter):
-            a = self.dataTabModel.getAlternative(i)
-            alter.append(a)
-        self.preferenceLearning.setAlternatives(alter)
-        question = self.preferenceLearning.selectFirstQuestion()
-        self.questions.append(question)
-        self.preferenceLearningView.showNextQuestion(question, len(self.questions) >= MAX_NUMBER_OF_QUESTIONS)
+        if nbAlter < 2:
+            tkinter.messagebox.showerror(title="Not enought alternatives", message="There are not enough alternatives in the model to generate a question")
+        else:
+            alter = []
+            for i in range(nbAlter):
+                a = self.dataTabModel.getAlternative(i)
+                alter.append(a)
+            self.preferenceLearning.setAlternatives(alter)
+            question = self.preferenceLearning.selectFirstQuestion()
+            self.questions.append(question)
+            self.preferenceLearningView.showNextQuestion(question, len(self.questions) >= MAX_NUMBER_OF_QUESTIONS)
 
 
     def showQuestions(self):
-        self.questions.clear()
-        self.selectFirstQuestion()
+        if self.prometheeGamma.isComputed():
+            self.questions.clear()
+            self.selectFirstQuestion()
+        else:
+            tkinter.messagebox.showerror(title="No results", message='The results of the promethee gamma method are required for the algorithm. Please click on the "Obtain results" button in the "result tab".')
 
 
     def recomputeResults(self):

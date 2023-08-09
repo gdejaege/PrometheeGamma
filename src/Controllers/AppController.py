@@ -116,6 +116,8 @@ class AppController(ResultTabController.Listener, HelpForParametersTabController
     def obtainResults(self, load):
         if self.dataTabController.voidModel():
             tkinter.messagebox.showerror(title="No data", message="No data available. Impossible to obtain results. Please fill in the data tab")
+        elif self.dataTabController.twoAlterInModel():
+            tkinter.messagebox.showerror(title="Not enougth alternatives", message="At least 2 alternatives are needed to obtain results. Please, add alternatives.")
         else:
             if load:
                 self.resultTabController.loadResultsVisualisation()

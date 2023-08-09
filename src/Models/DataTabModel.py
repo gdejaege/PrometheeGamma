@@ -108,7 +108,7 @@ class DataTabModel:
             the tkinter master frame to link StringVar, IntVar and DoubleVar
         """
 
-        name = StringVar(master=master, value="New Criterion")
+        name = StringVar(master=master, value="Criterion"+ str(len(self.criteria)+1))
         weight = DoubleVar(master=master, value=0.0)
         f = IntVar(master=master, value=1)
         p = DoubleVar(master=master, value=1.0)
@@ -129,7 +129,7 @@ class DataTabModel:
         master : CTkFrame
             the tkinter master frame to link StringVar and DoubleVar
         """
-        name = StringVar(master=master, value="New Alternative")
+        name = StringVar(master=master, value="Alternative" + str(len(self.alternatives)+1))
         data = []
         for i in range(len(self.criteria)):
             val = DoubleVar(master=master, value=0.0)
@@ -197,6 +197,10 @@ class DataTabModel:
         True if no alternative or no criterion, False otherwise
         """
         return len(self.alternatives) == 0 or len(self.criteria) == 0
+    
+
+    def twoAlter(self) -> bool:
+        return len(self.alternatives) < 2
 
 
     def createAlternative(self, master, name:str, data:list) -> None:

@@ -280,22 +280,22 @@ class RankView:
         dash : bool, optional
             True for dash line, False for plain line (default is False)
         """
-
-        (xa, ya) = a.getCoords()
-        (xb, yb) = b.getCoords()
-        if ya == yb:
-            if xa > xb:
-                h = round((xa - xb)/(self.xmax-self.xmin) * 20) + RADIUS + 5
-                points = (xb, yb+RADIUS), (xb + (xa-xb)/2, ya+h), (xa, ya+RADIUS)
+        if self.xmin != self.xmax:
+            (xa, ya) = a.getCoords()
+            (xb, yb) = b.getCoords()
+            if ya == yb:
+                if xa > xb:
+                    h = round((xa - xb)/(self.xmax-self.xmin) * 20) + RADIUS + 5
+                    points = (xb, yb+RADIUS), (xb + (xa-xb)/2, ya+h), (xa, ya+RADIUS)
+                else:
+                    h = round((xb - xa)/(self.xmax-self.xmin) * 20) + RADIUS + 5
+                    points = (xa, ya+RADIUS), (xa + (xb-xa)/2, ya+h), (xb, yb+RADIUS)
             else:
-                h = round((xb - xa)/(self.xmax-self.xmin) * 20) + RADIUS + 5
-                points = (xa, ya+RADIUS), (xa + (xb-xa)/2, ya+h), (xb, yb+RADIUS)
-        else:
-            points = self.computePoints(a, b)
-        if dash:
-            self.canvas.create_line(points, smooth=True, dash=(3,1))
-        else:
-            self.canvas.create_line(points, smooth=True)
+                points = self.computePoints(a, b)
+            if dash:
+                self.canvas.create_line(points, smooth=True, dash=(3,1))
+            else:
+                self.canvas.create_line(points, smooth=True)
 
 
     def computePoints(self, a:AlternativeView, b:AlternativeView):

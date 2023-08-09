@@ -183,6 +183,7 @@ class DataTabController(DataTabView.ViewListener):
         self.dataTabModel.addAlternative(master)
         a = self.dataTabModel.getAlternative()
         ur = UnitRow(master=master, x=x, y=y, alternative=a)
+        ur.show()
         self.unitsRows.append(ur)
 
 
@@ -248,3 +249,7 @@ class DataTabController(DataTabView.ViewListener):
         True if no alternative or no criterion, False otherwise
         """
         return self.dataTabModel.isVoid()
+    
+
+    def twoAlterInModel(self):
+        return self.dataTabModel.twoAlter()
