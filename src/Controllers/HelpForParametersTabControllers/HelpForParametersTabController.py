@@ -50,7 +50,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener, Pref
     def showCustom(self):
         self.helpForParametersTabView.hide()
         master = self.helpForParametersTabView.getMaster()
-        self.customController = CustomController(master)
+        self.customController = CustomController(master, self.prometheeGamma, self.dataTabModel)
         self.customController.setListener(self)
         self.customController.run()
 

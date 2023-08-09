@@ -1,11 +1,8 @@
 from math import sqrt
 from Models.HelpForParametersTabModels.Range.RangeI import RangeI
 from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
-import numpy as np
-import time
 
 INFINITY = 1000000000
-
 
 class ConstraintError(Exception):
     """

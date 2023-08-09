@@ -1,8 +1,6 @@
-from Models.HelpForParametersTabModels.Search.State import State
 from Models.HelpForParametersTabModels.Search.SearchState import SearchState
 from Models.HelpForParametersTabModels.Range.RangeI import RangeI
 from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
-import copy
 import numpy as np
 
 
@@ -26,47 +24,3 @@ class Search:
 
     def reset(self):
         self.searchState = SearchState()
-
-
-    def searchPerInterval(self, ListOfI:list, ListOfJ:list, preference:list):
-        s = State()
-        best = None
-        valMin = 10000
-        stateCeil = None
-        stateFloor = None
-
-
-    def dicho(self, range, state):
-        pass
-
-
-    def gradientSearch(self):
-        pass
-
-
-    def exhaustiveSearch(self, ListOfI:list, ListOfJ:list, preference:list):
-        s = State()
-        best = None
-        valMin = 10000
-        for num, i in enumerate(self.rval0_1):
-            print(i)
-            s.setI(i)
-            for j in self.rval0_1[num:]:
-                s.setJ(j)
-                for p in self.rval1_100:
-                    s.setP(p)
-                    val = s.computeFitness(ListOfI, ListOfJ, preference)
-                    if val < valMin:
-                        valMin = val
-                        best = copy.deepcopy(s)
-                        if valMin == 0.0:
-                            break
-                s.setP(self.infinity)
-                val = s.computeFitness(ListOfI, ListOfJ, preference)
-                if val < valMin:
-                    valMin = val
-                    best = copy.deepcopy(s)
-                    if valMin == 0.0:
-                        break
-        return best.getParam()
-                    
