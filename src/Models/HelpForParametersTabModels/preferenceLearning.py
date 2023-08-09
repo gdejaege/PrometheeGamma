@@ -52,11 +52,8 @@ class PreferenceLearning:
         # TODO question choisie non aléatoirement
 
         while True:
-            try:
-                a1 = random.choice(self.alternatives)
-                a2 = random.choice(self.alternatives)
-            except IndexError:
-                raise IndexError()
+            a1 = random.choice(self.alternatives)
+            a2 = random.choice(self.alternatives)
             if a1 != a2 and ((a1, a2) not in self.listOfPairs) and ((a2, a1) not in self.listOfPairs):
                 self.listOfPairs.append((a1, a2))
                 break

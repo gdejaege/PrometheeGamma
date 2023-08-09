@@ -5,8 +5,9 @@ from Models.DataTabModel import DataTabModel
 from Models.PrometheeGamma import PrometheeGamma
 
 import tkinter.messagebox
+from math import comb
 
-MAX_NUMBER_OF_QUESTIONS = 5
+MAX_NUMBER_OF_QUESTIONS = 10
 
 class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
@@ -27,6 +28,8 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         self.questions = []
         self.results = None
         self.listener = None
+        self.maxNumberOfQuestions = MAX_NUMBER_OF_QUESTIONS
+
 
 
     def setListener(self, l:Listener):
@@ -88,11 +91,15 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         self.preferenceLearningView.showResults(self.results)
         question = self.preferenceLearning.selectNextQuestion()
         self.questions.append(question)
-        self.preferenceLearningView.showNextQuestion(question, len(self.questions) >= MAX_NUMBER_OF_QUESTIONS)
+        self.preferenceLearningView.showNextQuestion(question, len(self.questions) >= self.maxNumberOfQuestions)
 
 
     def selectFirstQuestion(self):
+        self.maxNumberOfQuestions = MAX_NUMBER_OF_QUESTIONS
         nbAlter = self.dataTabModel.getNumberOfAlternatives()
+        maxQuestions = comb(nbAlter, 2)
+        if self.maxNumberOfQuestions > maxQuestions:
+            self.maxNumberOfQuestions = maxQuestions
         if nbAlter < 2:
             tkinter.messagebox.showerror(title="Not enought alternatives", message="There are not enough alternatives in the model to generate a question")
         else:
@@ -103,7 +110,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
             self.preferenceLearning.setAlternatives(alter)
             question = self.preferenceLearning.selectFirstQuestion()
             self.questions.append(question)
-            self.preferenceLearningView.showNextQuestion(question, len(self.questions) >= MAX_NUMBER_OF_QUESTIONS)
+            self.preferenceLearningView.showNextQuestion(question, len(self.questions) >= self.maxNumberOfQuestions)
 
 
     def showQuestions(self):
