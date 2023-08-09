@@ -107,7 +107,8 @@ class AppController(ResultTabController.Listener, HelpForParametersTabController
             the master frame for the helpForParameters tab
         """
         dataTabModel = self.dataTabController.getModel()
-        self.helpForParametersTabController = HelpForParametersTabController(master, self, dataTabModel, self.prometheeGamma)
+        self.helpForParametersTabController = HelpForParametersTabController(master, dataTabModel, self.prometheeGamma)
+        self.helpForParametersTabController.setListener(self)
         self.helpForParametersTabController.showView()
 
 

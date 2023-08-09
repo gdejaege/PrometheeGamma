@@ -4,7 +4,8 @@
 ### Edit it as you wish.                                                  ###
 #############################################################################
 
-class Custom:
+class CustomModel:
+
     def __init__(self) -> None:
         self.Imin = 0.0
         self.Imax = 1.0
@@ -13,10 +14,10 @@ class Custom:
         self.Pmin = 1.0
         self.Pmax = 1000000000.0
 
+    
+    def run(self):
+        pass
+
 
     def getValues(self):
         return (self.Imin, self.Imax, self.Jmin, self.Jmax, self.Pmin, self.Pmax)
-    
-
-    def compute(self):
-        pass
