@@ -119,6 +119,7 @@ class PreferenceLearningView:
         self.cancelButton = CTkButton(master=self.master, text="Cancel", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.cancel)
         self.row = 0
         self.endCtrl = False
+        self.nextButtonPlace = False
         self.listener = None
 
 
@@ -146,7 +147,7 @@ class PreferenceLearningView:
         self.row +=1
         self.Plabel.grid(row=self.row, column=0, padx=10, pady=(1, 0), sticky="n")
         self.row +=1
-        self.cancelButton.grid(row=10, column=0, padx=10, pady=(10,0), sticky="n")
+        self.cancelButton.grid(row=self.row, column=0, padx=10, pady=(10,0), sticky="n")
 
     
     def showNextQuestion(self, question:tuple, end:bool) -> None:
@@ -161,12 +162,13 @@ class PreferenceLearningView:
             a boolean to indicate last question (True if it is the last question, False otherwise)
         """
         self.questionsTabView.addQuestion(question)
-        if end:
-            self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
-            self.row += 1
-        else :
+        if not end:
             self.nextButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
             self.row += 1
+            self.nextButtonPlace = True
+        self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
+        self.row += 1
+        self.cancelButton.grid_configure(row=self.row)
 
 
     def next(self):
@@ -180,6 +182,9 @@ class PreferenceLearningView:
     def confirm(self):
         """Handle click on confirmButton
         """
+        if self.nextButtonPlace:
+            self.nextButton.grid_forget()
+            self.row -= 1
         self.endCtrl = True
         self.confirmButton.grid_forget()
         self.row -= 1
