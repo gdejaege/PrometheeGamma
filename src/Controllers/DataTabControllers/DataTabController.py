@@ -120,7 +120,8 @@ class DataTabController(DataTabView.ViewListener):
             (master, x, y) = self.dataTabView.getViewCData()
             self.dataTabView.shiftRight()
             c = self.dataTabModel.getCriterion(i)
-            cc = CriterionColumn(master=master, x=x, y=y, criterion=c)
+            cc = CriterionColumn(master=master, criterion=c)
+            cc.show(x,y)
             self.criteriaColums.append(cc)
         nbAlt = self.dataTabModel.getNumberOfAlternatives()
         for j in range(len(self.unitsRows), nbAlt):
@@ -128,6 +129,7 @@ class DataTabController(DataTabView.ViewListener):
             self.dataTabView.shiftDown()
             a = self.dataTabModel.getAlternative(j)
             ur = UnitRow(master=master, x=x, y=y, alternative=a)
+            ur.show()
             self.unitsRows.append(ur)
 
 

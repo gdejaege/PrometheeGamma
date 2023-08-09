@@ -58,7 +58,7 @@ class RankController(RankView.ViewListener):
         self.rankView = RankView(master)
         self.rankView.setListener(self)
 
-        self.ranked = None
+        self.ranked = []
         self.lmax = None
 
 
