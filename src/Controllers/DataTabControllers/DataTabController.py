@@ -6,11 +6,53 @@ from Views.DataTabViews.UnitRow import UnitRow
 
 class DataTabController(DataTabView.ViewListener):
     """
-    Controller of the data tab
+    A class to control the data tab
+
+    Attributes
+    ----------
+    dataTabModel : DataTabModel
+        the model for the data tab
+    dataTabView : DataTabView
+        the view of the data tab
+    criteriaColumns : list[CriterionColumn]
+        the list that will contain all criterion column
+    unitsRows : list[UnitRow]
+        the list that will contain all unit row
+
+    Methods
+    -------
+    showView()
+        show the dataTabView
+    openFile(master)
+        open a file selected by the user, read its content and close it
+    readFile(file, master)
+        read a csv file and add its content in the model
+    fillDataTable()
+        fill in the data table with the content of the models
+    addCriterionColumn(master, x:int, y:int)
+        add a criterion and its column in the data table
+    deleteCriterion()
+        delete the last criterion and its column in the data table
+    addUnitRow(master, x: int, y: int)
+        add an alternative (a unit) and its row in the data table
+    deleteUnit()
+        delete an alternative (a unit) and its row in the data table
+    addOneColumnToAllUnits(master)
+        add a column to the row of all alternatives
+    deleteOneColumnInAllUnits()
+        delete a column in the row of all alternatives
+    clearTable()
+        clear the data table
+    getModel()
+        return the current dataTabModel
     """
+
     def __init__(self, master) -> None:
         """
-        Constructor
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame for the data tab
         """
         self.dataTabModel = DataTabModel()
         self.dataTabView = DataTabView(master=master)
@@ -18,16 +60,20 @@ class DataTabController(DataTabView.ViewListener):
         self.criteriaColums = []
         self.unitsRows = []
 
+
     def showView(self) -> None:
-        """
-        show the dataTabView
+        """Show the dataTabView
         """
         self.dataTabView.show()
         
 
     def openFile(self, master) -> None:
-        """
-        Open a file selected by the user, read its content and close it
+        """Open a file selected by the user, read its content and close it
+
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data
         """
         file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("all files","*.*")))
         self.clearTable()
@@ -44,7 +90,7 @@ class DataTabController(DataTabView.ViewListener):
         file : IO
             file descriptor of the input file
         master : CTkFrame
-            tkinter master frame
+            the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data
         """
         criteriaP = None
         criteriaQ = None
@@ -67,8 +113,7 @@ class DataTabController(DataTabView.ViewListener):
 
 
     def fillDataTable(self) -> None:
-        """
-        fill in the data table with the content of the models
+        """Fill in the data table with the content of the models
         """
         nbCrit = self.dataTabModel.getNumberOfCriteria()
         for i in range(len(self.criteriaColums), nbCrit):
@@ -87,9 +132,16 @@ class DataTabController(DataTabView.ViewListener):
 
 
     def addCriterionColumn(self, master, x:int, y:int) -> None:
-        """
-        Add a criterion and its column in the data table.
-        x and y are the coordinates of the new column.
+        """Add a criterion and its column in the data table
+
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame for the data tab
+        x : int
+            the x coordinate to place the new criterion column
+        y : int
+            the y coordinate to place the new criterion column
         """
         self.dataTabView.shiftRight()
         self.dataTabModel.addCriterion(master=master)
@@ -101,8 +153,7 @@ class DataTabController(DataTabView.ViewListener):
 
     
     def deleteCriterion(self) -> None:
-        """
-        delete the last criterion and its column in the data table.
+        """Delete the last criterion and its column in the data table
         """
         if(len(self.criteriaColums) >= 1):
             self.criteriaColums[-1].destroy()
@@ -113,9 +164,16 @@ class DataTabController(DataTabView.ViewListener):
         
     
     def addUnitRow(self, master, x: int, y: int) -> None:
-        """
-        Add an alternative (a unit) and its row in the data table.
-        x and y are the coordinates of the new row.
+        """Add an alternative (a unit) and its row in the data table
+
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame for the data tab
+        x : int
+            the x coordinate to place the new unit row
+        y : int
+            the y coordinate to place the new unit row
         """
         self.dataTabView.shiftDown()
         self.dataTabModel.addAlternative(master)
@@ -125,8 +183,7 @@ class DataTabController(DataTabView.ViewListener):
 
 
     def deleteUnit(self) -> None:
-        """
-        Delete an alternative (a unit) and its row in the data table
+        """Delete an alternative (a unit) and its row in the data table
         """
         if(len(self.unitsRows) >= 1):
             self.unitsRows[-1].destroy()
@@ -136,9 +193,14 @@ class DataTabController(DataTabView.ViewListener):
 
 
     def addOneColumnToAllUnits(self, master) -> None:
-        """
-        Add a column to the row of all alternatives.
-        This method must be called after adding a criterion if there is at least one alternative in the data table.
+        """Add a column to the row of all alternatives
+
+        This method must be called after adding a criterion if there is at least one alternative in the data table
+
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame for the data tab
         """
         self.dataTabModel.addOneEvaluationInAllAlternatives(master=master)
         for i in range(len(self.unitsRows)):
@@ -147,9 +209,9 @@ class DataTabController(DataTabView.ViewListener):
 
 
     def deleteOneColumnInAllUnits(self) -> None:
-        """
-        Delete a column in the row of all alternatives.
-        This method must be called after deleting a criterion if there is at least one alternative in the data table.
+        """Delete a column in the row of all alternatives
+
+        This method must be called after deleting a criterion if there is at least one alternative in the data table
         """
         for i in range(len(self.unitsRows)):
             self.unitsRows[i].del_column()
@@ -157,8 +219,7 @@ class DataTabController(DataTabView.ViewListener):
 
 
     def clearTable(self) -> None:
-        """
-        Clear the data table
+        """Clear the data table
         """
         while(len(self.criteriaColums)>0):
             self.deleteCriterion()
@@ -167,7 +228,10 @@ class DataTabController(DataTabView.ViewListener):
 
 
     def getModel(self) -> DataTabModel:
-        """
-        Return the current dataTabModel
+        """Return the current dataTabModel
+
+        Return
+        ------
+        dataTabModel : DataTabModel
         """
         return self.dataTabModel
