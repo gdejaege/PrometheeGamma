@@ -67,7 +67,7 @@ class PreferenceFunctionWindow:
         for i in self.typesDict.keys():
             text = "type " + str(i) + ": " + self.typesDict[i]
             r = CTkRadioButton(master=self.root, text=text, command=self.radiobutton_event, variable=self.radioVar, value=i)
-            self.radioButtonList.append(i)
+            self.radioButtonList.append(r)
 
 
     def show(self):
@@ -83,8 +83,6 @@ class PreferenceFunctionWindow:
             if i == 2:
                 r = 3
                 c = 0
-
-        self.root.focus_set()
 
 
     def makeFig(self):

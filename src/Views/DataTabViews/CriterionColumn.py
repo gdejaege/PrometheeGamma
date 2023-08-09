@@ -78,6 +78,8 @@ class CriterionColumn:
         """Handle click event on the typePfButton
         """
         w = CTkToplevel(self.master)
+        w.grab_set()
+        w.focus_set()
         w.title("Preference functions")
         self.pfw = PreferenceFunctionWindow(master=w, textvar=self.typePfTextButton, intvar=self.pfType, typesDict=TYPEDICT)
         self.pfw.show()
