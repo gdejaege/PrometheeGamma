@@ -1,7 +1,7 @@
 from Custom.CustomView import CustomView
 from Custom.CustomModel import CustomModel
 
-class CustomController:
+class CustomController(CustomView.ViewListener):
 
     class Listener:
         def apply(self, results):
@@ -12,6 +12,7 @@ class CustomController:
 
     def __init__(self, master) -> None:
         self.master = master
+        self.listener = None
 
         # Initialize all variable that you need
         self.customView = None

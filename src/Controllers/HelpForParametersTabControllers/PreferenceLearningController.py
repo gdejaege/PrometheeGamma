@@ -6,7 +6,7 @@ from Models.PrometheeGamma import PrometheeGamma
 
 MAX_NUMBER_OF_QUESTIONS = 5
 
-class PreferenceLearningController:
+class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
     class Listener:
         def apply(self, results):

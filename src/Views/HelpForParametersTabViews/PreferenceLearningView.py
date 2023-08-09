@@ -34,6 +34,7 @@ class PreferenceLearningView:
         self.Plabel = CTkLabel(master=self.master, text="P = 1 - infinity", text_color="#000000")
         self.applyButton = CTkButton(master=self.master, text="Use results in result tab", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.apply)
         self.cancelButton = CTkButton(master=self.master, text="Cancel", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.cancel)
+        self.questionsTabView = None
         self.row = 0
         self.endCtrl = False
         self.listener = None

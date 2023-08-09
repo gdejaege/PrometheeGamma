@@ -119,9 +119,14 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
         self.listener = l
 
 
+    def getMaster(self):
+        return self.master
+
+
     def show(self):
         """Show the view
         """
+        self.sframe.pack(fill='both', expand=True)
         self.master.grid_columnconfigure(0, weight=1)
         self.master.grid_columnconfigure(1, weight=1)
         self.startLabel.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(20, 0), sticky="n")
@@ -134,10 +139,17 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
         """Hide the view
         """
         self.row -= 1
-        self.startLabel.grid_forget()
-        self.preferenceLearningButton.grid_forget()
-        self.customButton.grid_forget()
+        self.startLabel.destroy()
+        self.preferenceLearningButton.destroy()
+        self.customButton.destroy()
         self.master.grid_columnconfigure(1, weight=0)
+
+
+    def restart(self):
+        startText = "Please choose a method. The preference learning button will launch the application's built-in preference learning algorithm. The custom button will load the Custom module."
+        self.startLabel = CTkLabel(master=self.master, text=startText, text_color="#000000", wraplength=580)
+        self.preferenceLearningButton = CTkButton(master=self.master, text="Preference learning", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.startPreferenceLearning)
+        self.customButton = CTkButton(master=self.master, text="Custom", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.startCustom)
 
 
     def startPreferenceLearning(self):

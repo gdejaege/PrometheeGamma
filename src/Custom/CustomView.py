@@ -7,12 +7,13 @@ class CustomView:
         An interface for the listener of this view
         """
 
-        def cancel(self):
+        def reset(self):
             pass
 
 
     def __init__(self, master) -> None:
         self.master = master
+        self.listener = None
 
         # TODO You can write code here to create all component that you need to display on the tab
 
@@ -42,5 +43,5 @@ class CustomView:
     def cancel(self):
         """Handle click on cancelButton
         """
-        self.listener.cancel()
+        self.listener.reset()
 
