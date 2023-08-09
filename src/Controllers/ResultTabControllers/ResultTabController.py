@@ -53,8 +53,8 @@ class ResultTabController(ResultTabView.ViewListener):
             inform the listener of a change on Tj
         changeOnTiAndTj()
             inform the listener of a change on Ti and Tj
-        computeResults()
-            demand to the listener to compute the results
+        obtainResults()
+            demand to the listener to obtain the results
         getPrometheeGammaModel()
             demand to the listener to obtain the PrometheeGamma model
         getDataTabModel()
@@ -69,7 +69,7 @@ class ResultTabController(ResultTabView.ViewListener):
             pass
         def changeOnPf(self):
             pass
-        def computeResults(self):
+        def obtainResults(self):
             pass
         def getPrometheeGammaModel(self):
             pass
@@ -157,10 +157,10 @@ class ResultTabController(ResultTabView.ViewListener):
         self.listener.changeOnPf()
 
 
-    def obtainResults(self) -> None:
+    def obtainResults(self, load) -> None:
         """"Handle click on button Obtain Results
         """
-        self.listener.computeResults()
+        self.listener.obtainResults(load)
 
     
     def getModel(self) -> ResultTabModel:
@@ -173,14 +173,11 @@ class ResultTabController(ResultTabView.ViewListener):
         return self.resultTabModel
     
 
-    def loadResultsVisualisation(self, master) -> None:
+    def loadResultsVisualisation(self) -> None:
         """Loads the 3 types of results visualizations and show them
-
-        Parameters
-        ----------
-        master : CTkFrame
-            the master frame for the result tab
         """
+        self.resultTabView.ObtainResultsChange()
+        master = self.resultTabView.getMaster()
         models = (self.listener.getPrometheeGammaModel(), self.resultTabModel, self.listener.getDataTabModel())
         self.resultsVisualisationController = ResultVisualisationController(master, models)
         self.resultsVisualisationController.show()

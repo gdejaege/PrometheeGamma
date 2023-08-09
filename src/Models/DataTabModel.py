@@ -33,6 +33,8 @@ class DataTabModel:
         return the number of alternatives in the model
     clearAll()
         clear the model, i.e. delete all criteria and alternatives
+    isVoid()
+        test if model has no alternative or no criterion
     createAlternative(master, name:str, data:list)
         create a new alternative from a name in str and a list of evaluation in float
     createCriteria(master, criteriaNames:list, criteriaWeights:list, criteriaPreferenceFunctionType:list, criteriaP:list, criteriaQ:list)
@@ -185,6 +187,16 @@ class DataTabModel:
         """
         self.alternatives.clear()
         self.criteria.clear()
+
+    
+    def isVoid(self) -> bool:
+        """Test if model has no alternative or no criterion
+
+        Return
+        ------
+        True if no alternative or no criterion, False otherwise
+        """
+        return len(self.alternatives) == 0 or len(self.criteria) == 0
 
 
     def createAlternative(self, master, name:str, data:list) -> None:

@@ -86,8 +86,6 @@ class ResultTabView:
             handle change on Pf value
         obtainResults()
             load results of PROMETHEE Gamma method
-        loadResultsVisualisation(master)
-            load the visualisation frame of results
         """
 
         def changeOnTi(self, newValue:float):
@@ -96,9 +94,7 @@ class ResultTabView:
             pass
         def changeOnPf(self):
             pass
-        def obtainResults(self):
-            pass
-        def loadResultsVisualisation(self, master):
+        def obtainResults(self, load):
             pass
     
     
@@ -300,8 +296,14 @@ class ResultTabView:
     def onClickObtainResultsButton(self):
         """Handle clicks on obtainResultsButton
         """
-        if self.textObtainResultsButton.get() == "Obtain results":
-            self.textObtainResultsButton.set("Reload results")
-            self.listener.loadResultsVisualisation(self.master)
-            self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 650), max(self.root.winfo_height(), 800)))
-        self.listener.obtainResults()
+        txt = self.textObtainResultsButton.get()
+        self.listener.obtainResults(txt == "Obtain results")
+
+
+    def ObtainResultsChange(self):
+        self.textObtainResultsButton.set("Reload results")
+        self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 650), max(self.root.winfo_height(), 800)))
+
+    
+    def getMaster(self):
+        return self.master

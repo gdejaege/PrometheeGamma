@@ -3,6 +3,7 @@ from Controllers.DataTabControllers.DataTabController import DataTabController
 from Controllers.ResultTabControllers.ResultTabController import ResultTabController
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
+import tkinter.messagebox
 
 class AppController(ResultTabController.Listener, HelpForParametersTabController.Listener):
     """
@@ -110,6 +111,15 @@ class AppController(ResultTabController.Listener, HelpForParametersTabController
         self.helpForParametersTabController = HelpForParametersTabController(master, dataTabModel, self.prometheeGamma)
         self.helpForParametersTabController.setListener(self)
         self.helpForParametersTabController.showView()
+
+
+    def obtainResults(self, load):
+        if self.dataTabController.voidModel():
+            tkinter.messagebox.showerror(title="No data", message="No data available. Impossible to obtain results. Please fill in the data tab")
+        else:
+            if load:
+                self.resultTabController.loadResultsVisualisation()
+            self.computeResults()
 
 
     def computeResults(self) -> None:

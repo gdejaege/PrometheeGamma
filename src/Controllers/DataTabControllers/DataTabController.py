@@ -45,6 +45,8 @@ class DataTabController(DataTabView.ViewListener):
         clear the data table
     getModel()
         return the current dataTabModel
+    voidModel()
+        test if model has no alternative or no criterion
     """
 
     def __init__(self, master) -> None:
@@ -237,3 +239,12 @@ class DataTabController(DataTabView.ViewListener):
         dataTabModel : DataTabModel
         """
         return self.dataTabModel
+    
+    def voidModel(self) -> bool:
+        """Test if model has no alternative or no criterion
+
+        Return
+        ------
+        True if no alternative or no criterion, False otherwise
+        """
+        return self.dataTabModel.isVoid()
