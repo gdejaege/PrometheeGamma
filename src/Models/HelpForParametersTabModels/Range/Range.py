@@ -1,3 +1,4 @@
+import numpy
 
 class Range:
     """
@@ -75,10 +76,10 @@ class Range:
         min : float | Range
             lowest value in the range or a range
         """
-        if type(self.min) is float:
-            return self.min
-        else:
+        if isinstance(self.min, Range):
             return self.min.getValMin()
+        else:
+            return self.min
     
 
     def getValMax(self):
@@ -91,10 +92,10 @@ class Range:
         max : float | Range
             highest value in the range or a range
         """
-        if type(self.max) is float:
-            return self.max
-        else:
+        if isinstance(self.max, Range):
             return self.max.getValMax()
+        else:
+            return self.max
     
 
     def setMin(self, val):

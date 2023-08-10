@@ -52,15 +52,16 @@ class UnitRow:
         self.nameEntry = CTkEntry(master=self.master, textvariable=alternative.getName())
         self.valueEntries = []
         for i in range(alternative.getSize()):
-            self.valueEntries.append(CTkEntry(master=self.master, textvariable=alternative.getEvaluation(i)))
+            self.valueEntries.append(CTkEntry(master=self.master, textvariable=alternative.getEvaluation(i), width=120))
 
     
     def show(self):
         """Show the row
         """
         self.nameEntry.place(x=self.x, y=self.y)
+        self.x += 20
         for i in range(self.alternative.getSize()):
-            self.x += 141
+            self.x += 120
             self.valueEntries[i].place(x=self.x, y=self.y)
 
     
@@ -72,8 +73,8 @@ class UnitRow:
         value : DoubleVar
             The value to add in the last column
         """
-        self.valueEntries.append(CTkEntry(master=self.master, textvariable=value))
-        self.x += 141
+        self.valueEntries.append(CTkEntry(master=self.master, textvariable=value, width=120))
+        self.x += 120
         self.valueEntries[-1].place(x=self.x, y=self.y)
 
 
@@ -90,4 +91,4 @@ class UnitRow:
         """
         self.valueEntries[-1].destroy()
         self.valueEntries.pop()
-        self.x -= 141
+        self.x -= 120

@@ -48,12 +48,12 @@ class CriterionColumn:
         """
         self.master = master
         self.pfType = criterion.getPf()
-        self.nameEntry = CTkEntry(master=master, textvariable=criterion.getName())
-        self.weightEntry = CTkEntry(master=master, textvariable=criterion.getWeight())
+        self.nameEntry = CTkEntry(master=master, textvariable=criterion.getName(), width=120)
+        self.weightEntry = CTkEntry(master=master, textvariable=criterion.getWeight(), width=120)
         self.typePfTextButton = StringVar(master=master, value=TYPEDICT[self.pfType.get()])
-        self.typePfButton = CTkButton(master=master, textvariable=self.typePfTextButton, command=self.buttonTypeEvent)
-        self.pcEntry = CTkEntry(master=master, textvariable=criterion.getP())
-        self.qcEntry = CTkEntry(master=master, textvariable=criterion.getQ())
+        self.typePfButton = CTkButton(master=master, textvariable=self.typePfTextButton, width=120, command=self.buttonTypeEvent)
+        self.pcEntry = CTkEntry(master=master, textvariable=criterion.getP(), width=120)
+        self.qcEntry = CTkEntry(master=master, textvariable=criterion.getQ(), width=120)
         self.pfw = None
 
 
