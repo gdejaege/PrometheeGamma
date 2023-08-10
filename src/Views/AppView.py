@@ -58,5 +58,9 @@ class AppView(CTk):
             the 3 tabs of the app
         """
         return (self.dataTab, self.resultTab, self.helpForParametersTab)
+    
+
+    def setTab(self, name:str):
+        self.tabview.set(name)
 
 

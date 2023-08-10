@@ -212,9 +212,5 @@ class AppController(ResultTabController.Listener, HelpForParametersTabController
         results : tuple[float, float, float]
             results = (I, J, P), the values of the 3 parameters of PROMETHEE Gamma method
         """
-        (i, j, p) = results
-        resultTabModel = self.resultTabController.getModel()
-        resultTabModel.setTi(i)
-        resultTabModel.setTj(j)
-        resultTabModel.setPf(p)
-        self.resultTabController.refresh()
+        self.resultTabController.applyResults(results)
+        self.appView.setTab("Results")

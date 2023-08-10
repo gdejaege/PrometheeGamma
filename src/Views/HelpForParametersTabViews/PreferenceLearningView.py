@@ -226,6 +226,12 @@ class PreferenceLearningView:
             results = (Imin, Imax, Jmin, Jmax, Pmin, Pmax) ; these are the resulting values of preference learning algorithm
         """
         (Imin, Imax, Jmin, Jmax, Pmin, Pmax) = results
+        Imin = round(Imin,2)
+        Imax = round(Imax,2)
+        Jmin = round(Jmin,2)
+        Jmax = round(Jmax,2)
+        Pmin = round(Pmin,2)
+        Pmax = round(Pmax,2)
         if Imin == Imax:
             Itext = "I = " + str(Imin)
         else:

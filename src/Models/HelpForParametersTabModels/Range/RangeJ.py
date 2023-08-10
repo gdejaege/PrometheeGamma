@@ -46,8 +46,8 @@ class RangeJ(Range):
         self.y = y
         self.Pmin = Pmin
         self.Pmax = Pmax
-        valMin = self.x - self.y/self.Pmin
-        valMax = self.x - self.y/self.Pmax
+        valMin = max(0.0,min(self.x - self.y/self.Pmin,1.0))
+        valMax = max(0.0,min(self.x - self.y/self.Pmax,1.0))
         super().__init__(valMin, valMax)
 
 

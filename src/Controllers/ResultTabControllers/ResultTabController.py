@@ -162,6 +162,14 @@ class ResultTabController(ResultTabView.ViewListener):
         """
         self.listener.obtainResults(load)
 
+
+    def applyResults(self, results):
+        (i, j, p) = results
+        self.resultTabModel.setTi(i)
+        self.resultTabModel.setTj(j)
+        self.resultTabModel.setPf(p)
+        self.refresh()
+
     
     def getModel(self) -> ResultTabModel:
         """Return the current ResultTabModel

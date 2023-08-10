@@ -348,12 +348,45 @@ class SearchState:
 
     def resolveConstraints(self, s:bool):
         """
-        Constaint : J >= I
+        Constaints: J >= I ; 0 <= J <= 1 ; 0 <= I <= 1 ; 1 <= P <= INFINITY
 
         <=> [Jmin, Jmax] >= [Imin, Imax]
 
         <=> Jmin >= Imin and Jmax >= Imax
         """
+        parameters = (self.Imin, self.Imax, self.Jmin, self.Jmax)
+        for param in parameters:
+            if param < 0:
+                param = 0.0
+            if param > 1:
+                param = 1.0
+        if self.Pmin < 1:
+            self.Pmin = 1.0
+        if self.Pmax < 1:
+            self.Pmax = 1.0
+
+        if self.Imin > self.Imax:
+            if s:
+                self.resolveConflict()
+                s = False
+            else:
+                self.Imin = (self.Imin + self.Imax)/2
+                self.Imax = self.Imin
+        if self.Jmin > self.Jmax:
+            if s:
+                self.resolveConflict()
+                s = False
+            else:
+                self.Jmin = (self.Jmin + self.Jmax)/2
+                self.Jmax = self.Jmin
+        if self.Pmin > self.Pmax:
+            if s:
+                self.resolveConflict()
+                s = False
+            else:
+                self.Pmin = (self.Pmin + self.Pmax)/2
+                self.Pmax = self.Pmin
+        
         if self.Jmin >= self.Imin and self.Jmax >= self.Imax:
             # There is nothing to do
             return
@@ -361,8 +394,8 @@ class SearchState:
             if s:
                 self.resolveConflict()
             else:
-                # TODO
-                print("ERROR")
+                # another method than the average?
+                # print("Jmax < Imin")
                 self.Jmax = (self.Jmax + self.Imin)/2
                 self.Imin = self.Jmax
         elif self.Jmin < self.Imin and self.Jmax >= self.Imax:

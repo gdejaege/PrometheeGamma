@@ -49,7 +49,7 @@ class PreferenceLearning:
     
 
     def selectNextQuestion(self):
-        # TODO question choisie non aléatoirement
+        # TODO ? question choisie non aléatoirement
 
         while True:
             a1 = random.choice(self.alternatives)
@@ -86,10 +86,7 @@ class PreferenceLearning:
         a2 = self.alternatives.index(a2_t)
         preference = pref.get()
         if preference == 2:
-            temp = a1
-            a1 = a2
-            a2 = temp
-            preference = 1
+            preference = 1 # Because of abs, max and min, it's all the same
         matrixGamma = self.prometheeGamma.getMatrixGamma()
         Pmin = 1
         Pmax = 100

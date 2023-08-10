@@ -47,8 +47,8 @@ class RangeI(Range):
         self.y = y
         self.Pmax = Pmax
         self.Pmin = Pmin
-        valMin = min(self.x + self.y/self.Pmax, 1.0)
-        valMax = min(self.x + self.y/self.Pmin, 1.0)
+        valMin = max(0.0,min(self.x + self.y/self.Pmax, 1.0))
+        valMax = max(0.0,min(self.x + self.y/self.Pmin, 1.0))
         super().__init__(valMin, valMax)
 
 
