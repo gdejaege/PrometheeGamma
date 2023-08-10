@@ -52,6 +52,13 @@ class RangeI(Range):
         super().__init__(valMin, valMax)
 
 
+    def getX(self):
+        return self.x
+    
+    def getY(self):
+        return self.y
+
+
     def getValForP(self, P:float) -> float:
         """Return the indifference threshold value for the value P of preference parameter
         

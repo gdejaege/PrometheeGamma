@@ -50,9 +50,12 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
 
     def confirm(self):
-        self.preferenceLearningView.showApplyCancel()
-        self.results = self.preferenceLearning.getResults()
-        self.preferenceLearningView.showResults(self.results)
+        if self.questions[-1][2].get() == 5:
+            tkinter.messagebox.showerror(title="No answer", message="Please select an answer")
+        else:
+            self.preferenceLearningView.showApplyCancel()
+            self.results = self.preferenceLearning.getResults()
+            self.preferenceLearningView.showResults(self.results)
 
 
     def apply(self):
@@ -88,12 +91,15 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
 
     def next(self):
-        self.results = self.preferenceLearning.getResults()
-        self.preferenceLearningView.showResults(self.results)
-        question = self.preferenceLearning.selectNextQuestion()
-        self.questions.append(question)
-        self.preferenceLearningView.showNextQuestion(question, self.dataTabModel.getCriteriaNames())
-        self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
+        if self.questions[-1][2].get() == 5:
+            tkinter.messagebox.showerror(title="No answer", message="Please select an answer")
+        else:
+            self.results = self.preferenceLearning.getResults()
+            self.preferenceLearningView.showResults(self.results)
+            question = self.preferenceLearning.selectNextQuestion()
+            self.questions.append(question)
+            self.preferenceLearningView.showNextQuestion(question, self.dataTabModel.getCriteriaNames())
+            self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
 
 
     def selectFirstQuestion(self):
@@ -133,6 +139,8 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
     def recomputeResults(self):
         self.preferenceLearning.itSearch(True)
+        results = self.preferenceLearning.getResults()
+        self.preferenceLearningView.showResults(results)
 
 
     def cancel(self):

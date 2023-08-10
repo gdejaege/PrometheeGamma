@@ -61,6 +61,13 @@ class RangeJ(Range):
         """
         return self.x - self.y/P
     
+    def getX(self):
+        return self.x
+    
+
+    def getY(self):
+        return self.y
+
 
     def setX(self, value:float):
         """Set the value of x

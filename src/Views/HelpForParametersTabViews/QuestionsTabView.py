@@ -133,6 +133,7 @@ class QuestionsTabView(CTkTabview):
         r2 = CTkRadioButton(master=master, text=nameA1 + " J " + nameA2, text_color="#000000", command=self.radioButtonEvent, variable=value, value=-1)
         r3 = CTkRadioButton(master=master, text=nameA1 + " P " + nameA2, text_color="#000000", command=self.radioButtonEvent, variable=value, value=1)
         r4 = CTkRadioButton(master=master, text=nameA2 + " P " + nameA1, text_color="#000000", command=self.radioButtonEvent, variable=value, value=2)
+        #r5 = CTkRadioButton(master=master, text="No answer", text_color="#000000", command=self.radioButtonEvent, variable=value, value=5)
 
         self.placeQCM((r1, r2, r3, r4), columnspan)
 

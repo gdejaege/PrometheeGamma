@@ -4,7 +4,7 @@ from Models.HelpForParametersTabModels.Range.Range import Range
 from Models.HelpForParametersTabModels.Range.RangeI import RangeI
 from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
 import random
-from Models.HelpForParametersTabModels.Search.Search import Search
+from Models.HelpForParametersTabModels.Search.SearchState import SearchState
 
 class PreferenceLearning:
     def __init__(self, master, prometheeGamma:PrometheeGamma) -> None:
@@ -26,7 +26,7 @@ class PreferenceLearning:
         [(a1, a2), (a1, a2), ... ]
         """
         self.listofPossibleThresholds = []
-        self.search = Search()
+        self.search = SearchState()
 
     
     def setAlternatives(self, alternatives:list):
@@ -42,7 +42,7 @@ class PreferenceLearning:
             if a1 != a2:
                 self.listOfPairs.append((a1, a2))
                 break
-        question = (a1, a2, IntVar(master=self.master, value=0))
+        question = (a1, a2, IntVar(master=self.master, value=5))
         self.questions.append(question)
         self.itSearch(True)
         return question
@@ -57,7 +57,7 @@ class PreferenceLearning:
             if a1 != a2 and ((a1, a2) not in self.listOfPairs) and ((a2, a1) not in self.listOfPairs):
                 self.listOfPairs.append((a1, a2))
                 break
-        question = (a1, a2, IntVar(master=self.master, value=0))
+        question = (a1, a2, IntVar(master=self.master, value=5))
         self.questions.append(question)
         self.itSearch(False)
         return question
@@ -65,17 +65,19 @@ class PreferenceLearning:
 
     def itSearch(self, rst:bool) -> None:
         if rst:
-            self.search.reset()
+            self.search = SearchState()
             for q in self.questions:
                 (rI, rJ, p) = self.computeRangeOfThresholdsForOneQuestion(q)
-                self.search.iterativeSearch(rI, rJ, p)
+                self.search.addPair(rI, rJ, p)
+                self.search.update()
         else:
             (rI, rJ, p) = self.computeRangeOfThresholdsForOneQuestion(self.questions[-1])
-            self.search.iterativeSearch(rI, rJ, p)
+            self.search.addPair(rI, rJ, p)
+            self.search.update()
     
 
     def getResults(self):
-        return self.search.getResults()
+        return self.search.getState()
     
 
     def computeRangeOfThresholdsForOneQuestion(self, question:tuple):
