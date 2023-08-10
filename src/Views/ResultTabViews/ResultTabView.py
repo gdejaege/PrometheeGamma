@@ -1,5 +1,8 @@
+from sys import maxsize
 from customtkinter import (CTkLabel, DoubleVar, CTkEntry, CTkSlider, StringVar, CTkButton)
 from Resources.ScrollableFrame import ScrollableFrame
+
+INFINITY = maxsize
 
 class ResultTabView:
     """
@@ -129,11 +132,11 @@ class ResultTabView:
         self.PfLabel = CTkLabel(master=self.master, text="Global preference factor (Pf):", text_color="#000000", justify="left", padx=10, pady=10)
         
         #Entries
-        self.TiEntry = CTkEntry(master=self.master, textvariable=self.Ti, width=50)
+        self.TiEntry = CTkEntry(master=self.master, textvariable=self.Ti, width=150)
         self.TiEntry.bind("<Return>", command=self.commandTiEntry)
-        self.TjEntry = CTkEntry(master=self.master, textvariable=self.Tj, width=50)
+        self.TjEntry = CTkEntry(master=self.master, textvariable=self.Tj, width=150)
         self.TjEntry.bind("<Return>", command=self.commandTjEntry)
-        self.PfEntry = CTkEntry(master=self.master, textvariable=self.Pf, width=50)
+        self.PfEntry = CTkEntry(master=self.master, textvariable=self.Pf, width=150)
         self.PfEntry.bind("<Return>", command=self.commandPfEntry)
         
         # Sliders
@@ -141,7 +144,7 @@ class ResultTabView:
         self.TiSlider.set(output_value=self.Ti.get() ,from_variable_callback=True)
         self.TjSlider = CTkSlider(master=self.master, from_=0, to=1, number_of_steps=100, command=self.commandTjSlider)
         self.TjSlider.set(output_value=self.Tj.get() ,from_variable_callback=True)
-        self.PfSlider = CTkSlider(master=self.master, from_=1, to=100, number_of_steps=1000, command=self.commandPfSlider)
+        self.PfSlider = CTkSlider(master=self.master, from_=1, to=100.01, number_of_steps=991, command=self.commandPfSlider)
         self.PfSlider.set(output_value=self.Pf.get() ,from_variable_callback=True)
 
         # Button
@@ -171,12 +174,12 @@ class ResultTabView:
         self.TjEntry.place(x=250, y=40)
         self.PfEntry.place(x=250, y=70)
 
-        self.TiSlider.place(x=310, y=15)
-        self.TjSlider.place(x=310, y=45)
-        self.PfSlider.place(x=310, y=75)
+        self.TiSlider.place(x=410, y=15)
+        self.TjSlider.place(x=410, y=45)
+        self.PfSlider.place(x=410, y=75)
 
         self.ObtainResultsButton.place(relx=0.5, y=120, anchor="center")
-        self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 650), max(self.root.winfo_height(), 200)))
+        self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 700), max(self.root.winfo_height(), 200)))
 
 
     def refresh(self):
@@ -226,9 +229,11 @@ class ResultTabView:
             an entry event
         """
         val = self.Pf.get()
-        val = round(min(100.0, max(1.0, val)), 2)
+        val = round(min(INFINITY,max(1.0, val)), 2)
         self.Pf.set(val)
-        self.PfSlider.set(output_value=val, from_variable_callback=True)
+        if val > 100:
+            val = 100.01
+        self.PfSlider.set(output_value=100.01, from_variable_callback=True)
         self.listener.changeOnPf()
 
 
@@ -266,7 +271,9 @@ class ResultTabView:
         event : Event
             a slider event
         """
-        val = round(newVal, 2)
+        val = max(1.0,round(newVal, 2))
+        if val > 100:
+            val = INFINITY
         self.Pf.set(val)
         self.listener.changeOnPf()
 

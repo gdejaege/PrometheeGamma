@@ -1,8 +1,9 @@
+from sys import maxsize
 from math import sqrt
 from Models.HelpForParametersTabModels.Range.RangeI import RangeI
 from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
 
-INFINITY = 1000000000
+INFINITY = maxsize
 
 
 class SearchState:
