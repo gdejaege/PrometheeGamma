@@ -228,8 +228,8 @@ class RankView:
             for k in range(len(r[i])):
                 if self.alternatives[r[i][k]].get():
                     x -= SPACE//2
-            if x < self.xmin:
-                self.xmin = x
+            if (x-30) < self.xmin:
+                self.xmin = x - 30
             rowLength = 0
             row = []
             for j in range(len(r[i])):
@@ -239,8 +239,8 @@ class RankView:
                     self.construction[r[i][j]] = a
                     row.append(a)
                     rowLength += 1
-                    if self.xmax < xlength:
-                        self.xmax = xlength
+                    if self.xmax < xlength+30:
+                        self.xmax = xlength+30
             if rowLength > 0:
                 columnLength += 1
                 self.graph.append(row)
