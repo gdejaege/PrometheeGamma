@@ -66,6 +66,7 @@ class QuestionsTabView(CTkTabview):
         self.nb += 1
         name = "Question " + str(self.nb)
         self.add(name)
+        self.tab(name).grid_columnconfigure(0, weight=1)
         self.masterList.append(self.tab(name))
         self.set(name)
 
