@@ -47,6 +47,8 @@ class DataTabModel:
         delete the evaluation at position indexEval from the alternative at position indexAlt in the model
     getAlternativesName()
         return the list of alternative names
+    getCriteriaNames()
+        return the list of criteria names
     computeCriterionDependentValues()
         add evaluation of units in the column of each criterion and compute the pi_c_matrix and the phi_c_list for each criterion
     getGamma_ij_Criteria_k(i:int, j:int, criterion:int)
@@ -314,6 +316,20 @@ class DataTabModel:
         """
         names = []
         for a in self.alternatives:
+            names.append(a.getName_str())
+        return names
+    
+
+    def getCriteriaNames(self) -> list:
+        """Return the list of criteria names
+
+        Return
+        ------
+        names : list
+            the list of criteria names
+        """
+        names = []
+        for a in self.criteria:
             names.append(a.getName_str())
         return names
 

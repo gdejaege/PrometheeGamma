@@ -157,7 +157,7 @@ class PreferenceLearningView:
         self.quitButton.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(10,0), sticky="n")
 
     
-    def showNextQuestion(self, question:tuple) -> None:
+    def showNextQuestion(self, question:tuple, criteriaNames:list) -> None:
         """Show the next question of preference learning algorithm
 
         Parameters
@@ -166,7 +166,7 @@ class PreferenceLearningView:
             the "question", i.e. the two alternatives that will be compared and the value of preference (in the IntVar): 
             0 for indifference ; 1 for preference ; -1 for incomparability
         """
-        self.questionsTabView.addQuestion(question)
+        self.questionsTabView.addQuestion(question, criteriaNames)
 
 
     def next(self):

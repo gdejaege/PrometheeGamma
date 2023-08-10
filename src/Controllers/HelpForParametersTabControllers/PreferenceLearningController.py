@@ -92,7 +92,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         self.preferenceLearningView.showResults(self.results)
         question = self.preferenceLearning.selectNextQuestion()
         self.questions.append(question)
-        self.preferenceLearningView.showNextQuestion(question)
+        self.preferenceLearningView.showNextQuestion(question, self.dataTabModel.getCriteriaNames())
         self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
 
 
@@ -112,7 +112,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
             self.preferenceLearning.setAlternatives(alter)
             question = self.preferenceLearning.selectFirstQuestion()
             self.questions.append(question)
-            self.preferenceLearningView.showNextQuestion(question)
+            self.preferenceLearningView.showNextQuestion(question, self.dataTabModel.getCriteriaNames())
             self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
 
 

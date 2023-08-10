@@ -71,7 +71,7 @@ class QuestionsTabView(CTkTabview):
         self.set(name)
 
 
-    def addQuestion(self, question):
+    def addQuestion(self, question:tuple, criteriaNames:list):
         """Add a question
 
         Parameters
@@ -81,45 +81,41 @@ class QuestionsTabView(CTkTabview):
             0 for indifference ; 1 for preference ; -1 for incomparability
         """
         self.addTab()
-        self.row = 0
-        l0 = self.alternativeInLabel(self.masterList[-1], question[0])
-        l1 = self.alternativeInLabel(self.masterList[-1], question[1])
-        self.placeQuestionLabel(l0, l1)
-        self.qcm(self.masterList[-1], question[0].getName_str(), question[1].getName_str(), question[2])
-
-
-    def alternativeInLabel(self, master, a:Alternative) -> CTkLabel:
-        """Create a label for the alternative
-
-        master : CTkFrame
-            the tab where place the new label
-        a : Alternative
-            the alternative
-        """
-        textLabel = a.getName_str() + ":"
-        for i in range(a.getSize()):
-            textLabel += "   " + str(a.getEvaluation_float(i))
-        return CTkLabel(master=master, text_color="#000000", text=textLabel)
+        nbcolumns = len(criteriaNames) + 1
+        for i in range(nbcolumns):
+            self.masterList[-1].grid_columnconfigure(i, weight=1)
+        self.questionName(self.masterList[-1], question[0], question[1], criteriaNames)
+        self.row = 3
+        self.qcm(self.masterList[-1], question[0].getName_str(), question[1].getName_str(), question[2], columnspan=nbcolumns)
     
 
-    def placeQuestionLabel(self, l0:CTkLabel, l1:CTkLabel):
-        """Place questions labels in the tab (with grid)
+    def questionName(self, master, a1:Alternative, a2:Alternative, criteriaNames:list):
+        la1 = CTkLabel(master=master, text_color="#000000", text=a1.getName_str())
+        la1.grid(row=1, column=0, sticky="n", pady=(0,0), padx=20)
+        la2 = CTkLabel(master=master, text_color="#000000", text=a2.getName_str())
+        la2.grid(row=2, column=0, sticky="n", pady=(0,0), padx=20)
+        
+        #labels = [[0],[la1],[la2]]
+        column = 1
+        for i in range(len(criteriaNames)):
+            l0 = CTkLabel(master=master, text_color="#000000", text=criteriaNames[i])
+            l0.grid(row=0, column=column, sticky="n", pady=(20,0), padx=10)
+            #labels[0].append(l0)
 
-        Parameters
-        ----------
-        l0 : CTkLabel
-            the first label to place
-        l1 : CTkLabel
-            the second label to place
-        """
-        l0.grid(row=self.row, column=0, padx=10, pady=(20, 0), sticky="n")
-        self.row +=1
-        l1.grid(row=self.row, column=0, padx=10, pady=(0, 0), sticky="n")
-        self.row +=1
-        #self.questionLabels.append((l0, l1))
+            l1 = CTkLabel(master=master, text_color="#000000", text=str(a1.getEvaluation_float(i)))
+            l1.grid(row=1, column=column, sticky="n", pady=(0,0), padx=10)
+            #labels[1].append(l1)
+            
+            l2 = CTkLabel(master=master, text_color="#000000", text=str(a2.getEvaluation_float(i)))
+            l2.grid(row=2, column=column, sticky="n", pady=(0,0), padx=10)
+            #labels[2].append(l2)
+
+            column += 1
+
+        #return labels
 
 
-    def qcm(self, master, nameA1:str, nameA2:str, value:IntVar) -> None:
+    def qcm(self, master, nameA1:str, nameA2:str, value:IntVar, columnspan:int) -> None:
         """Create a qcm with radioButton
 
         Parameters
@@ -138,14 +134,14 @@ class QuestionsTabView(CTkTabview):
         r3 = CTkRadioButton(master=master, text=nameA1 + " P " + nameA2, text_color="#000000", command=self.radioButtonEvent, variable=value, value=1)
         r4 = CTkRadioButton(master=master, text=nameA2 + " P " + nameA1, text_color="#000000", command=self.radioButtonEvent, variable=value, value=2)
 
-        self.placeQCM((r1, r2, r3, r4))
+        self.placeQCM((r1, r2, r3, r4), columnspan)
 
 
-    def placeQCM(self, qcm):
+    def placeQCM(self, qcm, columnspan):
         """Place qcm in the tab (with grid)
         """
         for q in qcm:
-            q.grid(row=self.row, column=0, padx=50, pady=(5, 0), sticky="n")
+            q.grid(row=self.row, column=0, columnspan=columnspan, padx=50, pady=(5, 0), sticky="n")
             self.row +=1
         #self.questionsQCM.append(qcm)
 
