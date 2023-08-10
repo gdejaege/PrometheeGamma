@@ -82,9 +82,11 @@ class PreferenceLearningView:
             Recompute the results
         cancel()
             Control the reaction of the app after a click on the cancel button
+        quit()
+            Control the reaction of the app after a click on the quit button
         """
 
-        def showQuestions(self):
+        def generate(self):
             pass
         def confirm(self):
             pass
@@ -92,9 +94,11 @@ class PreferenceLearningView:
             pass
         def next(self):
             pass
-        def recomputeResults(self):
+        def updateInQCM(self):
             pass
         def cancel(self):
+            pass
+        def quit(self):
             pass
 
 
@@ -109,7 +113,7 @@ class PreferenceLearningView:
         self.questionsTabView = None
         explanation = "In order to help determine the 3 parameters introduced by the PROMETHEE Gamma method, it is necessary to know your opinion on a small number of pairwise comparisons between alternatives. Please answer the questions below."
         self.explanationLabel = CTkLabel(master=self.master, text=explanation, text_color="#000000", wraplength=580)
-        self.generateButton = CTkButton(master=self.master, text="Generate questions", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.generateQuestions)
+        self.generateButton = CTkButton(master=self.master, text="Generate questions", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.generate)
         self.confirmButton = CTkButton(master=self.master, text="Confirm", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.confirm)
         self.nextButton = CTkButton(master=self.master, text="Next", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.next)
         self.Ilabel = CTkLabel(master=self.master, text="I = 0 - 1", text_color="#000000")
@@ -117,9 +121,10 @@ class PreferenceLearningView:
         self.Plabel = CTkLabel(master=self.master, text="P = 1 - infinity", text_color="#000000")
         self.applyButton = CTkButton(master=self.master, text="Use results in result tab", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.apply)
         self.cancelButton = CTkButton(master=self.master, text="Cancel", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.cancel)
+        self.quitButton = CTkButton(master=self.master, text="Quit", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.quit)
         self.row = 0
         self.endCtrl = False
-        self.nextButtonPlace = False
+        self.nextButtonPlaced = False
         self.listener = None
 
 
@@ -137,20 +142,22 @@ class PreferenceLearningView:
     def show(self):
         """Show the preference learning components
         """
-        self.explanationLabel.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
+        self.master.grid_columnconfigure(0, weight=1)
+        self.master.grid_columnconfigure(1, weight=1)
+        self.explanationLabel.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
-        self.generateButton.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
+        self.generateButton.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
-        self.Ilabel.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
+        self.Ilabel.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(10, 0), sticky="n")
         self.row +=1
-        self.Jlabel.grid(row=self.row, column=0, padx=10, pady=(1, 0), sticky="n")
+        self.Jlabel.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(1, 0), sticky="n")
         self.row +=1
-        self.Plabel.grid(row=self.row, column=0, padx=10, pady=(1, 0), sticky="n")
+        self.Plabel.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(1, 0), sticky="n")
         self.row +=1
-        self.cancelButton.grid(row=self.row, column=0, padx=10, pady=(10,0), sticky="n")
+        self.quitButton.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(10,0), sticky="n")
 
     
-    def showNextQuestion(self, question:tuple, end:bool) -> None:
+    def showNextQuestion(self, question:tuple) -> None:
         """Show the next question of preference learning algorithm
 
         Parameters
@@ -158,38 +165,19 @@ class PreferenceLearningView:
         question : Tuple(Alternative, Alternative, IntVar)
             the "question", i.e. the two alternatives that will be compared and the value of preference (in the IntVar): 
             0 for indifference ; 1 for preference ; -1 for incomparability
-        end : bool
-            a boolean to indicate last question (True if it is the last question, False otherwise)
         """
         self.questionsTabView.addQuestion(question)
-        if not end:
-            self.nextButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
-            self.row += 1
-            self.nextButtonPlace = True
-        self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
-        self.row += 1
-        self.cancelButton.grid_configure(row=self.row)
 
 
     def next(self):
         """Handle click on nextButton
         """
-        self.nextButton.grid_forget()
-        self.row -= 1
         self.listener.next()
 
 
     def confirm(self):
         """Handle click on confirmButton
         """
-        if self.nextButtonPlace:
-            self.nextButton.grid_forget()
-            self.row -= 1
-        self.endCtrl = True
-        self.confirmButton.grid_forget()
-        self.row -= 1
-        self.applyButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
-        self.row += 1
         self.listener.confirm()
 
 
@@ -210,24 +198,23 @@ class PreferenceLearningView:
         self.Plabel.update()
         
 
-    def generateQuestions(self):
+    def generate(self):
         """Reset algorithm and (re)start it
         """
-        if self.endCtrl:
-            self.applyButton.grid_forget()
-            self.row -= 1
-            self.endCtrl = False
+        self.listener.generate()
+
+
+    def createQuestionsTab(self):
         if self.questionsTabView != None:
-            self.questionsTabView.grid_forget()
-            self.resetResults()
-            self.row = 5
+            infos = self.questionsTabView.grid_info()
+            row = infos["row"]
             self.questionsTabView.destroy()
+        else:
+            row = self.row
+            self.row += 2
         self.questionsTabView = QuestionsTabView(master=self.master, fg_color="#ffffff")
         self.questionsTabView.setListener(self)
-        self.confirmButton.grid_forget()
-        self.questionsTabView.grid(row=self.row, column=0, padx=10, pady=(10, 0), sticky="n")
-        self.row +=1
-        self.listener.showQuestions()
+        self.questionsTabView.grid(row=row, column=0, columnspan=2, padx=10, pady=(10, 0), sticky="n")
 
 
     def showResults(self, results:tuple):
@@ -269,12 +256,31 @@ class PreferenceLearningView:
     def updateInQCM(self):
         """Handle event in questions
         """
-        self.listener.recomputeResults()
-        if self.endCtrl:
-            self.applyButton.grid_forget()
-            self.row -= 1
-            self.confirmButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="n")
-            self.row += 1
+        self.listener.updateInQCM()
+
+
+    def showNextConfirm(self, end:bool):
+        self.applyButton.grid_forget()
+        self.cancelButton.grid_forget()
+        self.row -= 1
+        if end:
+            self.nextButton.grid_forget()
+            self.confirmButton.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(15, 0), sticky="n")
+        else:
+            self.nextButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="e")
+            self.confirmButton.grid(row=self.row, column=1, padx=10, pady=(15, 0), sticky="w")
+        self.row += 1
+        self.quitButton.grid_configure(row=self.row)
+
+
+    def showApplyCancel(self):
+        self.nextButton.grid_forget()
+        self.confirmButton.grid_forget()
+        self.row -= 1
+        self.applyButton.grid(row=self.row, column=0, padx=10, pady=(15, 0), sticky="e")
+        self.cancelButton.grid(row=self.row, column=1, padx=10, pady=(15, 0), sticky="w")
+        self.row += 1
+        self.quitButton.grid_configure(row=self.row)
 
 
     def cancel(self):
@@ -283,11 +289,15 @@ class PreferenceLearningView:
         self.listener.cancel()
 
 
+    def quit(self):
+        """Handle click on quitButton
+        """
+        self.listener.quit()
+
+
     def resetView(self):
-        """Reset the view, i.e. forget all widget displayed and restart
+        """Reset the view, i.e. destroy all widget displayed
         """
         for w in self.master.winfo_children():
-            w.grid_forget()
-        self.row = 0
-        self.endCtrl = False
-        self.resetResults()
+            w.destroy()
+        self.master.grid_columnconfigure(1, weight=0)

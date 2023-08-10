@@ -50,6 +50,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
 
     def confirm(self):
+        self.preferenceLearningView.showApplyCancel()
         self.results = self.preferenceLearning.getResults()
         self.preferenceLearningView.showResults(self.results)
 
@@ -91,7 +92,8 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         self.preferenceLearningView.showResults(self.results)
         question = self.preferenceLearning.selectNextQuestion()
         self.questions.append(question)
-        self.preferenceLearningView.showNextQuestion(question, len(self.questions) >= self.maxNumberOfQuestions)
+        self.preferenceLearningView.showNextQuestion(question)
+        self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
 
 
     def selectFirstQuestion(self):
@@ -110,15 +112,23 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
             self.preferenceLearning.setAlternatives(alter)
             question = self.preferenceLearning.selectFirstQuestion()
             self.questions.append(question)
-            self.preferenceLearningView.showNextQuestion(question, len(self.questions) >= self.maxNumberOfQuestions)
+            self.preferenceLearningView.showNextQuestion(question)
+            self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
 
 
-    def showQuestions(self):
+    def generate(self):
         if self.prometheeGamma.isComputed():
+            self.preferenceLearningView.resetResults()
+            self.preferenceLearningView.createQuestionsTab()
             self.questions.clear()
             self.selectFirstQuestion()
         else:
             tkinter.messagebox.showerror(title="No results", message='The results of the promethee gamma method are required for the algorithm. Please click on the "Obtain results" button in the "result tab".')
+
+
+    def updateInQCM(self):
+        self.recomputeResults()
+        self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
 
 
     def recomputeResults(self):
@@ -126,5 +136,9 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
 
     def cancel(self):
+        self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
+
+
+    def quit(self):
         self.preferenceLearningView.resetView()
         self.listener.reset()

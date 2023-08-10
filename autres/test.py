@@ -20,5 +20,6 @@ def open_win():
 
 # Create a Button
 button = Button(win, text="Click Me", command=open_win, font=('Helvetica 14 bold'), foreground='OrangeRed3',background="white")
-button.pack(pady=50)
+button.grid(row=0, column=0, columnspan=1, padx=10, pady=10)
+print(button.grid_info())
 win.mainloop()
