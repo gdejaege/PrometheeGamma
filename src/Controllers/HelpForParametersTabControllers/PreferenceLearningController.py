@@ -7,11 +7,62 @@ from Models.PrometheeGamma import PrometheeGamma
 import tkinter.messagebox
 from math import comb
 
-MAX_NUMBER_OF_QUESTIONS = 10
+MAX_NUMBER_OF_QUESTIONS = 10 # The maximum number of questions that can be asked of the user
 
 class PreferenceLearningController(PreferenceLearningView.ViewListener):
+    """
+    A class to control the preference learning algorithm
+
+    Attributes
+    ----------
+    dataTabModel : DataTabModel
+        the model that keep input data in memory
+    prometheeGamma : PrometheeGamma
+        the model for PROMETHEE Gamma method
+    preferenceLearningView : PreferenceLearningView
+        the preference learning view
+    questions : list
+        the list of questions asked of the user
+    listener : PreferenceLearningController.Listener
+        the listener of this class
+
+    Methods
+    -------
+    setListener(l:Listener)
+        set the listener
+    showView()
+        show the view
+    confirm()
+        confirm the answers to questions if all questions have an answer. Otherwise, show an error message to the user
+    apply()
+        format the results, i.e. reduce range to a single value and transmit them for use in the results tab
+    next()
+        show the next question if the current question has an answer. Otherwise show an error message to the user
+    selectFirstQuestion()
+        select the first question. If no question can be created, show an error message to the user
+    generate()
+        generate the questions. If it is not possible, show an error message to the user
+    updateInQCM()
+        update restults if a change occurs in answer
+    recomputeResults()
+        recompute the results and show them
+    cancel()
+        cancel confirmation
+    quit()
+        quit the preference learning view
+    """
 
     class Listener:
+        """
+        An interface for the listener of this class
+
+        Methods
+        -------
+        apply(results)
+            use the results obtained from preference learning in the result tab
+        reset()
+            reset the tab 
+        """
         def apply(self, results):
             pass
         def reset(self):
@@ -19,16 +70,24 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
 
     def __init__(self, master, dataTabModel:DataTabModel, prometheeGamma:PrometheeGamma) -> None:
-        self.master = master
-        self.preferenceLearningView = PreferenceLearningView(self.master)
-        self.preferenceLearningView.setListener(self)
+        """
+        Parameters
+        ----------
+        master : CTkFrame
+            the master frame
+        dataTabModel : DataTabModel
+            the model that keep input data in memory
+        prometheeGamma : PrometheeGamma
+            the model for PROMETHEE Gamma method
+        """
         self.dataTabModel = dataTabModel
         self.prometheeGamma = prometheeGamma
+        self.preferenceLearningView = PreferenceLearningView(master)
+        self.preferenceLearningView.setListener(self)
         self.preferenceLearning = PreferenceLearning(master, self.prometheeGamma)
         self.questions = []
-        self.results = None
         self.listener = None
-        self.maxNumberOfQuestions = MAX_NUMBER_OF_QUESTIONS
+        self.numberOfQuestions = MAX_NUMBER_OF_QUESTIONS
 
 
 
@@ -50,16 +109,20 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
 
     def confirm(self):
+        """Confirm the answers to questions if all questions have an answer. Otherwise, show an error message to the user
+        """
         if self.questions[-1][2].get() == 5:
             tkinter.messagebox.showerror(title="No answer", message="Please select an answer")
         else:
             self.preferenceLearningView.showApplyCancel()
-            self.results = self.preferenceLearning.getResults()
-            self.preferenceLearningView.showResults(self.results)
+            results = self.preferenceLearning.getResults()
+            self.preferenceLearningView.showResults(results)
 
 
     def apply(self):
-        (Imin, Imax, Jmin, Jmax, Pmin, Pmax) = self.results
+        """Format the results, i.e. reduce range to a single value and transmit them for use in the results tab
+        """
+        (Imin, Imax, Jmin, Jmax, Pmin, Pmax) = self.preferenceLearning.getResults()
         i = None
         j = None
         p = None
@@ -71,7 +134,6 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
             elif Imin <= Jmax:
                 i = Jmax
             else:
-                # error ?
                 i = Imin
         if Jmin == Jmax:
             j = Jmin
@@ -81,7 +143,6 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
             elif Jmax >= i:
                 j = i
             else:
-                # error ?
                 j = Jmax
         if Pmin == Pmax:
             p = Pmin
@@ -91,23 +152,27 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
 
     def next(self):
+        """Show the next question if the current question has an answer. Otherwise show an error message to the user
+        """
         if self.questions[-1][2].get() == 5:
             tkinter.messagebox.showerror(title="No answer", message="Please select an answer")
         else:
-            self.results = self.preferenceLearning.getResults()
-            self.preferenceLearningView.showResults(self.results)
+            results = self.preferenceLearning.getResults()
+            self.preferenceLearningView.showResults(results)
             question = self.preferenceLearning.selectNextQuestion()
             self.questions.append(question)
             self.preferenceLearningView.showNextQuestion(question, self.dataTabModel.getCriteriaNames())
-            self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
+            self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.numberOfQuestions)
 
 
     def selectFirstQuestion(self):
-        self.maxNumberOfQuestions = MAX_NUMBER_OF_QUESTIONS
+        """Select the first question. If no question can be created, show an error message to the user
+        """
+        self.numberOfQuestions = MAX_NUMBER_OF_QUESTIONS
         nbAlter = self.dataTabModel.getNumberOfAlternatives()
         maxQuestions = comb(nbAlter, 2)
-        if self.maxNumberOfQuestions > maxQuestions:
-            self.maxNumberOfQuestions = maxQuestions
+        if self.numberOfQuestions > maxQuestions:
+            self.numberOfQuestions = maxQuestions
         if nbAlter < 2:
             tkinter.messagebox.showerror(title="Not enought alternatives", message="There are not enough alternatives in the model to generate a question")
         else:
@@ -119,10 +184,12 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
             question = self.preferenceLearning.selectFirstQuestion()
             self.questions.append(question)
             self.preferenceLearningView.showNextQuestion(question, self.dataTabModel.getCriteriaNames())
-            self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
+            self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.numberOfQuestions)
 
 
     def generate(self):
+        """Generate the questions. If it is not possible, show an error message to the user
+        """
         if self.prometheeGamma.isComputed():
             self.preferenceLearningView.resetResults()
             self.preferenceLearningView.createQuestionsTab()
@@ -133,20 +200,28 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
 
     def updateInQCM(self):
+        """Update restults if a change occurs in answer
+        """
         self.recomputeResults()
-        self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
+        self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.numberOfQuestions)
 
 
     def recomputeResults(self):
+        """Recompute the results and show them
+        """
         self.preferenceLearning.itSearch(True)
         results = self.preferenceLearning.getResults()
         self.preferenceLearningView.showResults(results)
 
 
     def cancel(self):
-        self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.maxNumberOfQuestions)
+        """Cancel confirmation
+        """
+        self.preferenceLearningView.showNextConfirm(len(self.questions) >= self.numberOfQuestions)
 
 
     def quit(self):
+        """Quit the preference learning view
+        """
         self.preferenceLearningView.resetView()
         self.listener.reset()

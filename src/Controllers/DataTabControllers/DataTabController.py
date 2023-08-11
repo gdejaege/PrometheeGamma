@@ -47,6 +47,8 @@ class DataTabController(DataTabView.ViewListener):
         return the current dataTabModel
     voidModel()
         test if model has no alternative or no criterion
+    no2AlterInModel(self):
+        test if there is less than 2 alternatives in the model
     """
 
     def __init__(self, master) -> None:
@@ -241,6 +243,7 @@ class DataTabController(DataTabView.ViewListener):
         """
         return self.dataTabModel
     
+
     def voidModel(self) -> bool:
         """Test if model has no alternative or no criterion
 
@@ -251,5 +254,11 @@ class DataTabController(DataTabView.ViewListener):
         return self.dataTabModel.isVoid()
     
 
-    def twoAlterInModel(self):
+    def no2AlterInModel(self):
+        """Test if there is less than 2 alternatives in the model
+
+        Return
+        ------
+        True if there is less than 2 alternatives in the model, False otherwise
+        """
         return self.dataTabModel.twoAlter()

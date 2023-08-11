@@ -1,5 +1,5 @@
 #############################################################################
-### This class is designed to display an alternative way                  ###
+### This class is a skeleton designed to display an alternative way       ###
 ### of obtaining parameter values specific to the PROMETHEE Gamma method. ###
 ### Edit it as you wish.                                                  ###
 #############################################################################
@@ -16,8 +16,8 @@ class CustomView:
         the master frame
     listener : ViewListener
         the listener of this view
-    cancelButton : CTkButton
-        the cancel button, to quit the custom module
+    quitButton : CTkButton
+        the quit button, to quit the custom module
 
     Methods
     -------
@@ -25,6 +25,8 @@ class CustomView:
         set the listener
     show(self):
         show the custom components
+    quit(self):
+        handle click on quitButton
     """
 
     class ViewListener:
@@ -55,7 +57,7 @@ class CustomView:
 
         # You can write code here to create all component that you need to display on the tab
 
-        self.cancelButton = CTkButton(master=self.master, text="Cancel", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.cancel)
+        self.quitButton = CTkButton(master=self.master, text="Quit", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.quit)
 
 
     def setListener(self, l:ViewListener):
@@ -75,11 +77,11 @@ class CustomView:
         
         # You can write code here to display all component that you created
 
-        self.cancelButton.grid(row=10, column=0, padx=10, pady=(10,0), sticky="n")
+        self.quitButton.grid(row=10, column=0, padx=10, pady=(10,0), sticky="n")
 
 
-    def cancel(self):
-        """Handle click on cancelButton
+    def quit(self):
+        """Handle click on quitButton
         """
         self.listener.reset()
 

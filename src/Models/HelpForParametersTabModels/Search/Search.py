@@ -4,10 +4,87 @@ from Models.HelpForParametersTabModels.Range.RangeI import RangeI
 from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
 
 INFINITY = maxsize
+"""The infinity (in the computer meaning)"""
 
 
-class SearchState:
+class Search:
+    """
+    A class to make search and determine the value of PROMETHEE Gamma method parameters
+
+    Attributes
+    ----------
+    Imin : float
+        lowest possible value for I
+    Imax : float
+        highest possible value for I
+    Jmin : float
+        lowest possible value for J
+    Jmax : float
+        highest possible value for J
+    Pmin : float
+        lowest possible value for P
+    Pmax : float
+        highest possible value for P
+    listOfRangeI : list[RangeI]
+        the list of range of I computed from user answers
+    listOfRangeJ : list[RangeJ]
+        the list of range of J computed from user answers
+    listOfPreference : list[int]
+        the list of preference indicators from user answers
+
+    Methods
+    -------
+    getState()
+        return the current state of the search
+    addPair(rI:RangeI, rJ:RangeJ, preference:int)
+        add a pair of I range and J range and the related preference indicator
+    update()
+        update the search state
+    resolveIndifference(rI:RangeI)
+        resolve indifference
+    increasePminI(rI:RangeI)
+        increase the Pmin value if possible (with I range) (if not, call resolveConflict())
+    resolvePreference(rI:RangeI, rJ:RangeJ)
+        resolve preference
+    ILErI(rI:RangeI)
+        resolve preference, part 1 : I <= rI
+    JGErJ(rJ:RangeJ)
+        resolve preference, part 2 : J >= rJ
+    decreasePmaxI(rI:RangeI)
+        decrease the Pmax value if possible (with I range) (if not, call resolveConflict())
+    decreasePmaxJ(rJ:RangeJ)
+        decrease the Pmax value if possible (with J range) (if not, call resolveConflict())
+    resolveConstraints(s:bool)
+        resolve the constraints
+    resolveConflict()
+        resolve conflict
+    fitnessIandJ(p:float, avgI:float, avgJ:float):
+        compute the fitness of avgI and avgJ for a P value p
+    averageIandJ(p:float):
+        compute the average value of I and J for a P value p
+    """
+
     def __init__(self, Imin=0.0, Imax=1.0, Jmin=0.0, Jmax=1.0, Pmin=1.0, Pmax=INFINITY) -> None:
+        """
+        Parameters
+        ----------
+        Imin : float, optional
+            lowest possible value for I (default is 0.0)
+        Imax : float, optional
+            highest possible value for I (default is 1.0)
+        Jmin : float, optional
+            lowest possible value for J (default is 0.0)
+        Jmax : float, optional
+            highest possible value for J (default is 1.0)
+        Pmin : float, optional
+            lowest possible value for P (default is 1.0)
+        Pmax : float, optional
+            highest possible value for P (default is INFINITY)
+        resolveIncomparability(rJ:RangeJ)
+            resolve incomparability
+        increasePminJ(rJ:RangeJ)
+            increase the Pmin value if possible (with J range) (if not, call resolveConflict())
+        """
         self.Imin = Imin
         self.Imax = Imax
         self.Jmin = Jmin
@@ -20,19 +97,36 @@ class SearchState:
 
 
     def getState(self) -> tuple:
-        """
-        Get the actual state of the search
+        """Return the current state of the search
+
+        Return
+        ------
+        (Imin, Imax, Jmin, Jmax, Pmin, Pmax) : tuple[float, float, float, float, float, float]
+            the results of the search
         """
         return (self.Imin, self.Imax, self.Jmin, self.Jmax, self.Pmin, self.Pmax)
 
 
     def addPair(self, rI:RangeI, rJ:RangeJ, preference:int):
+        """Add a pair of I range and J range and the related preference indicator
+
+        Parameters
+        ----------
+        rI : RangeI
+            a range of I values
+        rJ : RangeJ
+            a range of J values
+        preference : int
+            a preference indicator (1 for preference, 0 for indifference and -1 for incomparability)
+        """
         self.listOfRangeI.append(rI)
         self.listOfRangeJ.append(rJ)
         self.listOfPreference.append(preference)
 
 
     def update(self):
+        """Update the search state
+        """
         pref = self.listOfPreference[-1]
         rI = self.listOfRangeI[-1]
         rJ = self.listOfRangeJ[-1]
@@ -71,6 +165,11 @@ class SearchState:
         If we can no longer use these solutions, there is a conflict.
 
         In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.
+
+        Parameters
+        ----------
+        rI : RangeI
+            a range of I values
         """
         
         if self.Imin >= rI.getValMin() and self.Imax >= rI.getValMax():
@@ -90,13 +189,18 @@ class SearchState:
 
 
     def increasePminI(self, rI:RangeI):
-        """
+        """Increase the Pmin value if possible (with I range) (if not, call resolveConflict())
         
         rI.max = x + y/Pmin
 
         <=> Pmin = y/(rI.max - x)
 
         rI.max must be equal to Imax 
+
+        Parameters
+        ----------
+        rI : RangeI
+            a range of I values
         """
         x = rI.getX()
         y = rI.getY()
@@ -134,6 +238,11 @@ class SearchState:
         If we can no longer use these solutions, there is a conflict.
 
         In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.
+
+        Parameters
+        ----------
+        rJ : RangeJ
+            a range of J values
         """
 
         if self.Jmin <= rJ.getValMin() and self.Jmax <= rJ.getValMax():
@@ -153,13 +262,18 @@ class SearchState:
 
 
     def increasePminJ(self, rJ:RangeJ):
-        """
+        """Increase the Pmin value if possible (with J range) (if not, call resolveConflict())
         
         rJ.min = x - y/Pmin
 
         <=> Pmin = y/(x - rJ.min)
 
         rJ.min must be equal to Jmin 
+
+        Parameters
+        ----------
+        rJ : RangeJ
+            a range of J values
         """
         x = rJ.getX()
         y = rJ.getY()
@@ -174,12 +288,13 @@ class SearchState:
 
 
     def resolvePreference(self, rI:RangeI, rJ:RangeJ):
-        """
-        I <= [Imin, Imax] ; J >= [Jmin, Jmax] ; J >= I
+        """Resolve preference
+
+        I <= [i_min, i_max] ; J >= [j_min, j_max] ; J >= I
 
         There are 2 parts in this resolution.
 
-        1. I <= [Imin, Imax]
+        1. I <= [i_min, i_max]
 
         we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
 
@@ -200,7 +315,7 @@ class SearchState:
         If we can no longer use these solutions, there is a conflict.
 
 
-        2. J >= [Jmin, Jmax]
+        2. J >= [j_min, j_max]
 
         we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
 
@@ -221,6 +336,13 @@ class SearchState:
         If we can no longer use these solutions, there is a conflict.
 
         In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.
+
+        Parameters
+        ----------
+        rI : RangeI
+            a range of I values
+        rJ : RangeJ
+            a range of J values
         """
 
         # part 1
@@ -233,8 +355,9 @@ class SearchState:
 
 
     def ILErI(self, rI:RangeI):
-        """
-        I <= [Imin, Imax]
+        """Resolve preference, part 1 : I <= rI
+
+        I <= [i_min, i_max]
 
         we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
 
@@ -253,6 +376,11 @@ class SearchState:
         If we can no longer decrease Pmax, there is a conflict.
         - If Imin > i_min and Imax > i_max, we can combine the 2 solution above.
         If we can no longer use these solutions, there is a conflict.
+
+        Parameters
+        ----------
+        rI : RangeI
+            a range of I values
         """
         if self.Imin <= rI.getValMin() and self.Imax <= rI.getValMax():
             # There is nothing to do
@@ -269,8 +397,9 @@ class SearchState:
 
         
     def JGErJ(self, rJ:RangeJ):
-        """
-        J >= [Jmin, Jmax]
+        """Resolve preference, part 2 : J >= rJ
+
+        J >= [j_min, j_max]
 
         we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
 
@@ -289,6 +418,11 @@ class SearchState:
         If we can no longer increase Pmin, there is a conflict.
         - If Jmin < j_min and Jmax < j_max, we can combine the 2 solution above.
         If we can no longer use these solutions, there is a conflict.
+
+        Parameters
+        ----------
+        rJ : RangeJ
+            a range of J values
         """
 
         if self.Jmin >= rJ.getValMin() and self.Jmax >= rJ.getValMax():
@@ -306,13 +440,18 @@ class SearchState:
 
 
     def decreasePmaxI(self, rI:RangeI):
-        """
+        """Decrease the Pmax value if possible (with I range) (if not, call resolveConflict())
         
         rI.min = x + y/Pmax
 
         <=> Pmax = y/(rI.min - x)
 
         rI.min must be equal to Imin
+
+        Parameters
+        ----------
+        rI : RangeI
+            a range of I values
         """
         x = rI.getX()
         y = rI.getY()
@@ -327,13 +466,18 @@ class SearchState:
 
 
     def decreasePmaxJ(self, rJ:RangeJ):
-        """
+        """Decrease the Pmax value if possible (with J range) (if not, call resolveConflict())
         
         rJ.max = x - y/Pmax
 
         <=> Pmax = y/(x - rJ.max)
 
         rJ.max must be equal to Jmax
+
+        Parameters
+        ----------
+        rJ : RangeJ
+            a range of J values
         """
         x = rJ.getX()
         y = rJ.getY()
@@ -348,12 +492,18 @@ class SearchState:
 
 
     def resolveConstraints(self, s:bool):
-        """
+        """Resolve the constraints
+
         Constaints: J >= I ; 0 <= J <= 1 ; 0 <= I <= 1 ; 1 <= P <= INFINITY
 
         <=> [Jmin, Jmax] >= [Imin, Imax]
 
         <=> Jmin >= Imin and Jmax >= Imax
+
+        Parameters
+        ----------
+        s : bool
+            indicator of whether resolveConflict() has already been performed or not (True if already performed, False otherwise)
         """
         parameters = (self.Imin, self.Imax, self.Jmin, self.Jmax)
         for param in parameters:
@@ -469,6 +619,20 @@ class SearchState:
 
 
     def averageIandJ(self, p:float):
+        """Compute the average value of I and J for a P value p
+
+        Parameters
+        ----------
+        p : float
+            the value of the parameter P
+
+        Return
+        ------
+        avgI : float
+            the average of I
+        avgJ : float
+            the average of J
+        """
         avgI = 0
         avgJ = 0
         for i in range(len(self.listOfRangeI)):
@@ -482,6 +646,24 @@ class SearchState:
     
 
     def fitnessIandJ(self, p:float, avgI:float, avgJ:float):
+        """Compute the fitness of avgI and avgJ for a P value p
+
+        Parameters
+        ----------
+        p : float
+            the value of the parameter P
+        avgI : float
+            the average of I
+        avgJ : float
+            the average of J
+        
+        Return
+        ------
+        fitI : float
+            the fitness of avgI
+        fitJ : float
+            the fitness of avgJ
+        """
         fitI = 0
         fitJ = 0
         for i in range(len(self.listOfRangeI)):

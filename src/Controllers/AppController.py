@@ -36,6 +36,8 @@ class AppController(ResultTabController.Listener, HelpForParametersTabController
         show the result tab
     showHelpForParametersTabView(master)
         show the helpForParameters tab
+    obtainResults(load:bool)
+        obtain the results or, if there is no or not enought data, show an error message to the user
     computeResults()
         compute the result of the Promethee Gamma method
     changeOnTiAndTj()
@@ -113,10 +115,17 @@ class AppController(ResultTabController.Listener, HelpForParametersTabController
         self.helpForParametersTabController.showView()
 
 
-    def obtainResults(self, load):
+    def obtainResults(self, load:bool):
+        """Obtain the results or, if there is no or not enought data, show an error message to the user
+
+        Parameters
+        ----------
+        load : bool
+            True if the resut visualisation must be loaded, False otherwise
+        """
         if self.dataTabController.voidModel():
             tkinter.messagebox.showerror(title="No data", message="No data available. Impossible to obtain results. Please fill in the data tab")
-        elif self.dataTabController.twoAlterInModel():
+        elif self.dataTabController.no2AlterInModel():
             tkinter.messagebox.showerror(title="Not enougth alternatives", message="At least 2 alternatives are needed to obtain results. Please, add alternatives.")
         else:
             if load:

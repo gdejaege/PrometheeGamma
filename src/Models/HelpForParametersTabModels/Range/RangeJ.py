@@ -17,6 +17,10 @@ class RangeJ(Range):
 
     Methods
     -------
+    getX()
+        return x, x = min(gamma_ij, gamma_ji)
+    getY()
+        return y, y = |gamma_ij - gamma_ji|
     getValForP(P:float)
         return the incomparability threshold value for the value P of preference parameter
     setX(value:float)
@@ -51,6 +55,28 @@ class RangeJ(Range):
         super().__init__(valMin, valMax)
 
 
+    def getX(self):
+        """Return x, x = min(gamma_ij, gamma_ji)
+
+        Return
+        ------
+        x : float
+            x = min(gamma_ij, gamma_ji)
+        """
+        return self.x
+    
+
+    def getY(self):
+        """Return y, y = |gamma_ij - gamma_ji|
+
+        Return
+        ------
+        y : float
+            y = |gamma_ij - gamma_ji|
+        """
+        return self.y
+
+
     def getValForP(self, P:float) -> float:
         """Return the indifference threshold value for the value P of preference parameter
         
@@ -60,13 +86,6 @@ class RangeJ(Range):
             min(gamma_ij, gamma_ji) - |gamma_ij - gamma_ji|/P
         """
         return self.x - self.y/P
-    
-    def getX(self):
-        return self.x
-    
-
-    def getY(self):
-        return self.y
 
 
     def setX(self, value:float):

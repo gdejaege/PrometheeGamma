@@ -4,7 +4,7 @@ from Models.HelpForParametersTabModels.Range.Range import Range
 from Models.HelpForParametersTabModels.Range.RangeI import RangeI
 from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
 import random
-from Models.HelpForParametersTabModels.Search.SearchState import SearchState
+from Models.HelpForParametersTabModels.Search.Search import Search
 
 class PreferenceLearning:
     def __init__(self, master, prometheeGamma:PrometheeGamma) -> None:
@@ -26,7 +26,7 @@ class PreferenceLearning:
         [(a1, a2), (a1, a2), ... ]
         """
         self.listofPossibleThresholds = []
-        self.search = SearchState()
+        self.search = Search()
 
     
     def setAlternatives(self, alternatives:list):
@@ -65,7 +65,7 @@ class PreferenceLearning:
 
     def itSearch(self, rst:bool) -> None:
         if rst:
-            self.search = SearchState()
+            self.search = Search()
             for q in self.questions:
                 (rI, rJ, p) = self.computeRangeOfThresholdsForOneQuestion(q)
                 self.search.addPair(rI, rJ, p)

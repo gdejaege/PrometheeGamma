@@ -17,6 +17,10 @@ class RangeI(Range):
 
     Methods
     -------
+    getX()
+        return x, x = max(gamma_ij, gamma_ji)
+    getY()
+        return y, y = |gamma_ij - gamma_ji|
     getValForP(P:float)
         return the indifference threshold value for the value P of preference parameter
     setX(value:float)
@@ -52,10 +56,24 @@ class RangeI(Range):
         super().__init__(valMin, valMax)
 
 
-    def getX(self):
+    def getX(self) -> float:
+        """Return x, x = max(gamma_ij, gamma_ji)
+
+        Return
+        ------
+        x : float
+            x = max(gamma_ij, gamma_ji)
+        """
         return self.x
     
-    def getY(self):
+    def getY(self) -> float:
+        """Return y, y = |gamma_ij - gamma_ji|
+
+        Return
+        ------
+        y : float
+            y = |gamma_ij - gamma_ji|
+        """
         return self.y
 
 

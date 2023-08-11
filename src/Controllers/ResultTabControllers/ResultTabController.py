@@ -33,6 +33,8 @@ class ResultTabController(ResultTabView.ViewListener):
         this method controls the reaction of the application following a modification of the value of parameter Pf by the user
     obtainResults()
         handle click on button Obtain Results
+    applyResults(results)
+        apply the results provided by a method to help determine the parameters (from helpForParametersTab)
     getModel()
         return the current ResultTabModel
     loadResultsVisualisation(master)
@@ -164,6 +166,13 @@ class ResultTabController(ResultTabView.ViewListener):
 
 
     def applyResults(self, results):
+        """Apply the results provided by a method to help determine the parameters (from helpForParametersTab)
+
+        Parameters
+        ----------
+        results : tuple[float, float, float]
+            results = (I, J, P), the values of the 3 parameters of PROMETHEE Gamma method
+        """
         (i, j, p) = results
         self.resultTabModel.setTi(i)
         self.resultTabModel.setTj(j)

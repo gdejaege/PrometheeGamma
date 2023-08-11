@@ -1,5 +1,5 @@
 #############################################################################
-### This class is designed to provide an alternative way                  ###
+### This class is a skeleton designed to provide an alternative way       ###
 ### of obtaining parameter values specific to the PROMETHEE Gamma method. ###
 ### Edit it as you wish.                                                  ###
 ###                                                                       ###
