@@ -1,10 +1,6 @@
 from customtkinter import (CTkCanvas, CTkScrollbar, CTkFrame, CTkCheckBox, IntVar)
 from Resources.ScrollableFrame import ScrollableFrame
 from Views.ResultTabViews.AlternativeView import AlternativeView
-from aspose.pdf import (PsLoadOptions, Document)
-from aspose.pdf.devices import PngDevice, Resolution
-import io
-from PIL import Image, ImageDraw
 
 SPACE = 100 # The space between the center of 2 circles that represent alternatives
 RADIUS = 30 # The radius of the circle that represents an alternative
@@ -402,51 +398,3 @@ class RankView:
                 points.append((xa-lSpace, yb-lSpace))
                 points.append((xb, yb-RADIUS))
         return tuple(points)
-
-
-
-
-
-
-    def register(self) -> None:
-        """
-        Register the canvas image in a file
-        """
-        self.canvas.update()
-        self.canvas.postscript(file="./processing_files/rank.ps", colormode="color", width=self.xmax+100, height=self.ymax+100)
-        #self.convert_PS_to_PNG("./processing_files/rank.ps", "./rank.png")
-        #aspdraw.
-        #img_src = Image(filename="./processing_files/rank.ps")
-        #img_dest = img_src.convert('png')
-        #img_dest.save("./rank.png")
-        #img = Image.open("./processing_files/rank.ps")
-        #img.show()
-        #img.save("./rank.png")
-
-
-    def convert_PS_to_PNG(self, srcPath, destPath):
-            """
-            https://products.aspose.com/pdf/fr/python-net/conversion/ps-to-png/
-            """
-            
-            #path_infile = self.dataDir + infile       
-            options = PsLoadOptions()
-            #options.SupressErrors = True
-            # Open .ps document with created load options
-            document = Document(srcPath, options)
-            # Create Resolution object
-            resolution = Resolution(300)
-            device = PngDevice(resolution)
-            #pageCount = 1
-            #while pageCount <= document.Pages.Count:
-            stream = io.FileIO(file=destPath, mode="w")
-            #img = open(destPath, "w")
-                #imageStream = FileStream(self.dataDir + outfile + str(pageCount) + "_out.png" , FileMode.Create)
-                # Convert a particular page and save the image to stream
-            device.process(document.pages[1],stream)
-            #device.Process(document.Pages[pageCount], img)
-                # Close stream
-            #img.close()
-            stream.close()
-                #pageCount = pageCount + 1
-            print(srcPath + " converted into " + destPath)
