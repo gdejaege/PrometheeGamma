@@ -31,7 +31,7 @@ class Alternative:
         return the size of the alternative, i.e. the number of evaluations for this alternative
     """
     
-    def __init__(self, name:StringVar=None, evaluations:list[DoubleVar]=[]) -> None:
+    def __init__(self, name:StringVar=None, evaluations=[]) -> None:
         """
         Parameters
         ----------
