@@ -204,3 +204,19 @@ class ResultTabController(ResultTabView.ViewListener):
         """Refresh the results visualisation
         """
         self.resultsVisualisationController.refresh()
+
+
+    def saveProject(self, file):
+
+        file.write("\nParameters\n")
+
+        i = self.resultTabModel.getTi_float()
+        j = self.resultTabModel.getTj_float()
+        p = self.resultTabModel.getPf_float()
+
+        file.write("I = " + str(i) + "\n")
+        file.write("J = " + str(j) + "\n")
+        file.write("P = " + str(p) + "\n")
+
+        
+

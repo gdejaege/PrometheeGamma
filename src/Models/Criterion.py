@@ -187,6 +187,17 @@ class Criterion:
         return self.preferenceFunction.getP()
     
 
+    def getP_float(self) -> float:
+        """Return the preference threshold of the preference function
+
+        Return
+        ------
+        preferenceFunction.pc : float
+            the preference threshold of the preference function used for this criterion
+        """
+        return self.preferenceFunction.getP_float()
+    
+
     def getQ(self) -> DoubleVar:
         """Return the indifference threshold of the preference function in a DoubleVar object
 
@@ -197,6 +208,18 @@ class Criterion:
 
         """
         return self.preferenceFunction.getQ()
+    
+
+    def getQ_float(self) -> DoubleVar:
+        """Return the indifference threshold of the preference function
+
+        Return
+        ------
+        preferenceFunction.qc : float
+            the indifference threshold of the preference function used for this criterion
+
+        """
+        return self.preferenceFunction.getQ_float()
 
 
 ############################################################################################################################

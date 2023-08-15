@@ -263,9 +263,10 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
             
             try:
                 file = open(fname, "w")
-                file.write("PROMETHEE Gamma Project: " + name + "\n\n")
+                file.write("PROMETHEE Gamma Project: " + name + "\n")
                 self.dataTabController.saveProject(file=file)
                 self.resultTabController.saveProject(file=file)
+                self.saveProject(file=file)
                 file.close()
             except:
                 tkinter.messagebox.showerror("Error", "An error has occurred: unable to save project")
@@ -276,3 +277,25 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
 
     def load(self):
         print("load")
+
+
+    def saveProject(self, file):
+
+        file.write("\nMatrix Gamma\n")
+
+        m = self.prometheeGamma.getMatrixGamma()
+        self.fileWriteMatrix(file, m)
+
+        file.write("\nResults\n")
+
+        m = self.prometheeGamma.getMatrixResults()
+        self.fileWriteMatrix(file, m)
+
+
+    def fileWriteMatrix(self, file, m):
+        for i in range(len(m)):
+            line = ""
+            for k in range(len(m[i])):
+                line += str(m[i][k]) + "  "
+            file.write(line + "\n")
+
