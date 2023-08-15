@@ -1,0 +1,70 @@
+PROMETHEE Gamma Project: Shangaï
+
+
+Data
+
+c,Alumni,Award,HiCi,N&S,PUB,PCP
+harvard,100.0,100.0,100.0,100.0,100.0,75.3
+stanford,41.8,82.8,79.8,71.1,70.9,51.9
+mit,68.4,80.7,60.6,73.6,61.5,67.1
+berkeley,68.8,79.4,65.3,67.5,68.1,55.9
+cambridge,79.1,96.6,50.8,56.2,66.5,55.2
+princeton,52.1,88.5,57.1,46.2,44.2,68.1
+california,48.5,66.7,49.3,60.0,44.9,100.0
+columbia,65.1,65.9,51.6,55.0,69.1,33.1
+chicago,61.4,86.3,48.4,43.0,50.7,41.5
+oxford,51.0,54.9,52.8,52.7,72.7,43.0
+yale,48.8,50.4,51.0,61.5,62.9,37.7
+los_angeles,30.2,47.1,52.8,50.9,71.3,31.7
+cornell,37.6,49.8,50.4,46.9,61.0,39.7
+san_diego,19.7,35.5,56.1,55.7,65.0,36.5
+washington,21.7,31.6,53.0,53.1,71.6,29.0
+w,0.1,0.2,0.2,0.2,0.2,0.1
+f,5,5,5,5,5,5
+p,60.225,51.3,38.7,42.75,41.85,53.25
+q,20.075,17.1,12.9,14.25,13.95,17.75
+
+
+Parameters
+
+I = 0.2
+J = 0.45
+P = 94.12
+
+
+Matrix Gamma
+
+0.0  0.5600047464617005  0.6297731596243002  0.6549285994313692  0.6346694120341121  0.7421022505692328  0.7817323251987353  0.7608891817759291  0.7550451418533961  0.7997830926720835  0.83106156830404  0.8636244362193336  0.8672250244283949  0.9149031703105627  0.9219599953836046  
+0.0  0.0  0.13191941469076543  0.1263586134628895  0.15835082204134993  0.23316669392912132  0.2693112751872178  0.22388301207992875  0.22399020869623132  0.2531073945372219  0.2790046958861039  0.3044389421897887  0.3072202779666944  0.3548984238488623  0.3633889406781767  
+0.0  0.06215100152816573  0.0  0.04948733335686629  0.07331836387562415  0.13581915413106713  0.16874991004123593  0.14506891513678005  0.1412285402909171  0.19133609792233536  0.2034389463141484  0.25231005795704053  0.23745186480409472  0.2906855662418181  0.3112600564454285  
+0.0  0.03143476049322083  0.024331893549797305  0.0  0.042911113822791856  0.13315856647785693  0.1622463817029798  0.10800871342494917  0.11991604116889408  0.15427589621050447  0.17613296887267083  0.21524985624520968  0.21229642499702575  0.2599745708791936  0.27419985473359754  
+0.0  0.08368615646893822  0.06842211146581215  0.06317030122004884  0.0  0.13320553673985303  0.1881028369176677  0.1324308463204855  0.12037572981928392  0.1798054488181116  0.20348080813214148  0.24077940885281685  0.23255561239428274  0.2840543562830951  0.2998401493124119  
+0.0  0.05106918982158885  0.023490063186134336  0.04598491533999314  0.025772698204732256  0.0  0.07729947340282511  0.11447693504971071  0.05368807431834309  0.14578497339883248  0.16853945086332722  0.20405216651624442  0.1822354480176765  0.2484176497383654  0.26631043568132406  
+0.04690140845070423  0.09448510490088725  0.06369215291750503  0.0823440643863179  0.08794133220374879  0.08457080722402699  0.0  0.11039700189440735  0.1225581518486685  0.14441544000847187  0.15525739230705873  0.2034413480951251  0.18537878242047745  0.2436440989048197  0.2625020885547201  
+0.0  0.022998576765700045  0.013952892985151037  0.002048131080389143  0.006211076578668469  0.09569000384301446  0.08433873686650921  0.0  0.06628305010300019  0.05545307332257586  0.08303129436107347  0.10834856253233137  0.11242236176715384  0.16128219590205312  0.16740930299192636  
+0.0  0.02894981330453571  0.015956558061821193  0.01979949874686713  0.0  0.040745183034179934  0.10234392674330346  0.07212709002553329  0.0  0.11396070083885511  0.13403787416846305  0.17132246136069362  0.14706941949556976  0.21751518710773154  0.23369147249698036  
+0.0  0.013329048326838868  0.021326164874551974  0.009421402969790084  0.014691768180140279  0.08810413129598187  0.0794632640844194  0.016559162426421505  0.06922275002016767  0.0  0.041930104704638135  0.06384134354725  0.06744193175631136  0.12023052818344629  0.12288914844212676  
+0.0  0.007947874043764453  0.0021505376344086004  0.0  0.007088651862213666  0.07958013312852019  0.05902674075104982  0.012858907832962679  0.05802144771781914  0.010651629072681693  0.0  0.050642983182205524  0.03746124284467685  0.09084573399190007  0.10970372364180052  
+0.0  0.00081925243215564  0.01845878136200716  0.006554019457245268  0.011824384667595465  0.08252998086614381  0.07464782862382263  0.005613308088926995  0.06274316699475618  0.0  0.01808011526691196  0.0  0.02785363007418521  0.06441788314302675  0.06236901113628674  
+0.0  0.0  0.0  0.0  0.0  0.05711267415851452  0.05298467474011362  0.006086519114688127  0.034889536920570965  0.0  0.0012977867203219308  0.024253041865123857  0.0  0.07044576761216179  0.0866220530014106  
+0.0  0.0  0.005555555555555554  0.0  0.0038205980066445184  0.07561672999703556  0.06357184534228796  0.007268207367419528  0.05765715865056488  0.005110450544967069  0.007004131985377295  0.013139149051797527  0.022767621729993914  0.0  0.02413257595347687  
+0.0  0.0014336917562723776  0.0190732206861239  0.007168458781362005  0.012549565962919295  0.08645269086695227  0.07537300991914646  0.006338489384250825  0.06677661896677174  0.0007122457306055846  0.01880529656223579  0.0040334519720155605  0.031887082046200776  0.01707575088043492  0.0  
+
+
+Results
+
+harvard I harvard  harvard P stanford  harvard P mit  harvard P berkeley  harvard P cambridge  harvard P princeton  harvard P california  harvard P columbia  harvard P chicago  harvard P oxford  harvard P yale  harvard P los_angeles  harvard P cornell  harvard P san_diego  harvard P washington  
+harvard P stanford  stanford I stanford  stanford I mit  stanford I berkeley  stanford I cambridge  stanford P princeton  stanford P california  stanford P columbia  stanford P chicago  stanford P oxford  stanford P yale  stanford P los_angeles  stanford P cornell  stanford P san_diego  stanford P washington  
+harvard P mit  mit I stanford  mit I mit  mit I berkeley  mit I cambridge  mit I princeton  mit I california  mit I columbia  mit I chicago  mit I oxford  mit P yale  mit P los_angeles  mit P cornell  mit P san_diego  mit P washington  
+harvard P berkeley  berkeley I stanford  berkeley I mit  berkeley I berkeley  berkeley I cambridge  berkeley I princeton  berkeley I california  berkeley I columbia  berkeley I chicago  berkeley I oxford  berkeley I yale  berkeley P los_angeles  berkeley P cornell  berkeley P san_diego  berkeley P washington  
+harvard P cambridge  cambridge I stanford  cambridge I mit  cambridge I berkeley  cambridge I cambridge  cambridge I princeton  cambridge I california  cambridge I columbia  cambridge I chicago  cambridge I oxford  cambridge P yale  cambridge P los_angeles  cambridge P cornell  cambridge P san_diego  cambridge P washington  
+harvard P princeton  stanford P princeton  princeton I mit  princeton I berkeley  princeton I cambridge  princeton I princeton  princeton I california  princeton I columbia  princeton I chicago  princeton I oxford  princeton I yale  princeton P los_angeles  princeton I cornell  princeton P san_diego  princeton P washington  
+harvard P california  stanford P california  california I mit  california I berkeley  california I cambridge  california I princeton  california I california  california I columbia  california I chicago  california I oxford  california I yale  california P los_angeles  california I cornell  california P san_diego  california P washington  
+harvard P columbia  stanford P columbia  columbia I mit  columbia I berkeley  columbia I cambridge  columbia I princeton  columbia I california  columbia I columbia  columbia I chicago  columbia I oxford  columbia I yale  columbia I los_angeles  columbia I cornell  columbia I san_diego  columbia I washington  
+harvard P chicago  stanford P chicago  chicago I mit  chicago I berkeley  chicago I cambridge  chicago I princeton  chicago I california  chicago I columbia  chicago I chicago  chicago I oxford  chicago I yale  chicago I los_angeles  chicago I cornell  chicago P san_diego  chicago P washington  
+harvard P oxford  stanford P oxford  oxford I mit  oxford I berkeley  oxford I cambridge  oxford I princeton  oxford I california  oxford I columbia  oxford I chicago  oxford I oxford  oxford I yale  oxford I los_angeles  oxford I cornell  oxford I san_diego  oxford I washington  
+harvard P yale  stanford P yale  mit P yale  yale I berkeley  cambridge P yale  yale I princeton  yale I california  yale I columbia  yale I chicago  yale I oxford  yale I yale  yale I los_angeles  yale I cornell  yale I san_diego  yale I washington  
+harvard P los_angeles  stanford P los_angeles  mit P los_angeles  berkeley P los_angeles  cambridge P los_angeles  princeton P los_angeles  california P los_angeles  los_angeles I columbia  los_angeles I chicago  los_angeles I oxford  los_angeles I yale  los_angeles I los_angeles  los_angeles I cornell  los_angeles I san_diego  los_angeles I washington  
+harvard P cornell  stanford P cornell  mit P cornell  berkeley P cornell  cambridge P cornell  cornell I princeton  cornell I california  cornell I columbia  cornell I chicago  cornell I oxford  cornell I yale  cornell I los_angeles  cornell I cornell  cornell I san_diego  cornell I washington  
+harvard P san_diego  stanford P san_diego  mit P san_diego  berkeley P san_diego  cambridge P san_diego  princeton P san_diego  california P san_diego  san_diego I columbia  chicago P san_diego  san_diego I oxford  san_diego I yale  san_diego I los_angeles  san_diego I cornell  san_diego I san_diego  san_diego I washington  
+harvard P washington  stanford P washington  mit P washington  berkeley P washington  cambridge P washington  princeton P washington  california P washington  washington I columbia  chicago P washington  washington I oxford  washington I yale  washington I los_angeles  washington I cornell  washington I san_diego  washington I washington  

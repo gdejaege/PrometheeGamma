@@ -208,7 +208,7 @@ class ResultTabController(ResultTabView.ViewListener):
 
     def saveProject(self, file):
 
-        file.write("\nParameters\n")
+        file.write("\n\nParameters\n\n")
 
         i = self.resultTabModel.getTi_float()
         j = self.resultTabModel.getTj_float()

@@ -246,9 +246,11 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
         
         
     def save(self):
-        fname = fd.asksaveasfilename(confirmoverwrite=True, filetypes=(("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")))
+        fname = fd.asksaveasfilename(confirmoverwrite=True, 
+                                     filetypes=(("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")), 
+                                     initialdir="./Projects")
         if fname is None or fname == "":
-            print("not saved")
+            tkinter.messagebox.showwarning("Warning", "The project was not saved.")
         else:
             l = fname.split(sep="/")
             name = l[-1]
@@ -262,7 +264,7 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
                 return
             
             try:
-                file = open(fname, "w")
+                file = open(fname, "w", encoding="UTF-8")
                 file.write("PROMETHEE Gamma Project: " + name + "\n")
                 self.dataTabController.saveProject(file=file)
                 self.resultTabController.saveProject(file=file)
@@ -281,12 +283,12 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
 
     def saveProject(self, file):
 
-        file.write("\nMatrix Gamma\n")
+        file.write("\n\nMatrix Gamma\n\n")
 
         m = self.prometheeGamma.getMatrixGamma()
         self.fileWriteMatrix(file, m)
 
-        file.write("\nResults\n")
+        file.write("\n\nResults\n\n")
 
         m = self.prometheeGamma.getMatrixResults()
         self.fileWriteMatrix(file, m)

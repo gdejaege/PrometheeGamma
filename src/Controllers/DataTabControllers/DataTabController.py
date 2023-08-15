@@ -79,11 +79,13 @@ class DataTabController(DataTabView.ViewListener):
         master : CTkFrame
             the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data
         """
-        file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("all files","*.*")))
-        self.clearTable()
-        self.readFile(file, master)
-        file.close()
-        self.fillDataTable()
+        file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")), 
+                              initialdir="./Data")
+        if file is not None:
+            self.clearTable()
+            self.readFile(file, master)
+            file.close()
+            self.fillDataTable()
 
 
     def readFile(self, file, master) -> None:
@@ -111,7 +113,7 @@ class DataTabController(DataTabView.ViewListener):
                 criteriaP = temp[1:]
             elif(temp[0] == 'q'):
                 criteriaQ = temp[1:]
-            else:
+            elif(len(temp) > 1):
                 self.dataTabModel.createAlternative(master, temp[0], temp[1:])
         self.dataTabModel.createCriteria(master, criteriaNames, criteriaWeights, criteriaPreferenceFunctionType, criteriaP, criteriaQ)
 
@@ -265,7 +267,7 @@ class DataTabController(DataTabView.ViewListener):
     
 
     def saveProject(self, file):        
-        file.write("\nData\n")
+        file.write("\n\nData\n\n")
         nbCriteria = self.dataTabModel.getNumberOfCriteria()
         nbAlternatives = self.dataTabModel.getNumberOfAlternatives()
 

@@ -108,7 +108,7 @@ class DataTabView:
         self.yu = 275
 
         self.openFileButton = CTkButton(master=self.master, text="Open a file", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.openFile)
-        self.dataNoteLabel = CTkLabel(self.master, text="Only csv files are accepted", fg_color="#ffffff", text_color="#000000", corner_radius=5)
+        self.dataNoteLabel = CTkLabel(self.master, text="Only csv or PROMETHEE Gamma project files are accepted", fg_color="#ffffff", text_color="#000000", corner_radius=5)
         self.criteriaLabel = CTkLabel(master=self.master, text="Criteria:", text_color="#000000")
         self.weightsLabel = CTkLabel(master=self.master, text="Weights:", text_color="#000000")
         self.typesLabel = CTkLabel(master=self.master, text="Preference Functions:", text_color="#000000")
