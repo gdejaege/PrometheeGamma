@@ -262,3 +262,7 @@ class DataTabController(DataTabView.ViewListener):
         True if there is less than 2 alternatives in the model, False otherwise
         """
         return self.dataTabModel.twoAlter()
+    
+
+    def saveProject(self, file):
+        pass

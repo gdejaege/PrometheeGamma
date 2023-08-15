@@ -4,6 +4,7 @@ from Controllers.ResultTabControllers.ResultTabController import ResultTabContro
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
 import tkinter.messagebox
+from tkinter import filedialog as fd
 
 class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForParametersTabController.Listener):
     """
@@ -227,7 +228,6 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
 
 
     def menuChoice(self, choice:str):
-        "new project", "save project", "load project", "quit"
         if choice == "new project":
             if tkinter.messagebox.askokcancel("Create a new project", message="Do you really want to create a new project? All unsaved data will be lost."):
                 self.reset()
@@ -246,8 +246,32 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
         
         
     def save(self):
-        print("save")
-        tkinter.messagebox.showinfo("Save", message="The project has been successfully saved")
+        fname = fd.asksaveasfilename(confirmoverwrite=True, filetypes=(("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")))
+        if fname is None or fname == "":
+            print("not saved")
+        else:
+            l = fname.split(sep="/")
+            name = l[-1]
+            l = name.split(".")
+            if len(l) == 2 and l[1] == "prometheeGammaProject":
+                name = l[0]
+            elif len(l) == 1:
+                fname += ".prometheeGammaProject"
+            else:
+                tkinter.messagebox.showerror("Invalid file name", "The file name is invalid.")
+                return
+            
+            try:
+                file = open(fname, "w")
+                file.write("PROMETHEE Gamma Project: " + name + "\n\n")
+                self.dataTabController.saveProject(file=file)
+                self.resultTabController.saveProject(file=file)
+                file.close()
+            except:
+                tkinter.messagebox.showerror("Error", "An error has occurred: unable to save project")
+                return
+            tkinter.messagebox.showinfo("Save", message="The project has been successfully saved")
+        
 
 
     def load(self):
