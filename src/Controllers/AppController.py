@@ -5,7 +5,7 @@ from Controllers.HelpForParametersTabControllers.HelpForParametersTabController 
 from Models.PrometheeGamma import PrometheeGamma
 import tkinter.messagebox
 
-class AppController(ResultTabController.Listener, HelpForParametersTabController.Listener):
+class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForParametersTabController.Listener):
     """
     The main controller of the application
 
@@ -58,6 +58,7 @@ class AppController(ResultTabController.Listener, HelpForParametersTabController
 
     def __init__(self) -> None:
         self.appView = AppView()
+        self.appView.setListener(self)
         self.alreadyCompute = False
         self.prometheeGamma = PrometheeGamma()
         self.dataTabController = None
@@ -223,3 +224,31 @@ class AppController(ResultTabController.Listener, HelpForParametersTabController
         """
         self.resultTabController.applyResults(results)
         self.appView.setTab("Results")
+
+
+    def menuChoice(self, choice:str):
+        "new project", "save project", "load project", "quit"
+        if choice == "new project":
+            if tkinter.messagebox.askokcancel("Create a new project", message="Do you really want to create a new project? All unsaved data will be lost."):
+                self.reset()
+        elif choice == "save project":
+            self.save()
+        elif choice == "load project":
+            if tkinter.messagebox.askokcancel("Load a project", message="Do you really want to load a project? All unsaved data will be lost."):
+                self.load()
+        elif choice == "quit":
+            if tkinter.messagebox.askokcancel("Quit", message="Do you really want to quit? All unsaved data will be lost."):
+                self.appView.quit()
+
+
+    def reset(self):
+        print("reset")
+        
+        
+    def save(self):
+        print("save")
+        tkinter.messagebox.showinfo("Save", message="The project has been successfully saved")
+
+
+    def load(self):
+        print("load")
