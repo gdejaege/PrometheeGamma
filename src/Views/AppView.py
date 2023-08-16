@@ -38,7 +38,7 @@ class AppView(CTk):
         self.resizable(True, True)
         self.title("Promethee Gamma")
 
-        self.menu = Menu(master=self, text="Menu", command=self.menuChoice, values=["new project", "save project", "load project", "quit"])
+        self.menu = Menu(master=self, text="Menu", command=self.menuChoice, values=["new project", "save project", "save project as", "load project", "quit"])
 
         self.tabview = CTkTabview(self, fg_color="#ffffff")
         self.dataTab = self.tabview.add("Data")

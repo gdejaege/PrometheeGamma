@@ -1,12 +1,15 @@
 from Views.AppView import AppView
+from Views.SaveView import SaveView
 from Controllers.DataTabControllers.DataTabController import DataTabController
 from Controllers.ResultTabControllers.ResultTabController import ResultTabController
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
 import tkinter.messagebox
 from tkinter import filedialog as fd
+from tkinter import IntVar
 
-class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForParametersTabController.Listener):
+
+class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController.Listener, HelpForParametersTabController.Listener):
     """
     The main controller of the application
 
@@ -65,6 +68,13 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
         self.dataTabController = None
         self.resultTabController = None
         self.helpForParametersTabController = None
+        self.saveView = None
+        self.saveDict = {"Data":IntVar(self.appView, 1), 
+                         "Parameters":IntVar(self.appView, 1), 
+                         "Result matrix":IntVar(self.appView, 1), 
+                         "Gamma matrix":IntVar(self.appView, 1), 
+                         "Orthogonal graph":IntVar(self.appView, 1), 
+                         "Rank graph":IntVar(self.appView, 1)}
 
 
     def run(self) -> None:
@@ -231,6 +241,8 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
         if choice == "new project":
             if tkinter.messagebox.askokcancel("Create a new project", message="Do you really want to create a new project? All unsaved data will be lost."):
                 self.reset()
+        elif choice == "save project as":
+            self.saveAs()
         elif choice == "save project":
             self.save()
         elif choice == "load project":
@@ -244,8 +256,22 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
     def reset(self):
         print("reset")
         
-        
+
     def save(self):
+        # Si un dossier est déjà lié (par load ou par save as) -> save dans ce dossier
+        # Sinon :
+        self.saveAs()
+
+        
+    def saveAs(self):
+        self.saveView = SaveView(master=self.appView, saveDict=self.saveDict)
+        self.saveView.grab_set()
+        self.saveView.focus_set()
+        self.saveView.title("Save")
+        self.saveView.setListener(self)
+        self.saveView.show()
+
+        """
         fname = fd.asksaveasfilename(confirmoverwrite=True, 
                                      filetypes=(("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")), 
                                      initialdir="./Projects")
@@ -271,14 +297,41 @@ class AppController(AppView.ViewListener, ResultTabController.Listener, HelpForP
                 self.saveProject(file=file)
                 file.close()
             except:
-                tkinter.messagebox.showerror("Error", "An error has occurred: unable to save project")
+                tkinter.messagebox.showerror("Error", "An error has occurred: unable to save correctly the project")
                 return
             tkinter.messagebox.showinfo("Save", message="The project has been successfully saved")
+        """
+
+    def saveInFolder(self, folder, name):
+        # TODO 
+        # Créer un dossier de nom name dans le dossier folder. 
+        # Si un dossier de ce nom existe déjà, demander si écraser
+        # Si pas écraser, relancer self.save()
+        # 
+
+
+        print(name)
+        print(folder)
+        self.saveView.destroy()
         
 
 
     def load(self):
-        print("load")
+        file = fd.askopenfile(filetypes=(("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")), 
+                              initialdir="./Projects")
+        if file is not None:
+            try:
+                tabs = self.appView.getTabs()
+                self.dataTabController.openFile(master=tabs[0], file=file)
+                self.resultTabController.readFile(master=tabs[1], file=file)
+                self.readFile(file=file)
+                file.close()
+            except:
+                tkinter.messagebox.showerror("Error", "An error has occurred: unable to load correclty the project")
+                return
+            tkinter.messagebox.showinfo("Load", message="The project has been successfully laoded")
+
+            print("load")
 
 
     def saveProject(self, file):

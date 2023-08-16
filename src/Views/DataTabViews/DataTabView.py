@@ -77,7 +77,7 @@ class DataTabView:
     """
 
     class ViewListener:
-        def openFile(self):
+        def openFile(self, master, file=None):
             pass
         def addCriterionColumn(self, master, x:int, y:int):
             pass
@@ -148,6 +148,7 @@ class DataTabView:
         self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu)
         self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
 
+
     def getViewCData(self) ->tuple:
         """Return the needed view information to place a criterion column
 
@@ -190,6 +191,7 @@ class DataTabView:
         self.xc += 120
         self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
 
+
     def shiftLeft(self):
         """Shift left buttons add and delete criterion and update xc
         """
@@ -197,6 +199,7 @@ class DataTabView:
         self.buttonAddCriterion.place(x=self.xc+10, y=self.yc)
         self.buttonDeleteCriterion.place(x=self.xc+10, y=self.yc+25)
         self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
+
 
     def shiftUp(self):
         """Shift up buttons add and delete unit and update yu

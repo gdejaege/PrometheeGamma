@@ -3,6 +3,7 @@ from Models.DataTabModel import DataTabModel
 from Views.DataTabViews.DataTabView import DataTabView
 from Views.DataTabViews.CriterionColumn import CriterionColumn
 from Views.DataTabViews.UnitRow import UnitRow
+from Resources.Reader import Reader
 
 class DataTabController(DataTabView.ViewListener):
     """
@@ -80,42 +81,14 @@ class DataTabController(DataTabView.ViewListener):
             the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data
         """
         file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")), 
-                              initialdir="./Data")
+                                initialdir="./Data")
         if file is not None:
-            self.clearTable()
-            self.readFile(file, master)
+            l = file.name.split(".")
+            if l[-1] == "csv":
+                Reader.readCsv(file=file, master=master, dataModel=self.dataTabModel, controller=self)
+            else:
+                Reader.readProject(file=file, dataMaster=master, dataModel=self.dataTabModel, dataController=self)
             file.close()
-            self.fillDataTable()
-
-
-    def readFile(self, file, master) -> None:
-        """Read a csv file and add its content in the model
-
-        Parameters
-        ----------
-        file : IO
-            file descriptor of the input file
-        master : CTkFrame
-            the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data
-        """
-        criteriaP = None
-        criteriaQ = None
-        for line in file:
-            line = line.strip()
-            temp = line.split(',')
-            if(temp[0] == 'c'):
-                criteriaNames = temp[1:]
-            elif(temp[0] == 'w'):
-                criteriaWeights = temp[1:]
-            elif(temp[0] == 'f'):
-                criteriaPreferenceFunctionType = temp[1:]
-            elif(temp[0] == 'p'):
-                criteriaP = temp[1:]
-            elif(temp[0] == 'q'):
-                criteriaQ = temp[1:]
-            elif(len(temp) > 1):
-                self.dataTabModel.createAlternative(master, temp[0], temp[1:])
-        self.dataTabModel.createCriteria(master, criteriaNames, criteriaWeights, criteriaPreferenceFunctionType, criteriaP, criteriaQ)
 
 
     def fillDataTable(self) -> None:
