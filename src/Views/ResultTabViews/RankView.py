@@ -5,6 +5,7 @@ from customtkinter import (CTkFrame, CTkCheckBox, IntVar)
 from Resources.ScrollableFrame import ScrollableFrame
 from Views.ResultTabViews.AlternativeView import AlternativeView
 from Views.ResultTabViews.VerticalLine import VerticalLine
+from Views.ResultTabViews.HorizontalLine import HorizontalLine
 from math import floor
 
 SPACE = 100 # The space between the center of 2 circles that represent alternatives
@@ -53,7 +54,6 @@ class RankView:
         self.construction = {}
         self.graph = []
         self.als = []
-        self.lines = []
         self.xmin = 1000000
         self.ymin = 50
         self.xmax = 0
@@ -206,9 +206,10 @@ class RankView:
         xyb = b.getXY()
         if xya[1] == xyb[1]:
             # Horizontal line
-            pass
+            line = HorizontalLine(a, b)
+            line.createLine()
+            line.draw(self.ax, dash)
         else:
             line = VerticalLine(a, b)
             line.createLine(self.als)
-            line.draw(dash)
-            self.lines.append(line)
+            line.draw(self.ax, dash)

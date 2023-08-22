@@ -101,8 +101,8 @@ class VerticalLine:
         self.x = np.array(self.x)
         visited.clear()
 
-    def draw(self, dash=False):
+    def draw(self, ax, dash=False):
         if dash:
-            plt.plot(self.x, self.y, lw=1, ls="--", color="black")
+            ax.plot(self.x, self.y, lw=1, ls="--", color="black")
         else:
-            plt.plot(self.x, self.y, lw=1, ls="-", color="black")
+            ax.plot(self.x, self.y, lw=1, ls="-", color="black")
