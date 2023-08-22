@@ -64,8 +64,5 @@ class VerticalLine:
         self.x = np.array(self.x)
 
 
-    def draw(self, ax, dash=False):
-        if dash:
-            ax.plot(self.x, self.y, lw=1, ls="--", color="black")
-        else:
-            ax.plot(self.x, self.y, lw=1, ls="-", color="black")
+    def draw(self, ax, color):
+        ax.plot(self.x, self.y, lw=1, ls="-", color=color)

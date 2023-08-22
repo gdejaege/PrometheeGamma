@@ -1,5 +1,6 @@
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+import matplotlib.lines as mlines
 from tkinter import *
 from customtkinter import (CTkFrame, CTkCheckBox, CTkScrollbar, IntVar)
 from Resources.ScrollableFrame import ScrollableFrame
@@ -128,6 +129,7 @@ class RankView:
 
         self.build(r)
         self.add_lines(matrixResults)
+        self.makeLegend()
         self.canvas.draw()
 
 
@@ -152,7 +154,7 @@ class RankView:
         if h > height:
             height = h
         
-        widthScroll = max(width, height)*1.5 + SPACE
+        widthScroll = max(width+3*SPACE, height)*1.5 + SPACE
         heightScroll = height*1.5 + SPACE
         self.leftScrollFrame.resize((0,0,widthScroll, heightScroll))
         
@@ -204,20 +206,27 @@ class RankView:
                 x = matrixResults[i][j].split(' I ')
                 y = matrixResults[i][j].split(' J ')
                 if len(x) > 1 and self.alternatives[x[0]].get() and self.alternatives[x[1]].get():
-                    self.draw_line(a=self.construction[x[0]], b=self.construction[x[1]])
+                    self.draw_line(a=self.construction[x[0]], b=self.construction[x[1]], color="green")
                 elif len(y) > 1 and self.alternatives[y[0]].get() and self.alternatives[y[1]].get():
-                    self.draw_line(a=self.construction[y[0]], b=self.construction[y[1]], dash=True)
+                    self.draw_line(a=self.construction[y[0]], b=self.construction[y[1]], color="red")
 
 
-    def draw_line(self, a:AlternativeView, b:AlternativeView, dash=False):
+    def draw_line(self, a:AlternativeView, b:AlternativeView, color):
         xya = a.getXY()
         xyb = b.getXY()
         if xya[1] == xyb[1]:
             # Horizontal line
             line = HorizontalLine(a, b)
             line.createLine()
-            line.draw(self.ax, dash)
+            line.draw(self.ax, color)
         else:
             line = VerticalLine(a, b)
             line.createLine(self.als)
-            line.draw(self.ax, dash)
+            line.draw(self.ax, color)
+
+
+    def makeLegend(self):
+        redLine = mlines.Line2D([], [], color='red', label='Incomparability lines')
+        greenLine = mlines.Line2D([], [], color='green', label='Indifference lines')
+        self.ax.legend(handles=[redLine, greenLine], bbox_to_anchor=(1.05, 1),
+                         loc='upper left', borderaxespad=0.)

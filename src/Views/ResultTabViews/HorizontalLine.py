@@ -32,17 +32,14 @@ class HorizontalLine:
             self.arc = True
 
 
-    def draw(self, ax, dash=False):
+    def draw(self, ax, color):
         if self.arc:
-            self.drawArc(ax, dash)
+            self.drawArc(ax, color)
         else:
-            if dash:
-                ax.plot(self.x, self.y, lw=1, ls="--", color="black")
-            else:
-                ax.plot(self.x, self.y, lw=1, ls="-", color="black")
+            ax.plot(self.x, self.y, lw=1, ls="-", color=color)
 
 
-    def drawArc(self, ax, dash):
+    def drawArc(self, ax, color):
         xy1 = self.a1.getXY()
         xy2 = self.a2.getXY()
         radius = self.a1.getRadius()
@@ -52,9 +49,5 @@ class HorizontalLine:
         yc = xy1[1] - radius
         xc = width//2 + min(xy1[0],xy2[0])
 
-        if dash:
-            arc = Arc((xc, yc), width, height, angle=0, theta1=180, theta2=360, ls="--", lw=1, edgecolor="black")
-        else:
-            arc = Arc((xc, yc), width, height, angle=0, theta1=180, theta2=360, ls="-", lw=1, edgecolor="black")
-
+        arc = Arc((xc, yc), width, height, angle=0, theta1=180, theta2=360, ls="-", lw=1, edgecolor=color)
         ax.add_patch(arc)
