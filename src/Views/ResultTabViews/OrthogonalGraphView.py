@@ -1,5 +1,6 @@
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+import matplotlib.patches as mpatches
 from tkinter import *
 
 class OrthogonalGraphView:
@@ -135,6 +136,12 @@ class OrthogonalGraphView:
         ax.set_ylabel('γji')
         ax.axis([0, 1.2, 0, 1.2])
         ax.set_box_aspect(1.0)
+
+        redPoints = mpatches.Circle([], 1, color="red", fill=True, label="Incomparability")
+        bluePoints = mpatches.Circle([], 1, color="blue", fill=True, label="Preference")
+        greenPoints = mpatches.Circle([], 1, color="green", fill=True, label="Indifference")
+
+        ax.legend(handles=[redPoints, bluePoints, greenPoints], loc='upper right')
 
 
     def clearList(self) -> None:
