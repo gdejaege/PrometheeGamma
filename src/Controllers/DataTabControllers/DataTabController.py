@@ -84,10 +84,11 @@ class DataTabController(DataTabView.ViewListener):
                                 initialdir="./Data")
         if file is not None:
             l = file.name.split(".")
+            r = Reader()
             if l[-1] == "csv":
-                Reader.readCsv(file=file, master=master, dataModel=self.dataTabModel, controller=self)
+                r.readCsv(file=file, master=master, dataModel=self.dataTabModel, controller=self)
             else:
-                Reader.readProject(file=file, dataMaster=master, dataModel=self.dataTabModel, dataController=self)
+                r.readProject(file=file, dataMaster=master, dataModel=self.dataTabModel, dataController=self)
             file.close()
 
 

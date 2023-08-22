@@ -23,21 +23,6 @@ class SaveView(CTkToplevel):
             checkBox = CTkCheckBox(self, text=k, variable=v)
             self.checkBoxList.append(checkBox)
 
-        """
-        self.checkBoxData = CTkCheckBox(self, text="Data")
-        self.checkBoxData.select()
-        self.checkBoxParameters = CTkCheckBox(self, text="Parameters")
-        self.checkBoxParameters.select()
-        self.checkBoxResults = CTkCheckBox(self, text="Result matrix")
-        self.checkBoxResults.select()
-        self.checkBoxGamma = CTkCheckBox(self, text="Gamma matrix")
-        self.checkBoxGamma.select()
-        self.checkBoxOrtho = CTkCheckBox(self, text="Orthogonal graph")
-        self.checkBoxOrtho.select()
-        self.checkBoxRank = CTkCheckBox(self, text="Rank graph")
-        self.checkBoxRank.select()
-        """
-
         self.labelFolder = CTkLabel(self, text="Select a folder:")
         self.folder = StringVar(self, value="...")
         self.buttonFolder = CTkButton(self, textvariable=self.folder, command=self.selectFolder)
@@ -63,15 +48,6 @@ class SaveView(CTkToplevel):
         for e in self.checkBoxList:
             e.grid(row=r, column=0, columnspan=2, sticky="w", padx=20, pady=(10,0))
             r += 1
-
-        """
-        self.checkBoxData.grid(row=2, column=0, columnspan=2, sticky="w", padx=20, pady=(10,0))
-        self.checkBoxParameters.grid(row=3, column=0, columnspan=2, sticky="w", padx=20, pady=(10,0))
-        self.checkBoxResults.grid(row=4, column=0, columnspan=2, sticky="w", padx=20, pady=(10,0))
-        self.checkBoxGamma.grid(row=5, column=0, columnspan=2, sticky="w", padx=20, pady=(10,0))
-        self.checkBoxOrtho.grid(row=6, column=0, columnspan=2, sticky="w", padx=20, pady=(10,0))
-        self.checkBoxRank.grid(row=7, column=0, columnspan=2, sticky="w", padx=20, pady=(10,0))
-        """
 
         self.labelFolder.grid(row=r, column=0, sticky="w", padx=20, pady=(20,0))
         self.buttonFolder.grid(row=r+1, column=0, columnspan=3, sticky="n", padx=20, pady=(5,0))

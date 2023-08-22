@@ -1,7 +1,7 @@
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 from tkinter import *
-from customtkinter import (CTkFrame, CTkCheckBox, IntVar)
+from customtkinter import (CTkFrame, CTkCheckBox, CTkScrollbar, IntVar)
 from Resources.ScrollableFrame import ScrollableFrame
 from Views.ResultTabViews.AlternativeView import AlternativeView
 from Views.ResultTabViews.VerticalLine import VerticalLine
@@ -37,9 +37,10 @@ class RankView:
         master : CTkFrame
             the master frame
         """
-        self.leftFrame = CTkFrame(master, bg_color="#ffffff", fg_color="#ffffff")
-        self.scrollFrame = ScrollableFrame(master)
-        self.rightFrame = self.scrollFrame.frame()
+        self.leftScrollFrame = ScrollableFrame(master)
+        self.leftFrame = self.leftScrollFrame.frame()
+        self.rightScrollFrame = ScrollableFrame(master)
+        self.rightFrame = self.rightScrollFrame.frame()
         self.leftFrame.grid_columnconfigure(0, weight=1)
         self.fig = Figure()
         self.ax = None
@@ -52,7 +53,7 @@ class RankView:
         self.alternatives = {}
         self.listener = None
         self.construction = {}
-        self.graph = []
+        self.graphName = []
         self.als = []
         self.xmin = 1000000
         self.ymin = 50
@@ -102,11 +103,11 @@ class RankView:
     def show(self):
         """Show the view
         """
-        self.scrollFrame.place(relx=0.75, y=1, relheight=1.0, relwidth=0.25)
-
-        self.leftFrame.place(x=1, y=1, relheight=1.0, relwidth=0.75)
-        self.canvas.get_tk_widget().grid(row=0,column=0, padx=10, pady=(10,0), sticky="n")
-        self.toolbar.grid(row=1,column=0, padx=10, pady=(10,0), sticky="n")
+        self.rightScrollFrame.place(relx=0.75, y=1, relheight=1.0, relwidth=0.25)
+        self.leftScrollFrame.place(x=1, y=1, relheight=1.0, relwidth=0.75)
+        self.toolbar.pack(expand=True, side='bottom')
+        self.canvas.get_tk_widget().pack(expand=True, fill='both')#.grid(row=0,column=0, padx=10, pady=(10,0), sticky="n")
+        #self.toolbar.grid(row=1,column=0, padx=10, pady=(10,0), sticky="n")
 
 
     def drawCanvas(self, r:list, matrixResults:list) -> None:
@@ -133,7 +134,7 @@ class RankView:
     def computeSize(self, r:list):
         width = 100
         height = 100
-        self.graphName = []
+        self.graphName.clear()
 
         h = 0
         for i in range(len(r)):
@@ -151,6 +152,10 @@ class RankView:
         if h > height:
             height = h
         
+        widthScroll = max(width, height)*1.5 + SPACE
+        heightScroll = height*1.5 + SPACE
+        self.leftScrollFrame.resize((0,0,widthScroll, heightScroll))
+        
         self.ax.axis([0, width, 0, height])
         return width, height
                     
@@ -163,6 +168,9 @@ class RankView:
         r : list
             the ranked list of alternatives
         """
+        self.construction.clear()
+        self.als.clear()
+
         (width, height) = self.computeSize(r)
         h = height - SPACE//2
 
@@ -179,7 +187,7 @@ class RankView:
                 self.construction[n] = a
                 self.als.append(a)
                 x += SPACE
-            y -= SPACE
+            h -= SPACE
 
 
     def add_lines(self, matrixResults:list) -> None:

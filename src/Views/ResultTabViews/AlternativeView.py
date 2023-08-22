@@ -10,7 +10,7 @@ class AlternativeView:
         self.xy = xy
         self.radius = radius
         self.name = name
-        self.lineSpace = 4
+        self.lineSpace = 7
         self.lineNb = 0
 
 
@@ -41,9 +41,6 @@ class AlternativeView:
     def includeXY(self, x, y):
         # circle equation : (x - xc)^2 + (y-yc)^2 = R^2
         # x, y in circle if (x - xc)^2 + (y-yc)^2 <= R^2
-        #print((x - self.xy[0])**2)
-        #print((y - self.xy[1])**2)
-        #print((self.radius+5)**2)
         eq = (x - self.xy[0])**2 + (y - self.xy[1])**2 < (self.radius+self.lineSpace)**2
         if eq:
             return True
@@ -60,16 +57,12 @@ class AlternativeView:
         # Outside the circle if (x - xc)^2 + (y-yc)^2 >= R^2
         # <=> x >= xc + sqrt(R - (y-yc)^2 or x <= xc - sqrt(R^2 - (y-yc)^2)
         cst = sqrt(abs((self.radius+self.lineSpace)**2 - (y - self.xy[1])**2))
-        if x >= self.xy[0] and px >= self.xy[0]-5:
+        if x >= self.xy[0] and px >= self.xy[0]:
             newx = self.xy[0] + cst
-        elif x <= self.xy[0] and px <= self.xy[0]+5:
+        elif x <= self.xy[0] and px <= self.xy[0]:
             newx = self.xy[0] - cst
         elif px >= self.xy[0]:
             newx = self.xy[0] + cst
         elif px <= self.xy[0]:
             newx = self.xy[0] - cst
         return newx
-
-
-    def newLineEncountered(self):
-        self.lineSpace += 2
