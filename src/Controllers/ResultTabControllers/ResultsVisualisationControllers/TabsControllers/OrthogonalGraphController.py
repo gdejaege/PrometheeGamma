@@ -48,3 +48,8 @@ class OrthogonalGraphController:
         matrixGamma = self.model.getMatrixGamma()
         matrixResults = self.model.getMatrixResults()
         self.orthogonalGraphView.reshresh(matrixGamma, matrixResults)
+
+
+    def saveOgraph(self, folder):
+        filename = folder + "/OrthogonalGraph.png"
+        self.orthogonalGraphView.save(filename)

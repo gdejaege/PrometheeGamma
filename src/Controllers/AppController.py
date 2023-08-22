@@ -4,9 +4,10 @@ from Controllers.DataTabControllers.DataTabController import DataTabController
 from Controllers.ResultTabControllers.ResultTabController import ResultTabController
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
-import tkinter.messagebox
+import tkinter.messagebox as msg
 from tkinter import filedialog as fd
 from tkinter import IntVar
+import os
 
 
 class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController.Listener, HelpForParametersTabController.Listener):
@@ -75,6 +76,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
                          "Gamma matrix":IntVar(self.appView, 1), 
                          "Orthogonal graph":IntVar(self.appView, 1), 
                          "Rank graph":IntVar(self.appView, 1)}
+        self.saveFolder = None
 
 
     def run(self) -> None:
@@ -136,9 +138,9 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
             True if the resut visualisation must be loaded, False otherwise
         """
         if self.dataTabController.voidModel():
-            tkinter.messagebox.showerror(title="No data", message="No data available. Impossible to obtain results. Please fill in the data tab")
+            msg.showerror(title="No data", message="No data available. Impossible to obtain results. Please fill in the data tab")
         elif self.dataTabController.no2AlterInModel():
-            tkinter.messagebox.showerror(title="Not enougth alternatives", message="At least 2 alternatives are needed to obtain results. Please, add alternatives.")
+            msg.showerror(title="Not enougth alternatives", message="At least 2 alternatives are needed to obtain results. Please, add alternatives.")
         else:
             if load:
                 self.resultTabController.loadResultsVisualisation()
@@ -239,17 +241,17 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
     def menuChoice(self, choice:str):
         if choice == "new project":
-            if tkinter.messagebox.askokcancel("Create a new project", message="Do you really want to create a new project? All unsaved data will be lost."):
+            if msg.askokcancel("Create a new project", message="Do you really want to create a new project? All unsaved data will be lost."):
                 self.reset()
         elif choice == "save project as":
             self.saveAs()
         elif choice == "save project":
             self.save()
         elif choice == "load project":
-            if tkinter.messagebox.askokcancel("Load a project", message="Do you really want to load a project? All unsaved data will be lost."):
+            if msg.askokcancel("Load a project", message="Do you really want to load a project? All unsaved data will be lost."):
                 self.load()
         elif choice == "quit":
-            if tkinter.messagebox.askokcancel("Quit", message="Do you really want to quit? All unsaved data will be lost."):
+            if msg.askokcancel("Quit", message="Do you really want to quit? All unsaved data will be lost."):
                 self.appView.quit()
 
 
@@ -259,8 +261,13 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
     def save(self):
         # Si un dossier est déjà lié (par load ou par save as) -> save dans ce dossier
-        # Sinon :
-        self.saveAs()
+        if self.saveFolder is None or not os.path.exists(self.saveFolder):
+            self.saveAs()
+        else:
+            if msg.askokcancel("Folder selection", "The content of the folder will be overwrite. Use this folder?\n" + self.saveFolder):
+                self.saveProject()
+            else:
+                msg.showwarning("Warning", "The project was not saved.")
 
         
     def saveAs(self):
@@ -271,36 +278,6 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         self.saveView.setListener(self)
         self.saveView.show()
 
-        """
-        fname = fd.asksaveasfilename(confirmoverwrite=True, 
-                                     filetypes=(("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")), 
-                                     initialdir="./Projects")
-        if fname is None or fname == "":
-            tkinter.messagebox.showwarning("Warning", "The project was not saved.")
-        else:
-            l = fname.split(sep="/")
-            name = l[-1]
-            l = name.split(".")
-            if len(l) == 2 and l[1] == "prometheeGammaProject":
-                name = l[0]
-            elif len(l) == 1:
-                fname += ".prometheeGammaProject"
-            else:
-                tkinter.messagebox.showerror("Invalid file name", "The file name is invalid.")
-                return
-            
-            try:
-                file = open(fname, "w", encoding="UTF-8")
-                file.write("PROMETHEE Gamma Project: " + name + "\n")
-                self.dataTabController.saveProject(file=file)
-                self.resultTabController.saveProject(file=file)
-                self.saveProject(file=file)
-                file.close()
-            except:
-                tkinter.messagebox.showerror("Error", "An error has occurred: unable to save correctly the project")
-                return
-            tkinter.messagebox.showinfo("Save", message="The project has been successfully saved")
-        """
 
     def saveInFolder(self, folder, name):
         # TODO 
@@ -308,12 +285,54 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         # Si un dossier de ce nom existe déjà, demander si écraser
         # Si pas écraser, relancer self.save()
         # 
-
-
-        print(name)
-        print(folder)
         self.saveView.destroy()
-        
+
+        newFolder = folder + '/' + name
+        if not os.path.exists(newFolder):
+            os.makedirs(newFolder)
+            self.saveFolder = newFolder
+        else:
+            if msg.askokcancel("The folder already exists", "Do you want to overwrite the contents of the folder?"):
+                self.saveFolder = newFolder
+            else:
+                msg.showwarning("Warning", "The project was not saved.")
+                return
+
+        self.saveProject()
+
+
+    def saveProject(self):
+        if self.saveDict["Data"].get() == 1:
+            self.dataTabController.save(self.saveFolder)
+        if self.saveDict["Parameters"].get() == 1 or self.saveDict["Result matrix"].get() == 1 or self.saveDict["GammaMatrix"].get() == 1:
+            self.saveResults(self.saveFolder)
+        if self.saveDict["Orthogonal graph"].get() == 1:
+            self.resultTabController.saveOgraph(self.saveFolder)
+        if self.saveDict["Rank graph"].get() == 1:
+            self.resultTabController.saveRgraph(self.saveFolder)
+
+
+    def saveResults(self, folder):
+        filename = folder + "/Results.txt"
+        Params = []
+        Rmatrix = []
+        Gmatrix = []
+        if os.path.exists(filename):
+            pass
+        else:
+            pass
+
+        print("Résultats sauvegardés")
+
+
+    def fileWriteMatrix(self, file, m):
+        for i in range(len(m)):
+            line = ""
+            for k in range(len(m[i])):
+                line += str(m[i][k]) + "  "
+            file.write(line + "\n")
+
+
 
 
     def load(self):
@@ -327,30 +346,8 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
                 self.readFile(file=file)
                 file.close()
             except:
-                tkinter.messagebox.showerror("Error", "An error has occurred: unable to load correclty the project")
+                msg.showerror("Error", "An error has occurred: unable to load correclty the project")
                 return
-            tkinter.messagebox.showinfo("Load", message="The project has been successfully laoded")
+            msg.showinfo("Load", message="The project has been successfully laoded")
 
             print("load")
-
-
-    def saveProject(self, file):
-
-        file.write("\n\nMatrix Gamma\n\n")
-
-        m = self.prometheeGamma.getMatrixGamma()
-        self.fileWriteMatrix(file, m)
-
-        file.write("\n\nResults\n\n")
-
-        m = self.prometheeGamma.getMatrixResults()
-        self.fileWriteMatrix(file, m)
-
-
-    def fileWriteMatrix(self, file, m):
-        for i in range(len(m)):
-            line = ""
-            for k in range(len(m[i])):
-                line += str(m[i][k]) + "  "
-            file.write(line + "\n")
-

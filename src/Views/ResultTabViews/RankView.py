@@ -230,3 +230,7 @@ class RankView:
         greenLine = mlines.Line2D([], [], color='green', label='Indifference lines')
         self.ax.legend(handles=[redLine, greenLine], bbox_to_anchor=(1.05, 1),
                          loc='upper left', borderaxespad=0.)
+        
+
+    def save(self, filename):
+        self.fig.savefig(filename)

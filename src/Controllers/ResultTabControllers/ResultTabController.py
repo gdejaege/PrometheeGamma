@@ -206,6 +206,15 @@ class ResultTabController(ResultTabView.ViewListener):
         self.resultsVisualisationController.refresh()
 
 
+    def saveOgraph(self, folder):
+        self.resultsVisualisationController.saveOgraph(folder)
+
+
+    def saveRgraph(self, folder):
+        self.resultsVisualisationController.saveRgraph(folder)
+
+
+    """
     def saveProject(self, file):
 
         file.write("\n\nParameters\n\n")
@@ -217,6 +226,7 @@ class ResultTabController(ResultTabView.ViewListener):
         file.write("I = " + str(i) + "\n")
         file.write("J = " + str(j) + "\n")
         file.write("P = " + str(p) + "\n")
+    """
 
         
 

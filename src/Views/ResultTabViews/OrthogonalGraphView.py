@@ -153,3 +153,7 @@ class OrthogonalGraphView:
         self.yb.clear()
         self.yg.clear()
         self.yr.clear()
+
+
+    def save(self, filename):
+        self.fig.savefig(filename)

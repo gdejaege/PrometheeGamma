@@ -240,6 +240,50 @@ class DataTabController(DataTabView.ViewListener):
         return self.dataTabModel.twoAlter()
     
 
+    def save(self, folder):
+        filename = folder + '/' + "Data.csv"
+        file = open(filename, mode="w", encoding="UTF-8")
+
+        nbCriteria = self.dataTabModel.getNumberOfCriteria()
+        nbAlternatives = self.dataTabModel.getNumberOfAlternatives()
+
+        line = "c"
+        for i in range(nbCriteria):
+            line += "," + self.dataTabModel.getCriterion(i).getName_str()
+        file.write(line+"\n")
+
+        for j in range(nbAlternatives):
+            alternative = self.dataTabModel.getAlternative(j)
+            line = alternative.getName_str()
+            for k in range(nbCriteria):
+                line += "," + str(alternative.getEvaluation_float(k))
+            file.write(line+"\n")
+
+        line = "w"
+        for l in range(nbCriteria):
+            line += "," + str(self.dataTabModel.getCriterion(l).getWeight_float())
+        file.write(line+"\n")
+
+        line = "f"
+        for m in range(nbCriteria):
+            line += "," + str(self.dataTabModel.getCriterion(m).getPf_int())
+        file.write(line+"\n")
+
+        line = "p"
+        for n in range(nbCriteria):
+            line += "," + str(self.dataTabModel.getCriterion(n).getP_float())
+        file.write(line+"\n")
+
+        line = "q"
+        for o in range(nbCriteria):
+            line += "," + str(self.dataTabModel.getCriterion(o).getQ_float())
+        file.write(line+"\n")
+
+        file.close()
+
+
+
+    """
     def saveProject(self, file):        
         file.write("\n\nData\n\n")
         nbCriteria = self.dataTabModel.getNumberOfCriteria()
@@ -276,3 +320,4 @@ class DataTabController(DataTabView.ViewListener):
         for o in range(nbCriteria):
             line += "," + str(self.dataTabModel.getCriterion(o).getQ_float())
         file.write(line+"\n")
+    """

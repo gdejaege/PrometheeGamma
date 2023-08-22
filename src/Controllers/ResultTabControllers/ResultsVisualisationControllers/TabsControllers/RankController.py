@@ -115,3 +115,8 @@ class RankController(RankView.ViewListener):
             else:
                 self.ranked.append([])
                 self.ranked[-1].append(sortedDict[i][0])
+
+
+    def saveRgraph(self, folder):
+        filename = folder + "/RankGraph.png"
+        self.rankView.save(filename)

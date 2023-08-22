@@ -27,6 +27,7 @@ class SaveView(CTkToplevel):
         self.folder = StringVar(self, value="...")
         self.buttonFolder = CTkButton(self, textvariable=self.folder, command=self.selectFolder)
         self.saveButton = CTkButton(self, text="Save", command=self.save)
+        self.cancelButton =CTkButton(self, text="Cancel", command=self.cancel)
 
         self.listener = None
 
@@ -51,7 +52,8 @@ class SaveView(CTkToplevel):
 
         self.labelFolder.grid(row=r, column=0, sticky="w", padx=20, pady=(20,0))
         self.buttonFolder.grid(row=r+1, column=0, columnspan=3, sticky="n", padx=20, pady=(5,0))
-        self.saveButton.grid(row=r+2, column=0, columnspan=2, sticky="n", padx=20, pady=(30,20))
+        self.saveButton.grid(row=r+2, column=0, columnspan=1, sticky="n", padx=20, pady=(30,20))
+        self.cancelButton.grid(row=r+2, column=1, columnspan=1, sticky="n", padx=20, pady=(30,20))
 
 
     def selectFolder(self):
@@ -68,3 +70,8 @@ class SaveView(CTkToplevel):
             msg.showerror("No name", "Please, enter a name.")
         else:
             self.listener.saveInFolder(folder, name)
+
+    
+    def cancel(self):
+        msg.showwarning("Warning", "The project was not saved.")
+        self.destroy()

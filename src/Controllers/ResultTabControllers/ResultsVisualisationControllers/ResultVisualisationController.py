@@ -69,4 +69,12 @@ class ResultVisualisationController:
         self.textboxController.refreshView()
         self.orhtogonalGraphController.refreshView()
         self.rankController.refreshView()
+
+
+    def saveOgraph(self, folder):
+        self.orhtogonalGraphController.saveOgraph(folder)
+
+
+    def saveRgraph(self, folder):
+        self.rankController.saveRgraph(folder)
         
