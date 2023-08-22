@@ -1,72 +1,20 @@
-from customtkinter import (CTkCanvas, CTkScrollbar, CTkFrame, CTkCheckBox, IntVar)
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+from tkinter import *
+from customtkinter import (CTkFrame, CTkCheckBox, IntVar)
 from Resources.ScrollableFrame import ScrollableFrame
 from Views.ResultTabViews.AlternativeView import AlternativeView
+from Views.ResultTabViews.VerticalLine import VerticalLine
+from math import floor
 
 SPACE = 100 # The space between the center of 2 circles that represent alternatives
-RADIUS = 30 # The radius of the circle that represents an alternative
+RADIUS = 35 # The radius of the circle that represents an alternative
+
 
 class RankView:
     """
-    A class to display the rank graph of alternatives in a canvas
+    A class to display the rank graph of alternatives
 
-    Attributes
-    ----------
-    leftFrame : CTkFrame
-        a frame that will contain the canvas
-    scrollFrame : ScrollableFrame
-        a srollableFrame that will contain the rightFrame
-    rightFrame : CTkFrame
-        a frame that will contain the checkBox for alternatives selections
-    canvas : CTkCanvas
-        a canvas that will contain the graph
-    hbar : CTkSrollbar
-        a horizontal scrollbar for the canvas
-    vbar : CTkScrollbar
-        a vertical scrollbar for the canvas
-    checkBoxList : list
-        a list that will contain all checkBoxes
-    alternatives : dict
-        a dictionary that will contain all alternatives names as keys and IntVar with value 0 or 1 as item. 
-        The value = 1 if the alternative is selected, 0 otherwise
-    listener : RankView.ViewListener
-        the view listener
-    construction : dict
-        a dictionary that will contain all alternatives names as keys and AlternativeViews as items
-    graph : list
-        a matrix of AlternativeView. It represents the rank graph
-    xmin : int
-        the lowest abscissa on the graph
-    ymin : int
-        the lowest ordinate of the graph
-    xmax : int
-        the highest abscissa on the graph
-    ymax : int
-        the highest ordinate of the graph
-
-    Methods
-    -------
-    buildAlternativesDict(aList:list)
-        Build the dictionary alternatives
-    BuildCheckBoxes()
-        Build the checkBoxes for alternatives selection
-    setListener(l:ViewListener)
-        Set the listener
-    show()
-        Show the view
-    resizeCanvas(width:int, height:int)
-        Resize the canvas
-    drawCanvas(r:list, lmax:int, matrixResults:list)
-        Display result in a schematic ranking
-    _on_mousewheel(event)
-        Link mouse scroll to vertical canvas scrolling
-    build(r:list, lmax:int)
-        Build the schema
-    add_lines(matrixResults:list)
-        Add plain and dash lines to the schema
-    draw_line(a:AlternativeView, b:AlternativeView, dash=False)
-        Draw the line between alternativeViews a and b. Dash must be set to True for dashed line
-    computePoints(a:AlternativeView, b:AlternativeView)
-        Compute the points sequence for the line between alternativeViews a and b
     """
 
     class ViewListener:
@@ -88,24 +36,29 @@ class RankView:
         master : CTkFrame
             the master frame
         """
-
         self.leftFrame = CTkFrame(master, bg_color="#ffffff", fg_color="#ffffff")
         self.scrollFrame = ScrollableFrame(master)
         self.rightFrame = self.scrollFrame.frame()
-        self.canvas=CTkCanvas(self.leftFrame, bg="#ffffff", highlightcolor="#ffffff", scrollregion=(0,0,100,100))
-        self.hbar=CTkScrollbar(self.leftFrame, orientation="horizontal", command=self.canvas.xview)
-        self.vbar=CTkScrollbar(self.leftFrame, orientation="vertical", command=self.canvas.yview)
-        self.canvas.configure(xscrollcommand=self.hbar.set, yscrollcommand=self.vbar.set)
-        self.canvas.bind("<MouseWheel>", self._on_mousewheel)
+        self.leftFrame.grid_columnconfigure(0, weight=1)
+        self.fig = Figure()
+        self.ax = None
+
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self.leftFrame)
+        self.toolbar = NavigationToolbar2Tk(self.canvas, self.leftFrame, pack_toolbar=False)
+        self.toolbar.update()
+
         self.checkBoxList = []
         self.alternatives = {}
         self.listener = None
         self.construction = {}
         self.graph = []
+        self.als = []
+        self.lines = []
         self.xmin = 1000000
-        self.ymin = 100
+        self.ymin = 50
         self.xmax = 0
-        self.ymax = SPACE
+        self.ymax = 100
+
 
     def buildAlternativesDict(self, aList:list):
         """Build the dictionary for alternatives selection
@@ -144,103 +97,89 @@ class RankView:
         """
 
         self.listener = l
-        
+
 
     def show(self):
         """Show the view
         """
-
-        self.leftFrame.place(x=1, y=1, relheight=1.0, relwidth=0.75)
-        self.hbar.pack(side="bottom", fill="x")
-        self.vbar.pack(side="right", fill="y")
-        self.canvas.pack(side="left", expand=True, fill="both")
-
         self.scrollFrame.place(relx=0.75, y=1, relheight=1.0, relwidth=0.25)
 
-
-    def resizeCanvas(self, width:int, height:int):
-        """Resize the canvas
-
-        Parameters
-        ----------
-        width : int
-            the new width of the canvas
-        height : int
-            the new height of the canvas
-        """
-        self.canvas.config(scrollregion=(0, 0, width+SPACE, height+SPACE))
+        self.leftFrame.place(x=1, y=1, relheight=1.0, relwidth=0.75)
+        self.canvas.get_tk_widget().grid(row=0,column=0, padx=10, pady=(10,0), sticky="n")
+        self.toolbar.grid(row=1,column=0, padx=10, pady=(10,0), sticky="n")
 
 
-    def drawCanvas(self, r:list, lmax:int, matrixResults:list) -> None:
+    def drawCanvas(self, r:list, matrixResults:list) -> None:
         """Display result in a schematic ranking
 
         Parameters
         ----------
         r : list
             ranked list of alternatives
-        lmax : int
-            maximum length (width) of canvas
         matrixResults : list
             the result matrix of PROMETHEE Gamma method
         """
+        self.fig.clear()
+        self.fig.suptitle('Rank graph', fontsize=12, fontweight='bold')
+        self.ax = self.fig.add_subplot()
+        self.ax.set_aspect(1)
+        self.ax.axis('off')
 
-        self.canvas.delete('all')
-        #self.pilImage = Image.new()
-        self.build(r, lmax)
+        self.build(r)
         self.add_lines(matrixResults)
-        self.canvas.update()
+        self.canvas.draw()
 
 
-    def _on_mousewheel(self, event):
-        """Link mouse scroll to vertical canvas scrolling
+    def computeSize(self, r:list):
+        width = 100
+        height = 100
+        self.graphName = []
 
-        Parameters
-        ----------
-        event : Event
-            mouse event (scrolling)
-        """
-        self.canvas.yview_scroll(-1*(event.delta//120), "units")
+        h = 0
+        for i in range(len(r)):
+            w = 0
+            row = []
+            for k in range(len(r[i])):
+                if self.alternatives[r[i][k]].get():
+                    w += SPACE
+                    row.append(r[i][k])
+            if w > 0:
+                h += SPACE
+                self.graphName.append(row)
+            if w > width:
+                width = w
+        if h > height:
+            height = h
+        
+        self.ax.axis([0, width, 0, height])
+        return width, height
+                    
 
-
-    def build(self, r:list, lmax:int) -> None:
+    def build(self, r:list) -> None:
         """Build the schema
 
         Parameters
         ----------
         r : list
             the ranked list of alternatives
-        lmax : int
-            maximum length (width) of canvas
         """
-        self.ymin = SPACE
-        self.ymax = len(r)*SPACE
-        self.xmin = 1000000
-        self.xmax = 0
-        self.graph = []
-        columnLength = 0
-        for i in range(len(r)):
-            y = (columnLength+1)*SPACE
-            x = lmax//2 + SPACE//2
-            for k in range(len(r[i])):
-                if self.alternatives[r[i][k]].get():
-                    x -= SPACE//2
-            if (x-30) < self.xmin:
-                self.xmin = x - 30
-            rowLength = 0
-            row = []
-            for j in range(len(r[i])):
-                xlength = x+rowLength*SPACE
-                if self.alternatives[r[i][j]].get():
-                    a = AlternativeView(name=r[i][j], canvas=self.canvas, x=xlength, y=y, radius=RADIUS, row=columnLength, column=rowLength)
-                    self.construction[r[i][j]] = a
-                    row.append(a)
-                    rowLength += 1
-                    if self.xmax < xlength+30:
-                        self.xmax = xlength+30
-            if rowLength > 0:
-                columnLength += 1
-                self.graph.append(row)
-        self.canvas.config(scrollregion=(self.xmin-SPACE, self.ymin-SPACE, self.xmax+SPACE, self.ymax+SPACE))
+        (width, height) = self.computeSize(r)
+        h = height - SPACE//2
+
+        for row in self.graphName:
+            length = len(row)
+            if length%2 == 0:
+                x = width//2 + SPACE//2 - SPACE * length//2
+            else:
+                x = width//2 - SPACE * floor(length/2)
+            y = h
+            for n in row:
+                a = AlternativeView(xy=(x, y), radius=RADIUS, name=n)
+                a.draw(self.ax)
+                self.construction[n] = a
+                self.als.append(a)
+                x += SPACE
+            y -= SPACE
 
 
     def add_lines(self, matrixResults:list) -> None:
@@ -263,138 +202,13 @@ class RankView:
 
 
     def draw_line(self, a:AlternativeView, b:AlternativeView, dash=False):
-        """Draw the line between alternativeViews a and b. 
-        
-        dash must be set to True for dashed line
-
-        Parameters
-        ----------
-        a : AlternativeView
-            an alternativeView
-        b : AlternativeView
-            an alternativeView
-        dash : bool, optional
-            True for dash line, False for plain line (default is False)
-        """
-        if self.xmin != self.xmax:
-            (xa, ya) = a.getCoords()
-            (xb, yb) = b.getCoords()
-            if ya == yb:
-                if xa > xb:
-                    h = round((xa - xb)/(self.xmax-self.xmin) * 20) + RADIUS + 5
-                    points = (xb, yb+RADIUS), (xb + (xa-xb)/2, ya+h), (xa, ya+RADIUS)
-                else:
-                    h = round((xb - xa)/(self.xmax-self.xmin) * 20) + RADIUS + 5
-                    points = (xa, ya+RADIUS), (xa + (xb-xa)/2, ya+h), (xb, yb+RADIUS)
-            else:
-                points = self.computePoints(a, b)
-            if dash:
-                self.canvas.create_line(points, smooth=True, dash=(3,1))
-            else:
-                self.canvas.create_line(points, smooth=True)
-
-
-    def computePoints(self, a:AlternativeView, b:AlternativeView):
-        """Compute the points sequence for the line between alternativeViews a and b
-
-        Parameters
-        ----------
-        a : AlternativeView
-            an alternativeView
-        b : AlternativeView
-            an alternativeView
-        """
-
-        (xa, ya) = a.getCoords()
-        (xb, yb) = b.getCoords()
-        ra = a.getRow()
-        rb = b.getRow()
-        points = []
-        bSpace = 1.5*SPACE-5
-        space = SPACE-5
-        lSpace = 0.5*SPACE-5
-        if ya > yb:
-            pair = len(self.graph[rb])%2 == 0
-            if ya == yb + SPACE:
-                points = (xa, ya-RADIUS), (xb, yb+RADIUS)
-            elif xa >= xb:
-                points.append((xb, yb+RADIUS))
-                for r in range(ra-rb-1):
-                    if len(self.graph[r+rb+1])%2 == 0:
-                        if pair:
-                            points.append((xb+lSpace, yb+lSpace+r*SPACE))
-                            points.append((xb+lSpace, yb+bSpace+r*SPACE))
-                        else:
-                            points.append((xb+space, yb+lSpace+r*SPACE))
-                            points.append((xb+space, yb+bSpace+r*SPACE))
-                    else:
-                        if pair:
-                            points.append((xb+space, yb+lSpace+r*SPACE))
-                            points.append((xb+space, yb+bSpace+r*SPACE))
-                        else:
-                            points.append((xb+lSpace, yb+space+r*SPACE))
-                            points.append((xb+lSpace, yb+bSpace+r*SPACE))
-                points.append((xb+lSpace, ya-lSpace))
-                points.append((xa, ya-RADIUS))
-            elif xa < xb:
-                points.append((xb, yb+RADIUS))
-                for r in range(ra-rb-1):
-                    if len(self.graph[r+rb+1])%2 == 0:
-                        if pair:
-                            points.append((xb-lSpace, yb+lSpace+r*SPACE))
-                            points.append((xb-lSpace, yb+bSpace+r*SPACE))
-                        else:
-                            points.append((xb-space, yb+lSpace+r*SPACE))
-                            points.append((xb-space, yb+bSpace+r*SPACE))
-                    else:
-                        if pair:
-                            points.append((xb-space, yb+lSpace+r*SPACE))
-                            points.append((xb-space, yb+bSpace+r*SPACE))
-                        else:
-                            points.append((xb-lSpace, yb+lSpace+r*SPACE))
-                            points.append((xb-lSpace, yb+bSpace+r*SPACE))
-                points.append((xb-lSpace, ya-lSpace))
-                points.append((xa, ya-RADIUS))
+        xya = a.getXY()
+        xyb = b.getXY()
+        if xya[1] == xyb[1]:
+            # Horizontal line
+            pass
         else:
-            pair = len(self.graph[ra])%2 == 0
-            if yb == ya + SPACE:
-                points = (xb, yb-RADIUS), (xa, ya+RADIUS)
-            elif xb >= xa:
-                points.append((xa, ya+RADIUS))
-                for r in range(rb-ra-1):
-                    if len(self.graph[r+ra+1])%2 == 0:
-                        if pair:
-                            points.append((xa+lSpace, ya+lSpace+r*SPACE))
-                            points.append((xa+lSpace, ya+bSpace+r*SPACE))
-                        else:
-                            points.append((xa+space, ya+lSpace+r*SPACE))
-                            points.append((xa+space, ya+bSpace+r*SPACE))
-                    else:
-                        if pair:
-                            points.append((xa+space, ya+lSpace+r*SPACE))
-                            points.append((xa+space, ya+bSpace+r*SPACE))
-                        else:
-                            points.append((xa+lSpace, ya+lSpace+r*SPACE))
-                            points.append((xa+lSpace, ya+bSpace+r*SPACE))
-                points.append((xa+lSpace, yb-lSpace))
-                points.append((xb, yb-RADIUS))
-            elif xb < xa:
-                points.append((xa, ya+RADIUS))
-                for r in range(rb-ra-1):
-                    if len(self.graph[r+ra+1])%2 == 0:
-                        if pair:
-                            points.append((xa-lSpace, ya+lSpace+r*SPACE))
-                            points.append((xa-lSpace, ya+bSpace+r*SPACE))
-                        else:
-                            points.append((xa-space, ya+lSpace+r*SPACE))
-                            points.append((xa-space, ya+bSpace+r*SPACE))
-                    else:
-                        if pair:
-                            points.append((xa-space, ya+lSpace+r*SPACE))
-                            points.append((xa-space, ya+bSpace+r*SPACE))
-                        else:
-                            points.append((xa-lSpace, ya+lSpace+r*SPACE))
-                            points.append((xa-lSpace, ya+bSpace+r*SPACE))
-                points.append((xa-lSpace, yb-lSpace))
-                points.append((xb, yb-RADIUS))
-        return tuple(points)
+            line = VerticalLine(a, b)
+            line.createLine(self.als)
+            line.draw(dash)
+            self.lines.append(line)

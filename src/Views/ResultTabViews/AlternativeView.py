@@ -1,92 +1,75 @@
-from tkinter import Canvas
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.textpath import TextPath
+from matplotlib.patches import PathPatch
+from math import sqrt
 
-class AlternativeView():
-    """
-    This class allows to represent an alternative on a schema. It takes the form of a circle with the name of the alternative
 
-    Attributes
-    ----------
-    name : str
-        the alternative name
-    x : int
-        the x coordinate of the center of the circle
-    y : int
-        the y coordinate of the center of the circle
-    row : int
-        the row of the circle on the graph
-    column : int
-        the column of the circle on the graph
-
-    Methods
-    -------
-    getCoords()
-        return (x, y), the coordinates of the center of the circle
-    getRow()
-        return the row of the circle on the graph
-    getColumn()
-        return the column of the circle on the graph
-    """
-
-    def __init__(self, name:str, canvas:Canvas, x:int, y:int, radius:int, row:int, column:int):
-        """
-        Parameters
-        ----------
-        name : str
-            the alternative name
-        canvas : Canavas
-            the canvas where the alternative is drawed
-        x : int
-            the x coordinate of the center of the circle that represents the alternative
-        y : int
-            the y coordinate of the center of the circle that represents the alternative
-        radius : int 
-            the circle radius
-        row : int 
-            the row of the alternative on the graph
-        column : int 
-            the column of the alternative on the graph
-        """
-
+class AlternativeView:
+    def __init__(self, xy=(100,100), radius=40, name="Unknown"):
+        self.xy = xy
+        self.radius = radius
         self.name = name
-        self.x = x
-        self.y = y
-        self.row = row
-        self.column = column
-        canvas.create_oval(x-radius, y-radius, x+radius, y+radius)
-        canvas.create_text(x, y, text=self.name)
+        self.lineSpace = 4
+        self.lineNb = 0
 
-    
-    def getCoords(self) -> tuple:
-        """return (x, y), the coordinates of the center of the circle
 
-        Return
-        ------
-        (x, y) : tuple(int,int)
-            the coordinates of the center of the circle
+    def draw(self, ax):
+        circle = plt.Circle(self.xy, self.radius, color="black", fill=False)
+        ax.add_artist(circle)
+        #text = TextPath(self.xy, self.name, size=self.radius//3)
+        #ax.add_patch(PathPatch(text, color="black", lw=1))
+        ax.text(self.xy[0], self.xy[1], self.name, ha="center", va="center", size="x-small")
+
+
+    def getRadius(self):
+        return self.radius
+
+
+    def getXY(self):
+        return self.xy
+
+
+    def getLineNb(self):
+        return self.lineNb
+
+
+    def increaseLineNb(self):
+        self.lineNb += 1
+
+
+    def includeXY(self, x, y):
+        # circle equation : (x - xc)^2 + (y-yc)^2 = R^2
+        # x, y in circle if (x - xc)^2 + (y-yc)^2 <= R^2
+        #print((x - self.xy[0])**2)
+        #print((y - self.xy[1])**2)
+        #print((self.radius+5)**2)
+        eq = (x - self.xy[0])**2 + (y - self.xy[1])**2 < (self.radius+self.lineSpace)**2
+        if eq:
+            return True
+        return False
+
+
+    def newXLine(self, x, y, px):
         """
 
-        return (self.x, self.y)
-    
-
-    def getRow(self):
-        """return the row of the circle on the graph
-
-        Return
-        ------
-        row : int
-            the row of the circle on the graph
+        px = previous x
         """
+        # Aim : Find newx closest x and px such that newx is outside the circle
+        # circle equation : (x - xc)^2 + (y-yc)^2 = R^2
+        # Outside the circle if (x - xc)^2 + (y-yc)^2 >= R^2
+        # <=> x >= xc + sqrt(R - (y-yc)^2 or x <= xc - sqrt(R^2 - (y-yc)^2)
+        cst = sqrt(abs((self.radius+self.lineSpace)**2 - (y - self.xy[1])**2))
+        if x >= self.xy[0] and px >= self.xy[0]-5:
+            newx = self.xy[0] + cst
+        elif x <= self.xy[0] and px <= self.xy[0]+5:
+            newx = self.xy[0] - cst
+        elif px >= self.xy[0]:
+            newx = self.xy[0] + cst
+        elif px <= self.xy[0]:
+            newx = self.xy[0] - cst
+        return newx
 
-        return self.row
-    
 
-    def getColumn(self):
-        """return the column of the circle on the graph
-
-        Return
-        ------
-        column : int
-            the column of the circle on the graph
-        """
-        
-        return self.column
+    def newLineEncountered(self):
+        self.lineSpace += 2

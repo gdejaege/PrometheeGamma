@@ -59,7 +59,6 @@ class RankController(RankView.ViewListener):
         self.rankView.setListener(self)
 
         self.ranked = []
-        self.lmax = None
 
 
     def showView(self) -> None:
@@ -82,13 +81,8 @@ class RankController(RankView.ViewListener):
         """Draw the canvas, i.e. the rank graph
         """
         self.buildRankedAlternatives()
-        self.lmax = 0
-        for k in range(len(self.ranked)):
-            if len(self.ranked[k]) > self.lmax:
-                self.lmax = len(self.ranked[k])
-        self.rankView.resizeCanvas(width=self.lmax*100+200, height=len(self.ranked)*100+200)
         matrixResults = self.prometheeGamma.getMatrixResults()
-        self.rankView.drawCanvas(self.ranked, self.lmax, matrixResults)
+        self.rankView.drawCanvas(self.ranked, matrixResults)
 
 
     def refreshView(self) -> None:
@@ -102,7 +96,7 @@ class RankController(RankView.ViewListener):
         """Handle of checkBoxEvent in the selection view
         """
         matrixResults = self.prometheeGamma.getMatrixResults()
-        self.rankView.drawCanvas(self.ranked, self.lmax, matrixResults)
+        self.rankView.drawCanvas(self.ranked, matrixResults)
 
 
     def buildRankedAlternatives(self) -> None:
