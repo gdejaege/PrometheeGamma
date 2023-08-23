@@ -344,9 +344,9 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def load(self):
-        if not os.path.exists("./Projects"):
-            os.makedirs("./Projects")
-        directory = fd.askdirectory(initialdir="./Projects")
+        if not os.path.exists("../Projects"):
+            os.makedirs("../Projects")
+        directory = fd.askdirectory(initialdir="../Projects")
         if directory is not None:
             self.reset() # Reset the app
 

@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "proj-h402-promethee-gamma-gui"
+version = "0.1.0"
+description = "The aim of this project is the realization of a graphic application allowing to visualize the results of the Promethee Gamma method."
+authors = ["Luka BONHEURE"]
+readme = "README.md"
+packages = [{include = "proj_h402_promethee_gamma_gui"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.25.2"
+matplotlib = "^3.7.2"
+customtkinter = "^5.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

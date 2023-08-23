@@ -1,7 +1,3 @@
-#from Controllers.DataTabControllers.DataTabController import DataTabController
-#from Models.DataTabModel import DataTabModel
-#from Models.PrometheeGamma import PrometheeGamma
-#from Models.ResultTabModel import ResultTabModel
 
 class Reader:
     def readData(self, file, master, dataModel):

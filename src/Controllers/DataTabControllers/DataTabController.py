@@ -81,12 +81,12 @@ class DataTabController(DataTabView.ViewListener):
         master : CTkFrame
             the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data
         """
-        if not os.path.exists("./Data"):
-            if not os.path.exists("./Projects"):
-                os.makedirs("./Projects")
-            directory = "./Projects"
+        if not os.path.exists("../Data"):
+            if not os.path.exists("../Projects"):
+                os.makedirs("../Projects")
+            directory = "../Projects"
         else:
-            directory = "./Data"
+            directory = "../Data"
         filename = fd.askopenfilename(filetypes=(("csv file", "*.csv"), ("csv file", "*.csv")), initialdir=directory)
         self.loadData(filename, master)
 

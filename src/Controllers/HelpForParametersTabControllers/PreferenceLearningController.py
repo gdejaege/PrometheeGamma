@@ -1,9 +1,7 @@
 from Models.HelpForParametersTabModels.preferenceLearning import PreferenceLearning
 from Views.HelpForParametersTabViews.PreferenceLearningView import PreferenceLearningView
-
 from Models.DataTabModel import DataTabModel
 from Models.PrometheeGamma import PrometheeGamma
-
 import tkinter.messagebox
 from math import comb
 
