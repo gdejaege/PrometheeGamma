@@ -71,12 +71,11 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         self.helpForParametersTabController = None
         self.saveView = None
         self.saveDict = {"Data":IntVar(self.appView, 1), 
-                         "Parameters":IntVar(self.appView, 1), 
-                         "Result matrix":IntVar(self.appView, 1), 
-                         "Gamma matrix":IntVar(self.appView, 1), 
+                         "Results":IntVar(self.appView, 1), 
                          "Orthogonal graph":IntVar(self.appView, 1), 
                          "Rank graph":IntVar(self.appView, 1)}
-        self.saveFolder = None
+        self.save_parentDirectory = None
+        self.save_nameDirectory = None
 
 
     def run(self) -> None:
@@ -261,17 +260,17 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
     def save(self):
         # Si un dossier est déjà lié (par load ou par save as) -> save dans ce dossier
-        if self.saveFolder is None or not os.path.exists(self.saveFolder):
+        if self.save_parentDirectory is None or self.save_nameDirectory is None or not os.path.exists(self.save_parentDirectory + "/" + self.save_nameDirectory):
             self.saveAs()
         else:
-            if msg.askokcancel("Folder selection", "The content of the folder will be overwrite. Use this folder?\n" + self.saveFolder):
+            if msg.askokcancel("directory selection", "The content of the directory will be overwrite. Use this directory?\n" + self.save_parentDirectory + "/" + self.save_nameDirectory):
                 self.saveProject()
             else:
                 msg.showwarning("Warning", "The project was not saved.")
 
         
     def saveAs(self):
-        self.saveView = SaveView(master=self.appView, saveDict=self.saveDict)
+        self.saveView = SaveView(master=self.appView, saveDict=self.saveDict, parentDirectory=self.save_parentDirectory, name=self.save_nameDirectory)
         self.saveView.grab_set()
         self.saveView.focus_set()
         self.saveView.title("Save")
@@ -279,21 +278,23 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         self.saveView.show()
 
 
-    def saveInFolder(self, folder, name):
+    def saveInDirectory(self, directory, name):
         # TODO 
-        # Créer un dossier de nom name dans le dossier folder. 
+        # Créer un dossier de nom name dans le dossier directory. 
         # Si un dossier de ce nom existe déjà, demander si écraser
         # Si pas écraser, relancer self.save()
         # 
         self.saveView.destroy()
 
-        newFolder = folder + '/' + name
-        if not os.path.exists(newFolder):
-            os.makedirs(newFolder)
-            self.saveFolder = newFolder
+        newdirectory = directory + '/' + name
+        if not os.path.exists(newdirectory):
+            os.makedirs(newdirectory)
+            self.save_parentDirectory = directory
+            self.save_nameDirectory = name
         else:
-            if msg.askokcancel("The folder already exists", "Do you want to overwrite the contents of the folder?"):
-                self.saveFolder = newFolder
+            if msg.askokcancel("The directory already exists", "Do you want to overwrite the contents of the directory?"):
+                self.save_parentDirectory = directory
+                self.save_nameDirectory = name
             else:
                 msg.showwarning("Warning", "The project was not saved.")
                 return
@@ -302,27 +303,28 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def saveProject(self):
+        directory = self.save_parentDirectory + '/' + self.save_nameDirectory
         if self.saveDict["Data"].get() == 1:
-            self.dataTabController.save(self.saveFolder)
-        if self.saveDict["Parameters"].get() == 1 or self.saveDict["Result matrix"].get() == 1 or self.saveDict["GammaMatrix"].get() == 1:
-            self.saveResults(self.saveFolder)
+            self.dataTabController.save(directory)
+        if self.saveDict["Results"].get() == 1:
+            self.saveResults(directory)
         if self.saveDict["Orthogonal graph"].get() == 1:
-            self.resultTabController.saveOgraph(self.saveFolder)
+            self.resultTabController.saveOgraph(directory)
         if self.saveDict["Rank graph"].get() == 1:
-            self.resultTabController.saveRgraph(self.saveFolder)
+            self.resultTabController.saveRgraph(directory)
+
+        msg.showinfo("Save complete", "The project has been successfully saved.")
 
 
-    def saveResults(self, folder):
-        filename = folder + "/Results.txt"
-        Params = []
-        Rmatrix = []
-        Gmatrix = []
-        if os.path.exists(filename):
-            pass
-        else:
-            pass
-
-        print("Résultats sauvegardés")
+    def saveResults(self, directory):
+        filename = directory + "/Results.txt"
+        file = open(filename, "w")
+        self.resultTabController.saveParameters(file)
+        file.write("\n\nResults matrix\n\n")
+        self.fileWriteMatrix(file, self.prometheeGamma.getMatrixResults())
+        file.write("\n\nGamma matrix\n\n")
+        self.fileWriteMatrix(file, self.prometheeGamma.getMatrixGamma())
+        file.close()
 
 
     def fileWriteMatrix(self, file, m):
@@ -331,8 +333,6 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
             for k in range(len(m[i])):
                 line += str(m[i][k]) + "  "
             file.write(line + "\n")
-
-
 
 
     def load(self):

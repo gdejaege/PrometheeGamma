@@ -6,15 +6,17 @@ import tkinter.messagebox as msg
 class SaveView(CTkToplevel):
 
     class Listener:
-        def saveInFolder(self, folder:str, name:str):
+        def saveInDirectory(self, directory:str, name:str):
             pass
 
 
-    def __init__(self, *args, saveDict:dict, fg_color: str | Tuple[str, str] | None = None, **kwargs):
+    def __init__(self, *args, saveDict:dict, parentDirectory:str, name:str, fg_color: str | Tuple[str, str] | None = None, **kwargs):
         super().__init__(*args, fg_color=fg_color, **kwargs)
 
         self.labelName = CTkLabel(self, text="Name:")
         self.name = StringVar(self, value="")
+        if name is not None:
+            self.name.set(name)
         self.entryName = CTkEntry(self, textvariable=self.name)
         self.labelSelection = CTkLabel(self, text="What do you want to save?")
 
@@ -23,9 +25,11 @@ class SaveView(CTkToplevel):
             checkBox = CTkCheckBox(self, text=k, variable=v)
             self.checkBoxList.append(checkBox)
 
-        self.labelFolder = CTkLabel(self, text="Select a folder:")
-        self.folder = StringVar(self, value="...")
-        self.buttonFolder = CTkButton(self, textvariable=self.folder, command=self.selectFolder)
+        self.labelDirectory = CTkLabel(self, text="Select a directory:")
+        self.directory = StringVar(self, value="...")
+        if parentDirectory is not None:
+            self.directory.set(parentDirectory)
+        self.buttondirectory = CTkButton(self, textvariable=self.directory, command=self.selectDirectory)
         self.saveButton = CTkButton(self, text="Save", command=self.save)
         self.cancelButton =CTkButton(self, text="Cancel", command=self.cancel)
 
@@ -50,26 +54,26 @@ class SaveView(CTkToplevel):
             e.grid(row=r, column=0, columnspan=2, sticky="w", padx=20, pady=(10,0))
             r += 1
 
-        self.labelFolder.grid(row=r, column=0, sticky="w", padx=20, pady=(20,0))
-        self.buttonFolder.grid(row=r+1, column=0, columnspan=3, sticky="n", padx=20, pady=(5,0))
+        self.labelDirectory.grid(row=r, column=0, sticky="w", padx=20, pady=(20,0))
+        self.buttondirectory.grid(row=r+1, column=0, columnspan=3, sticky="n", padx=20, pady=(5,0))
         self.saveButton.grid(row=r+2, column=0, columnspan=1, sticky="n", padx=20, pady=(30,20))
         self.cancelButton.grid(row=r+2, column=1, columnspan=1, sticky="n", padx=20, pady=(30,20))
 
 
-    def selectFolder(self):
+    def selectDirectory(self):
         directory = fd.askdirectory(initialdir="./Projects")
-        self.folder.set(directory)
+        self.directory.set(directory)
 
 
     def save(self):
-        folder = self.folder.get()
+        directory = self.directory.get()
         name= self.name.get()
-        if folder == "...":
-            msg.showerror("No folder", "Please, select a folder.")
+        if directory == "...":
+            msg.showerror("No directory", "Please, select a directory.")
         elif name == "":
             msg.showerror("No name", "Please, enter a name.")
         else:
-            self.listener.saveInFolder(folder, name)
+            self.listener.saveInDirectory(directory, name)
 
     
     def cancel(self):

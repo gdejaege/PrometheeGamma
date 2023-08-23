@@ -214,10 +214,9 @@ class ResultTabController(ResultTabView.ViewListener):
         self.resultsVisualisationController.saveRgraph(folder)
 
 
-    """
-    def saveProject(self, file):
+    def saveParameters(self, file):
 
-        file.write("\n\nParameters\n\n")
+        file.write("Parameters\n\n")
 
         i = self.resultTabModel.getTi_float()
         j = self.resultTabModel.getTj_float()
@@ -226,7 +225,6 @@ class ResultTabController(ResultTabView.ViewListener):
         file.write("I = " + str(i) + "\n")
         file.write("J = " + str(j) + "\n")
         file.write("P = " + str(p) + "\n")
-    """
 
         
 
