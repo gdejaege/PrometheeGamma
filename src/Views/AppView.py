@@ -1,4 +1,4 @@
-from customtkinter import (CTk, CTkTabview)
+from customtkinter import (CTk, CTkTabview, CTkButton, CTkFrame)
 from Resources.Menu import Menu
 
 class AppView(CTk):
@@ -27,6 +27,10 @@ class AppView(CTk):
     class ViewListener:
         def menuChoice(self, choice:str):
             pass
+        def about(self):
+            pass
+        def quit(self):
+            pass
 
 
     def __init__(self, fg_color = None, **kwargs):
@@ -38,7 +42,11 @@ class AppView(CTk):
         self.resizable(True, True)
         self.title("Promethee Gamma")
 
-        self.menu = Menu(master=self, text="Menu", command=self.menuChoice, values=["new project", "save project", "save project as", "load project", "quit"])
+
+        self.MenuFrame = CTkFrame(self, height=28)
+        self.menu = Menu(master=self.MenuFrame, text="Project", command=self.menuChoice, values=["new", "load", "save", "save as"], width=80)
+        self.aboutButton = CTkButton(master=self.MenuFrame, text="About", command=self.about, width=80)
+        self.quitButton = CTkButton(master=self.MenuFrame, text="Quit", command=self.clickOnQuit, width=80)
 
         self.tabview = CTkTabview(self, fg_color="#ffffff")
         self.dataTab = self.tabview.add("Data")
@@ -60,8 +68,19 @@ class AppView(CTk):
     def show(self):
         """Show the app
         """
-        self.menu.pack(anchor="nw", side="top", pady=0, ipady=0)
-        self.tabview.pack(expand=True, fill="both", pady=0, ipady=0)
+        """
+        self.menu.place(x=0,y=0,anchor="nw")
+        self.aboutButton.place(x=80,y=0,anchor="nw")
+        self.quitButton.place(x=160,y=0,anchor="nw")
+        self.tabview.place(x=0,y=28,relwidth=1.0, height=self.winfo_height()-28)
+        """
+        self.MenuFrame.pack(side="top", fill="x", pady=0, ipady=0)
+        self.menu.pack(anchor="nw", side="left", pady=0, ipady=0, padx=1)
+        self.aboutButton.pack(anchor="nw", side="left", pady=0, ipady=0,padx=1)
+        self.quitButton.pack(anchor="nw", side="left", pady=0, ipady=0,padx=1)
+        self.tabview.pack(side="top", expand=True, fill="both", pady=0, ipady=0)
+        
+
         
 
     def getTabs(self):
@@ -82,4 +101,11 @@ class AppView(CTk):
     def menuChoice(self, choice:str):
         self.listener.menuChoice(choice)
 
+
+    def about(self):
+        self.listener.about()
+
+
+    def clickOnQuit(self):
+        self.listener.quit()
 

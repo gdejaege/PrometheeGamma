@@ -77,5 +77,5 @@ class SaveView(CTkToplevel):
 
     
     def cancel(self):
-        msg.showwarning("Warning", "The project was not saved.")
         self.destroy()
+        msg.showwarning("Warning", "The project was not saved.")

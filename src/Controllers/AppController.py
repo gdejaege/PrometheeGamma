@@ -239,19 +239,25 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def menuChoice(self, choice:str):
-        if choice == "new project":
+        if choice == "new":
             if msg.askokcancel("Create a new project", message="Do you really want to create a new project? All unsaved data will be lost."):
                 self.reset()
-        elif choice == "save project as":
+        elif choice == "save as":
             self.saveAs()
-        elif choice == "save project":
+        elif choice == "save":
             self.save()
-        elif choice == "load project":
+        elif choice == "load":
             if msg.askokcancel("Load a project", message="Do you really want to load a project? All unsaved data will be lost."):
                 self.load()
-        elif choice == "quit":
-            if msg.askokcancel("Quit", message="Do you really want to quit? All unsaved data will be lost."):
-                self.appView.quit()
+
+    
+    def quit(self):
+        if msg.askokcancel("Quit", message="Do you really want to quit? All unsaved data will be lost."):
+            self.appView.quit()
+
+
+    def about(self):
+        print("about")
 
 
     def reset(self):
