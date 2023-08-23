@@ -1,4 +1,5 @@
 from tkinter import filedialog as fd
+import os
 from Models.DataTabModel import DataTabModel
 from Views.DataTabViews.DataTabView import DataTabView
 from Views.DataTabViews.CriterionColumn import CriterionColumn
@@ -80,16 +81,23 @@ class DataTabController(DataTabView.ViewListener):
         master : CTkFrame
             the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data
         """
-        file = fd.askopenfile(mode="r", filetypes=(("csv file", "*.csv"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")), 
-                                initialdir="./Data")
-        if file is not None:
-            l = file.name.split(".")
-            r = Reader()
-            if l[-1] == "csv":
-                r.readCsv(file=file, master=master, dataModel=self.dataTabModel, controller=self)
-            else:
-                r.readProject(file=file, dataMaster=master, dataModel=self.dataTabModel, dataController=self)
-            file.close()
+        if not os.path.exists("./Data"):
+            if not os.path.exists("./Projects"):
+                os.makedirs("./Projects")
+            directory = "./Projects"
+        else:
+            directory = "./Data"
+        filename = fd.askopenfilename(filetypes=(("csv file", "*.csv"), ("csv file", "*.csv")), initialdir=directory)
+        self.loadData(filename, master)
+
+    
+    def loadData(self, filename, master):
+        self.clearTable()
+        file = open(filename, "r")
+        r = Reader()
+        r.readData(file, master, self.dataTabModel)
+        file.close()
+        self.fillDataTable()
 
 
     def fillDataTable(self) -> None:

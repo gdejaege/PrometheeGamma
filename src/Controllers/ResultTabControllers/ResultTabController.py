@@ -1,6 +1,7 @@
 from Models.ResultTabModel import ResultTabModel
 from Views.ResultTabViews.ResultTabView import ResultTabView
 from Controllers.ResultTabControllers.ResultsVisualisationControllers.ResultVisualisationController import ResultVisualisationController
+from Resources.Reader import Reader
 
 class ResultTabController(ResultTabView.ViewListener):
     """
@@ -225,6 +226,15 @@ class ResultTabController(ResultTabView.ViewListener):
         file.write("I = " + str(i) + "\n")
         file.write("J = " + str(j) + "\n")
         file.write("P = " + str(p) + "\n")
+
+
+    def loadResults(self, filename):
+        file = open(filename, "r")
+        r = Reader()
+        r.readParameters(file, self.resultTabModel)
+        file.close()
+        self.resultTabView.onClickObtainResultsButton()
+
 
         
 

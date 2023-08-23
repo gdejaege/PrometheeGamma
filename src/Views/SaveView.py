@@ -2,6 +2,7 @@ from typing import Optional, Tuple, Union
 from customtkinter import (CTkToplevel, CTkLabel, CTkEntry, CTkCheckBox, CTkButton, StringVar, IntVar)
 import tkinter.filedialog as fd
 import tkinter.messagebox as msg
+import os
 
 class SaveView(CTkToplevel):
 
@@ -61,6 +62,8 @@ class SaveView(CTkToplevel):
 
 
     def selectDirectory(self):
+        if not os.path.exists("./Projects"):
+            os.makedirs("./Projects")
         directory = fd.askdirectory(initialdir="./Projects")
         self.directory.set(directory)
 

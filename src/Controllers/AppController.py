@@ -1,13 +1,14 @@
+import tkinter.messagebox as msg
+from tkinter import filedialog as fd
+from tkinter import IntVar
+import os
+
 from Views.AppView import AppView
 from Views.SaveView import SaveView
 from Controllers.DataTabControllers.DataTabController import DataTabController
 from Controllers.ResultTabControllers.ResultTabController import ResultTabController
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
-import tkinter.messagebox as msg
-from tkinter import filedialog as fd
-from tkinter import IntVar
-import os
 
 
 class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController.Listener, HelpForParametersTabController.Listener):
@@ -285,11 +286,6 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def saveInDirectory(self, directory, name):
-        # TODO 
-        # Créer un dossier de nom name dans le dossier directory. 
-        # Si un dossier de ce nom existe déjà, demander si écraser
-        # Si pas écraser, relancer self.save()
-        # 
         self.saveView.destroy()
 
         newdirectory = directory + '/' + name
@@ -342,18 +338,36 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def load(self):
-        file = fd.askopenfile(filetypes=(("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject"), ("PROMETHEE Gamma GUI project file", "*.prometheeGammaProject")), 
-                              initialdir="./Projects")
-        if file is not None:
-            try:
-                tabs = self.appView.getTabs()
-                self.dataTabController.openFile(master=tabs[0], file=file)
-                self.resultTabController.readFile(master=tabs[1], file=file)
-                self.readFile(file=file)
-                file.close()
-            except:
-                msg.showerror("Error", "An error has occurred: unable to load correclty the project")
-                return
-            msg.showinfo("Load", message="The project has been successfully laoded")
+        if not os.path.exists("./Projects"):
+            os.makedirs("./Projects")
+        directory = fd.askdirectory(initialdir="./Projects")
+        if directory is not None:
+            self.reset() # Reset the app
+            
+            d = directory.split("/")
+            self.save_nameDirectory = d[-1]
+            self.save_parentDirectory = d[0]
+            for i in range(1,len(d)-1):
+                self.save_parentDirectory += '/' + d[i]
 
-            print("load")
+            tabs = self.appView.getTabs()
+            datafile = directory + '/' + "Data.csv"
+            if os.path.exists(datafile):
+                try:
+                    self.dataTabController.loadData(datafile, tabs[0])
+                except:
+                    msg.showerror("Error", "An error has occurred: unable to load correclty the project")
+                    return
+
+                resultfile = directory + '/' + "Results.txt"
+                if os.path.exists(resultfile):
+                    try:
+                        self.resultTabController.loadResults(resultfile)
+                    except:
+                        msg.showerror("Error", "An error has occurred: unable to load correclty the project")
+                        return
+            else:
+                msg.showerror("No data found", "The project could not be loaded.")
+                return
+            
+            msg.showinfo("Load", message="The project has been successfully laoded.")
