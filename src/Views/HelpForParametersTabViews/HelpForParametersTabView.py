@@ -117,6 +117,9 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
 
         They can be destroy in Custom module, so, for stability, we redifine them.
         """
+        for w in self.master.winfo_children():
+            w.destroy()
+
         startText = "Please choose a method. The preference learning button will launch the application's built-in preference learning algorithm. The custom button will load the Custom module."
         self.startLabel = CTkLabel(master=self.master, text=startText, text_color="#000000", wraplength=580)
         self.preferenceLearningButton = CTkButton(master=self.master, text="Preference learning", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.startPreferenceLearning)

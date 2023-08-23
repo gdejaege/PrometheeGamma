@@ -233,7 +233,7 @@ class ResultTabView:
         self.Pf.set(val)
         if val > 100:
             val = 100.01
-        self.PfSlider.set(output_value=100.01, from_variable_callback=True)
+        self.PfSlider.set(output_value=val, from_variable_callback=True)
         self.listener.changeOnPf()
 
 
@@ -316,7 +316,7 @@ class ResultTabView:
         self.Pf.set(val)
         if val > 100:
             val = 100.01
-        self.PfSlider.set(output_value=100.01, from_variable_callback=True)
+        self.PfSlider.set(output_value=val, from_variable_callback=True)
 
 
     def onClickObtainResultsButton(self):

@@ -268,6 +268,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         self.resultTabController.reset()
         self.prometheeGamma.reset()
         self.dataTabController.reset()
+        self.appView.setTab("Data")
         
 
     def save(self):

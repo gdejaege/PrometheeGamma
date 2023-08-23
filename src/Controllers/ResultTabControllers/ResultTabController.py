@@ -238,8 +238,9 @@ class ResultTabController(ResultTabView.ViewListener):
 
 
     def reset(self):
-        self.resultsVisualisationController.destroy()
-        self.resultsVisualisationController = None
+        if self.resultsVisualisationController is not None:
+            self.resultsVisualisationController.destroy()
+            self.resultsVisualisationController = None
         self.resultTabView.reset()
         self.resultTabModel.reset()
         self.resultTabView.updateParameters()
