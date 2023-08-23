@@ -70,7 +70,6 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         self.dataTabController = None
         self.resultTabController = None
         self.helpForParametersTabController = None
-        self.saveView = None
         self.saveDict = {"Data":IntVar(self.appView, 1), 
                          "Results":IntVar(self.appView, 1), 
                          "Orthogonal graph":IntVar(self.appView, 1), 
@@ -262,7 +261,13 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def reset(self):
-        print("reset")
+        self.alreadyCompute = False
+        self.save_parentDirectory = None
+        self.save_nameDirectory = None
+        self.helpForParametersTabController.reset()
+        self.resultTabController.reset()
+        self.prometheeGamma.reset()
+        self.dataTabController.reset()
         
 
     def save(self):
@@ -277,16 +282,16 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
         
     def saveAs(self):
-        self.saveView = SaveView(master=self.appView, saveDict=self.saveDict, parentDirectory=self.save_parentDirectory, name=self.save_nameDirectory)
-        self.saveView.grab_set()
-        self.saveView.focus_set()
-        self.saveView.title("Save")
-        self.saveView.setListener(self)
-        self.saveView.show()
+        saveView = SaveView(master=self.appView, saveDict=self.saveDict, parentDirectory=self.save_parentDirectory, name=self.save_nameDirectory)
+        saveView.grab_set()
+        saveView.focus_set()
+        saveView.title("Save")
+        saveView.setListener(self)
+        saveView.show()
 
 
-    def saveInDirectory(self, directory, name):
-        self.saveView.destroy()
+    def saveInDirectory(self, directory, name, view):
+        view.destroy()
 
         newdirectory = directory + '/' + name
         if not os.path.exists(newdirectory):
@@ -343,7 +348,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         directory = fd.askdirectory(initialdir="./Projects")
         if directory is not None:
             self.reset() # Reset the app
-            
+
             d = directory.split("/")
             self.save_nameDirectory = d[-1]
             self.save_parentDirectory = d[0]

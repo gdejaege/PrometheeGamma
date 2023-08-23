@@ -7,7 +7,7 @@ import os
 class SaveView(CTkToplevel):
 
     class Listener:
-        def saveInDirectory(self, directory:str, name:str):
+        def saveInDirectory(self, directory:str, name:str, view:CTkToplevel):
             pass
 
 
@@ -76,7 +76,7 @@ class SaveView(CTkToplevel):
         elif name == "":
             msg.showerror("No name", "Please, enter a name.")
         else:
-            self.listener.saveInDirectory(directory, name)
+            self.listener.saveInDirectory(directory, name, self)
 
     
     def cancel(self):

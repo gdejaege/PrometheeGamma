@@ -256,3 +256,9 @@ class PrometheeGamma:
         self.computeGammaMatrix()
         self.ComputeMatrixIJP()
         self.computeMatrixResults()
+
+
+    def reset(self):
+        self.clearMatrixIJP()
+        self.matrixGamma.clear()
+        self.matrixResults.clear()

@@ -82,3 +82,7 @@ class ResultVisualisationView:
         """
 
         return self.rankGraphTab
+    
+
+    def destroy(self):
+        self.frame.destroy()

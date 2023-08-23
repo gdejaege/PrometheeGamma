@@ -233,7 +233,17 @@ class ResultTabController(ResultTabView.ViewListener):
         r = Reader()
         r.readParameters(file, self.resultTabModel)
         file.close()
+        self.resultTabView.updateParameters()
         self.resultTabView.onClickObtainResultsButton()
+
+
+    def reset(self):
+        self.resultsVisualisationController.destroy()
+        self.resultsVisualisationController = None
+        self.resultTabView.reset()
+        self.resultTabModel.reset()
+        self.resultTabView.updateParameters()
+        
 
 
         

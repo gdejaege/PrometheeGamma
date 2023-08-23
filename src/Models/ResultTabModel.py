@@ -191,3 +191,10 @@ class ResultTabModel:
             the dictionnary of scrores of each alternative
         """
         return self.scores
+    
+
+    def reset(self):
+        self.setTi(0.0)
+        self.setTj(0.0)
+        self.setPf(1.0)
+        self.scores.clear()

@@ -77,4 +77,7 @@ class ResultVisualisationController:
 
     def saveRgraph(self, folder):
         self.rankController.saveRgraph(folder)
-        
+
+
+    def destroy(self):
+        self.resultVisualisationView.destroy()

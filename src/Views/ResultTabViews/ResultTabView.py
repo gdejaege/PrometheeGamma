@@ -300,6 +300,25 @@ class ResultTabView:
         self.TjSlider.set(output_value=val, from_variable_callback=True)
 
 
+    def updateParameters(self):
+        val = self.Ti.get()
+        val = round(min(1.0, max(0.0, val)), 2)
+        self.Ti.set(val)
+        self.TiSlider.set(output_value=val, from_variable_callback=True)
+        
+        val = self.Tj.get()
+        val = round(min(1.0, max(0.0, val)), 2)
+        self.Tj.set(val)
+        self.TjSlider.set(output_value=val, from_variable_callback=True)
+        
+        val = self.Pf.get()
+        val = round(min(INFINITY,max(1.0, val)), 2)
+        self.Pf.set(val)
+        if val > 100:
+            val = 100.01
+        self.PfSlider.set(output_value=100.01, from_variable_callback=True)
+
+
     def onClickObtainResultsButton(self):
         """Handle clicks on obtainResultsButton
         """
@@ -310,6 +329,11 @@ class ResultTabView:
     def ObtainResultsChange(self):
         self.textObtainResultsButton.set("Reload results")
         self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 650), max(self.root.winfo_height(), 800)))
+
+    
+    def reset(self):
+        self.textObtainResultsButton.set("Obtain results")
+        self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 700), max(self.root.winfo_height(), 200)))
 
     
     def getMaster(self):
