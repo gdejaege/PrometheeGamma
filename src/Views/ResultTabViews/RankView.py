@@ -3,11 +3,13 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 import matplotlib.lines as mlines
 from tkinter import *
 from customtkinter import (CTkFrame, CTkCheckBox, CTkScrollbar, IntVar)
-from Resources.ScrollableFrame import ScrollableFrame
+from Resources.ResizableScrollableFrame import ResizableScrollableFrame
+from Resources.VScrollableFrame import VScrollableFrame
 from Views.ResultTabViews.AlternativeView import AlternativeView
 from Views.ResultTabViews.VerticalLine import VerticalLine
 from Views.ResultTabViews.HorizontalLine import HorizontalLine
 from math import floor
+import time
 
 SPACE = 100 # The space between the center of 2 circles that represent alternatives
 RADIUS = 35 # The radius of the circle that represents an alternative
@@ -38,9 +40,9 @@ class RankView:
         master : CTkFrame
             the master frame
         """
-        self.leftScrollFrame = ScrollableFrame(master)
+        self.leftScrollFrame = ResizableScrollableFrame(master)
         self.leftFrame = self.leftScrollFrame.frame()
-        self.rightScrollFrame = ScrollableFrame(master)
+        self.rightScrollFrame = VScrollableFrame(master)
         self.rightFrame = self.rightScrollFrame.frame()
         self.leftFrame.grid_columnconfigure(0, weight=1)
         self.fig = Figure()
@@ -109,6 +111,13 @@ class RankView:
         self.toolbar.pack(side='bottom')
         self.canvas.get_tk_widget().pack(expand=True, fill='both', side='bottom')
 
+        """
+        for i in range(10):
+            print("rank", i)
+            time.sleep(1)
+        """
+        
+
 
     def drawCanvas(self, r:list, matrixResults:list) -> None:
         """Display result in a schematic ranking
@@ -121,8 +130,7 @@ class RankView:
             the result matrix of PROMETHEE Gamma method
         """
         self.fig.clear()
-        self.fig.suptitle('Rank graph', fontsize=12, fontweight='bold')
-        self.fig.subplots_adjust(left=0, bottom=0, right=1, top=0.9)
+        self.fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
         self.ax = self.fig.add_subplot()
         self.ax.set_aspect(1)
         self.ax.axis('off')
@@ -154,6 +162,7 @@ class RankView:
         if h > height:
             height = h
         
+        self.leftScrollFrame.resize(1.3 * width + 5 * SPACE, 1.3 * height + SPACE)
         self.ax.axis([0, width, 0, height])
         return width, height
                     

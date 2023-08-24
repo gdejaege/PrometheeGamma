@@ -1,5 +1,5 @@
 from customtkinter import (CTkButton, CTkLabel, CTkFrame)
-from Resources.ScrollableFrame import ScrollableFrame
+from Resources.HVScrollableFrame import HVScrollableFrame
 
 class DataTabView:
     """
@@ -103,10 +103,10 @@ class DataTabView:
 
         # header
         self.openFileButton = CTkButton(master=master, text="Open a file", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.openFile)
-        self.dataNoteLabel = CTkLabel(master=master, text="Only csv or PROMETHEE Gamma project files are accepted", fg_color="#ffffff", text_color="#000000", corner_radius=5)
+        self.dataNoteLabel = CTkLabel(master=master, text="Only csv files are accepted", fg_color="#ffffff", text_color="#000000", corner_radius=5)
         
         # Table
-        self.scrollableFrame = ScrollableFrame(master)
+        self.scrollableFrame = HVScrollableFrame(master)
         self.table = self.scrollableFrame.frame()
         self.criteriaLabel = CTkLabel(master=self.table, text="Criteria:", text_color="#000000")
         self.weightsLabel = CTkLabel(master=self.table, text="Weights:", text_color="#000000")

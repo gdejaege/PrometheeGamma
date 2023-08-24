@@ -1,6 +1,5 @@
 from sys import maxsize
 from customtkinter import (CTkLabel, DoubleVar, CTkEntry, CTkSlider, StringVar, CTkButton, CTkFrame)
-from Resources.ScrollableFrame import ScrollableFrame
 
 INFINITY = maxsize
 

@@ -2,7 +2,7 @@ import platform
 from customtkinter import (CTkFrame, CTkCanvas, CTkScrollbar)
 
 
-class ScrollableFrame(CTkFrame):
+class VScrollableFrame(CTkFrame):
     """
     A class to make a custom scrollable frame with customtkinter
     It is inspired by the vertical scrollable frame on https://gist.github.com/mp035/9f2027c3ef9172264532fcd6262f3b01
@@ -15,8 +15,6 @@ class ScrollableFrame(CTkFrame):
         the scrollable frame
     vsb : CTkScrollbar
         the vertical scrollbar
-    hsb : CTkScrollbar
-        the horizontal scrollbar
     canvas_window : int
         id of canvas window that contain the innerFrame
     
@@ -26,8 +24,6 @@ class ScrollableFrame(CTkFrame):
         return the inner frame, i.e. the scrollable frame
     onFrameConfigure(event)                             
         reset the scroll region to encompass the inner frame
-    resize(region=(0,0,100,100))
-        resize the canvas
     onCanvasConfigure(event)
         reset the canvas window to encompass inner frame when required
     onMouseWheel(event)
@@ -54,10 +50,8 @@ class ScrollableFrame(CTkFrame):
         self.canvas = CTkCanvas(self, borderwidth=0, background=bg_color, highlightbackground=bg_color, highlightcolor=bg_color)
         self.innerFrame = CTkFrame(self.canvas, bg_color=bg_color, fg_color=fg_color, border_color=fg_color)
         self.vsb = CTkScrollbar(self, orientation="vertical", command=self.canvas.yview)
-        self.hsb = CTkScrollbar(self, orientation="horizontal", command=self.canvas.xview)
-        self.canvas.configure(yscrollcommand=self.vsb.set, xscrollcommand=self.hsb.set)
+        self.canvas.configure(yscrollcommand=self.vsb.set)
         self.vsb.pack(side="right", fill="y")
-        self.hsb.pack(side="bottom", fill="x")
         self.canvas.pack(side="left", fill="both", expand=True)
         self.canvas_window = self.canvas.create_window((0,0), window=self.innerFrame, anchor="nw", tags="self.innerFrame")
         self.innerFrame.bind("<Configure>", self.onFrameConfigure)
@@ -97,10 +91,8 @@ class ScrollableFrame(CTkFrame):
         event : Event
             a configure event
         """
-        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-        #canvas_width = event.width
-        #canvas_height = event.height
-        #self.canvas.itemconfig(self.canvas_window, width = canvas_width, height = canvas_height)
+        canvas_width = event.width
+        self.canvas.itemconfig(self.canvas_window, width = canvas_width)
 
         
 

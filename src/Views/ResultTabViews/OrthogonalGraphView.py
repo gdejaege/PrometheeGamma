@@ -2,6 +2,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 import matplotlib.patches as mpatches
 from tkinter import *
+import time
 
 class OrthogonalGraphView:
     """
@@ -86,6 +87,12 @@ class OrthogonalGraphView:
         self.makePoints()
         self.makeGraph()
         self.canvasOgraph.draw()
+
+        """
+        for i in range(10):
+            print("ortho", i)
+            time.sleep(1)
+        """
         
 
     def reshresh(self, mGamma:list, mResults:list):

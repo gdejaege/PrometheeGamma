@@ -2,12 +2,13 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import threading
+import time
 
 from Views.ResultTabViews.AlternativeView import AlternativeView
 
 class VerticalLine(threading.Thread):
     def __init__(self, a1:AlternativeView, a2:AlternativeView, alternatives:list, ax, color):
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, daemon=True)
         self.a1 = a1
         self.a2 = a2
         self.y = None
@@ -20,6 +21,7 @@ class VerticalLine(threading.Thread):
     def run(self):
         self.createLine()
         self.draw()
+        
 
 
     def createLine(self):

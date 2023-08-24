@@ -2,6 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
 import threading
+import time
 
 from Views.ResultTabViews.AlternativeView import AlternativeView
 
@@ -9,7 +10,7 @@ SPACE = 100
 
 class HorizontalLine(threading.Thread):
     def __init__(self, a1:AlternativeView, a2:AlternativeView, ax, color):
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, daemon=True)
         self.a1 = a1
         self.a2 = a2
         self.y = None

@@ -1,7 +1,6 @@
 from customtkinter import (CTkLabel, CTkButton, CTkRadioButton, IntVar, CTkFrame, CTkCanvas, CTkScrollbar, CTkScrollableFrame)
 from Models.Alternative import Alternative
 from Views.HelpForParametersTabViews.QuestionsTabView import QuestionsTabView
-from Resources.ScrollableFrame import ScrollableFrame
 
 class HelpForParametersTabView(QuestionsTabView.Listener):
     """

@@ -376,4 +376,4 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
                 msg.showerror("No data found", "The project could not be loaded.")
                 return
             
-            msg.showinfo("Load", message="The project has been successfully laoded.")
+            msg.showinfo("Load", message="The project has been successfully loaded.")

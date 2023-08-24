@@ -1,4 +1,5 @@
 from customtkinter import CTkTextbox
+import time
 
 class DisplayMatrixResultsView:
     """
@@ -41,6 +42,12 @@ class DisplayMatrixResultsView:
 
         self.texbox_results.pack(expand=True, fill='both')
         self._print_(matrixResults)
+
+        """
+        for i in range(10):
+            print("res", i)
+            time.sleep(1)
+        """
 
 
     def refresh(self, matrixResults:list):
