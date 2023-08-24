@@ -1,5 +1,5 @@
 from sys import maxsize
-from customtkinter import (CTkLabel, DoubleVar, CTkEntry, CTkSlider, StringVar, CTkButton)
+from customtkinter import (CTkLabel, DoubleVar, CTkEntry, CTkSlider, StringVar, CTkButton, CTkFrame)
 from Resources.ScrollableFrame import ScrollableFrame
 
 INFINITY = maxsize
@@ -126,30 +126,38 @@ class ResultTabView:
         self.Tj = Tj
         self.Pf = Pf
 
+        # Line frames (for pack)
+        self.l0 = CTkFrame(master=self.master, bg_color="#ffffff", fg_color="#ffffff")
+        self.l1 = CTkFrame(master=self.master, bg_color="#ffffff", fg_color="#ffffff")
+        self.l2 = CTkFrame(master=self.master, bg_color="#ffffff", fg_color="#ffffff")
+
         # Labels
-        self.TiLabel = CTkLabel(master=self.master, text="Global indifference threshold (Ti):", text_color="#000000", justify="left", padx=10, pady=10)
-        self.TjLabel = CTkLabel(master=self.master, text="Global incomparability threshold (Tj):", text_color="#000000", justify="left", padx=10, pady=10)
-        self.PfLabel = CTkLabel(master=self.master, text="Global preference factor (Pf):", text_color="#000000", justify="left", padx=10, pady=10)
+        self.TiLabel = CTkLabel(master=self.l0, text="Global indifference threshold (Ti):", text_color="#000000", justify="left", width=350, padx=10, pady=10)
+        self.TjLabel = CTkLabel(master=self.l1, text="Global incomparability threshold (Tj):", text_color="#000000", justify="left", width=350, padx=10, pady=10)
+        self.PfLabel = CTkLabel(master=self.l2, text="Global preference factor (Pf):", text_color="#000000", justify="left", width=350, padx=10, pady=10)
         
         #Entries
-        self.TiEntry = CTkEntry(master=self.master, textvariable=self.Ti, width=150)
+        self.TiEntry = CTkEntry(master=self.l0, textvariable=self.Ti, width=200)
         self.TiEntry.bind("<Return>", command=self.commandTiEntry)
-        self.TjEntry = CTkEntry(master=self.master, textvariable=self.Tj, width=150)
+        self.TjEntry = CTkEntry(master=self.l1, textvariable=self.Tj, width=200)
         self.TjEntry.bind("<Return>", command=self.commandTjEntry)
-        self.PfEntry = CTkEntry(master=self.master, textvariable=self.Pf, width=150)
+        self.PfEntry = CTkEntry(master=self.l2, textvariable=self.Pf, width=200)
         self.PfEntry.bind("<Return>", command=self.commandPfEntry)
         
         # Sliders
-        self.TiSlider = CTkSlider(master=self.master, from_=0, to=1, number_of_steps=100, command=self.commandTiSlider)
+        self.TiSlider = CTkSlider(master=self.l0, from_=0, to=1, number_of_steps=100, command=self.commandTiSlider)
         self.TiSlider.set(output_value=self.Ti.get() ,from_variable_callback=True)
-        self.TjSlider = CTkSlider(master=self.master, from_=0, to=1, number_of_steps=100, command=self.commandTjSlider)
+        self.TjSlider = CTkSlider(master=self.l1, from_=0, to=1, number_of_steps=100, command=self.commandTjSlider)
         self.TjSlider.set(output_value=self.Tj.get() ,from_variable_callback=True)
-        self.PfSlider = CTkSlider(master=self.master, from_=1, to=100.01, number_of_steps=991, command=self.commandPfSlider)
+        self.PfSlider = CTkSlider(master=self.l2, from_=1, to=100.01, number_of_steps=991, command=self.commandPfSlider)
         self.PfSlider.set(output_value=self.Pf.get() ,from_variable_callback=True)
 
         # Button
         self.textObtainResultsButton = StringVar(master=self.master, value="Obtain results")
         self.ObtainResultsButton = CTkButton(self.master, textvariable=self.textObtainResultsButton, command=self.onClickObtainResultsButton, fg_color="#6cffff", text_color="#000000")
+
+        # Result visualisation frame
+        self.rVis = CTkFrame(master=self.master, bg_color="#ffffff", fg_color="#ffffff")
 
 
     def setListener(self, l:ViewListener) -> None:
@@ -166,19 +174,27 @@ class ResultTabView:
     def show(self) -> None:
         """Show the view
         """
-        self.TiLabel.place(x=10, y=10)
-        self.TjLabel.place(x=10, y=40)
-        self.PfLabel.place(x=10, y=70)
+
+        self.l0.pack(fill="x")
+        self.l1.pack(fill="x")
+        self.l2.pack(fill="x")
+
+        self.TiLabel.pack(side="left", anchor="nw", padx=5,pady=2)
+        self.TjLabel.pack(side="left", anchor="nw", padx=5,pady=2)
+        self.PfLabel.pack(side="left", anchor="nw", padx=5,pady=2)
         
-        self.TiEntry.place(x=250, y=10)
-        self.TjEntry.place(x=250, y=40)
-        self.PfEntry.place(x=250, y=70)
+        self.TiEntry.pack(side="left", anchor="nw", padx=5,pady=2)
+        self.TjEntry.pack(side="left", anchor="nw", padx=5,pady=2)
+        self.PfEntry.pack(side="left", anchor="nw", padx=5,pady=2)
 
-        self.TiSlider.place(x=410, y=15)
-        self.TjSlider.place(x=410, y=45)
-        self.PfSlider.place(x=410, y=75)
+        self.TiSlider.pack(side="left", anchor="w", padx=5,pady=2)
+        self.TjSlider.pack(side="left", anchor="w", padx=5,pady=2)
+        self.PfSlider.pack(side="left", anchor="w", padx=5,pady=2)
 
-        self.ObtainResultsButton.place(relx=0.5, y=120, anchor="center")
+        self.ObtainResultsButton.pack(pady=10)
+
+        self.rVis.pack(expand=True, fill="both")
+
         self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 700), max(self.root.winfo_height(), 200)))
 
 
@@ -337,4 +353,4 @@ class ResultTabView:
 
     
     def getMaster(self):
-        return self.master
+        return self.rVis

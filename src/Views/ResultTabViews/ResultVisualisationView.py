@@ -45,7 +45,9 @@ class ResultVisualisationView:
         """Show the main frame
         """
 
-        self.frame.place(relx=0.02, y=150, relwidth=0.96, relheight=0.75, bordermode='inside')
+        self.frame.place(relx=0.02, y=0.02, relwidth=0.96, relheight=0.96, bordermode='inside')
+        #self.frame.grid(row=4, column=0, columnspan=4, sticky="n")
+        #self.frame.pack(side="top", expand=True, fill='both')
 
 
     def getTextBoxMaster(self):

@@ -105,23 +105,23 @@ class DataTabController(DataTabView.ViewListener):
         """
         nbCrit = self.dataTabModel.getNumberOfCriteria()
         for i in range(len(self.criteriaColums), nbCrit):
-            (master, x, y) = self.dataTabView.getViewCData()
+            (master, row, col) = self.dataTabView.getViewCData()
             self.dataTabView.shiftRight()
             c = self.dataTabModel.getCriterion(i)
             cc = CriterionColumn(master=master, criterion=c)
-            cc.show(x,y)
+            cc.show(row,col)
             self.criteriaColums.append(cc)
         nbAlt = self.dataTabModel.getNumberOfAlternatives()
         for j in range(len(self.unitsRows), nbAlt):
-            (master, x, y) = self.dataTabView.getViewUData()
+            (master, row, col) = self.dataTabView.getViewUData()
             self.dataTabView.shiftDown()
             a = self.dataTabModel.getAlternative(j)
-            ur = UnitRow(master=master, x=x, y=y, alternative=a)
+            ur = UnitRow(master=master, row=row, col=col, alternative=a)
             ur.show()
             self.unitsRows.append(ur)
 
 
-    def addCriterionColumn(self, master, x:int, y:int) -> None:
+    def addCriterionColumn(self, master, row:int, col:int) -> None:
         """Add a criterion and its column in the data table
 
         Parameters
@@ -137,7 +137,7 @@ class DataTabController(DataTabView.ViewListener):
         self.dataTabModel.addCriterion(master=master)
         c = self.dataTabModel.getCriterion()
         cc = CriterionColumn(master=master, criterion=c)
-        cc.show(x, y)
+        cc.show(row, col)
         self.criteriaColums.append(cc)
         self.addOneColumnToAllUnits(master=master)
 
@@ -153,7 +153,7 @@ class DataTabController(DataTabView.ViewListener):
             self.deleteOneColumnInAllUnits()
         
     
-    def addUnitRow(self, master, x: int, y: int) -> None:
+    def addUnitRow(self, master, row: int, col: int) -> None:
         """Add an alternative (a unit) and its row in the data table
 
         Parameters
@@ -168,7 +168,7 @@ class DataTabController(DataTabView.ViewListener):
         self.dataTabView.shiftDown()
         self.dataTabModel.addAlternative(master)
         a = self.dataTabModel.getAlternative()
-        ur = UnitRow(master=master, x=x, y=y, alternative=a)
+        ur = UnitRow(master=master, row=row, col=col, alternative=a)
         ur.show()
         self.unitsRows.append(ur)
 

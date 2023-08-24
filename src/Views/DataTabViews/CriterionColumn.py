@@ -57,7 +57,7 @@ class CriterionColumn:
         self.pfw = None
 
 
-    def show(self, x:int, y:int):
+    def show(self, row:int, col:int):
         """Show the column
 
         Parameters
@@ -67,11 +67,11 @@ class CriterionColumn:
         y : int
             y coordinate to place the column in the frame
         """
-        self.nameEntry.place(x=x, y=y)
-        self.weightEntry.place(x=x, y=y+25)
-        self.typePfButton.place(x=x, y=y+50)
-        self.pcEntry.place(x=x, y=y+75)
-        self.qcEntry.place(x=x, y=y+100)
+        self.nameEntry.grid(row=row, column=col)#.place(x=x, y=y)
+        self.weightEntry.grid(row=row+1, column=col)#.place(x=x, y=y+25)
+        self.typePfButton.grid(row=row+2, column=col)#.place(x=x, y=y+50)
+        self.pcEntry.grid(row=row+3, column=col)#.place(x=x, y=y+75)
+        self.qcEntry.grid(row=row+4, column=col)#.place(x=x, y=y+100)
 
 
     def buttonTypeEvent(self):

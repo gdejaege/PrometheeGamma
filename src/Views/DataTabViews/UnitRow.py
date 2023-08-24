@@ -32,7 +32,7 @@ class UnitRow:
         destroy the last column of the row
     """
 
-    def __init__(self, master, x:int, y:int, alternative:Alternative) -> None:
+    def __init__(self, master, row:int, col:int, alternative:Alternative) -> None:
         """
         Parameters
         ----------
@@ -46,10 +46,10 @@ class UnitRow:
             the alternative of which it is the row
         """
         self.master=master
-        self.x = x
-        self.y = y
+        self.row = row
+        self.col = col
         self.alternative = alternative
-        self.nameEntry = CTkEntry(master=self.master, textvariable=alternative.getName())
+        self.nameEntry = CTkEntry(master=self.master, textvariable=alternative.getName(), width=180)
         self.valueEntries = []
         for i in range(alternative.getSize()):
             self.valueEntries.append(CTkEntry(master=self.master, textvariable=alternative.getEvaluation(i), width=120))
@@ -58,11 +58,12 @@ class UnitRow:
     def show(self):
         """Show the row
         """
-        self.nameEntry.place(x=self.x, y=self.y)
-        self.x += 20
+        self.nameEntry.grid(row=self.row, column=self.col, sticky="e")#.place(x=self.x, y=self.y)
+        #self.x += 20
         for i in range(self.alternative.getSize()):
-            self.x += 120
-            self.valueEntries[i].place(x=self.x, y=self.y)
+            #self.x += 120
+            self.col += 1
+            self.valueEntries[i].grid(row=self.row, column=self.col)#.place(x=self.x, y=self.y)
 
     
     def add_column(self, value:DoubleVar):
@@ -74,8 +75,9 @@ class UnitRow:
             The value to add in the last column
         """
         self.valueEntries.append(CTkEntry(master=self.master, textvariable=value, width=120))
-        self.x += 120
-        self.valueEntries[-1].place(x=self.x, y=self.y)
+        #self.x += 120
+        self.col += 1
+        self.valueEntries[-1].grid(row=self.row, column=self.col)#.place(x=self.x, y=self.y)
 
 
     def destroy(self) -> None:
@@ -91,4 +93,5 @@ class UnitRow:
         """
         self.valueEntries[-1].destroy()
         self.valueEntries.pop()
-        self.x -= 120
+        self.col -= 1
+        #self.x -= 120
