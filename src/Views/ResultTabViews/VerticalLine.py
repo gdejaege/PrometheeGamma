@@ -1,19 +1,28 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+import threading
 
 from Views.ResultTabViews.AlternativeView import AlternativeView
 
-class VerticalLine:
-    def __init__(self, a1:AlternativeView, a2:AlternativeView):
+class VerticalLine(threading.Thread):
+    def __init__(self, a1:AlternativeView, a2:AlternativeView, alternatives:list, ax, color):
+        threading.Thread.__init__(self)
         self.a1 = a1
         self.a2 = a2
         self.y = None
         self.x = None
-    
+        self.alternatives = alternatives
+        self.ax = ax
+        self.color = color
 
-    def createLine(self, alternatives:list):
 
+    def run(self):
+        self.createLine()
+        self.draw()
+
+
+    def createLine(self):
         xy1 = self.a1.getXY()
         xy2 = self.a2.getXY()
         radius = self.a1.getRadius()
@@ -31,7 +40,7 @@ class VerticalLine:
             self.x = [x2]
             for i in range(1,ylength-1):
                 xnew = x2 + i * xspace
-                for a in alternatives:
+                for a in self.alternatives:
                     if a != self.a1 and a != self.a2:
                         if a.includeXY(xnew, self.y[i]):
                             xnew = a.newXLine(xnew, self.y[i], self.x[-1])
@@ -54,7 +63,7 @@ class VerticalLine:
             self.x = [x1]
             for i in range(1,ylength-1):
                 xnew = x1 + i * xspace
-                for a in alternatives:
+                for a in self.alternatives:
                     if a != self.a1 and a != self.a2:
                         if a.includeXY(xnew, self.y[i]):
                             xnew = a.newXLine(xnew, self.y[i], self.x[-1])
@@ -62,7 +71,7 @@ class VerticalLine:
                 self.x.append(xnew)
             self.x.append(x2)
         self.x = np.array(self.x)
+    
 
-
-    def draw(self, ax, color):
-        ax.plot(self.x, self.y, lw=1, ls="-", color=color)
+    def draw(self):
+        self.ax.plot(self.x, self.y, lw=1, ls="-", color=self.color)

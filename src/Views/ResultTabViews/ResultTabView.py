@@ -115,10 +115,7 @@ class ResultTabView:
             the preference parameter of PROMETHEE Gamma method
         """
         # Initialize the frame
-        self.root = master
-        self.scrollableFrame = ScrollableFrame(self.root)
-        self.scrollableFrame.pack(fill="both", expand=True)
-        self.master = self.scrollableFrame.frame()
+        self.master = master
         self.listener = None
         
         # Parameters values
@@ -194,8 +191,6 @@ class ResultTabView:
         self.ObtainResultsButton.pack(pady=10)
 
         self.rVis.pack(expand=True, fill="both")
-
-        self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 700), max(self.root.winfo_height(), 200)))
 
 
     def refresh(self):
@@ -344,12 +339,10 @@ class ResultTabView:
 
     def ObtainResultsChange(self):
         self.textObtainResultsButton.set("Reload results")
-        self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 650), max(self.root.winfo_height(), 800)))
 
     
     def reset(self):
         self.textObtainResultsButton.set("Obtain results")
-        self.scrollableFrame.resize((0,0,max(self.root.winfo_width(), 700), max(self.root.winfo_height(), 200)))
 
     
     def getMaster(self):

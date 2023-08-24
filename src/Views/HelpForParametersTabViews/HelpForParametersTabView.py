@@ -58,8 +58,7 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
         master : CTkFrame
             the parent master frame
         """
-        self.sframe = ScrollableFrame(master)
-        self.master = self.sframe.frame()
+        self.master = master
         startText = "Please choose a method. The preference learning button will launch the application's built-in preference learning algorithm. The custom button will load the Custom module."
         self.startLabel = CTkLabel(master=self.master, text=startText, text_color="#000000", wraplength=580)
         self.preferenceLearningButton = CTkButton(master=self.master, text="Preference learning", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.startPreferenceLearning)
@@ -93,7 +92,6 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
     def show(self):
         """Show the view
         """
-        self.sframe.pack(fill='both', expand=True)
         self.master.grid_columnconfigure(0, weight=1)
         self.master.grid_columnconfigure(1, weight=1)
         self.startLabel.grid(row=self.row, column=0, columnspan=2, padx=10, pady=(20, 0), sticky="n")

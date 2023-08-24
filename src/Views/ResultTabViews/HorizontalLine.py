@@ -1,18 +1,26 @@
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
+import threading
 
 from Views.ResultTabViews.AlternativeView import AlternativeView
 
 SPACE = 100
 
-class HorizontalLine:
-    def __init__(self, a1:AlternativeView, a2:AlternativeView):
+class HorizontalLine(threading.Thread):
+    def __init__(self, a1:AlternativeView, a2:AlternativeView, ax, color):
+        threading.Thread.__init__(self)
         self.a1 = a1
         self.a2 = a2
         self.y = None
         self.x = None
         self.arc = False
+        self.ax = ax
+        self.color = color
+
+    def run(self):
+        self.createLine()
+        self.draw()
 
 
     def createLine(self):
@@ -32,14 +40,14 @@ class HorizontalLine:
             self.arc = True
 
 
-    def draw(self, ax, color):
+    def draw(self):
         if self.arc:
-            self.drawArc(ax, color)
+            self.drawArc()
         else:
-            ax.plot(self.x, self.y, lw=1, ls="-", color=color)
+            self.ax.plot(self.x, self.y, lw=1, ls="-", color=self.color)
 
 
-    def drawArc(self, ax, color):
+    def drawArc(self):
         xy1 = self.a1.getXY()
         xy2 = self.a2.getXY()
         radius = self.a1.getRadius()
@@ -49,5 +57,5 @@ class HorizontalLine:
         yc = xy1[1] - radius
         xc = width//2 + min(xy1[0],xy2[0])
 
-        arc = Arc((xc, yc), width, height, angle=0, theta1=180, theta2=360, ls="-", lw=1, edgecolor=color)
-        ax.add_patch(arc)
+        arc = Arc((xc, yc), width, height, angle=0, theta1=180, theta2=360, ls="-", lw=1, edgecolor=self.color)
+        self.ax.add_patch(arc)

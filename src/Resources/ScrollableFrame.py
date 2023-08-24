@@ -5,6 +5,7 @@ from customtkinter import (CTkFrame, CTkCanvas, CTkScrollbar)
 class ScrollableFrame(CTkFrame):
     """
     A class to make a custom scrollable frame with customtkinter
+    It is inspired by the vertical scrollable frame on https://gist.github.com/mp035/9f2027c3ef9172264532fcd6262f3b01
 
     Attributes
     ----------
@@ -85,21 +86,7 @@ class ScrollableFrame(CTkFrame):
         event : Event
             a configure event
         """
-        #self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-        self.canvas.configure(scrollregion=(0,0,self.innerFrame.winfo_width(),self.innerFrame.winfo_height()))
-        
-
-
-    def resize(self, region=(0,0,100,100)):
-        """Resize the canvas
-
-        Parameters
-        ----------
-        region : tuple[int,int,int,int]
-            the scrollable region
-        """
-        self.canvas.itemconfig(self.canvas_window, width=region[2], height=region[3])
-        self.canvas.configure(scrollregion=region)
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))        
 
 
     def onCanvasConfigure(self, event):
@@ -110,16 +97,12 @@ class ScrollableFrame(CTkFrame):
         event : Event
             a configure event
         """
-        canvas_width = event.width
-        canvas_height = event.height
-        if canvas_width < self.innerFrame.winfo_width():
-            canvas_width = self.innerFrame.winfo_width()
-        if canvas_height < self.innerFrame.winfo_height():
-            canvas_height = self.innerFrame.winfo_height()
-        self.canvas.configure(scrollregion=(0,0,canvas_width,canvas_height))
-        self.canvas.itemconfig(self.canvas_window, width=canvas_width, height=canvas_height)
-        
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+        #canvas_width = event.width
+        #canvas_height = event.height
+        #self.canvas.itemconfig(self.canvas_window, width = canvas_width, height = canvas_height)
 
+        
 
     def onMouseWheel(self, event):
         """cross platform scroll wheel event

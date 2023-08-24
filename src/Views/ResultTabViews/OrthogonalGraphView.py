@@ -63,6 +63,7 @@ class OrthogonalGraphView:
         self.master = master
         self.master.grid_columnconfigure(0, weight=1)
         self.fig = Figure()
+        self.fig.subplots_adjust(left=0, right=1, bottom=0.1, top=0.95)
         self.canvasOgraph = FigureCanvasTkAgg(self.fig, master=self.master)
         self.toolbar = NavigationToolbar2Tk(self.canvasOgraph, self.master, pack_toolbar=False)
         self.toolbar.update()
@@ -80,8 +81,8 @@ class OrthogonalGraphView:
         """Show the view
         """
 
-        self.canvasOgraph.get_tk_widget().grid(row=0,column=0, padx=10, pady=(10,0), sticky="n")
-        self.toolbar.grid(row=1,column=0, padx=10, pady=(10,0), sticky="n")
+        self.toolbar.pack(side='bottom')
+        self.canvasOgraph.get_tk_widget().pack(expand=True, fill='both', side='bottom')
         self.makePoints()
         self.makeGraph()
         self.canvasOgraph.draw()

@@ -79,10 +79,8 @@ class DataTabView:
     class ViewListener:
         def openFile(self, master, file=None):
             pass
-        #def addCriterionColumn(self, master, x:int, y:int):
         def addCriterionColumn(self, master, row:int, col:int):
             pass
-        #def addUnitRow(self, master, x:int, y:int):
         def addUnitRow(self, master, row:int, col:int):
             pass
         def deleteCriterion(self):
@@ -98,21 +96,18 @@ class DataTabView:
         master : CTkFrame
             the parent master frame
         """
-
-        self.root = master
-        self.scrollableFrame = ScrollableFrame(self.root)
-        self.master = self.scrollableFrame.frame()
         self.listener = None
 
         self.row = 0
         self.col = 0
 
         # header
-        self.openFileButton = CTkButton(master=self.master, text="Open a file", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.openFile)
-        self.dataNoteLabel = CTkLabel(self.master, text="Only csv or PROMETHEE Gamma project files are accepted", fg_color="#ffffff", text_color="#000000", corner_radius=5)
+        self.openFileButton = CTkButton(master=master, text="Open a file", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.openFile)
+        self.dataNoteLabel = CTkLabel(master=master, text="Only csv or PROMETHEE Gamma project files are accepted", fg_color="#ffffff", text_color="#000000", corner_radius=5)
         
         # Table
-        self.table = CTkFrame(master=self.master, bg_color="#ffffff", fg_color="#ffffff")
+        self.scrollableFrame = ScrollableFrame(master)
+        self.table = self.scrollableFrame.frame()
         self.criteriaLabel = CTkLabel(master=self.table, text="Criteria:", text_color="#000000")
         self.weightsLabel = CTkLabel(master=self.table, text="Weights:", text_color="#000000")
         self.typesLabel = CTkLabel(master=self.table, text="Preference Functions:", text_color="#000000")
@@ -138,12 +133,10 @@ class DataTabView:
     def show(self) -> None:
         """Show the view   
         """
-        self.scrollableFrame.pack(fill="both", expand=True)
-
         self.openFileButton.pack(pady=10)
         self.dataNoteLabel.pack(pady=10)
 
-        self.table.pack(expand=True, fill="both")
+        self.scrollableFrame.pack(fill="both", expand=True)
 
         self.criteriaLabel.grid(row=0, column=0)
         self.weightsLabel.grid(row=1, column=0)
@@ -158,8 +151,6 @@ class DataTabView:
         self.buttonAddUnit.grid(row=self.row, column=0, sticky="e")
         self.buttonDeleteCriterion.grid(row=1, column=self.col, sticky="w")
         self.buttonDeleteUnit.grid(row=self.row, column=1, columnspan=2, sticky="w")
-        
-        #self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
 
 
     def getViewCData(self) ->tuple:

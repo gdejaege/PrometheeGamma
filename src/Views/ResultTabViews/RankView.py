@@ -106,9 +106,8 @@ class RankView:
         """
         self.rightScrollFrame.place(relx=0.75, y=1, relheight=1.0, relwidth=0.25)
         self.leftScrollFrame.place(x=1, y=1, relheight=1.0, relwidth=0.75)
-        self.toolbar.pack(expand=True, side='bottom')
-        self.canvas.get_tk_widget().pack(expand=True, fill='both')#.grid(row=0,column=0, padx=10, pady=(10,0), sticky="n")
-        #self.toolbar.grid(row=1,column=0, padx=10, pady=(10,0), sticky="n")
+        self.toolbar.pack(side='bottom')
+        self.canvas.get_tk_widget().pack(expand=True, fill='both', side='bottom')
 
 
     def drawCanvas(self, r:list, matrixResults:list) -> None:
@@ -123,6 +122,7 @@ class RankView:
         """
         self.fig.clear()
         self.fig.suptitle('Rank graph', fontsize=12, fontweight='bold')
+        self.fig.subplots_adjust(left=0, bottom=0, right=1, top=0.9)
         self.ax = self.fig.add_subplot()
         self.ax.set_aspect(1)
         self.ax.axis('off')
@@ -153,10 +153,6 @@ class RankView:
                 width = w
         if h > height:
             height = h
-        
-        widthScroll = max(width+3*SPACE, height)*1.5 + SPACE
-        heightScroll = height*1.5 + SPACE
-        self.leftScrollFrame.resize((0,0,widthScroll, heightScroll))
         
         self.ax.axis([0, width, 0, height])
         return width, height
@@ -216,13 +212,11 @@ class RankView:
         xyb = b.getXY()
         if xya[1] == xyb[1]:
             # Horizontal line
-            line = HorizontalLine(a, b)
-            line.createLine()
-            line.draw(self.ax, color)
+            line = HorizontalLine(a, b, self.ax, color) # Create a thead to draw a horizontal line
+            line.start() # start the thread
         else:
-            line = VerticalLine(a, b)
-            line.createLine(self.als)
-            line.draw(self.ax, color)
+            line = VerticalLine(a, b, self.als, self.ax, color) # Create a thead to draw a vertical line
+            line.start() # start the thread
 
 
     def makeLegend(self):
