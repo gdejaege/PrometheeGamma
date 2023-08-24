@@ -9,10 +9,10 @@ class UnitRow:
     ----------
     master : CTkFrame
         the master frame
-    x : int
-        the x coordinate of the row
-    y : int
-        the y coordinate of the row
+    row : int
+        the row for grid coordinate of the UnitRow
+    col : int
+        the column for grid coordinate of the UnitRow
     alternative : Alternative
         the alternative of which it is the row
     nameEntry : CTkEntry
@@ -38,10 +38,10 @@ class UnitRow:
         ----------
         master : CTkFrame
             the master frame
-        x : int
-            the x coordinate of the row
-        y : int
-            the y coordinate of the row
+        row : int
+            the row for grid coordinate of the UnitRow
+        col : int
+            the column for grid coordinate of the UnitRow
         alternative : Alternative
             the alternative of which it is the row
         """
@@ -58,12 +58,10 @@ class UnitRow:
     def show(self):
         """Show the row
         """
-        self.nameEntry.grid(row=self.row, column=self.col, sticky="e")#.place(x=self.x, y=self.y)
-        #self.x += 20
+        self.nameEntry.grid(row=self.row, column=self.col, sticky="e")
         for i in range(self.alternative.getSize()):
-            #self.x += 120
             self.col += 1
-            self.valueEntries[i].grid(row=self.row, column=self.col)#.place(x=self.x, y=self.y)
+            self.valueEntries[i].grid(row=self.row, column=self.col)
 
     
     def add_column(self, value:DoubleVar):
@@ -75,9 +73,8 @@ class UnitRow:
             The value to add in the last column
         """
         self.valueEntries.append(CTkEntry(master=self.master, textvariable=value, width=120))
-        #self.x += 120
         self.col += 1
-        self.valueEntries[-1].grid(row=self.row, column=self.col)#.place(x=self.x, y=self.y)
+        self.valueEntries[-1].grid(row=self.row, column=self.col)
 
 
     def destroy(self) -> None:
@@ -94,4 +91,3 @@ class UnitRow:
         self.valueEntries[-1].destroy()
         self.valueEntries.pop()
         self.col -= 1
-        #self.x -= 120

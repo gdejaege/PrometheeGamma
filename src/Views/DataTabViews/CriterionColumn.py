@@ -2,6 +2,7 @@ from tkinter import *
 from customtkinter import (CTkEntry, CTkButton, CTkToplevel)
 from Views.DataTabViews.PreferenceFunctionWindow import PreferenceFunctionWindow
 from Models.Criterion import Criterion
+import platform
 
 TYPEDICT = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"}
 """a dictionnary to link each type of preference function with a number"""
@@ -62,24 +63,25 @@ class CriterionColumn:
 
         Parameters
         ----------
-        x : int
-            x coordinate to place the column in the frame
-        y : int
-            y coordinate to place the column in the frame
+        row : int
+            the current row to place the CriterionColumn in the frame
+        col : int
+            the current column to place the CriterionColumn in the frame
         """
-        self.nameEntry.grid(row=row, column=col)#.place(x=x, y=y)
-        self.weightEntry.grid(row=row+1, column=col)#.place(x=x, y=y+25)
-        self.typePfButton.grid(row=row+2, column=col)#.place(x=x, y=y+50)
-        self.pcEntry.grid(row=row+3, column=col)#.place(x=x, y=y+75)
-        self.qcEntry.grid(row=row+4, column=col)#.place(x=x, y=y+100)
+        self.nameEntry.grid(row=row, column=col)
+        self.weightEntry.grid(row=row+1, column=col)
+        self.typePfButton.grid(row=row+2, column=col)
+        self.pcEntry.grid(row=row+3, column=col)
+        self.qcEntry.grid(row=row+4, column=col)
 
 
     def buttonTypeEvent(self):
         """Handle click event on the typePfButton
         """
         w = CTkToplevel(self.master)
-        w.grab_set()
-        w.focus_set()
+        if platform.system() == 'Windows':
+            w.grab_set()
+            w.focus_set()
         w.title("Preference functions")
         self.pfw = PreferenceFunctionWindow(master=w, textvar=self.typePfTextButton, intvar=self.pfType, typesDict=TYPEDICT)
         self.pfw.show()

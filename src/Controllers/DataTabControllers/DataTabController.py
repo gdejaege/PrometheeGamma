@@ -128,10 +128,10 @@ class DataTabController(DataTabView.ViewListener):
         ----------
         master : CTkFrame
             the master frame for the data tab
-        x : int
-            the x coordinate to place the new criterion column
-        y : int
-            the y coordinate to place the new criterion column
+        row : int
+            the row for grid coordinate to place the new criterion column
+        col : int
+            the column for grid coordinate to place the new criterion column
         """
         self.dataTabView.shiftRight()
         self.dataTabModel.addCriterion(master=master)
@@ -160,10 +160,10 @@ class DataTabController(DataTabView.ViewListener):
         ----------
         master : CTkFrame
             the master frame for the data tab
-        x : int
-            the x coordinate to place the new unit row
-        y : int
-            the y coordinate to place the new unit row
+        row : int
+            the row for grid coordinate to place the new unit row
+        col : int
+            the column for grid coordinate to place the new unit row
         """
         self.dataTabView.shiftDown()
         self.dataTabModel.addAlternative(master)

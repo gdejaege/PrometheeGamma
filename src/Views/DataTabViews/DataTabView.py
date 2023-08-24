@@ -104,12 +104,6 @@ class DataTabView:
         self.master = self.scrollableFrame.frame()
         self.listener = None
 
-        """
-        self.xc = 191
-        self.yc = 125
-        self.xu = 50
-        self.yu = 275
-        """
         self.row = 0
         self.col = 0
 
@@ -164,18 +158,6 @@ class DataTabView:
         self.buttonAddUnit.grid(row=self.row, column=0, sticky="e")
         self.buttonDeleteCriterion.grid(row=1, column=self.col, sticky="w")
         self.buttonDeleteUnit.grid(row=self.row, column=1, columnspan=2, sticky="w")
-
-        """
-        self.criteriaLabel.place(x=self.xu, y=self.yc)
-        self.weightsLabel.place(x=self.xu, y=self.yc+25)
-        self.typesLabel.place(x=self.xu, y=self.yc+50)
-        self.pcLabel.place(x=self.xu, y=self.yc+75)
-        self.qcLabel.place(x=self.xu, y=self.yc+100)
-        self.buttonAddCriterion.place(x=self.xc, y=self.yc)
-        self.buttonAddUnit.place(x=self.xu, y=self.yu)
-        self.buttonDeleteCriterion.place(x=self.xc, y=self.yc+25)
-        self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu)
-        """
         
         #self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
 
@@ -185,10 +167,10 @@ class DataTabView:
 
         Return
         ------
-        (table, xc, yc) : tuple[CTkFrame, int, int]
-            the master frame and the coordinates for criterion column
+        (table, row, col) : tuple[CTkFrame, int, int]
+            the master frame and the grid coordinates for criterion column
         """
-        return (self.table, 0, self.col) #(self.table, self.xc, self.yc)
+        return (self.table, 0, self.col)
 
 
     def getViewUData(self) ->tuple:
@@ -196,10 +178,10 @@ class DataTabView:
 
         Return
         ------
-        (table, xu, yu) : tuple[CTkFrame, int, int]
-            the master frame and the coordinates for unit row
+        (table, row, col) : tuple[CTkFrame, int, int]
+            the master frame and the grid coordinates for unit row
         """
-        return (self.table, self.row, 0) #(self.table, self.xu, self.yu)
+        return (self.table, self.row, 0)
 
 
     def openFile(self) -> None:
@@ -212,71 +194,44 @@ class DataTabView:
         """Handle click on buttonAddCriterion
         """
         self.listener.addCriterionColumn(master=self.table, row=0, col=self.col)
-        #self.listener.addCriterionColumn(master=self.table, x=self.xc, y=self.yc)
 
     
     def shiftRight(self):
-        """Shift right buttons add and delete criterion and update xc
+        """Shift right buttons add and delete criterion and update col
         """
         self.col += 1
         self.buttonAddCriterion.grid_configure(column=self.col)
         self.buttonDeleteCriterion.grid_configure(column=self.col)
 
-        """
-        self.buttonAddCriterion.place(x=self.xc+130, y=self.yc)
-        self.buttonDeleteCriterion.place(x=self.xc+130, y=self.yc+25)
-        self.xc += 120
-        self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
-        """
 
     def shiftLeft(self):
-        """Shift left buttons add and delete criterion and update xc
+        """Shift left buttons add and delete criterion and update col
         """
         self.col -= 1
         self.buttonAddCriterion.grid_configure(column=self.col)
         self.buttonDeleteCriterion.grid_configure(column=self.col)
-        """
-        self.xc -= 120
-        self.buttonAddCriterion.place(x=self.xc+10, y=self.yc)
-        self.buttonDeleteCriterion.place(x=self.xc+10, y=self.yc+25)
-        self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
-        """
 
 
     def shiftUp(self):
-        """Shift up buttons add and delete unit and update yu
+        """Shift up buttons add and delete unit and update row
         """
         self.row -= 1
         self.buttonAddUnit.grid_configure(row=self.row)
         self.buttonDeleteUnit.grid_configure(row=self.row)
 
-        """
-        self.yu -= 25
-        self.buttonAddUnit.place(x=self.xu, y=self.yu+5)
-        self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu+5)
-        self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
-        """
-
 
     def shiftDown(self):
-        """Shift down buttons add and delete unit and update yu
+        """Shift down buttons add and delete unit and update row
         """
         self.row += 1
         self.buttonAddUnit.grid_configure(row=self.row)
         self.buttonDeleteUnit.grid_configure(row=self.row)
-        """
-        self.yu += 25
-        self.buttonAddUnit.place(x=self.xu, y=self.yu+5)
-        self.buttonDeleteUnit.place(x=self.xu+141, y=self.yu+5)
-        self.scrollableFrame.resize((0,0,int(max(max(self.xc, self.xu)*1.25+300, self.root.winfo_width())), int(max(max(self.yc, self.yu)*1.25+150, self.root.winfo_height()))))
-        """
 
 
     def addUnit(self) -> None:
         """Handle click on buttonAddUnit
         """
         self.listener.addUnitRow(master=self.table, row=self.row, col=0)
-        #self.listener.addUnitRow(master=self.table, x=self.xu, y=self.yu)
 
 
     def deleteCriterion(self) -> None:
