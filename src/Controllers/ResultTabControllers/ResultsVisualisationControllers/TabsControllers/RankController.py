@@ -64,6 +64,7 @@ class RankController(RankView.ViewListener):
     def showView(self) -> None:
         """Show the Rank tab
         """
+        print("show")
         self.rankView.show()
         self.showSelectionView()
         self.draw()
@@ -88,6 +89,7 @@ class RankController(RankView.ViewListener):
     def refreshView(self) -> None:
         """Refresh the rank tab
         """
+        print("refresh")
         self.showSelectionView()
         self.draw()
 

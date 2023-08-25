@@ -1,27 +1,19 @@
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
-import threading
-import time
 
 from Views.ResultTabViews.AlternativeView import AlternativeView
+from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 
 SPACE = 100
 
-class HorizontalLine(threading.Thread):
-    def __init__(self, a1:AlternativeView, a2:AlternativeView, ax, color):
-        threading.Thread.__init__(self, daemon=True)
+class HorizontalLine:
+    def __init__(self, a1:AlternativeView, a2:AlternativeView):
         self.a1 = a1
         self.a2 = a2
         self.y = None
         self.x = None
         self.arc = False
-        self.ax = ax
-        self.color = color
-
-    def run(self):
-        self.createLine()
-        self.draw()
 
 
     def createLine(self):
@@ -41,14 +33,16 @@ class HorizontalLine(threading.Thread):
             self.arc = True
 
 
-    def draw(self):
+    def draw(self, frame, queue, color):
         if self.arc:
-            self.drawArc()
+            self.drawArc(frame, queue, color)
         else:
-            self.ax.plot(self.x, self.y, lw=1, ls="-", color=self.color)
+            ticket = Ticket(ticketType=TicketPurpose.MATPLOTLIB_AX_PLOT, ticketValue=(self.x, self.y, color))
+            queue.put(ticket)
+            frame.event_generate("<<CheckQueue>>")
 
 
-    def drawArc(self):
+    def drawArc(self, frame, queue, color):
         xy1 = self.a1.getXY()
         xy2 = self.a2.getXY()
         radius = self.a1.getRadius()
@@ -58,5 +52,7 @@ class HorizontalLine(threading.Thread):
         yc = xy1[1] - radius
         xc = width//2 + min(xy1[0],xy2[0])
 
-        arc = Arc((xc, yc), width, height, angle=0, theta1=180, theta2=360, ls="-", lw=1, edgecolor=self.color)
-        self.ax.add_patch(arc)
+        arc = Arc((xc, yc), width, height, angle=0, theta1=180, theta2=360, ls="-", lw=1, edgecolor=color)
+        ticket = Ticket(ticketType=TicketPurpose.MATPLOTLIB_AX_ADD_PATCH, ticketValue=arc)
+        queue.put(ticket)
+        frame.event_generate("<<CheckQueue>>")

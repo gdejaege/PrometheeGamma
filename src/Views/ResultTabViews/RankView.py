@@ -3,13 +3,18 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 import matplotlib.lines as mlines
 from tkinter import *
 from customtkinter import (CTkFrame, CTkCheckBox, CTkScrollbar, IntVar)
+from tkinter import Frame
+from math import floor
+import time
+import threading
+from queue import Queue
+
+from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 from Resources.ResizableScrollableFrame import ResizableScrollableFrame
 from Resources.VScrollableFrame import VScrollableFrame
 from Views.ResultTabViews.AlternativeView import AlternativeView
 from Views.ResultTabViews.VerticalLine import VerticalLine
 from Views.ResultTabViews.HorizontalLine import HorizontalLine
-from math import floor
-import time
 
 SPACE = 100 # The space between the center of 2 circles that represent alternatives
 RADIUS = 35 # The radius of the circle that represents an alternative
@@ -41,10 +46,11 @@ class RankView:
             the master frame
         """
         self.leftScrollFrame = ResizableScrollableFrame(master)
-        self.leftFrame = self.leftScrollFrame.frame()
+        lFrame = self.leftScrollFrame.frame()
+        self.leftFrame = Frame(master=lFrame, background="#ffffff")
+
         self.rightScrollFrame = VScrollableFrame(master)
         self.rightFrame = self.rightScrollFrame.frame()
-        self.leftFrame.grid_columnconfigure(0, weight=1)
         self.fig = Figure()
         self.ax = None
 
@@ -62,6 +68,34 @@ class RankView:
         self.ymin = 50
         self.xmax = 0
         self.ymax = 100
+
+        self.queueMessage = Queue()
+        self.leftFrame.bind("<<Test>>", self.checkQueue)
+        print("binded")
+
+
+    def checkQueue(self, event):
+        """Read the queue
+        """
+        print("in check queue")
+        msg: Ticket
+        msg = self.queueMessage.get()
+
+        if msg.ticketType == TicketPurpose.CANVAS_DRAW:
+            self.toolbar.pack(side='bottom')
+            self.canvas.get_tk_widget().pack(expand=True, fill='both', side='bottom')
+            self.canvas.draw()
+            print("draw")
+        elif msg.ticketType == TicketPurpose.MAKE_MATPLOTLIB_LEGEND:
+            self.ax.legend(handles=msg.ticketValue, bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+        elif msg.ticketType == TicketPurpose.MATPLOTLIB_AX_ADD_PATCH:
+            self.ax.add_patch(msg.ticketValue)
+        elif msg.ticketType == TicketPurpose.MATPLOTLIB_AX_PLOT:
+            (x, y, color) = msg.ticketValue
+            self.ax.plot(x, y, lw=1, ls="-", color=color)
+        elif msg.ticketType == TicketPurpose.TEST:
+            print("test")
+            
 
 
     def buildAlternativesDict(self, aList:list):
@@ -108,8 +142,11 @@ class RankView:
         """
         self.rightScrollFrame.place(relx=0.75, y=1, relheight=1.0, relwidth=0.25)
         self.leftScrollFrame.place(x=1, y=1, relheight=1.0, relwidth=0.75)
+        self.leftFrame.pack(fill='both', expand=True)
         self.toolbar.pack(side='bottom')
         self.canvas.get_tk_widget().pack(expand=True, fill='both', side='bottom')
+
+        print("showed")
 
         """
         for i in range(10):
@@ -136,9 +173,30 @@ class RankView:
         self.ax.axis('off')
 
         self.build(r)
+
+        # Use a thread to keep the app reactive
+        threadGraph = threading.Thread(target=self.makeGraph, args=(matrixResults, ), daemon=True)
+        threadGraph.start()
+        #time.sleep(1)
+
+
+    def makeGraph(self, matrixResults:list) -> None:
+        print("start makeGraph")
+        ticket = Ticket(ticketType=TicketPurpose.TEST, ticketValue=None)
+        self.queueMessage.put(ticket)
+        self.leftFrame.event_generate("<<Test>>")
+        """
+
+        print("start addlines")
         self.add_lines(matrixResults)
+        print("end addlines")
         self.makeLegend()
-        self.canvas.draw()
+
+        ticket = Ticket(ticketType=TicketPurpose.CANVAS_DRAW, ticketValue=None)
+        self.queueMessage.put(ticket)
+        self.leftFrame.event_generate("<<CheckQueue>>")
+        print("end makeGraph")
+        """
 
 
     def computeSize(self, r:list):
@@ -221,18 +279,23 @@ class RankView:
         xyb = b.getXY()
         if xya[1] == xyb[1]:
             # Horizontal line
-            line = HorizontalLine(a, b, self.ax, color) # Create a thead to draw a horizontal line
-            line.start() # start the thread
+            line = HorizontalLine(a, b)
+            line.createLine()
+            line.draw(color=color, frame=self.leftFrame, queue=self.queueMessage)
         else:
-            line = VerticalLine(a, b, self.als, self.ax, color) # Create a thead to draw a vertical line
-            line.start() # start the thread
+            line = VerticalLine(a, b)
+            line.createLine(self.als)
+            line.draw(color=color, frame=self.leftFrame, queue=self.queueMessage)
+        #print("draw_line ok")
 
 
     def makeLegend(self):
         redLine = mlines.Line2D([], [], color='red', label='Incomparability lines')
         greenLine = mlines.Line2D([], [], color='green', label='Indifference lines')
-        self.ax.legend(handles=[redLine, greenLine], bbox_to_anchor=(1.05, 1),
-                         loc='upper left', borderaxespad=0.)
+        ticket = Ticket(ticketType=TicketPurpose.MAKE_MATPLOTLIB_LEGEND, ticketValue=[redLine, greenLine])
+        self.queueMessage.put(ticket)
+        self.leftFrame.event_generate("<<CheckQueue>>")
+        #print("make lengend ok")
         
 
     def save(self, filename):

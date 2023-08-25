@@ -3,8 +3,6 @@ from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsContro
 from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.TextboxController import TextboxController
 from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.RankController import RankController
 
-from multiprocessing import Process
-
 class ResultVisualisationController:
     """
     A class to control the three tabs for result visualization
@@ -56,38 +54,21 @@ class ResultVisualisationController:
         self.resultVisualisationView.show()
         master = self.resultVisualisationView.getTextBoxMaster()
         self.textboxController = TextboxController(master=master, model=self.prometheeGamma)
-        #self.textboxController.showView()
-        p1 = Process(target=self.textboxController.showView(), daemon=True)
-        p1.start()
-        print("p1 start")
+        self.textboxController.showView()
         master = self.resultVisualisationView.getOrthogonalGraphMaster()
         self.orhtogonalGraphController = OrthogonalGraphController(master=master, model=self.prometheeGamma)
-        #self.orhtogonalGraphController.showView()
-        p2 = Process(target=self.orhtogonalGraphController.showView(), daemon=True)
-        p2.start()
-        print("p2 start")
+        self.orhtogonalGraphController.showView()
         master = self.resultVisualisationView.getRankGraphMaster()
         self.rankController = RankController(master=master, prometheeGamma=self.prometheeGamma, resultTabModel=self.resultTabModel, dataTabModel=self.dataTabModel)
-        #self.rankController.showView()
-        p3 = Process(target=self.rankController.showView(), daemon=True)
-        p3.start()
-        print("p3 start")
+        self.rankController.showView()
 
 
     def refresh(self) -> None:
         """Refresh the 3 tabs
         """
-        p1 = Process(target=self.textboxController.refreshView(), daemon=True)
-        p1.start()
-        p2 = Process(target=self.orhtogonalGraphController.refreshView(), daemon=True)
-        p2.start()
-        p3 = Process(target=self.rankController.refreshView(), daemon=True)
-        p3.start()
-        """
         self.textboxController.refreshView()
         self.orhtogonalGraphController.refreshView()
         self.rankController.refreshView()
-        """
 
 
     def saveOgraph(self, folder):
