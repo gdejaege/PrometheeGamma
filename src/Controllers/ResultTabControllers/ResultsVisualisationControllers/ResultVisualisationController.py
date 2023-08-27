@@ -32,7 +32,7 @@ class ResultVisualisationController:
         refresh the 3 tabs
     """
 
-    def __init__(self, master, models:tuple) -> None:
+    def __init__(self, master, models:tuple, root) -> None:
         """
         Parameters
         ----------
@@ -40,7 +40,10 @@ class ResultVisualisationController:
             the master frame
         models : tuple[PrometheeGamma, ResultTabModel, DataTabModel]
             models = (prometheeGamma, resultTabModel, dataTabModel), the 3 needed models for result visualisation
+        root : CTk
+            the root window
         """
+        self.root = root
         self.resultVisualisationView = ResultVisualisationView(master=master)
         (self.prometheeGamma, self.resultTabModel, self.dataTabModel) = models
         self.orhtogonalGraphController = None
@@ -59,7 +62,8 @@ class ResultVisualisationController:
         self.orhtogonalGraphController = OrthogonalGraphController(master=master, model=self.prometheeGamma)
         self.orhtogonalGraphController.showView()
         master = self.resultVisualisationView.getRankGraphMaster()
-        self.rankController = RankController(master=master, prometheeGamma=self.prometheeGamma, resultTabModel=self.resultTabModel, dataTabModel=self.dataTabModel)
+        self.rankController = RankController(master=master, prometheeGamma=self.prometheeGamma, resultTabModel=self.resultTabModel, 
+                                             dataTabModel=self.dataTabModel, root=self.root)
         self.rankController.showView()
 
 

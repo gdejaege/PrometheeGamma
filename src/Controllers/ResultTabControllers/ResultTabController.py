@@ -80,13 +80,16 @@ class ResultTabController(ResultTabView.ViewListener):
             pass
     
 
-    def __init__(self, master) -> None:
+    def __init__(self, master, root) -> None:
         """
         Parameters
         ----------
         master : CTkFrame
             the master frame for the result tab
+        root : CTk
+            the root window
         """
+        self.root = root
         self.resultTabModel = ResultTabModel(master=master)
         Ti = self.resultTabModel.getTi()
         Tj = self.resultTabModel.getTj()
@@ -197,7 +200,7 @@ class ResultTabController(ResultTabView.ViewListener):
         self.resultTabView.ObtainResultsChange()
         master = self.resultTabView.getMaster()
         models = (self.listener.getPrometheeGammaModel(), self.resultTabModel, self.listener.getDataTabModel())
-        self.resultsVisualisationController = ResultVisualisationController(master, models)
+        self.resultsVisualisationController = ResultVisualisationController(master, models, root=self.root)
         self.resultsVisualisationController.show()
 
 

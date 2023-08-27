@@ -53,13 +53,16 @@ class DataTabController(DataTabView.ViewListener):
         test if there is less than 2 alternatives in the model
     """
 
-    def __init__(self, master) -> None:
+    def __init__(self, master, root) -> None:
         """
         Parameters
         ----------
         master : CTkFrame
             the master frame for the data tab
+        root : CTk
+            the root window
         """
+        self.root = root
         self.dataTabModel = DataTabModel()
         self.dataTabView = DataTabView(master=master)
         self.dataTabView.setListener(self)

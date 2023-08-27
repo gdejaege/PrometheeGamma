@@ -197,7 +197,7 @@ class ResultTabView:
         """
         self.commandTiEntry(0)
         self.commandTjEntry(0)
-        self.commandPfEntry(0)
+        self.commandPfEntry(1)
 
 
     def commandTiEntry(self, event) -> None:

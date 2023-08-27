@@ -67,4 +67,4 @@ class VerticalLine:
     def draw(self, frame, queue, color):
         ticket = Ticket(ticketType=TicketPurpose.MATPLOTLIB_AX_PLOT, ticketValue=(self.x, self.y, color))
         queue.put(item=ticket)
-        frame.event_generate("<<CheckQueue>>")
+        frame.event_generate("<<CheckMsgRankView>>")

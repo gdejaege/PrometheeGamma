@@ -38,7 +38,7 @@ class RankController(RankView.ViewListener):
         rank alternatives from scores
     """
 
-    def __init__(self, master, prometheeGamma:PrometheeGamma, resultTabModel:ResultTabModel, dataTabModel:DataTabModel) -> None:
+    def __init__(self, master, prometheeGamma:PrometheeGamma, resultTabModel:ResultTabModel, dataTabModel:DataTabModel, root) -> None:
         """
         Parameters
         ----------
@@ -50,12 +50,14 @@ class RankController(RankView.ViewListener):
             the model of the result tab. It contains the parameters of the method
         dataTabModel : DataTabModel
             the model of the data tab. It contain the input data of the method
+        root : CTk
+            the root window
         """
         self.dataTabModel = dataTabModel
         self.resultTabModel = resultTabModel
         self.prometheeGamma = prometheeGamma
         
-        self.rankView = RankView(master)
+        self.rankView = RankView(master, root)
         self.rankView.setListener(self)
 
         self.ranked = []
@@ -64,10 +66,7 @@ class RankController(RankView.ViewListener):
     def showView(self) -> None:
         """Show the Rank tab
         """
-        print("show")
         self.rankView.show()
-        self.showSelectionView()
-        self.draw()
 
 
     def showSelectionView(self):
@@ -89,7 +88,6 @@ class RankController(RankView.ViewListener):
     def refreshView(self) -> None:
         """Refresh the rank tab
         """
-        print("refresh")
         self.showSelectionView()
         self.draw()
 

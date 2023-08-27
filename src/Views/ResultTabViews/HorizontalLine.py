@@ -39,7 +39,7 @@ class HorizontalLine:
         else:
             ticket = Ticket(ticketType=TicketPurpose.MATPLOTLIB_AX_PLOT, ticketValue=(self.x, self.y, color))
             queue.put(ticket)
-            frame.event_generate("<<CheckQueue>>")
+            frame.event_generate("<<CheckMsgRankView>>")
 
 
     def drawArc(self, frame, queue, color):
@@ -55,4 +55,4 @@ class HorizontalLine:
         arc = Arc((xc, yc), width, height, angle=0, theta1=180, theta2=360, ls="-", lw=1, edgecolor=color)
         ticket = Ticket(ticketType=TicketPurpose.MATPLOTLIB_AX_ADD_PATCH, ticketValue=arc)
         queue.put(ticket)
-        frame.event_generate("<<CheckQueue>>")
+        frame.event_generate("<<CheckMsgRankView>>")

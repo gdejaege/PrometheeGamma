@@ -97,7 +97,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         master : CTkFrame
             the master frame for the data tab
         """
-        self.dataTabController = DataTabController(master=master)
+        self.dataTabController = DataTabController(master=master, root=self.appView)
         self.dataTabController.showView()
 
 
@@ -109,7 +109,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         master : CTkFrame
             the master frame for the result tab
         """
-        self.resultTabController = ResultTabController(master=master)
+        self.resultTabController = ResultTabController(master=master, root=self.appView)
         self.resultTabController.setListener(self)
         self.resultTabController.showView()
 

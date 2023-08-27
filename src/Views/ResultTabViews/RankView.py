@@ -2,12 +2,13 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 import matplotlib.lines as mlines
 from tkinter import *
-from customtkinter import (CTkFrame, CTkCheckBox, CTkScrollbar, IntVar)
-from tkinter import Frame
+from customtkinter import (CTkFrame, CTkCheckBox, IntVar, CTk)
 from math import floor
-import time
 import threading
+#import multiprocessing
+from concurrent.futures import ThreadPoolExecutor
 from queue import Queue
+import time
 
 from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 from Resources.ResizableScrollableFrame import ResizableScrollableFrame
@@ -38,16 +39,18 @@ class RankView:
         def checkBoxEvent(self):
             pass
 
-    def __init__(self, master) -> None:
+    def __init__(self, master:CTkFrame, root:CTk) -> None:
         """
         Parameters
         ----------
         master : CTkFrame
             the master frame
+        root : CTk
+            the root window
         """
+        self.root = root
         self.leftScrollFrame = ResizableScrollableFrame(master)
-        lFrame = self.leftScrollFrame.frame()
-        self.leftFrame = Frame(master=lFrame, background="#ffffff")
+        self.leftFrame = self.leftScrollFrame.frame()
 
         self.rightScrollFrame = VScrollableFrame(master)
         self.rightFrame = self.rightScrollFrame.frame()
@@ -70,32 +73,30 @@ class RankView:
         self.ymax = 100
 
         self.queueMessage = Queue()
-        self.leftFrame.bind("<<Test>>", self.checkQueue)
-        print("binded")
+        self.root.bind("<<CheckMsgRankView>>", self.checkQueue)
+
+        self.executor = ThreadPoolExecutor(max_workers=1)
+        self.future = None
 
 
     def checkQueue(self, event):
         """Read the queue
         """
-        print("in check queue")
         msg: Ticket
         msg = self.queueMessage.get()
 
-        if msg.ticketType == TicketPurpose.CANVAS_DRAW:
-            self.toolbar.pack(side='bottom')
-            self.canvas.get_tk_widget().pack(expand=True, fill='both', side='bottom')
-            self.canvas.draw()
-            print("draw")
-        elif msg.ticketType == TicketPurpose.MAKE_MATPLOTLIB_LEGEND:
+        if msg.ticketType == TicketPurpose.MAKE_MATPLOTLIB_LEGEND:
             self.ax.legend(handles=msg.ticketValue, bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
         elif msg.ticketType == TicketPurpose.MATPLOTLIB_AX_ADD_PATCH:
+            #print("line")
             self.ax.add_patch(msg.ticketValue)
         elif msg.ticketType == TicketPurpose.MATPLOTLIB_AX_PLOT:
+            #print("line")
             (x, y, color) = msg.ticketValue
             self.ax.plot(x, y, lw=1, ls="-", color=color)
-        elif msg.ticketType == TicketPurpose.TEST:
-            print("test")
-            
+        elif msg.ticketType == TicketPurpose.CANVAS_DRAW:
+            self.canvas.draw()
+            #print("DRAW ______________________________________________\n")
 
 
     def buildAlternativesDict(self, aList:list):
@@ -142,19 +143,9 @@ class RankView:
         """
         self.rightScrollFrame.place(relx=0.75, y=1, relheight=1.0, relwidth=0.25)
         self.leftScrollFrame.place(x=1, y=1, relheight=1.0, relwidth=0.75)
-        self.leftFrame.pack(fill='both', expand=True)
         self.toolbar.pack(side='bottom')
         self.canvas.get_tk_widget().pack(expand=True, fill='both', side='bottom')
-
-        print("showed")
-
-        """
-        for i in range(10):
-            print("rank", i)
-            time.sleep(1)
-        """
         
-
 
     def drawCanvas(self, r:list, matrixResults:list) -> None:
         """Display result in a schematic ranking
@@ -166,6 +157,11 @@ class RankView:
         matrixResults : list
             the result matrix of PROMETHEE Gamma method
         """
+
+        if self.future is not None:
+            self.future.cancel() # Cancels the pending thread to allow a new thread to take its place
+            # The previous thread can be cancelled, as it corresponds to an obsolete request.
+
         self.fig.clear()
         self.fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
         self.ax = self.fig.add_subplot()
@@ -174,29 +170,19 @@ class RankView:
 
         self.build(r)
 
-        # Use a thread to keep the app reactive
-        threadGraph = threading.Thread(target=self.makeGraph, args=(matrixResults, ), daemon=True)
-        threadGraph.start()
-        #time.sleep(1)
+        # Create a thread. If a thread is already running, puts the new thread on hold.
+        self.future = self.executor.submit(self.makeGraph, matrixResults)
+        
 
 
     def makeGraph(self, matrixResults:list) -> None:
-        print("start makeGraph")
-        ticket = Ticket(ticketType=TicketPurpose.TEST, ticketValue=None)
-        self.queueMessage.put(ticket)
-        self.leftFrame.event_generate("<<Test>>")
-        """
-
-        print("start addlines")
-        self.add_lines(matrixResults)
-        print("end addlines")
+        #print("GRAPH _____________________________________________")
         self.makeLegend()
-
+        self.add_lines(matrixResults)
         ticket = Ticket(ticketType=TicketPurpose.CANVAS_DRAW, ticketValue=None)
         self.queueMessage.put(ticket)
-        self.leftFrame.event_generate("<<CheckQueue>>")
-        print("end makeGraph")
-        """
+        self.root.event_generate("<<CheckMsgRankView>>")
+        return
 
 
     def computeSize(self, r:list):
@@ -281,12 +267,11 @@ class RankView:
             # Horizontal line
             line = HorizontalLine(a, b)
             line.createLine()
-            line.draw(color=color, frame=self.leftFrame, queue=self.queueMessage)
+            line.draw(color=color, frame=self.root, queue=self.queueMessage)
         else:
             line = VerticalLine(a, b)
             line.createLine(self.als)
-            line.draw(color=color, frame=self.leftFrame, queue=self.queueMessage)
-        #print("draw_line ok")
+            line.draw(color=color, frame=self.root, queue=self.queueMessage)
 
 
     def makeLegend(self):
@@ -294,8 +279,7 @@ class RankView:
         greenLine = mlines.Line2D([], [], color='green', label='Indifference lines')
         ticket = Ticket(ticketType=TicketPurpose.MAKE_MATPLOTLIB_LEGEND, ticketValue=[redLine, greenLine])
         self.queueMessage.put(ticket)
-        self.leftFrame.event_generate("<<CheckQueue>>")
-        #print("make lengend ok")
+        self.root.event_generate("<<CheckMsgRankView>>")
         
 
     def save(self, filename):
