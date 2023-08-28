@@ -2,9 +2,11 @@ import tkinter.messagebox as msg
 from tkinter import filedialog as fd
 from tkinter import IntVar
 import os
+import platform
 
 from Views.AppView import AppView
 from Views.SaveView import SaveView
+from Views.AboutView import AboutView
 from Controllers.DataTabControllers.DataTabController import DataTabController
 from Controllers.ResultTabControllers.ResultTabController import ResultTabController
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
@@ -265,7 +267,11 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         except FileNotFoundError:
             msg.showerror("Error", "The resource could not be loaded, a file is missing.")
             return
-        msg.showinfo("About", text)
+        aboutView = AboutView(text, fg_color="white")
+        if platform.system() == 'Windows':
+            aboutView.grab_set()
+            aboutView.focus_set()
+
 
 
     def reset(self):
@@ -292,8 +298,9 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         
     def saveAs(self):
         saveView = SaveView(master=self.appView, saveDict=self.saveDict, parentDirectory=self.save_parentDirectory, name=self.save_nameDirectory)
-        saveView.grab_set()
-        saveView.focus_set()
+        if platform.system() == 'Windows':
+            saveView.grab_set()
+            saveView.focus_set()
         saveView.title("Save")
         saveView.setListener(self)
         saveView.show()
