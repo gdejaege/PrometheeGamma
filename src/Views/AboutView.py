@@ -15,7 +15,7 @@ class AboutView(CTkToplevel):
             text_color = "white"
 
         self.labelName = CTkLabel(self, text="PROMETHEE Gamma GUI", fg_color=fg_color, text_color=text_color, font=("Arial", 16))
-        self.textbox = CTkTextbox(self, wrap='word', fg_color=fg_color, text_color=text_color, width=380)
+        self.textbox = CTkTextbox(self, wrap='word', fg_color=fg_color, text_color=text_color, width=380, activate_scrollbars=False)
         self.textbox.insert("end", about_text)
         self.textbox.configure(state="disabled")
 

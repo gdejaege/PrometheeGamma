@@ -44,12 +44,12 @@ class Reader:
                         model.setPf(val)
 
 
-    def readAbout(self):
-        if os.path.exists("./Files/About.txt"):
-            file = open("./Files/About.txt", encoding="UTF-8")
+    def readTxt(self, filename):
+        if os.path.exists(filename):
+            file = open(filename, encoding="UTF-8")
             text = ""
             for line in file:
-                text += line.strip() + " "
+                text += line.strip() + "\n"
         else:
             raise FileNotFoundError()
         return text

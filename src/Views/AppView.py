@@ -27,6 +27,8 @@ class AppView(CTk):
     class ViewListener:
         def menuChoice(self, choice:str):
             pass
+        def menuHelp(self, choice:str):
+            pass
         def about(self):
             pass
         def quit(self):
@@ -45,6 +47,8 @@ class AppView(CTk):
 
         self.MenuFrame = CTkFrame(self, height=28)
         self.menu = Menu(master=self.MenuFrame, text="Project", command=self.menuChoice, values=["new", "load", "save", "save as"], width=80)
+        self.help = Menu(master=self.MenuFrame, text="Help", command=self.menuHelp, width=80,
+                         values=["Data", "Parameters", "Matrix", "Orthogonal graph", "Rank graph", "Preference learning", "Custom"])
         self.aboutButton = CTkButton(master=self.MenuFrame, text="About", command=self.about, width=80)
         self.quitButton = CTkButton(master=self.MenuFrame, text="Quit", command=self.clickOnQuit, width=80)
 
@@ -76,11 +80,10 @@ class AppView(CTk):
         """
         self.MenuFrame.pack(side="top", fill="x", pady=0, ipady=0)
         self.menu.pack(anchor="nw", side="left", pady=0, ipady=0, padx=1)
+        self.help.pack(anchor="nw", side="left", pady=0, ipady=0,padx=1)
         self.aboutButton.pack(anchor="nw", side="left", pady=0, ipady=0,padx=1)
         self.quitButton.pack(anchor="nw", side="left", pady=0, ipady=0,padx=1)
         self.tabview.pack(side="top", expand=True, fill="both", pady=0, ipady=0)
-        
-
         
 
     def getTabs(self):
@@ -100,6 +103,10 @@ class AppView(CTk):
 
     def menuChoice(self, choice:str):
         self.listener.menuChoice(choice)
+
+
+    def menuHelp(self, choice:str):
+        self.listener.menuHelp(choice)
 
 
     def about(self):

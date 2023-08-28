@@ -36,7 +36,7 @@ class ResultVisualisationView:
         """
         
         self.frame = CTkTabview(master=master, fg_color="#ffffff")
-        self.textboxTab = self.frame.add("Tabular")
+        self.textboxTab = self.frame.add("Matrix")
         self.ographTab = self.frame.add("Orthogonal graph")
         self.rankGraphTab = self.frame.add("Ranking")
 

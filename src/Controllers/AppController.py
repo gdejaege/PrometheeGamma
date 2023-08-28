@@ -7,6 +7,7 @@ import platform
 from Views.AppView import AppView
 from Views.SaveView import SaveView
 from Views.AboutView import AboutView
+from Controllers.HelpController import HelpController
 from Controllers.DataTabControllers.DataTabController import DataTabController
 from Controllers.ResultTabControllers.ResultTabController import ResultTabController
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
@@ -79,6 +80,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
                          "Rank graph":IntVar(self.appView, 1)}
         self.save_parentDirectory = None
         self.save_nameDirectory = None
+        self.helpController = HelpController()
 
 
     def run(self) -> None:
@@ -253,6 +255,10 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
             if msg.askokcancel("Load a project", message="Do you really want to load a project? All unsaved data will be lost."):
                 self.load()
 
+
+    def menuHelp(self, choice:str):
+        self.helpController.show(choice)
+
     
     def quit(self):
         if msg.askokcancel("Quit", message="Do you really want to quit? All unsaved data will be lost."):
@@ -263,10 +269,10 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
     def about(self):
         try:
             r = Reader()
-            text = r.readAbout()
+            text = r.readTxt("./Files/About.txt")
         except FileNotFoundError:
             msg.showerror("Error", "The resource could not be loaded, a file is missing.")
-            return
+            return 
         aboutView = AboutView(text, fg_color="white")
         if platform.system() == 'Windows':
             aboutView.grab_set()
