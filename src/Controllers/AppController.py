@@ -9,6 +9,7 @@ from Controllers.DataTabControllers.DataTabController import DataTabController
 from Controllers.ResultTabControllers.ResultTabController import ResultTabController
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
+from Resources.Reader import Reader
 
 
 class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController.Listener, HelpForParametersTabController.Listener):
@@ -254,10 +255,17 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
     def quit(self):
         if msg.askokcancel("Quit", message="Do you really want to quit? All unsaved data will be lost."):
             self.appView.quit()
+            exit()
 
 
     def about(self):
-        print("about")
+        try:
+            r = Reader()
+            text = r.readAbout()
+        except FileNotFoundError:
+            msg.showerror("Error", "The resource could not be loaded, a file is missing.")
+            return
+        msg.showinfo("About", text)
 
 
     def reset(self):

@@ -1,3 +1,5 @@
+import os
+import tkinter.messagebox as msg
 
 class Reader:
     def readData(self, file, master, dataModel):
@@ -40,3 +42,15 @@ class Reader:
                         model.setTj(val)
                     elif temp[0] == "P":
                         model.setPf(val)
+
+
+    def readAbout(self):
+        if os.path.exists("./Files/About.txt"):
+            file = open("./Files/About.txt", encoding="UTF-8")
+            text = ""
+            for line in file:
+                text += line.strip() + " "
+        else:
+            raise FileNotFoundError()
+        return text
+        

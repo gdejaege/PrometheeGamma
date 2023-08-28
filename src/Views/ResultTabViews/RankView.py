@@ -6,9 +6,9 @@ from customtkinter import (CTkFrame, CTkCheckBox, IntVar, CTk)
 from math import floor
 import threading
 #import multiprocessing
-from concurrent.futures import ThreadPoolExecutor
+#from concurrent.futures import ThreadPoolExecutor
 from queue import Queue
-import time
+import ctypes
 
 from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 from Resources.ResizableScrollableFrame import ResizableScrollableFrame
@@ -75,8 +75,10 @@ class RankView:
         self.queueMessage = Queue()
         self.root.bind("<<CheckMsgRankView>>", self.checkQueue)
 
-        self.executor = ThreadPoolExecutor(max_workers=1)
-        self.future = None
+        #self.executor = ThreadPoolExecutor(max_workers=1)
+        #self.future = None
+        #self.task = None
+        self.thread = None
 
 
     def checkQueue(self, event):
@@ -88,15 +90,15 @@ class RankView:
         if msg.ticketType == TicketPurpose.MAKE_MATPLOTLIB_LEGEND:
             self.ax.legend(handles=msg.ticketValue, bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
         elif msg.ticketType == TicketPurpose.MATPLOTLIB_AX_ADD_PATCH:
-            #print("line")
+            print("line")
             self.ax.add_patch(msg.ticketValue)
         elif msg.ticketType == TicketPurpose.MATPLOTLIB_AX_PLOT:
-            #print("line")
+            print("line")
             (x, y, color) = msg.ticketValue
             self.ax.plot(x, y, lw=1, ls="-", color=color)
         elif msg.ticketType == TicketPurpose.CANVAS_DRAW:
             self.canvas.draw()
-            #print("DRAW ______________________________________________\n")
+            print("DRAW ______________________________________________\n")
 
 
     def buildAlternativesDict(self, aList:list):
@@ -158,9 +160,20 @@ class RankView:
             the result matrix of PROMETHEE Gamma method
         """
 
-        if self.future is not None:
-            self.future.cancel() # Cancels the pending thread to allow a new thread to take its place
+        #if self.future is not None:
+            #self.future.cancel() # Cancels the pending thread to allow a new thread to take its place
             # The previous thread can be cancelled, as it corresponds to an obsolete request.
+
+        if self.thread is not None and self.thread.is_alive():
+            print("kill")
+            resu = ctypes.pythonapi.PyThreadState_SetAsyncExc(self.thread.ident, ctypes.py_object(SystemExit)) # Kill the thread
+            if resu > 1:
+                ctypes.pythonapi.PyThreadState_SetAsyncExc(self.thread.ident, 0)
+                print("error")
+            print("en attente")
+            self.thread.join() # Close the thread
+            print("killed")
+
 
         self.fig.clear()
         self.fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
@@ -171,18 +184,24 @@ class RankView:
         self.build(r)
 
         # Create a thread. If a thread is already running, puts the new thread on hold.
-        self.future = self.executor.submit(self.makeGraph, matrixResults)
+        #self.future = self.executor.submit(self.makeGraph, matrixResults)
+
+        self.thread = threading.Thread(target=self.makeGraph, args=(matrixResults, ), daemon=True)
+        self.thread.start()
         
 
 
     def makeGraph(self, matrixResults:list) -> None:
         #print("GRAPH _____________________________________________")
-        self.makeLegend()
-        self.add_lines(matrixResults)
-        ticket = Ticket(ticketType=TicketPurpose.CANVAS_DRAW, ticketValue=None)
-        self.queueMessage.put(ticket)
-        self.root.event_generate("<<CheckMsgRankView>>")
-        return
+        try:
+            self.makeLegend()
+            self.add_lines(matrixResults)
+            ticket = Ticket(ticketType=TicketPurpose.CANVAS_DRAW, ticketValue=None)
+            self.queueMessage.put(ticket)
+            self.root.event_generate("<<CheckMsgRankView>>")
+            print("fin du thread")
+        except:
+            print("fin forcée du thread")
 
 
     def computeSize(self, r:list):
