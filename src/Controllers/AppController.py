@@ -194,7 +194,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         """
         if self.alreadyCompute:
             self.prometheeGamma.computeMatrixJ()
-            self.computeResults()
+            self.prometheeGamma.computeMatrixResults()
             self.resultTabController.refreshResultsVisualisation()
 
 
@@ -205,7 +205,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         """
         if self.alreadyCompute:
             self.prometheeGamma.computeMatrixP()
-            self.computeResults()
+            self.prometheeGamma.computeMatrixResults()
             self.resultTabController.refreshResultsVisualisation()
 
 

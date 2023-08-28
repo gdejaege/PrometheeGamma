@@ -5,8 +5,6 @@ from tkinter import *
 from customtkinter import (CTkFrame, CTkCheckBox, IntVar, CTk)
 from math import floor
 import threading
-#import multiprocessing
-#from concurrent.futures import ThreadPoolExecutor
 from queue import Queue
 import ctypes
 
@@ -87,18 +85,13 @@ class RankView:
         msg: Ticket
         msg = self.queueMessage.get()
 
-        if msg.ticketType == TicketPurpose.MAKE_MATPLOTLIB_LEGEND:
-            self.ax.legend(handles=msg.ticketValue, bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-        elif msg.ticketType == TicketPurpose.MATPLOTLIB_AX_ADD_PATCH:
-            print("line")
+        if msg.ticketType == TicketPurpose.MATPLOTLIB_AX_ADD_PATCH:
             self.ax.add_patch(msg.ticketValue)
         elif msg.ticketType == TicketPurpose.MATPLOTLIB_AX_PLOT:
-            print("line")
             (x, y, color) = msg.ticketValue
             self.ax.plot(x, y, lw=1, ls="-", color=color)
         elif msg.ticketType == TicketPurpose.CANVAS_DRAW:
             self.canvas.draw()
-            print("DRAW ______________________________________________\n")
 
 
     def buildAlternativesDict(self, aList:list):
@@ -160,20 +153,13 @@ class RankView:
             the result matrix of PROMETHEE Gamma method
         """
 
-        #if self.future is not None:
-            #self.future.cancel() # Cancels the pending thread to allow a new thread to take its place
-            # The previous thread can be cancelled, as it corresponds to an obsolete request.
 
+        # The previous thread can be cancelled, as it corresponds to an obsolete request.
         if self.thread is not None and self.thread.is_alive():
-            print("kill")
             resu = ctypes.pythonapi.PyThreadState_SetAsyncExc(self.thread.ident, ctypes.py_object(SystemExit)) # Kill the thread
             if resu > 1:
                 ctypes.pythonapi.PyThreadState_SetAsyncExc(self.thread.ident, 0)
-                print("error")
-            print("en attente")
-            self.thread.join() # Close the thread
-            print("killed")
-
+                
 
         self.fig.clear()
         self.fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
@@ -182,26 +168,23 @@ class RankView:
         self.ax.axis('off')
 
         self.build(r)
+        self.makeLegend()
 
         # Create a thread. If a thread is already running, puts the new thread on hold.
-        #self.future = self.executor.submit(self.makeGraph, matrixResults)
-
         self.thread = threading.Thread(target=self.makeGraph, args=(matrixResults, ), daemon=True)
         self.thread.start()
         
 
 
     def makeGraph(self, matrixResults:list) -> None:
-        #print("GRAPH _____________________________________________")
         try:
             self.makeLegend()
             self.add_lines(matrixResults)
             ticket = Ticket(ticketType=TicketPurpose.CANVAS_DRAW, ticketValue=None)
             self.queueMessage.put(ticket)
             self.root.event_generate("<<CheckMsgRankView>>")
-            print("fin du thread")
         except:
-            print("fin forcée du thread")
+            pass
 
 
     def computeSize(self, r:list):
@@ -268,38 +251,41 @@ class RankView:
         matrixResults : list
             the result matrix of PROMETHEE Gamma method
         """
-
-        for i in range(len(matrixResults)):
-            for j in range(i+1, len(matrixResults)):
-                x = matrixResults[i][j].split(' I ')
-                y = matrixResults[i][j].split(' J ')
-                if len(x) > 1 and self.alternatives[x[0]].get() and self.alternatives[x[1]].get():
-                    self.draw_line(a=self.construction[x[0]], b=self.construction[x[1]], color="green")
-                elif len(y) > 1 and self.alternatives[y[0]].get() and self.alternatives[y[1]].get():
-                    self.draw_line(a=self.construction[y[0]], b=self.construction[y[1]], color="red")
+        try:
+            for i in range(len(matrixResults)):
+                for j in range(i+1, len(matrixResults)):
+                    x = matrixResults[i][j].split(' I ')
+                    y = matrixResults[i][j].split(' J ')
+                    if len(x) > 1 and self.alternatives[x[0]].get() and self.alternatives[x[1]].get():
+                        self.draw_line(a=self.construction[x[0]], b=self.construction[x[1]], color="green")
+                    elif len(y) > 1 and self.alternatives[y[0]].get() and self.alternatives[y[1]].get():
+                        self.draw_line(a=self.construction[y[0]], b=self.construction[y[1]], color="red")
+        except:
+            raise SystemExit()
 
 
     def draw_line(self, a:AlternativeView, b:AlternativeView, color):
-        xya = a.getXY()
-        xyb = b.getXY()
-        if xya[1] == xyb[1]:
-            # Horizontal line
-            line = HorizontalLine(a, b)
-            line.createLine()
-            line.draw(color=color, frame=self.root, queue=self.queueMessage)
-        else:
-            line = VerticalLine(a, b)
-            line.createLine(self.als)
-            line.draw(color=color, frame=self.root, queue=self.queueMessage)
+        try:
+            xya = a.getXY()
+            xyb = b.getXY()
+            if xya[1] == xyb[1]:
+                # Horizontal line
+                line = HorizontalLine(a, b)
+                line.createLine()
+                line.draw(color=color, frame=self.root, queue=self.queueMessage)
+            else:
+                line = VerticalLine(a, b)
+                line.createLine(self.als)
+                line.draw(color=color, frame=self.root, queue=self.queueMessage)
+        except:
+            raise SystemExit()
 
 
     def makeLegend(self):
         redLine = mlines.Line2D([], [], color='red', label='Incomparability lines')
         greenLine = mlines.Line2D([], [], color='green', label='Indifference lines')
-        ticket = Ticket(ticketType=TicketPurpose.MAKE_MATPLOTLIB_LEGEND, ticketValue=[redLine, greenLine])
-        self.queueMessage.put(ticket)
-        self.root.event_generate("<<CheckMsgRankView>>")
-        
+        self.ax.legend(handles=[redLine, greenLine], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+
 
     def save(self, filename):
         self.fig.savefig(filename)

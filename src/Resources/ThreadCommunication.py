@@ -21,5 +21,8 @@ class TicketPurpose(Enum):
 
 class Ticket:
     def __init__(self, ticketType:TicketPurpose, ticketValue:any):
-        self.ticketType = ticketType
-        self.ticketValue = ticketValue
+        try:
+            self.ticketType = ticketType
+            self.ticketValue = ticketValue
+        except:
+            raise SystemExit()
