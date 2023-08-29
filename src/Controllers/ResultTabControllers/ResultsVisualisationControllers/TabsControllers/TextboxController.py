@@ -1,5 +1,6 @@
-from Views.ResultTabViews.DisplayMatrixResultsView import DisplayMatrixResultsView
 from Models.PrometheeGamma import PrometheeGamma
+from Views.ResultTabViews.ResultsVisualisationViews.DisplayMatrixResultsView import DisplayMatrixResultsView
+
 
 class TextboxController:
     """
@@ -14,10 +15,6 @@ class TextboxController:
     
     Methods
     -------
-    showView()
-        show the textbox tab
-    refreshView()
-        refresh the textbox tab
     """
 
     def __init__(self, master, model:PrometheeGamma) -> None:

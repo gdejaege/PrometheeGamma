@@ -16,22 +16,6 @@ class PreferenceFunction:
 
     Methods
     -------
-    getP()
-        return the preference threshold in a DoubleVar object
-    getQ()
-        return the indifference threshold in a DoubleVar object
-    getType():
-        return the type of the preference function in an IntVar object
-    getType_int()
-        return the type of the preference function
-    set_type(new_type:IntVar, p:DoubleVar=None, q:DoubleVar=None)
-        set the function
-    set_qc(new_qc:DoubleVar)
-        set the indifference parameter
-    set_pc(new_pc:DoubleVar)
-        set the preference parameter
-    compute_preference(value:float)
-        compute the preference value
     """
 
     def __init__(self, type:IntVar=None, p:DoubleVar=None, q:DoubleVar=None):
@@ -54,9 +38,9 @@ class PreferenceFunction:
     def getP(self) -> DoubleVar:
         """Return the preference threshold in a DoubleVar object
 
-        Return
-        ------
-        pc : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the preference threshold in the preference function (in a DoubleVar)
         """
         return self.pc
@@ -65,9 +49,9 @@ class PreferenceFunction:
     def getP_float(self) -> float:
         """Return the preference threshold
 
-        Return
-        ------
-        pc : float
+        Returns
+        -------
+        float
             the preference threshold in the preference function
         """
         return self.pc.get()
@@ -76,9 +60,9 @@ class PreferenceFunction:
     def getQ(self):
         """Return the indifference threshold in a DoubleVar object
 
-        Return
-        ------
-        q : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the indifference threshold in the preference function (in a DoubleVar)
         """
         return self.qc
@@ -87,9 +71,9 @@ class PreferenceFunction:
     def getQ_float(self):
         """Return the indifference threshold
 
-        Return
-        ------
-        q : float
+        Returns
+        -------
+        float
             the indifference threshold in the preference function
         """
         return self.qc.get()
@@ -98,9 +82,9 @@ class PreferenceFunction:
     def getType(self):
         """Return the type of the preference function in an IntVar object
 
-        Return
-        ------
-        type : IntVar
+        Returns
+        -------
+        IntVar
             the type of the preference function (in a IntVar)
         """
         return self.type
@@ -109,9 +93,9 @@ class PreferenceFunction:
     def getType_int(self) -> int:
         """Return the type of the preference function
 
-        Return
-        ------
-        type : int
+        Returns
+        -------
+        int
             the type of the preference function
         """
         return self.type.get()
@@ -164,9 +148,9 @@ class PreferenceFunction:
         value : float
             the difference between the evaluations of the alternatives i and j for the criterion that use this preference function
 
-        Return
-        ------
-        preference : float
+        Returns
+        -------
+        float
             the value of preference between alternatives i and j
         """
         preference = 0.0

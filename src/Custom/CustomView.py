@@ -21,12 +21,6 @@ class CustomView:
 
     Methods
     -------
-    setListener(l:ViewListener)
-        set the listener
-    show(self):
-        show the custom components
-    quit(self):
-        handle click on quitButton
     """
 
     class ViewListener:
@@ -35,11 +29,11 @@ class CustomView:
 
         Methods
         -------
-        reset()
-            reset the tab content
         """
 
         def reset(self):
+            """reset the tab content
+            """
             pass
 
         # Add your methods if needed

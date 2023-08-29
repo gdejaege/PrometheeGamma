@@ -1,25 +1,24 @@
-
 from enum import Enum, auto
 
-# https://www.youtube.com/watch?v=ghSDvtVJPck
+"""
+These 2 classes are taken from the youtube tutorial that can be found at the following address:
+https://www.youtube.com/watch?v=ghSDvtVJPck
+"""
 
 class TicketPurpose(Enum):
-    # data tab
-    BUTTON_UNIT_GRID_CONFIGURE = auto()
-    BUTTON_CRITERION_GRID_CONFIGURE = auto()
-    PUT_ENTRY_ON_GRID = auto()
-
-
-    # rank view
+    """
+    An Enum class for ticket purpose in thread communication
+    """
     CANVAS_DRAW = auto()
-    MAKE_MATPLOTLIB_LEGEND = auto()
     MATPLOTLIB_AX_PLOT = auto()
     MATPLOTLIB_AX_ADD_PATCH = auto()
-    TEST = auto()
 
 
 
 class Ticket:
+    """
+    A class to create a ticket for thread communication
+    """
     def __init__(self, ticketType:TicketPurpose, ticketValue:any):
         try:
             self.ticketType = ticketType

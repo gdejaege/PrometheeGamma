@@ -1,5 +1,7 @@
 from customtkinter import (CTkLabel, CTkButton)
+
 from Views.HelpForParametersTabViews.QuestionsTabView import QuestionsTabView
+
 
 class PreferenceLearningView:
     """
@@ -28,7 +30,9 @@ class PreferenceLearningView:
     applyButton : CTkButton
         a button to apply the results in result tab
     cancelButton : CTkButton
-        a button to cancel selection of a method
+        a button to cancel confirmation of answers
+    quitButton : CTkButton
+        a button to quit preference learning view
     row : int
         the row for positionning elements with grid method
     endCtrl : bool
@@ -38,30 +42,6 @@ class PreferenceLearningView:
 
     Methods
     -------
-    setListener(l:ViewListener)
-        set the listener
-    show()
-        show the view
-    showNextQuestion(question:tuple, end:bool)
-        show the next question of preference learning algorithm
-    next()
-        handle click on nextButton
-    confirm()
-        handle click on confirmButton
-    apply()
-        handle click on applyButton
-    resetResults()
-        reset the results (reset labels)
-    generateQuestions()
-        reset algorithm and (re)start it
-    showResults(results:tuple)
-        show the results in labels (ILabel, JLabel and PLabel)
-    updateInQCM()
-        handle event in questions
-    cancel()
-        handle click on cancelButton
-    resetView()
-        reset the view, i.e. forget all widget displayed and restart
     """
 
     class ViewListener:
@@ -70,35 +50,41 @@ class PreferenceLearningView:
 
         Methods
         -------
-        showQuestions()
-            show the questions
-        confirm()
-            Control the reaction of the app after a click on the confirm button
-        apply()
-            Control the reaction of the app after a click on the apply button
-        next()
-            Control the reaction of the app after a click on the next button
-        recomputeResults()
-            Recompute the results
-        cancel()
-            Control the reaction of the app after a click on the cancel button
-        quit()
-            Control the reaction of the app after a click on the quit button
         """
 
         def generate(self):
+            """Generate questions
+            """
             pass
+
         def confirm(self):
+            """Control the reaction of the app after a click on the confirm button
+            """
             pass
+
         def apply(self):
+            """Control the reaction of the app after a click on the apply button
+            """
             pass
+
         def next(self):
+            """Control the reaction of the app after a click on the next button
+            """
             pass
-        def updateInQCM(self):
+
+        def updateInmcq(self):
+            """Handle an update in mcq
+            """
             pass
+
         def cancel(self):
+            """Control the reaction of the app after a click on the cancel button
+            """
             pass
+
         def quit(self):
+            """Control the reaction of the app after a click on the quit button
+            """
             pass
 
 
@@ -124,7 +110,6 @@ class PreferenceLearningView:
         self.quitButton = CTkButton(master=self.master, text="Quit", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.quit)
         self.row = 0
         self.endCtrl = False
-        self.nextButtonPlaced = False
         self.listener = None
 
 
@@ -205,6 +190,8 @@ class PreferenceLearningView:
 
 
     def createQuestionsTab(self):
+        """Create the questions tab
+        """
         if self.questionsTabView != None:
             infos = self.questionsTabView.grid_info()
             row = infos["row"]
@@ -259,13 +246,15 @@ class PreferenceLearningView:
         self.Plabel.update()
 
 
-    def updateInQCM(self):
+    def updateInmcq(self):
         """Handle event in questions
         """
-        self.listener.updateInQCM()
+        self.listener.updateInmcq()
 
 
     def showNextConfirm(self, end:bool):
+        """Hide apply and cancel button and show next and confirm button
+        """
         self.applyButton.grid_forget()
         self.cancelButton.grid_forget()
         self.row -= 1
@@ -280,6 +269,8 @@ class PreferenceLearningView:
 
 
     def showApplyCancel(self):
+        """Hide next and confirm button and show apply and cancel button
+        """
         self.nextButton.grid_forget()
         self.confirmButton.grid_forget()
         self.row -= 1

@@ -1,5 +1,6 @@
-from Views.ResultTabViews.OrthogonalGraphView import OrthogonalGraphView
 from Models.PrometheeGamma import PrometheeGamma
+from Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView import OrthogonalGraphView
+
 
 class OrthogonalGraphController:
     """
@@ -14,10 +15,6 @@ class OrthogonalGraphController:
 
     Methods
     -------
-    showView()
-        show the orthogonal graph tab
-    refreshView()
-        refresh the orthogonal graph tab
     """
 
     def __init__(self, master, model:PrometheeGamma) -> None:
@@ -50,6 +47,13 @@ class OrthogonalGraphController:
         self.orthogonalGraphView.reshresh(matrixGamma, matrixResults)
 
 
-    def saveOgraph(self, folder):
-        filename = folder + "/OrthogonalGraph.png"
+    def saveOgraph(self, directory:str):
+        """Save the orthogonal graph in directory
+
+        Parameters
+        ----------
+        directory : str
+            the directory in which to save the graph
+        """
+        filename = directory + "/OrthogonalGraph.png"
         self.orthogonalGraphView.save(filename)

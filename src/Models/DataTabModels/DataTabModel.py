@@ -1,6 +1,7 @@
 from customtkinter import (StringVar, IntVar, DoubleVar)
-from Models.Alternative import Alternative
-from Models.Criterion import Criterion
+from Models.DataTabModels.Alternative import Alternative
+from Models.DataTabModels.Criterion import Criterion
+
 
 class DataTabModel:
     """
@@ -8,51 +9,13 @@ class DataTabModel:
 
     Attributes
     ----------
-    alternatives : list[Alternative]
+    alternatives : list of Alternative
         the list of alternatives
-    criteria : list[Criterion]
+    criteria : list of Criterion
         the list of criteria
 
     Methods
     -------
-    getCriterion(index=-1)
-        return the criterion object at position index. By default, return the last criterion
-    getAlternative(index=-1)
-        return the alternative object at position index. By default, return the last alternative
-    addCriterion(master)
-        add a new criterion
-    addAlternative(master)
-        add a new alternative
-    deleteCriterion(index:int=-1)
-        delete the criterion at position index. By default, delete the last criterion
-    deleteAlternative(index:int=-1)
-        delete the alternative at position index. By default, delete the last alternative
-    getNumberOfCriteria()
-        return the number of criteria in the model
-    getNumberOfAlternatives()
-        return the number of alternatives in the model
-    clearAll()
-        clear the model, i.e. delete all criteria and alternatives
-    isVoid()
-        test if model has no alternative or no criterion
-    createAlternative(master, name:str, data:list)
-        create a new alternative from a name in str and a list of evaluation in float
-    createCriteria(master, criteriaNames:list, criteriaWeights:list, criteriaPreferenceFunctionType:list, criteriaP:list, criteriaQ:list)
-        create a new list of criteria from list of caracteristics of criteria
-    addOneEvaluationInAllAlternatives(master)
-        add an evaluation in all alternatives
-    getEvaluationOfAlternative(indexAlt:int, indexEval:int)
-        return the evaluation at position indexEval from the alternative at position indexAlt in the model
-    deleteEvaluationOfAlternative(indexAlt:int, indexEval:int)
-        delete the evaluation at position indexEval from the alternative at position indexAlt in the model
-    getAlternativesName()
-        return the list of alternative names
-    getCriteriaNames()
-        return the list of criteria names
-    computeCriterionDependentValues()
-        add evaluation of units in the column of each criterion and compute the pi_c_matrix and the phi_c_list for each criterion
-    getGamma_ij_Criteria_k(i:int, j:int, criterion:int)
-        return the gamma_ij value for criterion k
     """
     
     def __init__(self) -> None:
@@ -165,9 +128,9 @@ class DataTabModel:
     def getNumberOfCriteria(self) -> int:
         """Return the number of criteria in the model
 
-        Return
-        ------
-        len(criteria) : int
+        Returns
+        -------
+        int
             the length of the criteria list
         """
         return len(self.criteria)
@@ -176,9 +139,9 @@ class DataTabModel:
     def getNumberOfAlternatives(self) -> int:
         """Return the number of alternatives in the model
 
-        Return
-        ------
-        len(alternatives) : int
+        Returns
+        -------
+        int
             the length of the alternatives list
         """
         return len(self.alternatives)
@@ -192,16 +155,24 @@ class DataTabModel:
 
     
     def isVoid(self) -> bool:
-        """Test if model has no alternative or no criterion
+        """Test if model contains no alternative or no criterion
 
-        Return
-        ------
-        True if no alternative or no criterion, False otherwise
+        Returns
+        -------
+        bool
+            True if no alternative or no criterion, False otherwise
         """
         return len(self.alternatives) == 0 or len(self.criteria) == 0
     
 
     def twoAlter(self) -> bool:
+        """test if model contains less than two alternatives
+
+        Returns
+        -------
+        bool
+            True if there is less than 2 alternatives in the model, False otherwise
+        """
         return len(self.alternatives) < 2
 
 
@@ -284,9 +255,9 @@ class DataTabModel:
         indexEval : int
             the index of the selected evaluation in evaluation list (in the selected alternative)
 
-        Return
-        ------
-        alternatives[indexAlt].evaluations[indexEval] : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the selected evaluation of the selected alternative
         """
         return self.alternatives[indexAlt].getEvaluation(indexEval)
@@ -309,9 +280,9 @@ class DataTabModel:
     def getAlternativesName(self) -> list:
         """Return the list of alternative names
 
-        Return
-        ------
-        names : list
+        Returns
+        -------
+        list
             the list of alternative names
         """
         names = []
@@ -323,9 +294,9 @@ class DataTabModel:
     def getCriteriaNames(self) -> list:
         """Return the list of criteria names
 
-        Return
-        ------
-        names : list
+        Returns
+        -------
+        list
             the list of criteria names
         """
         names = []
@@ -364,10 +335,10 @@ class DataTabModel:
         criterion : int
             the index of selected criterion k in criteria list
 
-        Return
-        ------
-        γ_k_ij : float
-            the value of γ for criterion k and alternatives i and j
+        Returns
+        -------
+        float
+            γ_k_ij, the value of γ for criterion k and alternatives i and j
         """
         c = self.criteria[criterion]
         return c.get_gamma_c_ij(i=i, j=j)

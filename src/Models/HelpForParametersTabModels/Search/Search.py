@@ -1,5 +1,6 @@
 from sys import maxsize
 from math import sqrt
+
 from Models.HelpForParametersTabModels.Range.RangeI import RangeI
 from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
 
@@ -34,34 +35,6 @@ class Search:
 
     Methods
     -------
-    getState()
-        return the current state of the search
-    addPair(rI:RangeI, rJ:RangeJ, preference:int)
-        add a pair of I range and J range and the related preference indicator
-    update()
-        update the search state
-    resolveIndifference(rI:RangeI)
-        resolve indifference
-    increasePminI(rI:RangeI)
-        increase the Pmin value if possible (with I range) (if not, call resolveConflict())
-    resolvePreference(rI:RangeI, rJ:RangeJ)
-        resolve preference
-    ILErI(rI:RangeI)
-        resolve preference, part 1 : I <= rI
-    JGErJ(rJ:RangeJ)
-        resolve preference, part 2 : J >= rJ
-    decreasePmaxI(rI:RangeI)
-        decrease the Pmax value if possible (with I range) (if not, call resolveConflict())
-    decreasePmaxJ(rJ:RangeJ)
-        decrease the Pmax value if possible (with J range) (if not, call resolveConflict())
-    resolveConstraints(s:bool)
-        resolve the constraints
-    resolveConflict()
-        resolve conflict
-    fitnessIandJ(p:float, avgI:float, avgJ:float):
-        compute the fitness of avgI and avgJ for a P value p
-    averageIandJ(p:float):
-        compute the average value of I and J for a P value p
     """
 
     def __init__(self, Imin=0.0, Imax=1.0, Jmin=0.0, Jmax=1.0, Pmin=1.0, Pmax=INFINITY) -> None:
@@ -99,10 +72,10 @@ class Search:
     def getState(self) -> tuple:
         """Return the current state of the search
 
-        Return
-        ------
-        (Imin, Imax, Jmin, Jmax, Pmin, Pmax) : tuple[float, float, float, float, float, float]
-            the results of the search
+        Returns
+        -------
+        tuple of float
+            the results of the search, i.e. (Imin, Imax, Jmin, Jmax, Pmin, Pmax)
         """
         return (self.Imin, self.Imax, self.Jmin, self.Jmax, self.Pmin, self.Pmax)
 
@@ -626,12 +599,10 @@ class Search:
         p : float
             the value of the parameter P
 
-        Return
-        ------
-        avgI : float
-            the average of I
-        avgJ : float
-            the average of J
+        Returns
+        -------
+        tuple of float
+            (avgI, avgJ), the average of I and the average of J
         """
         avgI = 0
         avgJ = 0
@@ -657,12 +628,10 @@ class Search:
         avgJ : float
             the average of J
         
-        Return
-        ------
-        fitI : float
-            the fitness of avgI
-        fitJ : float
-            the fitness of avgJ
+        Returns
+        -------
+        float
+            (fitI, fitJ), the fitness of avgI and the fitness of avgJ
         """
         fitI = 0
         fitJ = 0

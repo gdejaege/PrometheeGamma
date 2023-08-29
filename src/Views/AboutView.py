@@ -2,7 +2,23 @@ from typing import Optional, Tuple, Union
 from customtkinter import CTkToplevel, CTkTextbox, CTkLabel
 import webbrowser
 
+
 class AboutView(CTkToplevel):
+    """
+    A class to display "about" information over the PROMETHEE Gamma GUI application
+
+    Attributes
+    ----------
+    labelName : CTkLabel
+        the label that will contain the application name
+    textbox : CTkTexbox
+        the textbox that will contain the "about" text
+    label1 : CTkLabel
+        the label that will contain "Link to the article:" text
+    label2 : CTkLabel
+        the label that will contain the url of the article
+    """
+
     def __init__(self, about_text, *args, fg_color: str | Tuple[str, str] | None = None, **kwargs):
         super().__init__(*args, fg_color=fg_color, **kwargs)
 
@@ -24,14 +40,20 @@ class AboutView(CTkToplevel):
 
         self.label2.bind("<Button-1>", lambda e:self.callback("https://doi.org/10.1002/mcda.1805"))
 
-
         self.labelName.pack(pady = (30,10))
         self.textbox.pack()
         self.label1.pack()
         self.label2.pack()
 
 
-    def callback(self, url):
+    def callback(self, url:str):
+        """Open the url in a new tab in a browser
+
+        Parameters
+        ----------
+        url : str
+            the url that will be opened
+        """
         webbrowser.open_new_tab(url)
 
 

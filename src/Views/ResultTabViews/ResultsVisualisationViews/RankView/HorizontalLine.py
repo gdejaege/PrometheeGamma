@@ -2,13 +2,35 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
 
-from Views.ResultTabViews.AlternativeView import AlternativeView
+from Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView import AlternativeView
 from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 
-SPACE = 100
 
 class HorizontalLine:
+    """
+    A class to draw an horizontal line between two AlternativeView in the rank graph
+
+    a1 : alternativeView
+        a representation of an alternative
+    a2 : AlternativeView
+        a representation of an alternative
+    x : list or None
+        the list of x coordinates of points between the 2 alternativeView
+    y : list or None
+        the list of y coordinates of points between the 2 alternativeView
+    arc : Arc or None
+        an arc between the 2 alternative
+    """
+    
     def __init__(self, a1:AlternativeView, a2:AlternativeView):
+        """
+        Parameters
+        ----------
+        a1 : alternativeView
+            a representation of an alternative
+        a2 : AlternativeView
+            a representation of an alternative
+        """
         try:
             self.a1 = a1
             self.a2 = a2
@@ -20,6 +42,8 @@ class HorizontalLine:
 
 
     def createLine(self):
+        """Create an horizontal line between alternatives a1 and a2
+        """
         try:
             xy1 = self.a1.getXY()
             xy2 = self.a2.getXY()
@@ -40,6 +64,17 @@ class HorizontalLine:
 
 
     def draw(self, frame, queue, color):
+        """Generate an event to draw the line
+
+        Parameters
+        ----------
+        frame : CTk
+            the frame that will generate the event
+        queue : Queue
+            a queue to store the message
+        color : Color
+            the line color
+        """
         try:
             if self.arc:
                 self.drawArc(frame, queue, color)
@@ -52,6 +87,17 @@ class HorizontalLine:
 
 
     def drawArc(self, frame, queue, color):
+        """Generate an event to draw an arc
+
+        Parameters
+        ----------
+        frame : CTk
+            the frame that will generate the event
+        queue : Queue
+            a queue to store the message
+        color : Color
+            the line color
+        """
         try:
             xy1 = self.a1.getXY()
             xy2 = self.a2.getXY()

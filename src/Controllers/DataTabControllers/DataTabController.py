@@ -1,6 +1,7 @@
 from tkinter import filedialog as fd
 import os
-from Models.DataTabModel import DataTabModel
+
+from Models.DataTabModels.DataTabModel import DataTabModel
 from Views.DataTabViews.DataTabView import DataTabView
 from Views.DataTabViews.CriterionColumn import CriterionColumn
 from Views.DataTabViews.UnitRow import UnitRow
@@ -12,6 +13,8 @@ class DataTabController(DataTabView.ViewListener):
 
     Attributes
     ----------
+    root : CTk
+        the root window
     dataTabModel : DataTabModel
         the model for the data tab
     dataTabView : DataTabView
@@ -23,34 +26,6 @@ class DataTabController(DataTabView.ViewListener):
 
     Methods
     -------
-    showView()
-        show the dataTabView
-    openFile(master)
-        open a file selected by the user, read its content and close it
-    readFile(file, master)
-        read a csv file and add its content in the model
-    fillDataTable()
-        fill in the data table with the content of the models
-    addCriterionColumn(master, x:int, y:int)
-        add a criterion and its column in the data table
-    deleteCriterion()
-        delete the last criterion and its column in the data table
-    addUnitRow(master, x: int, y: int)
-        add an alternative (a unit) and its row in the data table
-    deleteUnit()
-        delete an alternative (a unit) and its row in the data table
-    addOneColumnToAllUnits(master)
-        add a column to the row of all alternatives
-    deleteOneColumnInAllUnits()
-        delete a column in the row of all alternatives
-    clearTable()
-        clear the data table
-    getModel()
-        return the current dataTabModel
-    voidModel()
-        test if model has no alternative or no criterion
-    no2AlterInModel(self):
-        test if there is less than 2 alternatives in the model
     """
 
     def __init__(self, master, root) -> None:
@@ -77,7 +52,7 @@ class DataTabController(DataTabView.ViewListener):
         
 
     def openFile(self, master) -> None:
-        """Open a file selected by the user, read its content and close it
+        """Open a file selected by the user and load data from file to the data table
 
         Parameters
         ----------
@@ -95,7 +70,16 @@ class DataTabController(DataTabView.ViewListener):
             self.loadData(filename, master)
 
     
-    def loadData(self, filename, master):
+    def loadData(self, filename:str, master):
+        """Load data from file filename
+
+        Parameters
+        ----------
+        filename : str
+            the name of the file selected by the user
+        master : CTkFrame
+            the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data
+        """
         self.clearTable()
         file = open(filename, "r")
         r = Reader()
@@ -226,9 +210,10 @@ class DataTabController(DataTabView.ViewListener):
     def getModel(self) -> DataTabModel:
         """Return the current dataTabModel
 
-        Return
-        ------
-        dataTabModel : DataTabModel
+        Returns
+        -------
+        DataTabModel
+            the dataTabModel
         """
         return self.dataTabModel
     
@@ -236,9 +221,10 @@ class DataTabController(DataTabView.ViewListener):
     def voidModel(self) -> bool:
         """Test if model has no alternative or no criterion
 
-        Return
-        ------
-        True if no alternative or no criterion, False otherwise
+        Returns
+        -------
+        bool
+            True if no alternative or no criterion, False otherwise
         """
         return self.dataTabModel.isVoid()
     
@@ -246,15 +232,23 @@ class DataTabController(DataTabView.ViewListener):
     def no2AlterInModel(self):
         """Test if there is less than 2 alternatives in the model
 
-        Return
-        ------
-        True if there is less than 2 alternatives in the model, False otherwise
+        Returns
+        -------
+        bool
+            True if there is less than 2 alternatives in the model, False otherwise
         """
         return self.dataTabModel.twoAlter()
     
 
-    def save(self, folder):
-        filename = folder + '/' + "Data.csv"
+    def save(self, directory:str):
+        """Save the content of the data table in a "Data.csv" file located in directory
+
+        Parameters
+        ----------
+        directory : str
+            the directory where the "Data.csv" file is located
+        """
+        filename = directory + '/' + "Data.csv"
         file = open(filename, mode="w", encoding="UTF-8")
 
         nbCriteria = self.dataTabModel.getNumberOfCriteria()
@@ -296,4 +290,8 @@ class DataTabController(DataTabView.ViewListener):
 
 
     def reset(self):
+        """Reset the data tab, i.e. clear the data table
+
+        This function is an alias for clearTable
+        """
         self.clearTable()

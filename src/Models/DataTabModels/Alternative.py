@@ -13,22 +13,6 @@ class Alternative:
 
     Methods
     -------
-    setName(name:StringVar)
-        set the name of the alternative
-    addEvaluations(evaluation:DoubleVar)
-        add an evaluation for a criterion in the alternative
-    deleteEvaluation(index:int=-1)
-        delete an evaluation for a criterion in the alternative
-    getName()
-        return the name in a StringVar object
-    getName_str()
-        return the name in str
-    getEvaluation(index=-1)
-        return the evaluation at the position index in a DoubleVar object. By default, return the last evaluation
-    getEvaluation_float(index=-1)
-        return the evaluation at the position index in float. By default, return the last evaluation
-    getSize()
-        return the size of the alternative, i.e. the number of evaluations for this alternative
     """
     
     def __init__(self, name:StringVar=None, evaluations=[]) -> None:

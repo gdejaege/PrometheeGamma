@@ -2,11 +2,33 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-from Views.ResultTabViews.AlternativeView import AlternativeView
+from Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView import AlternativeView
 from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 
+
 class VerticalLine:
+    """
+    A class to draw an vertical line between two AlternativeView in the rank graph
+
+    a1 : alternativeView
+        a representation of an alternative
+    a2 : AlternativeView
+        a representation of an alternative
+    x : list or None
+        the list of x coordinates of points between the 2 alternativeView
+    y : list or None
+        the list of y coordinates of points between the 2 alternativeView
+    """
+
     def __init__(self, a1:AlternativeView, a2:AlternativeView):
+        """
+        Parameters
+        ----------
+        a1 : alternativeView
+            a representation of an alternative
+        a2 : AlternativeView
+            a representation of an alternative
+        """
         try:
             self.a1 = a1
             self.a2 = a2
@@ -16,7 +38,14 @@ class VerticalLine:
             raise SystemExit()
 
 
-    def createLine(self, alternatives):
+    def createLine(self, alternatives:list):
+        """Create an vertical line between alternatives a1 and a2
+
+        Parameters
+        ----------
+        alternatives : list of AlternativeView
+            a list of alternative representations in order to get around them
+        """
         try:
             xy1 = self.a1.getXY()
             xy2 = self.a2.getXY()
@@ -71,6 +100,17 @@ class VerticalLine:
     
 
     def draw(self, frame, queue, color):
+        """Generate an event to draw the line
+
+        Parameters
+        ----------
+        frame : CTk
+            the frame that will generate the event
+        queue : Queue
+            a queue to store the message
+        color : Color
+            the line color
+        """
         try:
             ticket = Ticket(ticketType=TicketPurpose.MATPLOTLIB_AX_PLOT, ticketValue=(self.x, self.y, color))
             queue.put(item=ticket)

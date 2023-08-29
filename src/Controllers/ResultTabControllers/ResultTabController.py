@@ -1,6 +1,6 @@
+from Controllers.ResultTabControllers.ResultsVisualisationControllers.ResultVisualisationController import ResultVisualisationController
 from Models.ResultTabModel import ResultTabModel
 from Views.ResultTabViews.ResultTabView import ResultTabView
-from Controllers.ResultTabControllers.ResultsVisualisationControllers.ResultVisualisationController import ResultVisualisationController
 from Resources.Reader import Reader
 
 class ResultTabController(ResultTabView.ViewListener):
@@ -20,28 +20,6 @@ class ResultTabController(ResultTabView.ViewListener):
 
     Methods
     -------
-    setListener(l:Listener)
-        set the listener
-    showView()
-        show the resultTabView
-    refresh()
-        refresh the resultTabView
-    changeOnTi(newValue:float)
-        this method controls the reaction of the application following a modification of the value of parameter Ti by the user
-    changeOnTj(newValue:float)
-        this method controls the reaction of the application following a modification of the value of parameter Tj by the user
-    changeOnPf()
-        this method controls the reaction of the application following a modification of the value of parameter Pf by the user
-    obtainResults()
-        handle click on button Obtain Results
-    applyResults(results)
-        apply the results provided by a method to help determine the parameters (from helpForParametersTab)
-    getModel()
-        return the current ResultTabModel
-    loadResultsVisualisation(master)
-        load the 3 types of results visualizations and show them
-    refreshResultsVisualisation()
-        refresh the results visualisation
     """
 
     class Listener:
@@ -50,33 +28,41 @@ class ResultTabController(ResultTabView.ViewListener):
 
         Methods
         -------
-        changeOnTi()
-            inform the listener of a change on Ti
-        changeOnTj()
-            inform the listener of a change on Tj
-        changeOnTiAndTj()
-            inform the listener of a change on Ti and Tj
-        obtainResults()
-            demand to the listener to obtain the results
-        getPrometheeGammaModel()
-            demand to the listener to obtain the PrometheeGamma model
-        getDataTabModel()
-            demand to the listener to obtain the dataTab model
         """
 
         def changeOnTi(self):
+            """inform the listener of a change on Ti
+            """
             pass
+
         def changeOnTj(self):
+            """inform the listener of a change on Tj
+            """
             pass
+
         def changeOnTiAndTj(self):
+            """inform the listener of a change on Ti and Tj
+            """
             pass
+
         def changeOnPf(self):
+            """inform the listener of a change on Pf
+            """
             pass
+
         def obtainResults(self):
+            """demand to the listener to obtain the results
+            """
             pass
+
         def getPrometheeGammaModel(self):
+            """demand to the listener to obtain the PrometheeGamma model
+            """
             pass
+
         def getDataTabModel(self):
+            """demand to the listener to obtain the dataTab model
+            """
             pass
     
 
@@ -210,15 +196,36 @@ class ResultTabController(ResultTabView.ViewListener):
         self.resultsVisualisationController.refresh()
 
 
-    def saveOgraph(self, folder):
-        self.resultsVisualisationController.saveOgraph(folder)
+    def saveOgraph(self, directory:str):
+        """Save the orthogonal graph in directory
+
+        Parameters
+        ----------
+        directory : str
+            the directory in which to save the graph
+        """
+        self.resultsVisualisationController.saveOgraph(directory)
 
 
-    def saveRgraph(self, folder):
-        self.resultsVisualisationController.saveRgraph(folder)
+    def saveRgraph(self, directory):
+        """Save the rank graph in directory
+
+        Parameters
+        ----------
+        directory : str
+            the directory in which to save the graph
+        """
+        self.resultsVisualisationController.saveRgraph(directory)
 
 
     def saveParameters(self, file):
+        """Save the parameters in file
+
+        Parameters
+        ----------
+        file : io
+            the file in which to save the parameters
+        """
 
         file.write("Parameters\n\n")
 
@@ -231,7 +238,14 @@ class ResultTabController(ResultTabView.ViewListener):
         file.write("P = " + str(p) + "\n")
 
 
-    def loadResults(self, filename):
+    def loadResults(self, filename:str):
+        """Load results from file filename
+
+        Parameters
+        ----------
+        filename : str
+            the file in which to read parameters
+        """
         file = open(filename, "r")
         r = Reader()
         r.readParameters(file, self.resultTabModel)
@@ -241,6 +255,8 @@ class ResultTabController(ResultTabView.ViewListener):
 
 
     def reset(self):
+        """Reset the result tab
+        """
         if self.resultsVisualisationController is not None:
             self.resultsVisualisationController.destroy()
             self.resultsVisualisationController = None

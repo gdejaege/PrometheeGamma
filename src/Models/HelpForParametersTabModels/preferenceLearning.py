@@ -1,12 +1,43 @@
 from customtkinter import IntVar
+import random
+
 from Models.PrometheeGamma import PrometheeGamma
 from Models.HelpForParametersTabModels.Range.Range import Range
 from Models.HelpForParametersTabModels.Range.RangeI import RangeI
 from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
-import random
 from Models.HelpForParametersTabModels.Search.Search import Search
 
+
 class PreferenceLearning:
+    """
+    A class to implement a preference learning algorithm
+
+    This algorithm is based on a small number of pairwise comparisons submitted to the user. 
+    Based on the user's responses, an iterative search determines the possible values for the 3 parameters specific to the PROMETHEE Gamma method.
+    
+    Attributes
+    ----------
+    prometheeGamma : PrometheeGamma
+        the PROMETHEE Gamma model
+    master : CTkFrame
+        the master frame
+    alternatives : list of Alternative
+        the list of all laternatives
+    Irange : Range
+        a range of value for parameter I
+    Jrange : Range
+        a range of value for parameter J
+    Prange : Range
+        a range of value for parameter P
+    questions : list
+        a list of peer comparisons
+    listOfPairs : list of tuple of Aternative
+        a list of pair of alternatives
+    search : Search
+        the instance of class for search method
+    """
+
+
     def __init__(self, master, prometheeGamma:PrometheeGamma) -> None:
         self.prometheeGamma = prometheeGamma
         self.master = master
@@ -25,15 +56,28 @@ class PreferenceLearning:
         """
         [(a1, a2), (a1, a2), ... ]
         """
-        self.listofPossibleThresholds = []
         self.search = Search()
 
     
     def setAlternatives(self, alternatives:list):
+        """Set the alternatives list
+
+        Parameters
+        ----------
+        alternatives : list of Alternative
+            a list of alternatives
+        """
         self.alternatives = alternatives
 
 
     def selectFirstQuestion(self):
+        """Select the first peer comparison at random
+
+        Returns
+        -------
+        tuple of Alternative and IntVar
+            a peer comparison (the 2 alternatives, and the value for relation between the 2 alternatives)
+        """
         self.questions.clear()
         self.listOfPairs.clear()
         while True:
@@ -49,8 +93,13 @@ class PreferenceLearning:
     
 
     def selectNextQuestion(self):
-        # TODO ? question choisie non aléatoirement
+        """Select a non already selected peer comparison at random
 
+        Returns
+        -------
+        tuple of Alternative and IntVar
+            a peer comparison (the 2 alternatives, and the value for relation between the 2 alternatives)
+        """
         while True:
             a1 = random.choice(self.alternatives)
             a2 = random.choice(self.alternatives)
@@ -64,6 +113,13 @@ class PreferenceLearning:
     
 
     def itSearch(self, rst:bool) -> None:
+        """Make an iteration of iterative search or or restart the whole search if rst is True
+
+        Parameters
+        ----------
+        rst : bool
+            if True, restart the search, otherwise make an iteration of iterative search
+        """
         if rst:
             self.search = Search()
             for q in self.questions:
@@ -77,10 +133,24 @@ class PreferenceLearning:
     
 
     def getResults(self):
+        """Return the results of the search
+
+        Returns
+        -------
+        tuple of float
+            the results of the search, i.e. (Imin, Imax, Jmin, Jmax, Pmin, Pmax)
+        """
         return self.search.getState()
     
 
     def computeRangeOfThresholdsForOneQuestion(self, question:tuple):
+        """Compute a range of possible thresholds for one peer comparison
+
+        Parameters
+        ----------
+        question : tuple
+            a peer comparison
+        """
         (a1_t, a2_t, pref) = question
         a1 = self.alternatives.index(a1_t)
         a2 = self.alternatives.index(a2_t)

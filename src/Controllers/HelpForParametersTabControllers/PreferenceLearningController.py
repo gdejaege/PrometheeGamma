@@ -1,11 +1,16 @@
-from Models.HelpForParametersTabModels.preferenceLearning import PreferenceLearning
-from Views.HelpForParametersTabViews.PreferenceLearningView import PreferenceLearningView
-from Models.DataTabModel import DataTabModel
-from Models.PrometheeGamma import PrometheeGamma
-import tkinter.messagebox
+import tkinter.messagebox as msg
 from math import comb
 
-MAX_NUMBER_OF_QUESTIONS = 10 # The maximum number of questions that can be asked of the user
+from Views.HelpForParametersTabViews.PreferenceLearningView import PreferenceLearningView
+from Models.HelpForParametersTabModels.preferenceLearning import PreferenceLearning
+from Models.DataTabModels.DataTabModel import DataTabModel
+from Models.PrometheeGamma import PrometheeGamma
+
+# Constants
+MAX_NUMBER_OF_QUESTIONS = 10
+"""The maximum number of questions that can be asked of the user
+"""
+
 
 class PreferenceLearningController(PreferenceLearningView.ViewListener):
     """
@@ -26,28 +31,6 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
     Methods
     -------
-    setListener(l:Listener)
-        set the listener
-    showView()
-        show the view
-    confirm()
-        confirm the answers to questions if all questions have an answer. Otherwise, show an error message to the user
-    apply()
-        format the results, i.e. reduce range to a single value and transmit them for use in the results tab
-    next()
-        show the next question if the current question has an answer. Otherwise show an error message to the user
-    selectFirstQuestion()
-        select the first question. If no question can be created, show an error message to the user
-    generate()
-        generate the questions. If it is not possible, show an error message to the user
-    updateInQCM()
-        update restults if a change occurs in answer
-    recomputeResults()
-        recompute the results and show them
-    cancel()
-        cancel confirmation
-    quit()
-        quit the preference learning view
     """
 
     class Listener:
@@ -56,14 +39,20 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
 
         Methods
         -------
-        apply(results)
-            use the results obtained from preference learning in the result tab
-        reset()
-            reset the tab 
         """
         def apply(self, results):
+            """use the results obtained from preference learning in the result tab
+
+            Parameters
+            ----------
+            results : tuple of float
+                (I, J, P), the values of the 3 parameters of PROMETHEE Gamma method
+            """
             pass
+
         def reset(self):
+            """reset the tab
+            """
             pass
 
 
@@ -88,7 +77,6 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         self.numberOfQuestions = MAX_NUMBER_OF_QUESTIONS
 
 
-
     def setListener(self, l:Listener):
         """Set the listener
 
@@ -110,7 +98,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         """Confirm the answers to questions if all questions have an answer. Otherwise, show an error message to the user
         """
         if self.questions[-1][2].get() == 5:
-            tkinter.messagebox.showerror(title="No answer", message="Please select an answer")
+            msg.showerror(title="No answer", message="Please select an answer")
         else:
             self.preferenceLearningView.showApplyCancel()
             results = self.preferenceLearning.getResults()
@@ -153,7 +141,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         """Show the next question if the current question has an answer. Otherwise show an error message to the user
         """
         if self.questions[-1][2].get() == 5:
-            tkinter.messagebox.showerror(title="No answer", message="Please select an answer")
+            msg.showerror(title="No answer", message="Please select an answer")
         else:
             results = self.preferenceLearning.getResults()
             self.preferenceLearningView.showResults(results)
@@ -172,7 +160,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         if self.numberOfQuestions > maxQuestions:
             self.numberOfQuestions = maxQuestions
         if nbAlter < 2:
-            tkinter.messagebox.showerror(title="Not enought alternatives", message="There are not enough alternatives in the model to generate a question")
+            msg.showerror(title="Not enought alternatives", message="There are not enough alternatives in the model to generate a question")
         else:
             alter = []
             for i in range(nbAlter):
@@ -194,10 +182,10 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
             self.questions.clear()
             self.selectFirstQuestion()
         else:
-            tkinter.messagebox.showerror(title="No results", message='The results of the promethee gamma method are required for the algorithm. Please click on the "Obtain results" button in the "result tab".')
+            msg.showerror(title="No results", message='The results of the promethee gamma method are required for the algorithm. Please click on the "Obtain results" button in the "result tab".')
 
 
-    def updateInQCM(self):
+    def updateInmcq(self):
         """Update restults if a change occurs in answer
         """
         self.recomputeResults()

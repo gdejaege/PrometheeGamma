@@ -1,5 +1,6 @@
 from Models.HelpForParametersTabModels.Range.Range import Range
 
+
 class RangeI(Range):
     """
     A class to represent a range of indifference threshold of PROMETHEE Gamma method
@@ -17,20 +18,6 @@ class RangeI(Range):
 
     Methods
     -------
-    getX()
-        return x, x = max(gamma_ij, gamma_ji)
-    getY()
-        return y, y = |gamma_ij - gamma_ji|
-    getValForP(P:float)
-        return the indifference threshold value for the value P of preference parameter
-    setX(value:float)
-        set the value of x
-    setY(value:float)
-        set the value of y
-    setPmax(value:float)
-        set the value of Pmax
-    setPmin(value:float)
-        set the value of Pmin
     """
 
     def __init__(self, x:float, y:float, Pmax:float, Pmin:float) -> None:
@@ -59,9 +46,9 @@ class RangeI(Range):
     def getX(self) -> float:
         """Return x, x = max(gamma_ij, gamma_ji)
 
-        Return
-        ------
-        x : float
+        Returns
+        -------
+        float
             x = max(gamma_ij, gamma_ji)
         """
         return self.x
@@ -69,9 +56,9 @@ class RangeI(Range):
     def getY(self) -> float:
         """Return y, y = |gamma_ij - gamma_ji|
 
-        Return
-        ------
-        y : float
+        Returns
+        -------
+        float
             y = |gamma_ij - gamma_ji|
         """
         return self.y
@@ -80,9 +67,9 @@ class RangeI(Range):
     def getValForP(self, P:float) -> float:
         """Return the indifference threshold value for the value P of preference parameter
         
-        Return
-        ------
-        x + y/P : float
+        Returns
+        -------
+        float
             max(gamma_ij, gamma_ji) + |gamma_ij - gamma_ji|/P or 1.0 if max(gamma_ij, gamma_ji) + |gamma_ij - gamma_ji|/P > 1.0
         """
         return min(self.x + self.y/P, 1.0)

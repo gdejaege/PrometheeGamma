@@ -5,7 +5,7 @@
 #############################################################################
 
 from Models.PrometheeGamma import PrometheeGamma
-from Models.DataTabModel import DataTabModel
+from Models.DataTabModels.DataTabModel import DataTabModel
 
 class CustomModel:
     """
@@ -32,12 +32,6 @@ class CustomModel:
 
     Methods
     -------
-    run()
-        example of funtion to start the model
-    compute()
-        example of function to compute parameters values
-    getValues()
-        example of funtion to get results
     """
 
     def __init__(self, prometheeGamma:PrometheeGamma, dataTabModel:DataTabModel) -> None:

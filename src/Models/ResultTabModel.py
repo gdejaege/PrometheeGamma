@@ -17,30 +17,6 @@ class ResultTabModel:
 
     Methods
     -------
-    getTi()
-        return the indifference threshold in a DoubleVar object
-    getTj()
-        return the incomparability threshold in a DoubleVar object
-    getPf()
-        return the preference parameter in a DoubleVar object
-    getTi_float()
-        return the indifference threshold
-    getTj_float()
-        return the incomparability threshold
-    getPf_float()
-        return the preference parameter
-    setTi(val:float)
-        set the value of the indifference threshold
-    setTj(val:float)
-        set the value of the incomparability threshold
-    setPf(val:float)
-        set the value of the preference parameter
-    initScores(alternativesNames:list):
-        init the scores at zero
-    incrementScore(alternativeName:str)
-        increment the score of the alternative given in parameter
-    getScores()
-        return the Scores
     """
 
     def __init__(self, master) -> None:
@@ -62,9 +38,9 @@ class ResultTabModel:
     def getTi(self) -> DoubleVar:
         """Return the indifference threshold in a DoubleVar object
 
-        Return
-        ------
-        indifferenceThreshold : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the indifference threshold of the PROMETHEE Gamma method
         """
         return self.indifferenceThreshold
@@ -73,9 +49,9 @@ class ResultTabModel:
     def getTj(self) -> DoubleVar:
         """Return the incomparability threshold in a DoubleVar object
 
-        Return
-        ------
-        incomparabilityThreshold : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the incomparability threshold of the PROMETHEE Gamma method
         """
         return self.incomparabilityThreshold
@@ -84,9 +60,9 @@ class ResultTabModel:
     def getPf(self) -> DoubleVar:
         """Return the preference parameter in a DoubleVar object
 
-        Return
-        ------
-        preferenceParameter : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the preference parameter of the PROMETHEE Gamma method
         """
         return self.preferenceParameter
@@ -95,9 +71,9 @@ class ResultTabModel:
     def getTi_float(self) -> float:
         """Return the indifference threshold
 
-        Return
-        ------
-        indifferenceThreshold : float
+        Returns
+        -------
+        float
             the indifference threshold of the PROMETHEE Gamma method
         """
         return self.indifferenceThreshold.get()
@@ -106,9 +82,9 @@ class ResultTabModel:
     def getTj_float(self) -> float:
         """Return the incomparability threshold
 
-        Return
-        ------
-        incomparabilityThreshold : float
+        Returns
+        -------
+        float
             the incomparability threshold of the PROMETHEE Gamma method
         """
         return self.incomparabilityThreshold.get()
@@ -117,9 +93,9 @@ class ResultTabModel:
     def getPf_float(self) -> float:
         """Return the preference parameter
 
-        Return
-        ------
-        preferenceParameter : float
+        Returns
+        -------
+        float
             the preference parameter of the PROMETHEE Gamma method
         """
         return self.preferenceParameter.get()
@@ -185,15 +161,17 @@ class ResultTabModel:
     def getScores(self) -> dict:
         """Return the Scores
 
-        Return
-        ------
-        scores : dict[int]
+        Returns
+        -------
+        dict of str:int
             the dictionnary of scrores of each alternative
         """
         return self.scores
     
 
     def reset(self):
+        """Reset the model
+        """
         self.setTi(0.0)
         self.setTj(0.0)
         self.setPf(1.0)

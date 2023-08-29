@@ -1,8 +1,24 @@
 import os
 import tkinter.messagebox as msg
 
+
 class Reader:
+    """
+    A class to handle reading operation in PROMETHEE Gamma GUI app
+    """
+
     def readData(self, file, master, dataModel):
+        """Read a data file and store readed data in data tab model
+
+        Parameters
+        ----------
+        file : io
+            the data file
+        master : CTkFrame
+            the data tab master frame
+        dataModel : DataTabModel
+            the data tab model
+        """
         criteriaP = None
         criteriaQ = None
         for line in file:
@@ -26,6 +42,15 @@ class Reader:
 
 
     def readParameters(self, file, model):
+        """Read a file with parameters of PROMETHEE Gamma method and store parameters in the result tab model
+
+        Parameters
+        ----------
+        file : io
+            the results file
+        model : ResultTabModel
+            the result tab model
+        """
         for line in file:
             line = line.strip()
             if line == "Parameters" or line == "parameters" or line == "PARAMETERS" or line == "Parameter" or line == "parameter" or line == "PARAMETER":
@@ -44,7 +69,19 @@ class Reader:
                         model.setPf(val)
 
 
-    def readTxt(self, filename):
+    def readTxt(self, filename:str):
+        """Open a .txt file, read and return its content
+
+        Parameters
+        ----------
+        filename : str
+            the .txt file name
+
+        Returns
+        -------
+        str
+            the content of the .txt file
+        """
         if os.path.exists(filename):
             file = open(filename, encoding="UTF-8")
             text = ""

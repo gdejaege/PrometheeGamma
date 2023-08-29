@@ -3,7 +3,12 @@ from typing import Callable, Optional, Tuple, Union
 from customtkinter import CTkOptionMenu, Variable
 from customtkinter.windows.widgets.font import CTkFont
 
+
 class Menu(CTkOptionMenu):
+    """
+    A class to customize the CTkOptionMenu of customtkinter to obtain a drop-down menu
+    """
+
     def __init__(self, master: any, text:str="Menu", 
                  width: int = 140, height: int = 28, corner_radius: int | None = None, 
                  bg_color: str | Tuple[str, str] = "transparent", fg_color: str | Tuple[str, str] | None = None, 

@@ -9,7 +9,7 @@
 #############################################################################
 
 from Models.PrometheeGamma import PrometheeGamma
-from Models.DataTabModel import DataTabModel
+from Models.DataTabModels.DataTabModel import DataTabModel
 
 from Custom.CustomView import CustomView
 from Custom.CustomModel import CustomModel
@@ -35,14 +35,6 @@ class CustomController(CustomView.ViewListener):
 
     Methods
     -------
-    setListener(l:Listener)
-        set the listener
-    run()
-        example of method to launch the module
-    apply()
-        apply results
-    reset()
-        reset the tab and quit Custom module
     """
 
     class Listener:
@@ -51,15 +43,21 @@ class CustomController(CustomView.ViewListener):
 
         Methods
         -------
-        apply(results)
-            apply the results in the result tab
-        reset()
-            quit the custom module and resart the tab
         """
 
         def apply(self, results): # !!! Warning !!! The name (and arguments) of this method cannot be modified
+            """apply the results in the result tab
+
+            Parameters
+            ----------
+            results : tuple of float
+                (I,J,P) where I, J and P are the values of the 3 parameters of PROMETHEE Gamma method
+            """
             pass
+        
         def reset(self): # !!! Warning !!! The name of this method cannot be modified
+            """quit the custom module and resart the tab
+            """
             pass
 
 

@@ -1,5 +1,6 @@
 from customtkinter import (StringVar, IntVar, DoubleVar)
-from Models.PreferenceFunction import PreferenceFunction
+from Models.DataTabModels.PreferenceFunction import PreferenceFunction
+
 
 class Criterion:
     """
@@ -13,47 +14,15 @@ class Criterion:
         the criterion weight
     preferenceFunction : PreferenceFunction
         the preference function used for this criterion
-    pi_c_matrix : list[list[float]]
+    pi_c_matrix : list of list of float
         the matrix of pi_c_ij (pi_c_matrix[i][j] = πc_ij = Fc(dc(ai, aj)): "how much ai is preferred over aj on criterion c")
-    phi_c_list : list[float]
+    phi_c_list : list of float
         the list of phi_c_i (phi_c_list[i] = φc(ai) = (1/n-1) * ∑_{j=1}^{n} (πc_ij - πc_ji))
-    column : list[float]
+    column : list of float
         list of alternatives evaluation for this criterion
 
     Methods
     -------
-    setName(newName:StringVar)
-        set the name of the criterion
-    setWeight(w:DoubleVar)
-        set the weight of the criterion
-    getName_str()
-        return the name of the criterion
-    getWeight_float()
-        return the weight of the criterion
-    getName()
-        return the criterion name in a StringVar object
-    getWeight()
-        return the criterion weight in a DoubleVar object
-    getPf_int()
-        return the type of the preference function
-    getPf()
-        return the type of the preference function in a IntVar object
-    getP()
-        return the preference threshold of the preference function in a DoubleVar object
-    getQ()
-        return the indifference threshold of the preference function in a DoubleVar object
-    addEvaluation(val:float)
-        add an evaluation
-    clearColumn()
-        clear all value in the column
-    build_pi_c_matrix()
-        build the pi matrix and the phi list of the criterion
-    build_phi_c_list()
-        build the phi list that corresponds to the criterion
-    get_phi_c_list()
-        return the phi list of the criterion
-    get_gamma_c_ij(i:int, j:int)
-        return the value of γc_ij
     """
 
     def __init__(self, name:StringVar, weight:DoubleVar, pfType:IntVar=None, p:DoubleVar=None, q:DoubleVar=None) -> None:

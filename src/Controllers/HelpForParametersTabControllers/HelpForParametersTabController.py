@@ -1,8 +1,8 @@
-from Views.HelpForParametersTabViews.HelpForParametersTabView import HelpForParametersTabView
-from Models.DataTabModel import DataTabModel
-from Models.PrometheeGamma import PrometheeGamma
 from Controllers.HelpForParametersTabControllers.PreferenceLearningController import PreferenceLearningController
 from Custom.CustomController import CustomController
+from Views.HelpForParametersTabViews.HelpForParametersTabView import HelpForParametersTabView
+from Models.DataTabModels.DataTabModel import DataTabModel
+from Models.PrometheeGamma import PrometheeGamma
 
 
 class HelpForParametersTabController(HelpForParametersTabView.ViewListener, PreferenceLearningController.Listener, CustomController.Listener):
@@ -26,18 +26,6 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener, Pref
 
     Methods
     -------
-    setListener(l:Listener)
-        set the listener
-    showView()
-        show the View
-    showPreferenceLearning()
-        show graphical components for preference learning method
-    showCustom()
-        show graphical components for custom module
-    apply(results:tuple)
-        Use the results obtained from parameters determination methods (such as preference learning) in the result tab
-    reset()
-        reset the view
     """
     
     class Listener:
@@ -46,11 +34,16 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener, Pref
 
         Methods
         -------
-        applyResultsOfHelp(results)
-            Use the results obtained from parameters determination methods (such as preference learning) in the result tab
         """
 
         def applyResultsOfHelp(self, results):
+            """Use the results obtained from parameters determination methods (such as preference learning) in the result tab
+
+            Parameters
+            ----------
+            results : tuple of float
+                (I, J, P), the values of the 3 parameters of PROMETHEE Gamma method
+            """
             pass
 
 
@@ -116,7 +109,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener, Pref
         
         Parameters
         ----------
-        results : tuple[float, float, float]
+        results : tuple of float
             results = (I, J, P), the values of the 3 parameters of PROMETHEE Gamma method
         """
         self.listener.applyResultsOfHelp(results)

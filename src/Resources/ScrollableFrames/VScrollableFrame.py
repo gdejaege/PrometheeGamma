@@ -20,18 +20,6 @@ class VScrollableFrame(CTkFrame):
     
     Methods
     -------
-    frame()
-        return the inner frame, i.e. the scrollable frame
-    onFrameConfigure(event)                             
-        reset the scroll region to encompass the inner frame
-    onCanvasConfigure(event)
-        reset the canvas window to encompass inner frame when required
-    onMouseWheel(event)
-        ross platform scroll wheel event
-    onEnter(event)
-        cross platform binding
-    onLeave(event)
-        cross platform unbinding
     """
     
     def __init__(self, master, bg_color="#ffffff", fg_color="#ffffff"):

@@ -1,7 +1,8 @@
-from Views.ResultTabViews.ResultVisualisationView import ResultVisualisationView
 from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.OrthogonalGraphController import OrthogonalGraphController
 from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.TextboxController import TextboxController
 from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.RankController import RankController
+from Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView import ResultVisualisationView
+
 
 class ResultVisualisationController:
     """
@@ -26,10 +27,6 @@ class ResultVisualisationController:
 
     Methods
     -------
-    show()
-        show the 3 tabs
-    refresh()
-        refresh the 3 tabs
     """
 
     def __init__(self, master, models:tuple, root) -> None:
@@ -75,13 +72,29 @@ class ResultVisualisationController:
         self.rankController.refreshView()
 
 
-    def saveOgraph(self, folder):
-        self.orhtogonalGraphController.saveOgraph(folder)
+    def saveOgraph(self, directory):
+        """Save the orthogonal graph in directory
+
+        Parameters
+        ----------
+        directory : str
+            the directory in which to save the graph
+        """
+        self.orhtogonalGraphController.saveOgraph(directory)
 
 
-    def saveRgraph(self, folder):
-        self.rankController.saveRgraph(folder)
+    def saveRgraph(self, directory):
+        """Save the rank graph in directory
+
+        Parameters
+        ----------
+        directory : str
+            the directory in which to save the graph
+        """
+        self.rankController.saveRgraph(directory)
 
 
     def destroy(self):
+        """Destroy the resultVisualisationView
+        """
         self.resultVisualisationView.destroy()

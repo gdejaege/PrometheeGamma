@@ -1,4 +1,4 @@
-from Models.DataTabModel import DataTabModel
+from Models.DataTabModels.DataTabModel import DataTabModel
 from Models.ResultTabModel import ResultTabModel
 
 class PrometheeGamma:
@@ -25,30 +25,6 @@ class PrometheeGamma:
 
     Methods
     -------
-    setDataTabModel(model:DataTabModel)
-        set the dataTabModel
-    setResultTabModel(model:ResultTabModel)
-        set the resultTabModel
-    getMatrixGamma()
-        return the Gamma Matrix
-    getMatrixResults()
-        return the matrix of results
-    clearMatrixIJP()
-        clear the matrixI, matrixJ and matrixP
-    computeGammaMatrix()
-        compute the gamma matrix
-    computeMatrixI()
-        compute the matrixI
-    computeMatrixJ()
-        compute the matrixJ
-    computeMatrixP()
-        compute the matrixP
-    ComputeMatrixIJP()
-        compute matrixI, matrixJ and matrixP
-    computeMatrixResults()
-        compute the result matrix
-    computeAll()
-        compute all matrix
     """
 
     def __init__(self) -> None:
@@ -109,9 +85,9 @@ class PrometheeGamma:
                          [γn1, γn2, ... , γnj, ... , γnn] ] \n
         where n = number of alternatives ; i and j the index of the matrix
 
-        Return
-        ------
-        matrixGamma : list
+        Returns
+        -------
+        list of list of float
             the Gamma matrix
         """
         return self.matrixGamma
@@ -125,9 +101,9 @@ class PrometheeGamma:
                          [a1 P a2, a2 I a2, a2 J a3] \n
                          [a3 I a1, a3 J a2, a3 I a3] ]
 
-        Return
-        ------
-        matrixResults : list
+        Returns
+        -------
+        list of list of str
             the result matrix of PROMETHEE Gamma method
         """
         return self.matrixResults
@@ -259,6 +235,8 @@ class PrometheeGamma:
 
 
     def reset(self):
+        """Reset the model, i.e. clear all matrixes
+        """
         self.clearMatrixIJP()
         self.matrixGamma.clear()
         self.matrixResults.clear()

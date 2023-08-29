@@ -4,14 +4,14 @@ from tkinter import IntVar
 import os
 import platform
 
-from Views.AppView import AppView
-from Views.SaveView import SaveView
-from Views.AboutView import AboutView
 from Controllers.HelpController import HelpController
 from Controllers.DataTabControllers.DataTabController import DataTabController
 from Controllers.ResultTabControllers.ResultTabController import ResultTabController
 from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
 from Models.PrometheeGamma import PrometheeGamma
+from Views.AppView import AppView
+from Views.SaveView import SaveView
+from Views.AboutView import AboutView
 from Resources.Reader import Reader
 
 
@@ -35,35 +35,17 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         the main controller of the result tab
     helpForParametersTabController : HelpForParametersTabController
         the main controller of the helpForParameters tab
+    saveDict : dict
+        the dictionnary of components that can be saved
+    save_parentDirectory : str
+        the parent directory to save project
+    save_nameDirectory : str
+        the directory name in which to save project
+    helpController : HelpController
+        the controller of help menu
 
     Methods
     -------
-    run()
-        launch the app
-    showDataTabView(master)
-        show the data tab
-    showResultTabView(master)
-        show the result tab
-    showHelpForParametersTabView(master)
-        show the helpForParameters tab
-    obtainResults(load:bool)
-        obtain the results or, if there is no or not enought data, show an error message to the user
-    computeResults()
-        compute the result of the Promethee Gamma method
-    changeOnTiAndTj()
-        recompute the needed results in case of change on Ti and Tj
-    changeOnTi()
-        recompute the needed results in case of change on Ti
-    changeOnTj()
-        recompute the needed results in case of change on Tj
-    changeOnPf()
-        recompute the needed results in case of change on Pf
-    getPrometheeGammaModel()
-        return the current used model for the Promethee Gamma method
-    getDataTabModel()
-        return the current data tab model
-    applyResultsOfHelp(results)
-        apply the results obtained in the helpForParameters tab in the result tab
     """
 
     def __init__(self) -> None:
@@ -212,9 +194,10 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
     def getPrometheeGammaModel(self) -> PrometheeGamma:
         """Return the current used model for the Promethee Gamma method
 
-        Return
-        ------
-        prometheeGamma : PrometheeGamma
+        Returns
+        -------
+        PrometheeGamma
+            the current used model for the Promethee Gamma method
         """
         return self.prometheeGamma
     
@@ -222,9 +205,10 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
     def getDataTabModel(self):
         """Return the current data tab model
 
-        Return
-        ------
-        dataTabController.dataTabModel : DataTabModel
+        Returns
+        -------
+        DataTabModel
+            the current data tab model
         """
         return self.dataTabController.getModel()
     
@@ -236,7 +220,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
         Parameters
         ----------
-        results : tuple[float, float, float]
+        results : tuple of float
             results = (I, J, P), the values of the 3 parameters of PROMETHEE Gamma method
         """
         self.resultTabController.applyResults(results)
@@ -244,6 +228,13 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def menuChoice(self, choice:str):
+        """Handle the choice made by the user in the Project menu
+
+        Parameters
+        ----------
+        choice : str
+            the choice made by the user. It can be "new", "save as", "save" or "load"
+        """
         if choice == "new":
             if msg.askokcancel("Create a new project", message="Do you really want to create a new project? All unsaved data will be lost."):
                 self.reset()
@@ -257,16 +248,28 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def menuHelp(self, choice:str):
+        """Show the help corresponding to choice
+
+        Parameters
+        ----------
+        choice : str
+            the choice made by the user. 
+            It can be "Data", "Parameters", "Matrix", "Orthogonal graph", "Rank graph", "Preference learning" or "Custom"
+        """
         self.helpController.show(choice)
 
     
     def quit(self):
+        """Quit the app
+        """
         if msg.askokcancel("Quit", message="Do you really want to quit? All unsaved data will be lost."):
             self.appView.quit()
             exit()
 
 
     def about(self):
+        """Show about window
+        """
         try:
             r = Reader()
             text = r.readTxt("./Files/About.txt")
@@ -281,6 +284,8 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def reset(self):
+        """Reset all the app
+        """
         self.alreadyCompute = False
         self.save_parentDirectory = None
         self.save_nameDirectory = None
@@ -292,7 +297,10 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         
 
     def save(self):
-        # Si un dossier est déjà lié (par load ou par save as) -> save dans ce dossier
+        """Save the project
+
+        If a folder is already linked to the project, save the project in this folder. Otherwise, call saveAs.
+        """
         if self.save_parentDirectory is None or self.save_nameDirectory is None or not os.path.exists(self.save_parentDirectory + "/" + self.save_nameDirectory):
             self.saveAs()
         else:
@@ -303,6 +311,8 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
         
     def saveAs(self):
+        """Show the saveView
+        """
         saveView = SaveView(master=self.appView, saveDict=self.saveDict, parentDirectory=self.save_parentDirectory, name=self.save_nameDirectory)
         if platform.system() == 'Windows':
             saveView.grab_set()
@@ -312,7 +322,18 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         saveView.show()
 
 
-    def saveInDirectory(self, directory, name, view):
+    def saveInDirectory(self, directory:str, name:str, view):
+        """Save the project in a new directory of name "name" located in "directory"
+
+        Parameters
+        ----------
+        directory : str
+            the directory in which to save the project
+        name : str
+            the name of the project and so the name of the project directory
+        view : SaveView, a CTkTopLevel
+            the save view
+        """
         view.destroy()
 
         newdirectory = directory + '/' + name
@@ -332,6 +353,8 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def saveProject(self):
+        """Save the selected project components
+        """
         directory = self.save_parentDirectory + '/' + self.save_nameDirectory
         if self.saveDict["Data"].get() == 1:
             self.dataTabController.save(directory)
@@ -345,7 +368,14 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         msg.showinfo("Save complete", "The project has been successfully saved.")
 
 
-    def saveResults(self, directory):
+    def saveResults(self, directory:str):
+        """Save results in directory
+
+        Parameters
+        ----------
+        directory : str
+            the directory in which to save results 
+        """
         filename = directory + "/Results.txt"
         file = open(filename, "w")
         self.resultTabController.saveParameters(file)
@@ -356,7 +386,16 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         file.close()
 
 
-    def fileWriteMatrix(self, file, m):
+    def fileWriteMatrix(self, file, m:list):
+        """Write the matrix "m" in file "file"
+
+        Parameters
+        ----------
+        file : io
+            the file in which to write the matrix
+        m : list of list of (float or str)
+            a matrix
+        """
         for i in range(len(m)):
             line = ""
             for k in range(len(m[i])):
@@ -365,6 +404,8 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
 
 
     def load(self):
+        """Load a PROMETHEE Gamma project
+        """
         if not os.path.exists("../Projects"):
             os.makedirs("../Projects")
         directory = fd.askdirectory(initialdir="../Projects")

@@ -1,5 +1,7 @@
 from customtkinter import (CTkEntry, DoubleVar)
-from Models.Alternative import Alternative
+
+from Models.DataTabModels.Alternative import Alternative
+
 
 class UnitRow:
     """
@@ -22,14 +24,6 @@ class UnitRow:
 
     Methods
     -------
-    show()
-        show the row
-    add_column(value:DoubleVar)
-        add a column to the row
-    destroy()
-        destroy the row
-    del_column()
-        destroy the last column of the row
     """
 
     def __init__(self, master, row:int, col:int, alternative:Alternative) -> None:

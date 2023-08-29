@@ -8,12 +8,12 @@ import threading
 from queue import Queue
 import ctypes
 
+from Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView import AlternativeView
+from Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine import VerticalLine
+from Views.ResultTabViews.ResultsVisualisationViews.RankView.HorizontalLine import HorizontalLine
 from Resources.ThreadCommunication import (Ticket, TicketPurpose)
-from Resources.ResizableScrollableFrame import ResizableScrollableFrame
-from Resources.VScrollableFrame import VScrollableFrame
-from Views.ResultTabViews.AlternativeView import AlternativeView
-from Views.ResultTabViews.VerticalLine import VerticalLine
-from Views.ResultTabViews.HorizontalLine import HorizontalLine
+from Resources.ScrollableFrames.ResizableScrollableFrame import ResizableScrollableFrame
+from Resources.ScrollableFrames.VScrollableFrame import VScrollableFrame
 
 SPACE = 100 # The space between the center of 2 circles that represent alternatives
 RADIUS = 35 # The radius of the circle that represents an alternative

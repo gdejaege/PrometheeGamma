@@ -2,7 +2,6 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 import matplotlib.patches as mpatches
 from tkinter import *
-import time
 
 class OrthogonalGraphView:
     """
@@ -37,16 +36,6 @@ class OrthogonalGraphView:
 
     Methods
     -------
-    show()
-        show the view
-    refresh(mGamma:list, mResults:list)
-        refresh the view
-    makePoints()
-        make the list of points coordinates
-    makeGraph()
-        make the graph
-    clearList()
-        clear the lists xb, xg, xr, yb, yg and yr
     """
 
     def __init__(self, master, mGamma:list, mResults:list) -> None:
@@ -60,7 +49,6 @@ class OrthogonalGraphView:
         mResults : list
             the result matrix of PROMETHEE Gamma method
         """
-
         self.master = master
         self.master.grid_columnconfigure(0, weight=1)
         self.fig = Figure()
@@ -81,18 +69,11 @@ class OrthogonalGraphView:
     def show(self):
         """Show the view
         """
-
         self.toolbar.pack(side='bottom')
         self.canvasOgraph.get_tk_widget().pack(expand=True, fill='both', side='bottom')
         self.makePoints()
         self.makeGraph()
         self.canvasOgraph.draw()
-
-        """
-        for i in range(10):
-            print("ortho", i)
-            time.sleep(1)
-        """
         
 
     def reshresh(self, mGamma:list, mResults:list):
@@ -105,7 +86,6 @@ class OrthogonalGraphView:
         mResults : list
             the result matrix of PROMETHEE Gamma method
         """
-
         self.matrixGamma = mGamma
         self.matrixResults = mResults
         self.fig.clear()
@@ -117,7 +97,6 @@ class OrthogonalGraphView:
     def makePoints(self):
         """Make the list of points coordinates
         """
-
         self.clearList()
         for i in range(len(self.matrixGamma)):
             for j in range(len(self.matrixGamma[i])):
@@ -135,7 +114,6 @@ class OrthogonalGraphView:
     def makeGraph(self):
         """Make the graph
         """
-
         ax = self.fig.add_subplot()
         ax.plot(self.xg, self.yg, 'go',markersize=2)
         ax.plot(self.xr, self.yr, 'ro',markersize=2)
@@ -163,5 +141,12 @@ class OrthogonalGraphView:
         self.yr.clear()
 
 
-    def save(self, filename):
+    def save(self, filename:str):
+        """Save the graph
+
+        Parameters
+        ----------
+        filename : str
+            the name of the save file
+        """
         self.fig.savefig(filename)

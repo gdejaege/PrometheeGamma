@@ -4,10 +4,59 @@ import tkinter.filedialog as fd
 import tkinter.messagebox as msg
 import os
 
+
 class SaveView(CTkToplevel):
+    """
+    A class to display a save window to allow to the user to select elements to save
+
+
+    Attributes
+    ----------
+    labelName : CTkLabel
+        a label for the project name
+    name : StringVar
+        a stringvar for the project name
+    entryName : CTkEntry
+        an entry to enter/modify the project name
+    labelSelection : CTkLabel
+        a label for selection
+    checkBoxList : list of CTkCheckBox
+        a list of check boxes to select the elements to save
+    labelDirectory : CTkLabel
+        a label for the save directory
+    directory : StringVar
+        a stringvar for the save directory
+    buttonDirectory : CTkButton
+        a button to select a save directory
+    saveButton : CTkButton
+        a button to save the project
+    cancelButton : CTkButton
+        a button to cancel save and quit the save view
+
+    Methods
+    -------
+    """
 
     class Listener:
+        """
+        An interface for the listener of this class
+
+        Methods
+        -------
+        """
+
         def saveInDirectory(self, directory:str, name:str, view:CTkToplevel):
+            """Save the project in a new directory of name "name" located in "directory"
+
+            Parameters
+            ----------
+            directory : str
+                the directory in which to save the project
+            name : str
+                the name of the project and so the name of the project directory
+            view : SaveView, a CTkTopLevel
+                the save view
+            """
             pass
 
 
@@ -30,7 +79,7 @@ class SaveView(CTkToplevel):
         self.directory = StringVar(self, value="...")
         if parentDirectory is not None:
             self.directory.set(parentDirectory)
-        self.buttondirectory = CTkButton(self, textvariable=self.directory, command=self.selectDirectory)
+        self.buttonDirectory = CTkButton(self, textvariable=self.directory, command=self.selectDirectory)
         self.saveButton = CTkButton(self, text="Save", command=self.save)
         self.cancelButton =CTkButton(self, text="Cancel", command=self.cancel)
 
@@ -38,10 +87,19 @@ class SaveView(CTkToplevel):
 
 
     def setListener(self, l:Listener):
+        """Set the listener
+
+        Parameters
+        ----------
+        l : Listener
+            the new listener
+        """
         self.listener = l
 
 
     def show(self):
+        """Show the view
+        """
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(2, weight=1)
@@ -56,12 +114,14 @@ class SaveView(CTkToplevel):
             r += 1
 
         self.labelDirectory.grid(row=r, column=0, sticky="w", padx=20, pady=(20,0))
-        self.buttondirectory.grid(row=r+1, column=0, columnspan=3, sticky="n", padx=20, pady=(5,0))
+        self.buttonDirectory.grid(row=r+1, column=0, columnspan=3, sticky="n", padx=20, pady=(5,0))
         self.saveButton.grid(row=r+2, column=0, columnspan=1, sticky="n", padx=20, pady=(30,20))
         self.cancelButton.grid(row=r+2, column=1, columnspan=1, sticky="n", padx=20, pady=(30,20))
 
 
     def selectDirectory(self):
+        """Select a save directory
+        """
         if not os.path.exists("../Projects"):
             os.makedirs("../Projects")
         directory = fd.askdirectory(initialdir="../Projects")
@@ -69,6 +129,8 @@ class SaveView(CTkToplevel):
 
 
     def save(self):
+        """Handle click on save button
+        """
         directory = self.directory.get()
         name= self.name.get()
         if directory == "...":
@@ -80,5 +142,7 @@ class SaveView(CTkToplevel):
 
     
     def cancel(self):
+        """Handle click on cancel button
+        """
         self.destroy()
         msg.showwarning("Warning", "The project was not saved.")

@@ -1,5 +1,4 @@
 from customtkinter import CTkTextbox
-import time
 
 class DisplayMatrixResultsView:
     """
@@ -12,12 +11,6 @@ class DisplayMatrixResultsView:
 
     Methods
     -------
-    show(matrixResults:list)
-        Show the matrixResults in a textbox
-    refresh(matrixResults:list)
-        Refresh the textbox
-    _print_(matrixResults:list)
-        Delete previous content and then print the matrixResults in the textbox
     """
 
     def __init__(self, master) -> None:
@@ -27,7 +20,6 @@ class DisplayMatrixResultsView:
         master : CTkFrame
             the master frame
         """
-
         self.textbox_results = CTkTextbox(master=master, text_color="#000000", fg_color="#ffffff", wrap='word')
 
 
@@ -39,15 +31,8 @@ class DisplayMatrixResultsView:
         matrixResults : list
             the matrixResults to display
         """
-
         self.textbox_results.pack(expand=True, fill='both')
         self._print_(matrixResults)
-
-        """
-        for i in range(10):
-            print("res", i)
-            time.sleep(1)
-        """
 
 
     def refresh(self, matrixResults:list):

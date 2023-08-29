@@ -1,7 +1,9 @@
 from sys import maxsize
 from customtkinter import (CTkLabel, DoubleVar, CTkEntry, CTkSlider, StringVar, CTkButton, CTkFrame)
 
+
 INFINITY = maxsize
+"""The infinity (in the computer meaning)"""
 
 class ResultTabView:
     """
@@ -48,30 +50,6 @@ class ResultTabView:
 
     Methods
     -------
-    setListener(l:ViewListener)
-        set the listener
-    show()
-        show the view
-    refresh()
-        refresh the values of PROMETHEE Gamma method parameters
-    commandTiEntry(event)
-        handle TiEntry events
-    commandTjEntry(event)
-        handle TjEntry events
-    commandPfEntry(event)
-        handle PfEntry events
-    commandTiSlider(event)
-        handle TiSlider events
-    commandTjSlider(event)
-        handle TjSlider events
-    commandPfSlider(event)
-        handle PfSlider events
-    setTiSliderValue(val:float)
-        set the value of TiSlider
-    setTjSliderValue(val:float)
-        set the value of TjSlider
-    onClickObtainResultsButton()
-        handle clicks on obtainResultsButton
     """
 
     class ViewListener:
@@ -80,23 +58,41 @@ class ResultTabView:
 
         Methods
         -------
-        changeOnTi(newValue:float)
-            handle change on Ti value
-        changeOnTj(newValue:float)
-            handle change on Tj value
-        changeOnPf()
-            handle change on Pf value
-        obtainResults()
-            load results of PROMETHEE Gamma method
         """
 
         def changeOnTi(self, newValue:float):
+            """handle change on Ti value
+
+            Parameters
+            ----------
+            newValue : float
+                the new value for Ti
+            """
             pass
+
         def changeOnTj(self, newValue:float):
+            """handle change on Tj value
+
+            Parameters
+            ----------
+            newValue : float
+                the new value for Tj
+            """
             pass
+
         def changeOnPf(self):
+            """handle change on Pf value
+
+            Parameters
+            ----------
+            newValue : float
+                the new value for Pf
+            """
             pass
+
         def obtainResults(self, load):
+            """load results of PROMETHEE Gamma method
+            """
             pass
     
     
@@ -311,6 +307,8 @@ class ResultTabView:
 
 
     def updateParameters(self):
+        """synchronizes display with model
+        """
         val = self.Ti.get()
         val = round(min(1.0, max(0.0, val)), 2)
         self.Ti.set(val)
@@ -337,12 +335,23 @@ class ResultTabView:
 
 
     def ObtainResultsChange(self):
+        """Modify the text of obtainResultsButton
+        """
         self.textObtainResultsButton.set("Reload results")
 
     
     def reset(self):
+        """reset the text of obtainResultsButton
+        """
         self.textObtainResultsButton.set("Obtain results")
 
     
     def getMaster(self):
+        """Return the result visualisation master
+
+        Returns
+        -------
+        CTkFrame
+            the result visualisation master
+        """
         return self.rVis

@@ -1,6 +1,8 @@
 from customtkinter import (CTkLabel, CTkButton, CTkRadioButton, IntVar, CTkFrame, CTkCanvas, CTkScrollbar, CTkScrollableFrame)
-from Models.Alternative import Alternative
+
+from Models.DataTabModels.Alternative import Alternative
 from Views.HelpForParametersTabViews.QuestionsTabView import QuestionsTabView
+
 
 class HelpForParametersTabView(QuestionsTabView.Listener):
     """
@@ -23,20 +25,6 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
 
     Methods
     -------
-    setListener(l:ViewListener)
-        set the listener
-    getMaster()
-        return the master frame of the tab
-    show()
-        show the view
-    hide()
-        hide the starter
-    restart()
-        reinitialize the variables for display
-    startPreferenceLearning()
-        start the preference learning method
-    startCustom()
-        start the custom method
     """
 
     class ViewListener:
@@ -45,8 +33,13 @@ class HelpForParametersTabView(QuestionsTabView.Listener):
         """
 
         def showPreferenceLearning(self):
+            """Show the preference learning view
+            """
             pass
+
         def showCustom(self):
+            """Show the custom view
+            """
             pass
 
 

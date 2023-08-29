@@ -1,10 +1,20 @@
-import platform
 from customtkinter import (CTkFrame, CTkCanvas, CTkScrollbar)
 
-from Resources.VScrollableFrame import VScrollableFrame
+from Resources.ScrollableFrames.VScrollableFrame import VScrollableFrame
 
 
 class HVScrollableFrame(VScrollableFrame):
+    """
+    A class to make a scrollable frame with vertical and horizontal scrollbars
+
+    Attributes
+    ----------
+    hsb : CTkScrollbar
+        the horizontal scrollbar
+
+    Methods
+    -------
+    """
 
     def __init__(self, master, bg_color="#ffffff", fg_color="#ffffff"):
         super().__init__(master, bg_color=bg_color, fg_color=fg_color)

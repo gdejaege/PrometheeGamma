@@ -17,31 +17,11 @@ class PreferenceFunctionWindow:
         a variable that contains the current preference function type
     textVar : StringVar
         a variable that contains the current preference function type name
-    radioButtonList : list[CTkRadioButton]
-        a list that contains all radio button
+    radioButtonList : list of CTkRadioButton
+        a list that contains all radio buttons
 
     Methods
     -------
-    show()
-        show the window content
-    makeFig(self):
-        make the figures (draw the functions)
-    usual()
-        computes points for usual function
-    u_shape()
-        computes points for u-shape function
-    v_shape(self)
-        computes points for v-shape function
-    level()
-        computes points for level function
-    linear()
-        computes points for linear function
-    gaussian()
-        computes points for gaussian function
-    radiobutton_event()
-        handle radioButton events
-    get_radio_var()
-        return the type of the selected preference function
     """
 
     def __init__(self, master:CTkToplevel, textvar:StringVar, intvar:IntVar, typesDict:dict) -> None:
@@ -59,7 +39,6 @@ class PreferenceFunctionWindow:
         """
         self.root = master
         self.typesDict = typesDict
-
         self.radioVar = intvar
         self.textVar = textvar
 
@@ -172,9 +151,9 @@ class PreferenceFunctionWindow:
     def usual(self) -> tuple:
         """Computes points for usual function
 
-        Return
-        ------
-        (x, y) : Tuple(list[int], list[int])
+        Returns
+        -------
+        tuple of 2 list of int
             the lists of abscissa and ordinates of usual function
         """
         x = np.arange(100)
@@ -188,10 +167,10 @@ class PreferenceFunctionWindow:
     def u_shape(self) -> tuple:
         """Computes points for u-shape function
 
-        Return
-        ------
-        (x, y) : Tuple(list[int], list[int])
-            the lists of abscissa and ordinates of usual function
+        Returns
+        -------
+        tuple of 2 list of int
+            the lists of abscissa and ordinates of u-shape function
         """
         x = np.arange(100)
         y = np.ones(100, dtype=int)
@@ -204,10 +183,10 @@ class PreferenceFunctionWindow:
     def v_shape(self) -> tuple:
         """Computes points for v-shape function
 
-        Return
-        ------
-        (x, y) : Tuple(list[int], list[float])
-            the lists of abscissa and ordinates of usual function
+        Returns
+        -------
+        tuple of 1 list of int and 1 list of float
+            the lists of abscissa and ordinates of v-shape function
         """
         x = np.arange(100)
         y = np.arange(start=0, stop=2, step=0.02)
@@ -218,10 +197,10 @@ class PreferenceFunctionWindow:
     def level(self) -> tuple:
         """Computes points for level function
 
-        Return
-        ------
-        (x, y) : Tuple(list[int], list[float])
-            the lists of abscissa and ordinates of usual function
+        Returns
+        -------
+        tuple of 1 list of int and 1 list of float
+            the lists of abscissa and ordinates of level function
         """
         x = np.arange(100)
         y = np.ones(100)
@@ -235,10 +214,10 @@ class PreferenceFunctionWindow:
     def linear(self) -> tuple:
         """Computes points for linear function
 
-        Return
-        ------
-        (x, y) : Tuple(list[int], list[float])
-            the lists of abscissa and ordinates of usual function
+        Returns
+        -------
+        tuple of 1 list of int and 1 list of float
+            the lists of abscissa and ordinates of linear function
         """
         x = np.arange(100)
         y = np.ones(100)
@@ -250,10 +229,10 @@ class PreferenceFunctionWindow:
     def gaussian(self) -> tuple:
         """Computes points for gaussian function
 
-        Return
-        ------
-        (x, y) : Tuple(list[float], list[float])
-            the lists of abscissa and ordinates of usual function
+        Returns
+        -------
+        tuple of 2 list of float
+            the lists of abscissa and ordinates of gaussian function
         """
         x = np.arange(start=0, stop=4, step=0.04)
         y = np.ones(100)
@@ -272,9 +251,9 @@ class PreferenceFunctionWindow:
     def get_radio_var(self):
         """Return the type of the selected preference function
 
-        Return
-        ------
-        radioVar.get() : int
+        Returns
+        -------
+        int
             the value contained by radioVar
         """
         return self.radioVar.get()

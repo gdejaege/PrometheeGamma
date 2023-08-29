@@ -1,5 +1,7 @@
 from customtkinter import (CTkButton, CTkLabel, CTkFrame)
-from Resources.HVScrollableFrame import HVScrollableFrame
+
+from Resources.ScrollableFrames.HVScrollableFrame import HVScrollableFrame
+
 
 class DataTabView:
     """
@@ -7,26 +9,20 @@ class DataTabView:
 
     Attributes
     ----------
-    root : CTkFrame
-        the parent master frame
-    scrollableFrame : ScrollableFrame
-        the frame that contain scrollbars (intermediary frame)
-    master : CTkFrame
-        the master frame (the true scrollable frame)
     listener : ViewListener
         the listener of this view
-    xc : int
-        x coordinate for place method (for criterion column)
-    yc : int
-        y coordinate for place method (for criterion column)
-    xu : int
-        x coordinate for place method (for unit row)
-    yu : int
-        y coordinate for place method (for unit row)
+    row : int
+        row coordinate for grid method
+    col : int
+        column coordinate for grid method
     openFileButton : CTkButton
         a button to open data file
     dataNoteLabel : CTkLabel
         a label to display a note
+    scrollableFrame : HVScrollableFrame
+        a scrollable frame (vertically and horizontally) for the data table
+    table : CTkFrame
+        the data table frame
     criteriaLabel : CTkLabel
         a label to display "Criteria:"
     weightsLabel : CTkLabel
@@ -48,32 +44,6 @@ class DataTabView:
     
     Methods
     -------
-    setListener(l:ViewListener)
-        set the listener
-    show()
-        show the view
-    getViewCData()
-        return the needed view information to place a criterion column
-    getViewUData()
-        return the needed view information to place a unit row
-    openFile()
-        handle click on openFileButton
-    addCriterion()
-        handle click on buttonAddCriterion
-    shiftRight()
-        shift right buttons add and delete criterion and update xc
-    shiftLeft()
-        shift left buttons add and delete criterion and update xc
-    shiftUp()
-        shift up buttons add and delete unit and update yu
-    shiftDown()
-        shift down buttons add and delete unit and update yu
-    addUnit()
-        handle click on buttonAddUnit
-    deleteCriterion()
-        handle click on buttonDeleteCriterion
-    deleteUnit()
-        handle click on buttonDeleteUnit
     """
 
     class ViewListener:
@@ -156,10 +126,10 @@ class DataTabView:
     def getViewCData(self) ->tuple:
         """Return the needed view information to place a criterion column
 
-        Return
-        ------
-        (table, row, col) : tuple[CTkFrame, int, int]
-            the master frame and the grid coordinates for criterion column
+        Returns
+        -------
+        tuple of CTkFrame and int
+            (table, row, col), the master frame and the grid coordinates for criterion column
         """
         return (self.table, 0, self.col)
 
@@ -167,10 +137,10 @@ class DataTabView:
     def getViewUData(self) ->tuple:
         """Return the needed view information to place a unit row
 
-        Return
-        ------
-        (table, row, col) : tuple[CTkFrame, int, int]
-            the master frame and the grid coordinates for unit row
+        Returns
+        -------
+        tuple of CTkFrame and int
+            (table, row, col), the master frame and the grid coordinates for unit row
         """
         return (self.table, self.row, 0)
 

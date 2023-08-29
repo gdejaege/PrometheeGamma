@@ -1,8 +1,10 @@
 from tkinter import *
 from customtkinter import (CTkEntry, CTkButton, CTkToplevel)
-from Views.DataTabViews.PreferenceFunctionWindow import PreferenceFunctionWindow
-from Models.Criterion import Criterion
 import platform
+
+from Models.DataTabModels.Criterion import Criterion
+from Views.DataTabViews.PreferenceFunctionWindow import PreferenceFunctionWindow
+
 
 TYPEDICT = {1:"Usual", 2:"U-shape", 3:"V-shape", 4:"Level", 5:"Linear", 6:"Gaussian"}
 """a dictionnary to link each type of preference function with a number"""
@@ -25,17 +27,11 @@ class CriterionColumn:
         button that opens a PrefenceFunctionWindow to select a preference function
     pcEntry : CTkEntry
         the entry to modify the preference threshold associated to the preference function
-    qc entry : CTkEntry
+    qcEntry : CTkEntry
         the entry to modify the indifference threshold associated to the preference function
     
     Methods
     -------
-    show()
-        show the column
-    buttonTypeEvent()
-        handle click event on the typePfButton
-     destroy()
-        destroy (erase and forget) the column
     """
 
     def __init__(self, master, criterion:Criterion) -> None:
@@ -55,7 +51,6 @@ class CriterionColumn:
         self.typePfButton = CTkButton(master=master, textvariable=self.typePfTextButton, width=120, command=self.buttonTypeEvent)
         self.pcEntry = CTkEntry(master=master, textvariable=criterion.getP(), width=120)
         self.qcEntry = CTkEntry(master=master, textvariable=criterion.getQ(), width=120)
-        self.pfw = None
 
 
     def show(self, row:int, col:int):
@@ -83,8 +78,8 @@ class CriterionColumn:
             w.grab_set()
             w.focus_set()
         w.title("Preference functions")
-        self.pfw = PreferenceFunctionWindow(master=w, textvar=self.typePfTextButton, intvar=self.pfType, typesDict=TYPEDICT)
-        self.pfw.show()
+        pfw = PreferenceFunctionWindow(master=w, textvar=self.typePfTextButton, intvar=self.pfType, typesDict=TYPEDICT)
+        pfw.show()
 
     
     def destroy(self) -> None:

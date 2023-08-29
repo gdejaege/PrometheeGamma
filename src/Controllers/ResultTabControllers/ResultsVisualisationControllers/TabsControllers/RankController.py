@@ -1,7 +1,8 @@
-from Views.ResultTabViews.RankView import RankView
 from Models.ResultTabModel import ResultTabModel
-from Models.DataTabModel import DataTabModel
+from Models.DataTabModels.DataTabModel import DataTabModel
 from Models.PrometheeGamma import PrometheeGamma
+from Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView import RankView
+
 
 class RankController(RankView.ViewListener):
     """
@@ -17,25 +18,11 @@ class RankController(RankView.ViewListener):
         the model for Promethee Gamma method. It contains the results of the method
     rankView : RankView
         the view of the rank tab
-    ranked : list[Alternative]
+    ranked : list of Alternative
         a sorted list of ranked alternatives
-    lmax : int
-        the maximum length (width) of the scrollable region for the rank graph
 
     Methods
     -------
-    showView()
-        show the Rank tab
-    showSelectionView()
-        show the selection view
-    draw()
-        draw the canvas, i.e. the rank graph
-    refreshView()
-        refresh the rank tab
-    checkBoxEvent()
-        handle of checkBoxEvent in the selection view
-    buildRankedAlternatives()
-        rank alternatives from scores
     """
 
     def __init__(self, master, prometheeGamma:PrometheeGamma, resultTabModel:ResultTabModel, dataTabModel:DataTabModel, root) -> None:
@@ -117,6 +104,13 @@ class RankController(RankView.ViewListener):
                 self.ranked[-1].append(sortedDict[i][0])
 
 
-    def saveRgraph(self, folder):
-        filename = folder + "/RankGraph.png"
+    def saveRgraph(self, directory):
+        """Save the rank graph in directory
+
+        Parameters
+        ----------
+        directory : str
+            the directory in which to save the graph
+        """
+        filename = directory + "/RankGraph.png"
         self.rankView.save(filename)
