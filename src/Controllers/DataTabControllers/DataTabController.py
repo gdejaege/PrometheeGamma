@@ -91,7 +91,8 @@ class DataTabController(DataTabView.ViewListener):
         else:
             directory = "../Data"
         filename = fd.askopenfilename(filetypes=(("csv file", "*.csv"), ("csv file", "*.csv")), initialdir=directory)
-        self.loadData(filename, master)
+        if filename is not None and filename != () and filename != '':
+            self.loadData(filename, master)
 
     
     def loadData(self, filename, master):
