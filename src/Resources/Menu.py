@@ -24,15 +24,10 @@ class Menu(CTkOptionMenu):
                          text_color_disabled, dropdown_fg_color, dropdown_hover_color, dropdown_text_color, font, dropdown_font, values, 
                          variable, state, hover, command, dynamic_resizing, anchor, **kwargs)
 
-        self._text_label = tkinter.Label(master=self,
-                                         font=self._apply_font_scaling(self._font),
-                                         anchor=anchor,
-                                         padx=0,
-                                         pady=0,
-                                         borderwidth=1,
-                                         text=self._text)
+        self._text_label.configure(text=self._text)
+        self.update()
         
-    
+
     def configure(self, require_redraw=False, text:str=None, **kwargs):
         if text is not None:
             self._text = text

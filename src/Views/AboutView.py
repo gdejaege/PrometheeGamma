@@ -7,7 +7,7 @@ class AboutView(CTkToplevel):
         super().__init__(*args, fg_color=fg_color, **kwargs)
 
         self.title("About")
-        self.geometry("450x350")
+        self.geometry("500x350")
         self.resizable(False, False)
         if fg_color == "white":
             text_color = "black"
@@ -15,7 +15,7 @@ class AboutView(CTkToplevel):
             text_color = "white"
 
         self.labelName = CTkLabel(self, text="PROMETHEE Gamma GUI", fg_color=fg_color, text_color=text_color, font=("Arial", 16))
-        self.textbox = CTkTextbox(self, wrap='word', fg_color=fg_color, text_color=text_color, width=380, activate_scrollbars=False)
+        self.textbox = CTkTextbox(self, wrap='word', fg_color=fg_color, text_color=text_color, width=420)
         self.textbox.insert("end", about_text)
         self.textbox.configure(state="disabled")
 
