@@ -5,7 +5,7 @@ import numpy as np
 #from Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView import AlternativeView
 #from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 from .AlternativeView import AlternativeView
-from .....Resources.ThreadCommunication import Ticket, Ticket
+from .....Resources.ThreadCommunication import Ticket, TicketPurpose
 
 
 class VerticalLine:
@@ -36,7 +36,7 @@ class VerticalLine:
             self.a2 = a2
             self.y = None
             self.x = None
-        except:
+        except SystemExit:
             raise SystemExit()
 
 
@@ -97,7 +97,7 @@ class VerticalLine:
                     self.x.append(xnew)
                 self.x.append(x2)
             self.x = np.array(self.x)
-        except:
+        except SystemExit:
             raise SystemExit()
     
 
@@ -117,5 +117,5 @@ class VerticalLine:
             ticket = Ticket(ticketType=TicketPurpose.MATPLOTLIB_AX_PLOT, ticketValue=(self.x, self.y, color))
             queue.put(item=ticket)
             frame.event_generate("<<CheckMsgRankView>>")
-        except:
+        except SystemExit:
             raise SystemExit()

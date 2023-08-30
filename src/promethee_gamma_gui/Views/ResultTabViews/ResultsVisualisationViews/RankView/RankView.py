@@ -30,9 +30,6 @@ class RankView:
     class ViewListener:
         """
         An interface for the listener
-
-        Methods
-        -------
         """
         def checkBoxEvent(self):
             """Handle checkBox events
@@ -82,7 +79,6 @@ class RankView:
     def checkQueue(self, event):
         """Read the queue
         """
-        print("in checkqueue")
         msg: Ticket
         msg = self.queueMessage.get()
 
@@ -154,7 +150,6 @@ class RankView:
             the result matrix of PROMETHEE Gamma method
         """
         
-        print("draw")
         # The previous thread can be cancelled, as it corresponds to an obsolete request.
         if self.thread is not None and self.thread.is_alive():
             resu = ctypes.pythonapi.PyThreadState_SetAsyncExc(self.thread.ident, ctypes.py_object(SystemExit)) # Kill the thread
@@ -181,9 +176,8 @@ class RankView:
             ticket = Ticket(ticketType=TicketPurpose.CANVAS_DRAW, ticketValue=None)
             self.queueMessage.put(ticket)
             self.root.event_generate("<<CheckMsgRankView>>")
-        except:
+        except SystemExit:
             pass
-        print("end make graph")
 
 
     def computeSize(self, r:list):
@@ -251,7 +245,6 @@ class RankView:
             the result matrix of PROMETHEE Gamma method
         """
         try:
-            print("add_line")
             for i in range(len(matrixResults)):
                 for j in range(i+1, len(matrixResults)):
                     x = matrixResults[i][j].split(' I ')
@@ -260,7 +253,7 @@ class RankView:
                         self.draw_line(a=self.construction[x[0]], b=self.construction[x[1]], color="green")
                     elif len(y) > 1 and self.alternatives[y[0]].get() and self.alternatives[y[1]].get():
                         self.draw_line(a=self.construction[y[0]], b=self.construction[y[1]], color="red")
-        except:
+        except SystemExit:
             raise SystemExit()
 
 
@@ -277,7 +270,7 @@ class RankView:
                 line = VerticalLine(a, b)
                 line.createLine(self.als)
                 line.draw(color=color, frame=self.root, queue=self.queueMessage)
-        except:
+        except SystemExit:
             raise SystemExit()
 
 

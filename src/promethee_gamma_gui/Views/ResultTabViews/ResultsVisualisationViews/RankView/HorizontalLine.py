@@ -7,6 +7,8 @@ from matplotlib.patches import Arc
 from .AlternativeView import AlternativeView
 from .....Resources.ThreadCommunication import Ticket, TicketPurpose
 
+SPACE = 100
+"""The space between the center of 2 circles that represent alternatives"""
 
 class HorizontalLine:
     """
@@ -39,7 +41,7 @@ class HorizontalLine:
             self.y = None
             self.x = None
             self.arc = False
-        except:
+        except SystemExit:
             raise SystemExit()
 
 
@@ -61,7 +63,7 @@ class HorizontalLine:
                 self.arc = False
             else:
                 self.arc = True
-        except:
+        except SystemExit:
             raise SystemExit()
 
 
@@ -84,7 +86,7 @@ class HorizontalLine:
                 ticket = Ticket(ticketType=TicketPurpose.MATPLOTLIB_AX_PLOT, ticketValue=(self.x, self.y, color))
                 queue.put(ticket)
                 frame.event_generate("<<CheckMsgRankView>>")
-        except:
+        except SystemExit:
             raise SystemExit()
 
 
@@ -114,5 +116,5 @@ class HorizontalLine:
             ticket = Ticket(ticketType=TicketPurpose.MATPLOTLIB_AX_ADD_PATCH, ticketValue=arc)
             queue.put(ticket)
             frame.event_generate("<<CheckMsgRankView>>")
-        except:
+        except SystemExit:
             raise SystemExit()

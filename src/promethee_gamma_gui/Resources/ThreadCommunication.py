@@ -23,5 +23,5 @@ class Ticket:
         try:
             self.ticketType = ticketType
             self.ticketValue = ticketValue
-        except:
+        except SystemExit:
             raise SystemExit()
