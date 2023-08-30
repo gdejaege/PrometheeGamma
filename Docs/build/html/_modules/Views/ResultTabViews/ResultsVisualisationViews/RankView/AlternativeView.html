@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css?v=039e1c02" />
+    <script src="../../../../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.textpath</span> <span class="kn">import</span> <span class="n">TextPath</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">PathPatch</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+
+<div class="viewcode-block" id="AlternativeView">
+<a class="viewcode-back" href="../../../../../Views.ResultTabViews.ResultsVisualisationViews.RankView.html#Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView">[docs]</a>
+<span class="k">class</span> <span class="nc">AlternativeView</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Unknown&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        xy : tuple of 2 int</span>
+<span class="sd">            the coordinate of the center of the circle that represents the alternative</span>
+<span class="sd">        radius : int</span>
+<span class="sd">            the radius of the circle that represents the alternative</span>
+<span class="sd">        name : str</span>
+<span class="sd">            the alternative name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xy</span> <span class="o">=</span> <span class="n">xy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lineSpace</span> <span class="o">=</span> <span class="mi">7</span>
+
+
+<div class="viewcode-block" id="AlternativeView.draw">
+<a class="viewcode-back" href="../../../../../Views.ResultTabViews.ResultsVisualisationViews.RankView.html#Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView.draw">[docs]</a>
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Draw the alternative representation</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ax : Matplotlib.axes</span>
+<span class="sd">            a matplotlib axe</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">circle</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;x-small&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AlternativeView.getRadius">
+<a class="viewcode-back" href="../../../../../Views.ResultTabViews.ResultsVisualisationViews.RankView.html#Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView.getRadius">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRadius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the radius of the circle that represents the alternative</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            the radius of the circle that represents the alternative</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span></div>
+
+
+
+<div class="viewcode-block" id="AlternativeView.getXY">
+<a class="viewcode-back" href="../../../../../Views.ResultTabViews.ResultsVisualisationViews.RankView.html#Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView.getXY">[docs]</a>
+    <span class="k">def</span> <span class="nf">getXY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the coordinate of the center of the circle that represents the alternative</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of 2 int</span>
+<span class="sd">            the coordinate of the center of the circle that represents the alternative</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span></div>
+
+
+
+<div class="viewcode-block" id="AlternativeView.includeXY">
+<a class="viewcode-back" href="../../../../../Views.ResultTabViews.ResultsVisualisationViews.RankView.html#Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView.includeXY">[docs]</a>
+    <span class="k">def</span> <span class="nf">includeXY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;test if the point at x, y coordinate is include or not in the disk</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : int</span>
+<span class="sd">            x coordinate of the point</span>
+<span class="sd">        y : int</span>
+<span class="sd">            y coordinate of the point</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the point is in the disk, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># circle equation : (x - xc)^2 + (y-yc)^2 = R^2</span>
+        <span class="c1"># x, y in circle if (x - xc)^2 + (y-yc)^2 &lt;= R^2</span>
+        <span class="n">ineq</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lineSpace</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">if</span> <span class="n">ineq</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="AlternativeView.newXLine">
+<a class="viewcode-back" href="../../../../../Views.ResultTabViews.ResultsVisualisationViews.RankView.html#Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView.newXLine">[docs]</a>
+    <span class="k">def</span> <span class="nf">newXLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">px</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Select a new x from x, y and px where x and y are current coordinate and px is the prevoius x coordinate</span>
+
+<span class="sd">        the new x must be as close as possible of x and px but the point (new x, y) must be outside the circle that represents the alternative</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : int</span>
+<span class="sd">            current x coordinate of point</span>
+<span class="sd">        y : int</span>
+<span class="sd">            current y coordinate of point</span>
+<span class="sd">        px : int</span>
+<span class="sd">            previous x coordinate of point</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Aim : Find newx closest x and px such that newx is outside the circle</span>
+        <span class="c1"># circle equation : (x - xc)^2 + (y-yc)^2 = R^2</span>
+        <span class="c1"># Outside the circle if (x - xc)^2 + (y-yc)^2 &gt;= R^2</span>
+        <span class="c1"># &lt;=&gt; x &gt;= xc + sqrt(R - (y-yc)^2 or x &lt;= xc - sqrt(R^2 - (y-yc)^2)</span>
+        <span class="n">cst</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lineSpace</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">px</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">newx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">cst</span>
+        <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">px</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">newx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cst</span>
+        <span class="k">elif</span> <span class="n">px</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">newx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">cst</span>
+        <span class="k">elif</span> <span class="n">px</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">newx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cst</span>
+        <span class="k">return</span> <span class="n">newx</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../index.html">PROMETHEE Gamma GUI app</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">src</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Luka BONHEURE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -132,9 +132,9 @@ class Search:
         - If the 2 inequalities are satisfied, there's nothing to do ;
         - If Imax < i_min, there is a conflict ;
         - If Imax >= i_max but Imin < i_min, we can set Imin to i_min: Imin = i_min ;
-        - If Imin >= i_min but Imax < i_max, we must reduce i_max to Imax, so increase Pmin.
-        If we can no longer increase Pmin, there is a conflict.
+        - If Imin >= i_min but Imax < i_max, we must reduce i_max to Imax, so increase Pmin ; if we can no longer increase Pmin, there is a conflict.
         - If Imin < i_min and Imax < i_max, we can combine the 2 solution above.
+        
         If we can no longer use these solutions, there is a conflict.
 
         In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.
@@ -205,9 +205,9 @@ class Search:
         - If the 2 inequalities are satisfied, there's nothing to do ;
         - If Jmin > j_max, there is a conflict ;
         - If Jmin <= j_min but Jmax > j_max, we can set Jmax to j_max: Jmax = j_max ;
-        - If Jmax <= j_max but Jmin > j_min, we must increase j_min to Jmin, so increase Pmin.
-        If we can no longer increase Pmin, there is a conflict.
+        - If Jmax <= j_max but Jmin > j_min, we must increase j_min to Jmin, so increase Pmin ; if we can no longer increase Pmin, there is a conflict.
         - If Jmin > j_min and Jmax > j_max, we can combine the 2 solution above.
+        
         If we can no longer use these solutions, there is a conflict.
 
         In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.
@@ -282,9 +282,9 @@ class Search:
         - If the 2 inequalities are satisfied, there's nothing to do ;
         - If Imin > i_max, there is a conflict ;
         - If Imin <= i_min but Imax > i_max, we can set Imax to i_max: Imax = i_max ;
-        - If Imax <= i_max but Imin > i_min, we can increase i_min to Imin, so decrease Pmax  ;
-        If we can no longer decrease Pmax, there is a conflict.
+        - If Imax <= i_max but Imin > i_min, we can increase i_min to Imin, so decrease Pmax ; if we can no longer decrease Pmax, there is a conflict.
         - If Imin > i_min and Imax > i_max, we can combine the 2 solution above.
+        
         If we can no longer use these solutions, there is a conflict.
 
 
@@ -303,9 +303,9 @@ class Search:
         - If the 2 inequalities are satisfied, there's nothing to do ;
         - If Jmax < j_min, there is a conflict ;
         - If Jmax >= j_max but Jmin < j_min, we can set Jmin to j_min: Jmin = j_min ;
-        - If Jmin >= j_min but Jmax < j_max, we must decrease j_max to Jmax, so decrease Pmax.
-        If we can no longer increase Pmin, there is a conflict.
+        - If Jmin >= j_min but Jmax < j_max, we must decrease j_max to Jmax, so decrease Pmax ; if we can no longer increase Pmin, there is a conflict.
         - If Jmin < j_min and Jmax < j_max, we can combine the 2 solution above.
+        
         If we can no longer use these solutions, there is a conflict.
 
         In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.
@@ -345,9 +345,9 @@ class Search:
         - If the 2 inequalities are satisfied, there's nothing to do ;
         - If Imin > i_max, there is a conflict ;
         - If Imin <= i_min but Imax > i_max, we can set Imax to i_max: Imax = i_max ;
-        - If Imax <= i_max but Imin > i_min, we can increase i_min to Imin, so decrease Pmax  ;
-        If we can no longer decrease Pmax, there is a conflict.
-        - If Imin > i_min and Imax > i_max, we can combine the 2 solution above.
+        - If Imax <= i_max but Imin > i_min, we can increase i_min to Imin, so decrease Pmax ; if we can no longer decrease Pmax, there is a conflict.
+        - If Imin > i_min and Imax > i_max, we can combine the 2 solution above. 
+        
         If we can no longer use these solutions, there is a conflict.
 
         Parameters
@@ -387,9 +387,9 @@ class Search:
         - If the 2 inequalities are satisfied, there's nothing to do ;
         - If Jmax < j_min, there is a conflict ;
         - If Jmax >= j_max but Jmin < j_min, we can set Jmin to j_min: Jmin = j_min ;
-        - If Jmin >= j_min but Jmax < j_max, we must decrease j_max to Jmax, so decrease Pmax.
-        If we can no longer increase Pmin, there is a conflict.
+        - If Jmin >= j_min but Jmax < j_max, we must decrease j_max to Jmax, so decrease Pmax ; if we can no longer increase Pmin, there is a conflict.
         - If Jmin < j_min and Jmax < j_max, we can combine the 2 solution above.
+        
         If we can no longer use these solutions, there is a conflict.
 
         Parameters

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Models.HelpForParametersTabModels.Range.RangeJ &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=039e1c02" />
+    <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for Models.HelpForParametersTabModels.Range.RangeJ</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">Models.HelpForParametersTabModels.Range.Range</span> <span class="kn">import</span> <span class="n">Range</span>
+
+
+<div class="viewcode-block" id="RangeJ">
+<a class="viewcode-back" href="../../../../Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.RangeJ.RangeJ">[docs]</a>
+<span class="k">class</span> <span class="nc">RangeJ</span><span class="p">(</span><span class="n">Range</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to represent a range of incomparability threshold of PROMETHEE Gamma method</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : float</span>
+<span class="sd">        min(gamma_ij, gamma_ji)</span>
+<span class="sd">    y : float</span>
+<span class="sd">        abs(gamma_ij - gamma_ji)</span>
+<span class="sd">    Pmax : float</span>
+<span class="sd">        maximum value of P, the preference parameter of PROMETHEE Gamma method</span>
+<span class="sd">    Pmin : float</span>
+<span class="sd">        minimum value of P, the preference parameter of PROMETHEE Gamma method</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">Pmax</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">:</span><span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : float</span>
+<span class="sd">            min(gamma_ij, gamma_ji)</span>
+<span class="sd">        y : float</span>
+<span class="sd">            abs(gamma_ij - gamma_ji)</span>
+<span class="sd">        Pmax : float</span>
+<span class="sd">            maximum value of P, the preference parameter of PROMETHEE Gamma method</span>
+<span class="sd">        Pmin : float</span>
+<span class="sd">            minimum value of P, the preference parameter of PROMETHEE Gamma method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="o">=</span> <span class="n">Pmin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span> <span class="o">=</span> <span class="n">Pmax</span>
+        <span class="n">valMin</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">,</span><span class="mf">1.0</span><span class="p">))</span>
+        <span class="n">valMax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">,</span><span class="mf">1.0</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">valMin</span><span class="p">,</span> <span class="n">valMax</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="RangeJ.getX">
+<a class="viewcode-back" href="../../../../Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.getX">[docs]</a>
+    <span class="k">def</span> <span class="nf">getX</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return x, x = min(gamma_ij, gamma_ji)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            x = min(gamma_ij, gamma_ji)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span></div>
+
+    
+
+<div class="viewcode-block" id="RangeJ.getY">
+<a class="viewcode-back" href="../../../../Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.getY">[docs]</a>
+    <span class="k">def</span> <span class="nf">getY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return y, y = abs(gamma_ij - gamma_ji)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            y = abs(gamma_ij - gamma_ji)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span></div>
+
+
+
+<div class="viewcode-block" id="RangeJ.getValForP">
+<a class="viewcode-back" href="../../../../Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.getValForP">[docs]</a>
+    <span class="k">def</span> <span class="nf">getValForP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">:</span><span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the indifference threshold value for the value P of preference parameter</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            min(gamma_ij, gamma_ji) - abs(gamma_ij - gamma_ji)/P</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="n">P</span></div>
+
+
+
+<div class="viewcode-block" id="RangeJ.setX">
+<a class="viewcode-back" href="../../../../Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.setX">[docs]</a>
+    <span class="k">def</span> <span class="nf">setX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the value of x</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : float</span>
+<span class="sd">            the new value of x</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">valMin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span>
+        <span class="n">valMax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setMax</span><span class="p">(</span><span class="n">valMax</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setMin</span><span class="p">(</span><span class="n">valMin</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="RangeJ.setY">
+<a class="viewcode-back" href="../../../../Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.setY">[docs]</a>
+    <span class="k">def</span> <span class="nf">setY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the value of y</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : float</span>
+<span class="sd">            the new value of y</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">valMin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span>
+        <span class="n">valMax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setMax</span><span class="p">(</span><span class="n">valMax</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setMin</span><span class="p">(</span><span class="n">valMin</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="RangeJ.setPmax">
+<a class="viewcode-back" href="../../../../Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.setPmax">[docs]</a>
+    <span class="k">def</span> <span class="nf">setPmax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the value of Pmax</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : float</span>
+<span class="sd">            the new value of Pmax</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">valMin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setMin</span><span class="p">(</span><span class="n">valMin</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="RangeJ.setPmin">
+<a class="viewcode-back" href="../../../../Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.setPmin">[docs]</a>
+    <span class="k">def</span> <span class="nf">setPmin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the value of Pmin</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : float</span>
+<span class="sd">            the new value of Pmin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">valMax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setMax</span><span class="p">(</span><span class="n">valMax</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">PROMETHEE Gamma GUI app</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">src</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Luka BONHEURE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

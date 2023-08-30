@@ -10,7 +10,7 @@ class RangeJ(Range):
     x : float
         min(gamma_ij, gamma_ji)
     y : float
-        |gamma_ij - gamma_ji|
+        abs(gamma_ij - gamma_ji)
     Pmax : float
         maximum value of P, the preference parameter of PROMETHEE Gamma method
     Pmin : float
@@ -27,7 +27,7 @@ class RangeJ(Range):
         x : float
             min(gamma_ij, gamma_ji)
         y : float
-            |gamma_ij - gamma_ji|
+            abs(gamma_ij - gamma_ji)
         Pmax : float
             maximum value of P, the preference parameter of PROMETHEE Gamma method
         Pmin : float
@@ -54,12 +54,12 @@ class RangeJ(Range):
     
 
     def getY(self):
-        """Return y, y = |gamma_ij - gamma_ji|
+        """Return y, y = abs(gamma_ij - gamma_ji)
 
         Returns
         -------
         float
-            y = |gamma_ij - gamma_ji|
+            y = abs(gamma_ij - gamma_ji)
         """
         return self.y
 
@@ -70,7 +70,7 @@ class RangeJ(Range):
         Returns
         -------
         float
-            min(gamma_ij, gamma_ji) - |gamma_ij - gamma_ji|/P
+            min(gamma_ij, gamma_ji) - abs(gamma_ij - gamma_ji)/P
         """
         return self.x - self.y/P
 

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resources.Reader &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=039e1c02" />
+    <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for Resources.Reader</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">tkinter.messagebox</span> <span class="k">as</span> <span class="nn">msg</span>
+
+
+<div class="viewcode-block" id="Reader">
+<a class="viewcode-back" href="../../Resources.html#Resources.Reader.Reader">[docs]</a>
+<span class="k">class</span> <span class="nc">Reader</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to handle reading operation in PROMETHEE Gamma GUI app</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Reader.readData">
+<a class="viewcode-back" href="../../Resources.html#Resources.Reader.Reader.readData">[docs]</a>
+    <span class="k">def</span> <span class="nf">readData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">dataModel</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read a data file and store readed data in data tab model</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file : io</span>
+<span class="sd">            the data file</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the data tab master frame</span>
+<span class="sd">        dataModel : DataTabModel</span>
+<span class="sd">            the data tab model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">criteriaP</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">criteriaQ</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;c&#39;</span><span class="p">):</span>
+                <span class="n">criteriaNames</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">elif</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;w&#39;</span><span class="p">):</span>
+                <span class="n">criteriaWeights</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">elif</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;f&#39;</span><span class="p">):</span>
+                <span class="n">criteriaPreferenceFunctionType</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">elif</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;p&#39;</span><span class="p">):</span>
+                <span class="n">criteriaP</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">elif</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span><span class="p">):</span>
+                <span class="n">criteriaQ</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dataModel</span><span class="o">.</span><span class="n">createAlternative</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">dataModel</span><span class="o">.</span><span class="n">createCriteria</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">criteriaNames</span><span class="p">,</span> <span class="n">criteriaWeights</span><span class="p">,</span> <span class="n">criteriaPreferenceFunctionType</span><span class="p">,</span> <span class="n">criteriaP</span><span class="p">,</span> <span class="n">criteriaQ</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Reader.readParameters">
+<a class="viewcode-back" href="../../Resources.html#Resources.Reader.Reader.readParameters">[docs]</a>
+    <span class="k">def</span> <span class="nf">readParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read a file with parameters of PROMETHEE Gamma method and store parameters in the result tab model</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file : io</span>
+<span class="sd">            the results file</span>
+<span class="sd">        model : ResultTabModel</span>
+<span class="sd">            the result tab model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;Parameters&quot;</span> <span class="ow">or</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;parameters&quot;</span> <span class="ow">or</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;PARAMETERS&quot;</span> <span class="ow">or</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;Parameter&quot;</span> <span class="ow">or</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;parameter&quot;</span> <span class="ow">or</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;PARAMETER&quot;</span><span class="p">:</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                        <span class="k">return</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">setTi</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;J&quot;</span><span class="p">:</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">setTj</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;P&quot;</span><span class="p">:</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">setPf</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Reader.readTxt">
+<a class="viewcode-back" href="../../Resources.html#Resources.Reader.Reader.readTxt">[docs]</a>
+    <span class="k">def</span> <span class="nf">readTxt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open a .txt file, read and return its content</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            the .txt file name</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            the content of the .txt file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">+=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">text</span></div>
+</div>
+
+        
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">PROMETHEE Gamma GUI app</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">src</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Luka BONHEURE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
