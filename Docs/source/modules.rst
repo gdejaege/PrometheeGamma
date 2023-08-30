@@ -1,12 +1,7 @@
-src
-===
+proj-h402-promethee-gamma-gui
+=============================
 
 .. toctree::
    :maxdepth: 4
 
-   Controllers
-   Custom
-   Models
-   Resources
-   Views
-   main
+   src

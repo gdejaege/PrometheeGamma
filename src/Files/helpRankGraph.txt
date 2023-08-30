@@ -1,4 +1,0 @@
-A way of displaying the results of the PROMETHEE γ method.
-The position of each alternative corresponds, from top to bottom, to its preference over the others, and therefore to its ranking. 
-Two alternatives at the same level mean that they are preferred to other alternatives as many times as each other. However, this does not mean that one is not preferred to the other.
-A red line between 2 alternatives means they are incomparable, while a green line means they are indifferent.

@@ -1,5 +1,0 @@
-The simplest way to display PROMETHEE γ results. 
-Let a1, a2 be two alternatives:
-a1 I a2 means that a1 is indifferent to a2 ; 
-a1 J a2 means that a1 is incomparable to a2 ;
-a1 P a2 means that a1 is preferred to a2.
