@@ -161,4 +161,3 @@ class AppView(CTk):
         """Handle click on quit button
         """
         self.listener.quit()
-

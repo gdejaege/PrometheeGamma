@@ -8,14 +8,6 @@ import threading
 from queue import Queue
 import ctypes
 
-"""
-from Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView import AlternativeView
-from Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine import VerticalLine
-from Views.ResultTabViews.ResultsVisualisationViews.RankView.HorizontalLine import HorizontalLine
-from Resources.ThreadCommunication import (Ticket, TicketPurpose)
-from Resources.ScrollableFrames.ResizableScrollableFrame import ResizableScrollableFrame
-from Resources.ScrollableFrames.VScrollableFrame import VScrollableFrame
-"""
 from .AlternativeView import AlternativeView
 from .VerticalLine import VerticalLine
 from .HorizontalLine import HorizontalLine
@@ -84,9 +76,6 @@ class RankView:
         self.queueMessage = Queue()
         self.root.bind("<<CheckMsgRankView>>", self.checkQueue)
 
-        #self.executor = ThreadPoolExecutor(max_workers=1)
-        #self.future = None
-        #self.task = None
         self.thread = None
 
 
@@ -164,15 +153,14 @@ class RankView:
         matrixResults : list
             the result matrix of PROMETHEE Gamma method
         """
-
-
+        
+        print("draw")
         # The previous thread can be cancelled, as it corresponds to an obsolete request.
         if self.thread is not None and self.thread.is_alive():
             resu = ctypes.pythonapi.PyThreadState_SetAsyncExc(self.thread.ident, ctypes.py_object(SystemExit)) # Kill the thread
             if resu > 1:
                 ctypes.pythonapi.PyThreadState_SetAsyncExc(self.thread.ident, 0)
                 
-
         self.fig.clear()
         self.fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
         self.ax = self.fig.add_subplot()
@@ -185,18 +173,17 @@ class RankView:
         # Create a thread. If a thread is already running, puts the new thread on hold.
         self.thread = threading.Thread(target=self.makeGraph, args=(matrixResults, ), daemon=True)
         self.thread.start()
-        
 
 
     def makeGraph(self, matrixResults:list) -> None:
         try:
-            self.makeLegend()
             self.add_lines(matrixResults)
             ticket = Ticket(ticketType=TicketPurpose.CANVAS_DRAW, ticketValue=None)
             self.queueMessage.put(ticket)
             self.root.event_generate("<<CheckMsgRankView>>")
         except:
             pass
+        print("end make graph")
 
 
     def computeSize(self, r:list):
@@ -264,6 +251,7 @@ class RankView:
             the result matrix of PROMETHEE Gamma method
         """
         try:
+            print("add_line")
             for i in range(len(matrixResults)):
                 for j in range(i+1, len(matrixResults)):
                     x = matrixResults[i][j].split(' I ')
