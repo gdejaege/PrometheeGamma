@@ -8,7 +8,7 @@ class PrometheeGamma:
 
     Attributes
     ----------
-    matrixGamma : list
+    matrixGamma : list of list of float
         the gamma matrix of the PROMETHEE Gamma method
     matrixI : list
         the indifference matrix
@@ -29,15 +29,6 @@ class PrometheeGamma:
 
     def __init__(self) -> None:
         self.matrixGamma = []
-        """
-        matrixGamma = [ [γ11, γ12, ... , γ1j, ... , γ1n]
-                         [γ21, γ22, ... , γ2j, ... , γ2n]
-                         [...]
-                         [γi1, γi2, ... , γij , ..., γin]
-                         [...]
-                         [γn1, γn2, ... , γnj, ... , γnn] ]
-        where n = number of alternatives ; i and j the index of the matrix
-        """
         self.matrixI = []
         self.matrixJ = []
         self.matrixP = []

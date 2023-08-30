@@ -30,9 +30,9 @@ class PreferenceLearning:
     Prange : Range
         a range of value for parameter P
     questions : list
-        a list of peer comparisons
+        a list of peer comparisons: [(a1, a2, preference), (a1, a2, preference), ... ]
     listOfPairs : list of tuple of Aternative
-        a list of pair of alternatives
+        a list of pair of alternatives: [(a1, a2), (a1, a2), ... ]
     search : Search
         the instance of class for search method
     """
@@ -48,14 +48,7 @@ class PreferenceLearning:
         self.Jrange = Range(0.0, 1.0)
         self.Prange = Range(1.0, 100.0)
         self.questions = []
-        """
-        [(a1, a2, preference), (a1, a2, preference), ... ]
-        """
-
         self.listOfPairs = []
-        """
-        [(a1, a2), (a1, a2), ... ]
-        """
         self.search = Search()
 
     

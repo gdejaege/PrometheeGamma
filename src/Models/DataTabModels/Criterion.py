@@ -45,13 +45,7 @@ class Criterion:
         self.weight = weight
         self.preferenceFunction = PreferenceFunction(type=pfType, p=p, q=q)  # init the preference function
         self.pi_c_matrix = []
-        """
-        self.pi_c_matrix[i][j] = πc_ij = Fc(dc(ai, aj)): "how much ai is preferred over aj on criterion c"
-        """
         self.phi_c_list = []
-        """
-        self.phi_c_list[i] = φc(ai) = (1/n-1) * ∑_{j=1}^{n} (πc_ij - πc_ji)
-        """
         self.column = []
 
 

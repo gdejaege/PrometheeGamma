@@ -8,6 +8,8 @@ import os
 import pathlib 
 
 sys.path.insert(0,os.path.abspath("../../src"))
+sys.path.insert(1,os.path.abspath("/home/lukab/.cache/pypoetry/virtualenvs/proj-h402-promethee-gamma-gui-o5_ldxpO-py3.11/lib/python3.11/site-packages"))
+
 
 
 # -- Project information -----------------------------------------------------

@@ -10,9 +10,9 @@ class DataTabModel:
     Attributes
     ----------
     alternatives : list of Alternative
-        the list of alternatives
+        the list of alternatives. The index correspond to the row number.
     criteria : list of Criterion
-        the list of criteria
+        the list of criteria. The index correspond to the column number.
 
     Methods
     -------
@@ -20,9 +20,7 @@ class DataTabModel:
     
     def __init__(self) -> None:
         self.alternatives = []
-        """List of alternatives. The index correspond to the row number"""
         self.criteria = []
-        """List of criteria. The index correspond to the column number"""
 
 
     def getCriterion(self, index=-1) -> Criterion:

@@ -38,15 +38,665 @@
 </section>
 <section id="views-datatabviews-criterioncolumn-module">
 <h2>Views.DataTabViews.CriterionColumn module<a class="headerlink" href="#views-datatabviews-criterioncolumn-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-Views.DataTabViews.CriterionColumn">
+<dt class="sig sig-object py" id="Views.DataTabViews.CriterionColumn.CriterionColumn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Views.DataTabViews.CriterionColumn.</span></span><span class="sig-name descname"><span class="pre">CriterionColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">criterion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Criterion.Criterion" title="Models.DataTabModels.Criterion.Criterion"><span class="pre">Criterion</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/CriterionColumn.html#CriterionColumn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.CriterionColumn.CriterionColumn" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A class to display a criterion column in PROMETHEE Gamma GUI application</p>
+<dl class="simple">
+<dt>master<span class="classifier">CTkFrame</span></dt><dd><p>the master frame</p>
+</dd>
+<dt>pfType<span class="classifier">IntVar</span></dt><dd><p>the type of the preference function used for this criterion</p>
+</dd>
+<dt>nameEntry<span class="classifier">CTkEntry</span></dt><dd><p>the entry to modify the criterion name</p>
+</dd>
+<dt>weightEntry<span class="classifier">CTkEntry</span></dt><dd><p>the entry to modify the criterion weight</p>
+</dd>
+<dt>typePfTextButton<span class="classifier">StringVar</span></dt><dd><p>the variable text associated with the typePfButton</p>
+</dd>
+<dt>typePfButton<span class="classifier">CTkButton</span></dt><dd><p>button that opens a PrefenceFunctionWindow to select a preference function</p>
+</dd>
+<dt>pcEntry<span class="classifier">CTkEntry</span></dt><dd><p>the entry to modify the preference threshold associated to the preference function</p>
+</dd>
+<dt>qcEntry<span class="classifier">CTkEntry</span></dt><dd><p>the entry to modify the indifference threshold associated to the preference function</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.CriterionColumn.CriterionColumn.buttonTypeEvent">
+<span class="sig-name descname"><span class="pre">buttonTypeEvent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/CriterionColumn.html#CriterionColumn.buttonTypeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.CriterionColumn.CriterionColumn.buttonTypeEvent" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click event on the typePfButton</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.CriterionColumn.CriterionColumn.destroy">
+<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/CriterionColumn.html#CriterionColumn.destroy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.CriterionColumn.CriterionColumn.destroy" title="Link to this definition">¶</a></dt>
+<dd><p>Destroy (erase and forget) the column</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.CriterionColumn.CriterionColumn.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/CriterionColumn.html#CriterionColumn.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.CriterionColumn.CriterionColumn.show" title="Link to this definition">¶</a></dt>
+<dd><p>Show the column</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – the current row to place the CriterionColumn in the frame</p></li>
+<li><p><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – the current column to place the CriterionColumn in the frame</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="Views.DataTabViews.CriterionColumn.TYPEDICT">
+<span class="sig-prename descclassname"><span class="pre">Views.DataTabViews.CriterionColumn.</span></span><span class="sig-name descname"><span class="pre">TYPEDICT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'Usual',</span> <span class="pre">2:</span> <span class="pre">'U-shape',</span> <span class="pre">3:</span> <span class="pre">'V-shape',</span> <span class="pre">4:</span> <span class="pre">'Level',</span> <span class="pre">5:</span> <span class="pre">'Linear',</span> <span class="pre">6:</span> <span class="pre">'Gaussian'}</span></em><a class="headerlink" href="#Views.DataTabViews.CriterionColumn.TYPEDICT" title="Link to this definition">¶</a></dt>
+<dd><p>a dictionnary to link each type of preference function with a number</p>
+</dd></dl>
+
 </section>
 <section id="views-datatabviews-datatabview-module">
 <h2>Views.DataTabViews.DataTabView module<a class="headerlink" href="#views-datatabviews-datatabview-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-Views.DataTabViews.DataTabView">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Views.DataTabViews.DataTabView.</span></span><span class="sig-name descname"><span class="pre">DataTabView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A class to display the content of the data tab</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.listener">
+<span class="sig-name descname"><span class="pre">listener</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.listener" title="Link to this definition">¶</a></dt>
+<dd><p>the listener of this view</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#Views.DataTabViews.DataTabView.DataTabView.ViewListener" title="Views.DataTabViews.DataTabView.DataTabView.ViewListener">ViewListener</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.row">
+<span class="sig-name descname"><span class="pre">row</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.row" title="Link to this definition">¶</a></dt>
+<dd><p>row coordinate for grid method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.col">
+<span class="sig-name descname"><span class="pre">col</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.col" title="Link to this definition">¶</a></dt>
+<dd><p>column coordinate for grid method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.openFileButton">
+<span class="sig-name descname"><span class="pre">openFileButton</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.openFileButton" title="Link to this definition">¶</a></dt>
+<dd><p>a button to open data file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.dataNoteLabel">
+<span class="sig-name descname"><span class="pre">dataNoteLabel</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.dataNoteLabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display a note</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.scrollableFrame">
+<span class="sig-name descname"><span class="pre">scrollableFrame</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.scrollableFrame" title="Link to this definition">¶</a></dt>
+<dd><p>a scrollable frame (vertically and horizontally) for the data table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Resources.ScrollableFrames.html#Resources.ScrollableFrames.HVScrollableFrame.HVScrollableFrame" title="Resources.ScrollableFrames.HVScrollableFrame.HVScrollableFrame">HVScrollableFrame</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.table">
+<span class="sig-name descname"><span class="pre">table</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.table" title="Link to this definition">¶</a></dt>
+<dd><p>the data table frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.criteriaLabel">
+<span class="sig-name descname"><span class="pre">criteriaLabel</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.criteriaLabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display “Criteria:”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.weightsLabel">
+<span class="sig-name descname"><span class="pre">weightsLabel</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.weightsLabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display “Weights:”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.typesLabel">
+<span class="sig-name descname"><span class="pre">typesLabel</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.typesLabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display “Preference functions:”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.pcLabel">
+<span class="sig-name descname"><span class="pre">pcLabel</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.pcLabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display “Pc:”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.qcLabel">
+<span class="sig-name descname"><span class="pre">qcLabel</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.qcLabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display “Qc:”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.buttonAddCriterion">
+<span class="sig-name descname"><span class="pre">buttonAddCriterion</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.buttonAddCriterion" title="Link to this definition">¶</a></dt>
+<dd><p>a button to add a criterion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.buttonAddUnit">
+<span class="sig-name descname"><span class="pre">buttonAddUnit</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.buttonAddUnit" title="Link to this definition">¶</a></dt>
+<dd><p>a button to add an alternative</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.buttonDeleteCriterion">
+<span class="sig-name descname"><span class="pre">buttonDeleteCriterion</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.buttonDeleteCriterion" title="Link to this definition">¶</a></dt>
+<dd><p>a button to delete a criterion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.buttonDeleteUnit">
+<span class="sig-name descname"><span class="pre">buttonDeleteUnit</span></span><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.buttonDeleteUnit" title="Link to this definition">¶</a></dt>
+<dd><p>a button to delete an alternative</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.ViewListener">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ViewListener</span></span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.ViewListener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.ViewListener" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.ViewListener.addCriterionColumn">
+<span class="sig-name descname"><span class="pre">addCriterionColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.ViewListener.addCriterionColumn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.ViewListener.addCriterionColumn" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.ViewListener.addUnitRow">
+<span class="sig-name descname"><span class="pre">addUnitRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.ViewListener.addUnitRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.ViewListener.addUnitRow" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.ViewListener.deleteCriterion">
+<span class="sig-name descname"><span class="pre">deleteCriterion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.ViewListener.deleteCriterion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.ViewListener.deleteCriterion" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.ViewListener.deleteUnit">
+<span class="sig-name descname"><span class="pre">deleteUnit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.ViewListener.deleteUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.ViewListener.deleteUnit" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.ViewListener.openFile">
+<span class="sig-name descname"><span class="pre">openFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.ViewListener.openFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.ViewListener.openFile" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.addCriterion">
+<span class="sig-name descname"><span class="pre">addCriterion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.addCriterion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.addCriterion" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on buttonAddCriterion</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.addUnit">
+<span class="sig-name descname"><span class="pre">addUnit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.addUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.addUnit" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on buttonAddUnit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.deleteCriterion">
+<span class="sig-name descname"><span class="pre">deleteCriterion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.deleteCriterion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.deleteCriterion" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on buttonDeleteCriterion</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.deleteUnit">
+<span class="sig-name descname"><span class="pre">deleteUnit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.deleteUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.deleteUnit" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on buttonDeleteUnit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.getViewCData">
+<span class="sig-name descname"><span class="pre">getViewCData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.getViewCData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.getViewCData" title="Link to this definition">¶</a></dt>
+<dd><p>Return the needed view information to place a criterion column</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(table, row, col), the master frame and the grid coordinates for criterion column</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of CTkFrame and int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.getViewUData">
+<span class="sig-name descname"><span class="pre">getViewUData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.getViewUData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.getViewUData" title="Link to this definition">¶</a></dt>
+<dd><p>Return the needed view information to place a unit row</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(table, row, col), the master frame and the grid coordinates for unit row</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of CTkFrame and int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.openFile">
+<span class="sig-name descname"><span class="pre">openFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.openFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.openFile" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on openFileButton</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.setListener">
+<span class="sig-name descname"><span class="pre">setListener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Views.DataTabViews.DataTabView.DataTabView.ViewListener" title="Views.DataTabViews.DataTabView.DataTabView.ViewListener"><span class="pre">ViewListener</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.setListener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.setListener" title="Link to this definition">¶</a></dt>
+<dd><p>Set the listener</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>l</strong> (<a class="reference internal" href="#Views.DataTabViews.DataTabView.DataTabView.ViewListener" title="Views.DataTabViews.DataTabView.DataTabView.ViewListener"><em>ViewListener</em></a>) – the new listener</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.shiftDown">
+<span class="sig-name descname"><span class="pre">shiftDown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.shiftDown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.shiftDown" title="Link to this definition">¶</a></dt>
+<dd><p>Shift down buttons add and delete unit and update row</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.shiftLeft">
+<span class="sig-name descname"><span class="pre">shiftLeft</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.shiftLeft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.shiftLeft" title="Link to this definition">¶</a></dt>
+<dd><p>Shift left buttons add and delete criterion and update col</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.shiftRight">
+<span class="sig-name descname"><span class="pre">shiftRight</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.shiftRight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.shiftRight" title="Link to this definition">¶</a></dt>
+<dd><p>Shift right buttons add and delete criterion and update col</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.shiftUp">
+<span class="sig-name descname"><span class="pre">shiftUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.shiftUp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.shiftUp" title="Link to this definition">¶</a></dt>
+<dd><p>Shift up buttons add and delete unit and update row</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.DataTabView.DataTabView.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/DataTabView.html#DataTabView.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.DataTabView.DataTabView.show" title="Link to this definition">¶</a></dt>
+<dd><p>Show the view</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="views-datatabviews-preferencefunctionwindow-module">
 <h2>Views.DataTabViews.PreferenceFunctionWindow module<a class="headerlink" href="#views-datatabviews-preferencefunctionwindow-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-Views.DataTabViews.PreferenceFunctionWindow">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Views.DataTabViews.PreferenceFunctionWindow.</span></span><span class="sig-name descname"><span class="pre">PreferenceFunctionWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CTkToplevel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">textvar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">StringVar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intvar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">IntVar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typesDict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A class to display the 6 types of preference function and allow to select one of them</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.root">
+<span class="sig-name descname"><span class="pre">root</span></span><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.root" title="Link to this definition">¶</a></dt>
+<dd><p>the master frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkTopLevel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.typesDict">
+<span class="sig-name descname"><span class="pre">typesDict</span></span><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.typesDict" title="Link to this definition">¶</a></dt>
+<dd><p>a dictionnary to link each type of preference function with a number (1 to 6)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.radioVar">
+<span class="sig-name descname"><span class="pre">radioVar</span></span><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.radioVar" title="Link to this definition">¶</a></dt>
+<dd><p>a variable that contains the current preference function type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>IntVar</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.textVar">
+<span class="sig-name descname"><span class="pre">textVar</span></span><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.textVar" title="Link to this definition">¶</a></dt>
+<dd><p>a variable that contains the current preference function type name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>StringVar</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.radioButtonList">
+<span class="sig-name descname"><span class="pre">radioButtonList</span></span><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.radioButtonList" title="Link to this definition">¶</a></dt>
+<dd><p>a list that contains all radio buttons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a> of CTkRadioButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.gaussian">
+<span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.gaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.gaussian" title="Link to this definition">¶</a></dt>
+<dd><p>Computes points for gaussian function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the lists of abscissa and ordinates of gaussian function</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of 2 list of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.get_radio_var">
+<span class="sig-name descname"><span class="pre">get_radio_var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.get_radio_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.get_radio_var" title="Link to this definition">¶</a></dt>
+<dd><p>Return the type of the selected preference function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the value contained by radioVar</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.level">
+<span class="sig-name descname"><span class="pre">level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.level" title="Link to this definition">¶</a></dt>
+<dd><p>Computes points for level function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the lists of abscissa and ordinates of level function</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of 1 list of int and 1 list of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.linear">
+<span class="sig-name descname"><span class="pre">linear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.linear" title="Link to this definition">¶</a></dt>
+<dd><p>Computes points for linear function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the lists of abscissa and ordinates of linear function</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of 1 list of int and 1 list of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.makeFig">
+<span class="sig-name descname"><span class="pre">makeFig</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.makeFig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.makeFig" title="Link to this definition">¶</a></dt>
+<dd><p>Make the figures (draw the functions)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.radiobutton_event">
+<span class="sig-name descname"><span class="pre">radiobutton_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.radiobutton_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.radiobutton_event" title="Link to this definition">¶</a></dt>
+<dd><p>Handle radioButton events</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.show" title="Link to this definition">¶</a></dt>
+<dd><p>show the window content</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.u_shape">
+<span class="sig-name descname"><span class="pre">u_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.u_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.u_shape" title="Link to this definition">¶</a></dt>
+<dd><p>Computes points for u-shape function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the lists of abscissa and ordinates of u-shape function</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of 2 list of <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.usual">
+<span class="sig-name descname"><span class="pre">usual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.usual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.usual" title="Link to this definition">¶</a></dt>
+<dd><p>Computes points for usual function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the lists of abscissa and ordinates of usual function</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of 2 list of <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.v_shape">
+<span class="sig-name descname"><span class="pre">v_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/PreferenceFunctionWindow.html#PreferenceFunctionWindow.v_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.PreferenceFunctionWindow.PreferenceFunctionWindow.v_shape" title="Link to this definition">¶</a></dt>
+<dd><p>Computes points for v-shape function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the lists of abscissa and ordinates of v-shape function</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of 1 list of int and 1 list of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="views-datatabviews-unitrow-module">
 <h2>Views.DataTabViews.UnitRow module<a class="headerlink" href="#views-datatabviews-unitrow-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-Views.DataTabViews.UnitRow">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Views.DataTabViews.UnitRow.</span></span><span class="sig-name descname"><span class="pre">UnitRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><span class="pre">Alternative</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/UnitRow.html#UnitRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A class to display the row of a unit (an alternative)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.master">
+<span class="sig-name descname"><span class="pre">master</span></span><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.master" title="Link to this definition">¶</a></dt>
+<dd><p>the master frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.row">
+<span class="sig-name descname"><span class="pre">row</span></span><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.row" title="Link to this definition">¶</a></dt>
+<dd><p>the row for grid coordinate of the UnitRow</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.col">
+<span class="sig-name descname"><span class="pre">col</span></span><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.col" title="Link to this definition">¶</a></dt>
+<dd><p>the column for grid coordinate of the UnitRow</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.alternative">
+<span class="sig-name descname"><span class="pre">alternative</span></span><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.alternative" title="Link to this definition">¶</a></dt>
+<dd><p>the alternative of which it is the row</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative">Alternative</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.nameEntry">
+<span class="sig-name descname"><span class="pre">nameEntry</span></span><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.nameEntry" title="Link to this definition">¶</a></dt>
+<dd><p>the entry to modify the altenative name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkEntry</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.valuesEntries">
+<span class="sig-name descname"><span class="pre">valuesEntries</span></span><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.valuesEntries" title="Link to this definition">¶</a></dt>
+<dd><p>a list that will contain all entries to modify evaluations of the altenative</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[CTkEntry]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.add_column">
+<span class="sig-name descname"><span class="pre">add_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DoubleVar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/UnitRow.html#UnitRow.add_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.add_column" title="Link to this definition">¶</a></dt>
+<dd><p>Add a column to the row</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>DoubleVar</em>) – The value to add in the last column</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.del_column">
+<span class="sig-name descname"><span class="pre">del_column</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/UnitRow.html#UnitRow.del_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.del_column" title="Link to this definition">¶</a></dt>
+<dd><p>Destroy the last column of the row</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.destroy">
+<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/DataTabViews/UnitRow.html#UnitRow.destroy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.destroy" title="Link to this definition">¶</a></dt>
+<dd><p>Destroy the row</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.DataTabViews.UnitRow.UnitRow.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/DataTabViews/UnitRow.html#UnitRow.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.DataTabViews.UnitRow.UnitRow.show" title="Link to this definition">¶</a></dt>
+<dd><p>Show the row</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-contents">
 <h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>

@@ -15,8 +15,10 @@ from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 from Resources.ScrollableFrames.ResizableScrollableFrame import ResizableScrollableFrame
 from Resources.ScrollableFrames.VScrollableFrame import VScrollableFrame
 
-SPACE = 100 # The space between the center of 2 circles that represent alternatives
-RADIUS = 35 # The radius of the circle that represents an alternative
+SPACE = 100
+"""The space between the center of 2 circles that represent alternatives"""
+RADIUS = 35
+"""The radius of the circle that represents an alternative"""
 
 
 class RankView:
@@ -31,11 +33,12 @@ class RankView:
 
         Methods
         -------
-        checkBoxEvent()
-            Handle checkBox events
         """
         def checkBoxEvent(self):
+            """Handle checkBox events
+            """
             pass
+
 
     def __init__(self, master:CTkFrame, root:CTk) -> None:
         """

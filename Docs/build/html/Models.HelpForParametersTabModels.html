@@ -137,6 +137,189 @@
 </section>
 <section id="models-helpforparameterstabmodels-preferencelearning-module">
 <h2>Models.HelpForParametersTabModels.preferenceLearning module<a class="headerlink" href="#models-helpforparameterstabmodels-preferencelearning-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-Models.HelpForParametersTabModels.preferenceLearning">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Models.HelpForParametersTabModels.preferenceLearning.</span></span><span class="sig-name descname"><span class="pre">PreferenceLearning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prometheeGamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Models.html#Models.PrometheeGamma.PrometheeGamma" title="Models.PrometheeGamma.PrometheeGamma"><span class="pre">PrometheeGamma</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Models/HelpForParametersTabModels/preferenceLearning.html#PreferenceLearning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A class to implement a preference learning algorithm</p>
+<p>This algorithm is based on a small number of pairwise comparisons submitted to the user.
+Based on the user’s responses, an iterative search determines the possible values for the 3 parameters specific to the PROMETHEE Gamma method.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.prometheeGamma">
+<span class="sig-name descname"><span class="pre">prometheeGamma</span></span><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.prometheeGamma" title="Link to this definition">¶</a></dt>
+<dd><p>the PROMETHEE Gamma model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Models.html#Models.PrometheeGamma.PrometheeGamma" title="Models.PrometheeGamma.PrometheeGamma">PrometheeGamma</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.master">
+<span class="sig-name descname"><span class="pre">master</span></span><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.master" title="Link to this definition">¶</a></dt>
+<dd><p>the master frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.alternatives">
+<span class="sig-name descname"><span class="pre">alternatives</span></span><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.alternatives" title="Link to this definition">¶</a></dt>
+<dd><p>the list of all laternatives</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a> of <a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative">Alternative</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.Irange">
+<span class="sig-name descname"><span class="pre">Irange</span></span><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.Irange" title="Link to this definition">¶</a></dt>
+<dd><p>a range of value for parameter I</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.Range.Range" title="Models.HelpForParametersTabModels.Range.Range.Range">Range</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.Jrange">
+<span class="sig-name descname"><span class="pre">Jrange</span></span><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.Jrange" title="Link to this definition">¶</a></dt>
+<dd><p>a range of value for parameter J</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.Range.Range" title="Models.HelpForParametersTabModels.Range.Range.Range">Range</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.Prange">
+<span class="sig-name descname"><span class="pre">Prange</span></span><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.Prange" title="Link to this definition">¶</a></dt>
+<dd><p>a range of value for parameter P</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Models.HelpForParametersTabModels.Range.html#Models.HelpForParametersTabModels.Range.Range.Range" title="Models.HelpForParametersTabModels.Range.Range.Range">Range</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.questions">
+<span class="sig-name descname"><span class="pre">questions</span></span><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.questions" title="Link to this definition">¶</a></dt>
+<dd><p>a list of peer comparisons: [(a1, a2, preference), (a1, a2, preference), … ]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.listOfPairs">
+<span class="sig-name descname"><span class="pre">listOfPairs</span></span><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.listOfPairs" title="Link to this definition">¶</a></dt>
+<dd><p>a list of pair of alternatives: [(a1, a2), (a1, a2), … ]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of Aternative</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.search">
+<span class="sig-name descname"><span class="pre">search</span></span><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.search" title="Link to this definition">¶</a></dt>
+<dd><p>the instance of class for search method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Models.HelpForParametersTabModels.Search.html#Models.HelpForParametersTabModels.Search.Search.Search" title="Models.HelpForParametersTabModels.Search.Search.Search">Search</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.computeRangeOfThresholdsForOneQuestion">
+<span class="sig-name descname"><span class="pre">computeRangeOfThresholdsForOneQuestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Models/HelpForParametersTabModels/preferenceLearning.html#PreferenceLearning.computeRangeOfThresholdsForOneQuestion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.computeRangeOfThresholdsForOneQuestion" title="Link to this definition">¶</a></dt>
+<dd><p>Compute a range of possible thresholds for one peer comparison</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>question</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a>) – a peer comparison</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.getResults">
+<span class="sig-name descname"><span class="pre">getResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Models/HelpForParametersTabModels/preferenceLearning.html#PreferenceLearning.getResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.getResults" title="Link to this definition">¶</a></dt>
+<dd><p>Return the results of the search</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the results of the search, i.e. (Imin, Imax, Jmin, Jmax, Pmin, Pmax)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.itSearch">
+<span class="sig-name descname"><span class="pre">itSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rst</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Models/HelpForParametersTabModels/preferenceLearning.html#PreferenceLearning.itSearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.itSearch" title="Link to this definition">¶</a></dt>
+<dd><p>Make an iteration of iterative search or or restart the whole search if rst is True</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rst</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if True, restart the search, otherwise make an iteration of iterative search</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.selectFirstQuestion">
+<span class="sig-name descname"><span class="pre">selectFirstQuestion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Models/HelpForParametersTabModels/preferenceLearning.html#PreferenceLearning.selectFirstQuestion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.selectFirstQuestion" title="Link to this definition">¶</a></dt>
+<dd><p>Select the first peer comparison at random</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a peer comparison (the 2 alternatives, and the value for relation between the 2 alternatives)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of Alternative and IntVar</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.selectNextQuestion">
+<span class="sig-name descname"><span class="pre">selectNextQuestion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Models/HelpForParametersTabModels/preferenceLearning.html#PreferenceLearning.selectNextQuestion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.selectNextQuestion" title="Link to this definition">¶</a></dt>
+<dd><p>Select a non already selected peer comparison at random</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a peer comparison (the 2 alternatives, and the value for relation between the 2 alternatives)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of Alternative and IntVar</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.setAlternatives">
+<span class="sig-name descname"><span class="pre">setAlternatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alternatives</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Models/HelpForParametersTabModels/preferenceLearning.html#PreferenceLearning.setAlternatives"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.setAlternatives" title="Link to this definition">¶</a></dt>
+<dd><p>Set the alternatives list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>alternatives</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> of </em><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><em>Alternative</em></a>) – a list of alternatives</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-contents">
 <h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>

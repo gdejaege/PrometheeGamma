@@ -38,12 +38,630 @@
 </section>
 <section id="views-helpforparameterstabviews-helpforparameterstabview-module">
 <h2>Views.HelpForParametersTabViews.HelpForParametersTabView module<a class="headerlink" href="#views-helpforparameterstabviews-helpforparameterstabview-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-Views.HelpForParametersTabViews.HelpForParametersTabView">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Views.HelpForParametersTabViews.HelpForParametersTabView.</span></span><span class="sig-name descname"><span class="pre">HelpForParametersTabView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener" title="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener"><code class="xref py py-class docutils literal notranslate"><span class="pre">Listener</span></code></a></p>
+<p>A class to display the starting content of the helpForParameters tab</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.sframe">
+<span class="sig-name descname"><span class="pre">sframe</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.sframe" title="Link to this definition">¶</a></dt>
+<dd><p>the scrollableFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ScrollableFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.master">
+<span class="sig-name descname"><span class="pre">master</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.master" title="Link to this definition">¶</a></dt>
+<dd><p>the master frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.startLabel">
+<span class="sig-name descname"><span class="pre">startLabel</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.startLabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display the strarting Text</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.preferenceLearningButton">
+<span class="sig-name descname"><span class="pre">preferenceLearningButton</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.preferenceLearningButton" title="Link to this definition">¶</a></dt>
+<dd><p>a button to select the built-in preferenceLearning algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.row">
+<span class="sig-name descname"><span class="pre">row</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.row" title="Link to this definition">¶</a></dt>
+<dd><p>the row for positionning elements with grid method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.listener">
+<span class="sig-name descname"><span class="pre">listener</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.listener" title="Link to this definition">¶</a></dt>
+<dd><p>the listener of this view</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener" title="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener">ViewListener</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ViewListener</span></span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.ViewListener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An interface for the listener of this view</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener.showCustom">
+<span class="sig-name descname"><span class="pre">showCustom</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.ViewListener.showCustom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener.showCustom" title="Link to this definition">¶</a></dt>
+<dd><p>Show the custom view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener.showPreferenceLearning">
+<span class="sig-name descname"><span class="pre">showPreferenceLearning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.ViewListener.showPreferenceLearning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener.showPreferenceLearning" title="Link to this definition">¶</a></dt>
+<dd><p>Show the preference learning view</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.getMaster">
+<span class="sig-name descname"><span class="pre">getMaster</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.getMaster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.getMaster" title="Link to this definition">¶</a></dt>
+<dd><p>Return the master frame of the tab</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>master</strong> – the master frame</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>CTkFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.hide">
+<span class="sig-name descname"><span class="pre">hide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.hide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.hide" title="Link to this definition">¶</a></dt>
+<dd><p>Hide the view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.restart">
+<span class="sig-name descname"><span class="pre">restart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.restart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.restart" title="Link to this definition">¶</a></dt>
+<dd><p>Reinitialize the variables for display</p>
+<p>They can be destroy in Custom module, so, for stability, we redifine them.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.setListener">
+<span class="sig-name descname"><span class="pre">setListener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener" title="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener"><span class="pre">ViewListener</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.setListener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.setListener" title="Link to this definition">¶</a></dt>
+<dd><p>Set the listener</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>l</strong> (<a class="reference internal" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener" title="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.ViewListener"><em>ViewListener</em></a>) – the new listener</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.show" title="Link to this definition">¶</a></dt>
+<dd><p>Show the view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.startCustom">
+<span class="sig-name descname"><span class="pre">startCustom</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.startCustom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.startCustom" title="Link to this definition">¶</a></dt>
+<dd><p>Start the custom method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.startPreferenceLearning">
+<span class="sig-name descname"><span class="pre">startPreferenceLearning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/HelpForParametersTabView.html#HelpForParametersTabView.startPreferenceLearning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.HelpForParametersTabView.HelpForParametersTabView.startPreferenceLearning" title="Link to this definition">¶</a></dt>
+<dd><p>Start the preference learning method</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="views-helpforparameterstabviews-preferencelearningview-module">
 <h2>Views.HelpForParametersTabViews.PreferenceLearningView module<a class="headerlink" href="#views-helpforparameterstabviews-preferencelearningview-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-Views.HelpForParametersTabViews.PreferenceLearningView">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Views.HelpForParametersTabViews.PreferenceLearningView.</span></span><span class="sig-name descname"><span class="pre">PreferenceLearningView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A class to display questions and others component for prefenrence learning algorithm</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.master">
+<span class="sig-name descname"><span class="pre">master</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.master" title="Link to this definition">¶</a></dt>
+<dd><p>the parent master frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.questionsTabView">
+<span class="sig-name descname"><span class="pre">questionsTabView</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.questionsTabView" title="Link to this definition">¶</a></dt>
+<dd><p>the tabView that will contain the questions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkTabView</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.explanationLabel">
+<span class="sig-name descname"><span class="pre">explanationLabel</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.explanationLabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display the explanation text for preference learning algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.generateButton">
+<span class="sig-name descname"><span class="pre">generateButton</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.generateButton" title="Link to this definition">¶</a></dt>
+<dd><p>a button to generate questions for preference learning algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.confirmButton">
+<span class="sig-name descname"><span class="pre">confirmButton</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.confirmButton" title="Link to this definition">¶</a></dt>
+<dd><p>a button to confirm the answers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.nextButton">
+<span class="sig-name descname"><span class="pre">nextButton</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.nextButton" title="Link to this definition">¶</a></dt>
+<dd><p>a button to generate the next question</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.Ilabel">
+<span class="sig-name descname"><span class="pre">Ilabel</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.Ilabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display the value of the indifference parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.Jlabel">
+<span class="sig-name descname"><span class="pre">Jlabel</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.Jlabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display the value of the incomparability parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.Plabel">
+<span class="sig-name descname"><span class="pre">Plabel</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.Plabel" title="Link to this definition">¶</a></dt>
+<dd><p>a label to display the value of the preference parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkLabel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.applyButton">
+<span class="sig-name descname"><span class="pre">applyButton</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.applyButton" title="Link to this definition">¶</a></dt>
+<dd><p>a button to apply the results in result tab</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.cancelButton">
+<span class="sig-name descname"><span class="pre">cancelButton</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.cancelButton" title="Link to this definition">¶</a></dt>
+<dd><p>a button to cancel confirmation of answers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.quitButton">
+<span class="sig-name descname"><span class="pre">quitButton</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.quitButton" title="Link to this definition">¶</a></dt>
+<dd><p>a button to quit preference learning view</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CTkButton</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.row">
+<span class="sig-name descname"><span class="pre">row</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.row" title="Link to this definition">¶</a></dt>
+<dd><p>the row for positionning elements with grid method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.endCtrl">
+<span class="sig-name descname"><span class="pre">endCtrl</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.endCtrl" title="Link to this definition">¶</a></dt>
+<dd><p>control variable to keep in memory the state of the algorithm (ended or not ended)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.listener">
+<span class="sig-name descname"><span class="pre">listener</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.listener" title="Link to this definition">¶</a></dt>
+<dd><p>the listener of this view</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener" title="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener">ViewListener</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ViewListener</span></span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.ViewListener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An interface for the listener of this view</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.ViewListener.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.apply" title="Link to this definition">¶</a></dt>
+<dd><p>Control the reaction of the app after a click on the apply button</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.ViewListener.cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.cancel" title="Link to this definition">¶</a></dt>
+<dd><p>Control the reaction of the app after a click on the cancel button</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.confirm">
+<span class="sig-name descname"><span class="pre">confirm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.ViewListener.confirm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.confirm" title="Link to this definition">¶</a></dt>
+<dd><p>Control the reaction of the app after a click on the confirm button</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.ViewListener.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.generate" title="Link to this definition">¶</a></dt>
+<dd><p>Generate questions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.ViewListener.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.next" title="Link to this definition">¶</a></dt>
+<dd><p>Control the reaction of the app after a click on the next button</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.quit">
+<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.ViewListener.quit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.quit" title="Link to this definition">¶</a></dt>
+<dd><p>Control the reaction of the app after a click on the quit button</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.updateInmcq">
+<span class="sig-name descname"><span class="pre">updateInmcq</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.ViewListener.updateInmcq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener.updateInmcq" title="Link to this definition">¶</a></dt>
+<dd><p>Handle an update in mcq</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.apply" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on applyButton</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.cancel" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on cancelButton</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.confirm">
+<span class="sig-name descname"><span class="pre">confirm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.confirm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.confirm" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on confirmButton</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.createQuestionsTab">
+<span class="sig-name descname"><span class="pre">createQuestionsTab</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.createQuestionsTab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.createQuestionsTab" title="Link to this definition">¶</a></dt>
+<dd><p>Create the questions tab</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.generate" title="Link to this definition">¶</a></dt>
+<dd><p>Reset algorithm and (re)start it</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.next" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on nextButton</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.quit">
+<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.quit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.quit" title="Link to this definition">¶</a></dt>
+<dd><p>Handle click on quitButton</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.resetResults">
+<span class="sig-name descname"><span class="pre">resetResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.resetResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.resetResults" title="Link to this definition">¶</a></dt>
+<dd><p>Reset the results (reset labels)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.resetView">
+<span class="sig-name descname"><span class="pre">resetView</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.resetView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.resetView" title="Link to this definition">¶</a></dt>
+<dd><p>Reset the view, i.e. destroy all widget displayed</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.setListener">
+<span class="sig-name descname"><span class="pre">setListener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener" title="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener"><span class="pre">ViewListener</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.setListener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.setListener" title="Link to this definition">¶</a></dt>
+<dd><p>Set the listener</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>l</strong> (<a class="reference internal" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener" title="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.ViewListener"><em>ViewListener</em></a>) – the new listener</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.show" title="Link to this definition">¶</a></dt>
+<dd><p>Show the preference learning components</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.showApplyCancel">
+<span class="sig-name descname"><span class="pre">showApplyCancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.showApplyCancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.showApplyCancel" title="Link to this definition">¶</a></dt>
+<dd><p>Hide next and confirm button and show apply and cancel button</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.showNextConfirm">
+<span class="sig-name descname"><span class="pre">showNextConfirm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.showNextConfirm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.showNextConfirm" title="Link to this definition">¶</a></dt>
+<dd><p>Hide apply and cancel button and show next and confirm button</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.showNextQuestion">
+<span class="sig-name descname"><span class="pre">showNextQuestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">criteriaNames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.showNextQuestion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.showNextQuestion" title="Link to this definition">¶</a></dt>
+<dd><p>Show the next question of preference learning algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>question</strong> (<em>Tuple</em><em>(</em><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><em>Alternative</em></a><em>, </em><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><em>Alternative</em></a><em>, </em><em>IntVar</em><em>)</em>) – the “question”, i.e. the two alternatives that will be compared and the value of preference (in the IntVar):
+0 for indifference ; 1 for preference ; -1 for incomparability</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.showResults">
+<span class="sig-name descname"><span class="pre">showResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.showResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.showResults" title="Link to this definition">¶</a></dt>
+<dd><p>Show the results in labels (ILabel, JLabel and PLabel)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>results</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>DoubleVar</em><em>, </em><em>DoubleVar</em><em>, </em><em>DoubleVar</em><em>, </em><em>DoubleVar</em><em>, </em><em>DoubleVar</em><em>, </em><em>DoubleVar</em><em>]</em>) – results = (Imin, Imax, Jmin, Jmax, Pmin, Pmax) ; these are the resulting values of preference learning algorithm</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.updateInmcq">
+<span class="sig-name descname"><span class="pre">updateInmcq</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/PreferenceLearningView.html#PreferenceLearningView.updateInmcq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.PreferenceLearningView.PreferenceLearningView.updateInmcq" title="Link to this definition">¶</a></dt>
+<dd><p>Handle event in questions</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="views-helpforparameterstabviews-questionstabview-module">
 <h2>Views.HelpForParametersTabViews.QuestionsTabView module<a class="headerlink" href="#views-helpforparameterstabviews-questionstabview-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-Views.HelpForParametersTabViews.QuestionsTabView">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Views.HelpForParametersTabViews.QuestionsTabView.</span></span><span class="sig-name descname"><span class="pre">QuestionsTabView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CTkTabview</span></code></p>
+<p>A class to display a tabView with question for preference learning algorithm</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.nb">
+<span class="sig-name descname"><span class="pre">nb</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.nb" title="Link to this definition">¶</a></dt>
+<dd><p>the number of questions (and of tabs too)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.masterList">
+<span class="sig-name descname"><span class="pre">masterList</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.masterList" title="Link to this definition">¶</a></dt>
+<dd><p>the list of tabs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[CTkFrame]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.row">
+<span class="sig-name descname"><span class="pre">row</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.row" title="Link to this definition">¶</a></dt>
+<dd><p>the row of components, used by grid method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.listener">
+<span class="sig-name descname"><span class="pre">listener</span></span><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.listener" title="Link to this definition">¶</a></dt>
+<dd><p>the listener of the view</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener" title="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener">Listener</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Listener</span></span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView.Listener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An interface for the listener of this view</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener.updateInmcq">
+<span class="sig-name descname"><span class="pre">updateInmcq</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView.Listener.updateInmcq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener.updateInmcq" title="Link to this definition">¶</a></dt>
+<dd><p>Handle an update in mcq</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.addQuestion">
+<span class="sig-name descname"><span class="pre">addQuestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">criteriaNames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView.addQuestion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.addQuestion" title="Link to this definition">¶</a></dt>
+<dd><p>Add a question</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>question</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><em>Alternative</em></a><em>, </em><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><em>Alternative</em></a><em>, </em><em>IntVar</em><em>]</em>) – the “question” to add, i.e. the two alternatives that will be compared and the value of preference (in the IntVar):
+0 for indifference ; 1 for preference ; -1 for incomparability</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.addTab">
+<span class="sig-name descname"><span class="pre">addTab</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView.addTab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.addTab" title="Link to this definition">¶</a></dt>
+<dd><p>Add a tab and set the focus on it</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.mcq">
+<span class="sig-name descname"><span class="pre">mcq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nameA1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nameA2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">IntVar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columnspan</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView.mcq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.mcq" title="Link to this definition">¶</a></dt>
+<dd><p>Create a mcq with radioButton</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>master</strong> (<em>CTkFrame</em>) – the tab where place mcq</p></li>
+<li><p><strong>nameA1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – the name of the first alternative of the question</p></li>
+<li><p><strong>nameA2</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – the name of the second alternative of the question</p></li>
+<li><p><strong>value</strong> (<em>IntVar</em>) – the radioButton variable thath will contain the answer</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.placemcq">
+<span class="sig-name descname"><span class="pre">placemcq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mcq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columnspan</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView.placemcq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.placemcq" title="Link to this definition">¶</a></dt>
+<dd><p>Place mcq in the tab (with grid)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.questionName">
+<span class="sig-name descname"><span class="pre">questionName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><span class="pre">Alternative</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">a2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><span class="pre">Alternative</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">criteriaNames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView.questionName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.questionName" title="Link to this definition">¶</a></dt>
+<dd><p>Put alternatives and criteria in labels and display them</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>master</strong> (<em>CTkFrame</em>) – the master frame</p></li>
+<li><p><strong>a1</strong> (<a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><em>Alternative</em></a>) – an alternative</p></li>
+<li><p><strong>a2</strong> (<a class="reference internal" href="Models.DataTabModels.html#Models.DataTabModels.Alternative.Alternative" title="Models.DataTabModels.Alternative.Alternative"><em>Alternative</em></a>) – an other alternative</p></li>
+<li><p><strong>criteriaNames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – the list of criteria names</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.radioButtonEvent">
+<span class="sig-name descname"><span class="pre">radioButtonEvent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView.radioButtonEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.radioButtonEvent" title="Link to this definition">¶</a></dt>
+<dd><p>Handle radioButton event (answer change)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.setListener">
+<span class="sig-name descname"><span class="pre">setListener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener" title="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener"><span class="pre">Listener</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/HelpForParametersTabViews/QuestionsTabView.html#QuestionsTabView.setListener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.setListener" title="Link to this definition">¶</a></dt>
+<dd><p>Set the listener</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>l</strong> (<a class="reference internal" href="#Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener" title="Views.HelpForParametersTabViews.QuestionsTabView.QuestionsTabView.Listener"><em>Listener</em></a>) – the new listener</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-contents">
 <h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>

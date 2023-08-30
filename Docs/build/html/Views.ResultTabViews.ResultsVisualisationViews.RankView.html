@@ -180,6 +180,139 @@
 </section>
 <section id="views-resulttabviews-resultsvisualisationviews-rankview-rankview-module">
 <h2>Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView module<a class="headerlink" href="#views-resulttabviews-resultsvisualisationviews-rankview-rankview-module" title="Link to this heading">¶</a></h2>
+<dl class="py data" id="module-Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RADIUS">
+<span class="sig-prename descclassname"><span class="pre">Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.</span></span><span class="sig-name descname"><span class="pre">RADIUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">35</span></em><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RADIUS" title="Link to this definition">¶</a></dt>
+<dd><p>The radius of the circle that represents an alternative</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.</span></span><span class="sig-name descname"><span class="pre">RankView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CTkFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CTk</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A class to display the rank graph of alternatives</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.BuildCheckBoxes">
+<span class="sig-name descname"><span class="pre">BuildCheckBoxes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.BuildCheckBoxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.BuildCheckBoxes" title="Link to this definition">¶</a></dt>
+<dd><p>Build the checkBoxes for alternatives selection</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ViewListener</span></span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.ViewListener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An interface for the listener</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener.checkBoxEvent">
+<span class="sig-name descname"><span class="pre">checkBoxEvent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.ViewListener.checkBoxEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener.checkBoxEvent" title="Link to this definition">¶</a></dt>
+<dd><p>Handle checkBox events</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.add_lines">
+<span class="sig-name descname"><span class="pre">add_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrixResults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.add_lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.add_lines" title="Link to this definition">¶</a></dt>
+<dd><p>Add plain and dash lines to the schema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>matrixResults</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – the result matrix of PROMETHEE Gamma method</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.build" title="Link to this definition">¶</a></dt>
+<dd><p>Build the schema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>r</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – the ranked list of alternatives</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.buildAlternativesDict">
+<span class="sig-name descname"><span class="pre">buildAlternativesDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aList</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.buildAlternativesDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.buildAlternativesDict" title="Link to this definition">¶</a></dt>
+<dd><p>Build the dictionary for alternatives selection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>aList</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – the list of alternative names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.checkQueue">
+<span class="sig-name descname"><span class="pre">checkQueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.checkQueue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.checkQueue" title="Link to this definition">¶</a></dt>
+<dd><p>Read the queue</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.computeSize">
+<span class="sig-name descname"><span class="pre">computeSize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.computeSize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.computeSize" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.drawCanvas">
+<span class="sig-name descname"><span class="pre">drawCanvas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrixResults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.drawCanvas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.drawCanvas" title="Link to this definition">¶</a></dt>
+<dd><p>Display result in a schematic ranking</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – ranked list of alternatives</p></li>
+<li><p><strong>matrixResults</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – the result matrix of PROMETHEE Gamma method</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.draw_line">
+<span class="sig-name descname"><span class="pre">draw_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView" title="Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView"><span class="pre">AlternativeView</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView" title="Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView.AlternativeView"><span class="pre">AlternativeView</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.draw_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.draw_line" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.makeGraph">
+<span class="sig-name descname"><span class="pre">makeGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrixResults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.makeGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.makeGraph" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.makeLegend">
+<span class="sig-name descname"><span class="pre">makeLegend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.makeLegend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.makeLegend" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.save" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.setListener">
+<span class="sig-name descname"><span class="pre">setListener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener" title="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener"><span class="pre">ViewListener</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.setListener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.setListener" title="Link to this definition">¶</a></dt>
+<dd><p>Set the listener</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>l</strong> (<a class="reference internal" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener" title="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener"><em>RankView.ViewListener</em></a>) – the new listener</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Views/ResultTabViews/ResultsVisualisationViews/RankView/RankView.html#RankView.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.show" title="Link to this definition">¶</a></dt>
+<dd><p>Show the view</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.SPACE">
+<span class="sig-prename descclassname"><span class="pre">Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.</span></span><span class="sig-name descname"><span class="pre">SPACE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.SPACE" title="Link to this definition">¶</a></dt>
+<dd><p>The space between the center of 2 circles that represent alternatives</p>
+</dd></dl>
+
 </section>
 <section id="views-resulttabviews-resultsvisualisationviews-rankview-verticalline-module">
 <h2>Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine module<a class="headerlink" href="#views-resulttabviews-resultsvisualisationviews-rankview-verticalline-module" title="Link to this heading">¶</a></h2>

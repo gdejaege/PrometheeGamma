@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Controllers.DataTabControllers.DataTabController &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=039e1c02" />
+    <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for Controllers.DataTabControllers.DataTabController</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span> <span class="k">as</span> <span class="n">fd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">Models.DataTabModels.DataTabModel</span> <span class="kn">import</span> <span class="n">DataTabModel</span>
+<span class="kn">from</span> <span class="nn">Views.DataTabViews.DataTabView</span> <span class="kn">import</span> <span class="n">DataTabView</span>
+<span class="kn">from</span> <span class="nn">Views.DataTabViews.CriterionColumn</span> <span class="kn">import</span> <span class="n">CriterionColumn</span>
+<span class="kn">from</span> <span class="nn">Views.DataTabViews.UnitRow</span> <span class="kn">import</span> <span class="n">UnitRow</span>
+<span class="kn">from</span> <span class="nn">Resources.Reader</span> <span class="kn">import</span> <span class="n">Reader</span>
+
+<div class="viewcode-block" id="DataTabController">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController">[docs]</a>
+<span class="k">class</span> <span class="nc">DataTabController</span><span class="p">(</span><span class="n">DataTabView</span><span class="o">.</span><span class="n">ViewListener</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to control the data tab</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    root : CTk</span>
+<span class="sd">        the root window</span>
+<span class="sd">    dataTabModel : DataTabModel</span>
+<span class="sd">        the model for the data tab</span>
+<span class="sd">    dataTabView : DataTabView</span>
+<span class="sd">        the view of the data tab</span>
+<span class="sd">    criteriaColumns : list[CriterionColumn]</span>
+<span class="sd">        the list that will contain all criterion column</span>
+<span class="sd">    unitsRows : list[UnitRow]</span>
+<span class="sd">        the list that will contain all unit row</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the master frame for the data tab</span>
+<span class="sd">        root : CTk</span>
+<span class="sd">            the root window</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span> <span class="o">=</span> <span class="n">DataTabModel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span> <span class="o">=</span> <span class="n">DataTabView</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<div class="viewcode-block" id="DataTabController.showView">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.showView">[docs]</a>
+    <span class="k">def</span> <span class="nf">showView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the dataTabView</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+        
+
+<div class="viewcode-block" id="DataTabController.openFile">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.openFile">[docs]</a>
+    <span class="k">def</span> <span class="nf">openFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open a file selected by the user and load data from file to the data table</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;../Data&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;../Projects&quot;</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">&quot;../Projects&quot;</span><span class="p">)</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="s2">&quot;../Projects&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="s2">&quot;../Data&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span><span class="n">filetypes</span><span class="o">=</span><span class="p">((</span><span class="s2">&quot;csv file&quot;</span><span class="p">,</span> <span class="s2">&quot;*.csv&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;csv file&quot;</span><span class="p">,</span> <span class="s2">&quot;*.csv&quot;</span><span class="p">)),</span> <span class="n">initialdir</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">filename</span> <span class="o">!=</span> <span class="p">()</span> <span class="ow">and</span> <span class="n">filename</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loadData</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">master</span><span class="p">)</span></div>
+
+
+    
+<div class="viewcode-block" id="DataTabController.loadData">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.loadData">[docs]</a>
+    <span class="k">def</span> <span class="nf">loadData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">master</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load data from file filename</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            the name of the file selected by the user</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the master frame for the data tab. It is needed to link DoubleVar, IntVar and StringVar used to store data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clearTable</span><span class="p">()</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">()</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">readData</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fillDataTable</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabController.fillDataTable">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.fillDataTable">[docs]</a>
+    <span class="k">def</span> <span class="nf">fillDataTable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fill in the data table with the content of the models</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nbCrit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getNumberOfCriteria</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span><span class="p">),</span> <span class="n">nbCrit</span><span class="p">):</span>
+            <span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">getViewCData</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">shiftRight</span><span class="p">()</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getCriterion</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">cc</span> <span class="o">=</span> <span class="n">CriterionColumn</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+            <span class="n">cc</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+        <span class="n">nbAlt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getNumberOfAlternatives</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">),</span> <span class="n">nbAlt</span><span class="p">):</span>
+            <span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">getViewUData</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">shiftDown</span><span class="p">()</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getAlternative</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+            <span class="n">ur</span> <span class="o">=</span> <span class="n">UnitRow</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+            <span class="n">ur</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ur</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabController.addCriterionColumn">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.addCriterionColumn">[docs]</a>
+    <span class="k">def</span> <span class="nf">addCriterionColumn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a criterion and its column in the data table</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the master frame for the data tab</span>
+<span class="sd">        row : int</span>
+<span class="sd">            the row for grid coordinate to place the new criterion column</span>
+<span class="sd">        col : int</span>
+<span class="sd">            the column for grid coordinate to place the new criterion column</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">shiftRight</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">addCriterion</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getCriterion</span><span class="p">()</span>
+        <span class="n">cc</span> <span class="o">=</span> <span class="n">CriterionColumn</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">cc</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addOneColumnToAllUnits</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">)</span></div>
+
+
+    
+<div class="viewcode-block" id="DataTabController.deleteCriterion">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.deleteCriterion">[docs]</a>
+    <span class="k">def</span> <span class="nf">deleteCriterion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the last criterion and its column in the data table</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">deleteCriterion</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">shiftLeft</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deleteOneColumnInAllUnits</span><span class="p">()</span></div>
+
+        
+    
+<div class="viewcode-block" id="DataTabController.addUnitRow">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.addUnitRow">[docs]</a>
+    <span class="k">def</span> <span class="nf">addUnitRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an alternative (a unit) and its row in the data table</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the master frame for the data tab</span>
+<span class="sd">        row : int</span>
+<span class="sd">            the row for grid coordinate to place the new unit row</span>
+<span class="sd">        col : int</span>
+<span class="sd">            the column for grid coordinate to place the new unit row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">shiftDown</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">addAlternative</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getAlternative</span><span class="p">()</span>
+        <span class="n">ur</span> <span class="o">=</span> <span class="n">UnitRow</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">ur</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ur</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabController.deleteUnit">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.deleteUnit">[docs]</a>
+    <span class="k">def</span> <span class="nf">deleteUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete an alternative (a unit) and its row in the data table</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">deleteAlternative</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">shiftUp</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabController.addOneColumnToAllUnits">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.addOneColumnToAllUnits">[docs]</a>
+    <span class="k">def</span> <span class="nf">addOneColumnToAllUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a column to the row of all alternatives</span>
+
+<span class="sd">        This method must be called after adding a criterion if there is at least one alternative in the data table</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the master frame for the data tab</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">addOneEvaluationInAllAlternatives</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">)):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getEvaluationOfAlternative</span><span class="p">(</span><span class="n">indexAlt</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">indexEval</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabController.deleteOneColumnInAllUnits">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.deleteOneColumnInAllUnits">[docs]</a>
+    <span class="k">def</span> <span class="nf">deleteOneColumnInAllUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a column in the row of all alternatives</span>
+
+<span class="sd">        This method must be called after deleting a criterion if there is at least one alternative in the data table</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">del_column</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">deleteEvaluationOfAlternative</span><span class="p">(</span><span class="n">indexAlt</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">indexEval</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabController.clearTable">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.clearTable">[docs]</a>
+    <span class="k">def</span> <span class="nf">clearTable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear the data table</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deleteCriterion</span><span class="p">()</span>
+        <span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deleteUnit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">clearAll</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabController.getModel">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.getModel">[docs]</a>
+    <span class="k">def</span> <span class="nf">getModel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataTabModel</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the current dataTabModel</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataTabModel</span>
+<span class="sd">            the dataTabModel</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span></div>
+
+    
+
+<div class="viewcode-block" id="DataTabController.voidModel">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.voidModel">[docs]</a>
+    <span class="k">def</span> <span class="nf">voidModel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test if model has no alternative or no criterion</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if no alternative or no criterion, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">isVoid</span><span class="p">()</span></div>
+
+    
+
+<div class="viewcode-block" id="DataTabController.no2AlterInModel">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.no2AlterInModel">[docs]</a>
+    <span class="k">def</span> <span class="nf">no2AlterInModel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test if there is less than 2 alternatives in the model</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if there is less than 2 alternatives in the model, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">twoAlter</span><span class="p">()</span></div>
+
+    
+
+<div class="viewcode-block" id="DataTabController.save">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the content of the data table in a &quot;Data.csv&quot; file located in directory</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        directory : str</span>
+<span class="sd">            the directory where the &quot;Data.csv&quot; file is located</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">directory</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="s2">&quot;Data.csv&quot;</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
+
+        <span class="n">nbCriteria</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getNumberOfCriteria</span><span class="p">()</span>
+        <span class="n">nbAlternatives</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getNumberOfAlternatives</span><span class="p">()</span>
+
+        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;c&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbCriteria</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getCriterion</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">getName_str</span><span class="p">()</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbAlternatives</span><span class="p">):</span>
+            <span class="n">alternative</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getAlternative</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">alternative</span><span class="o">.</span><span class="n">getName_str</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbCriteria</span><span class="p">):</span>
+                <span class="n">line</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">alternative</span><span class="o">.</span><span class="n">getEvaluation_float</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;w&quot;</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbCriteria</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getCriterion</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">.</span><span class="n">getWeight_float</span><span class="p">())</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;f&quot;</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbCriteria</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getCriterion</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">getPf_int</span><span class="p">())</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;p&quot;</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbCriteria</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getCriterion</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">getP_float</span><span class="p">())</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;q&quot;</span>
+        <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbCriteria</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getCriterion</span><span class="p">(</span><span class="n">o</span><span class="p">)</span><span class="o">.</span><span class="n">getQ_float</span><span class="p">())</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabController.reset">
+<a class="viewcode-back" href="../../../Controllers.DataTabControllers.html#Controllers.DataTabControllers.DataTabController.DataTabController.reset">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset the data tab, i.e. clear the data table</span>
+
+<span class="sd">        This function is an alias for clearTable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clearTable</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">PROMETHEE Gamma GUI app</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">src</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Luka BONHEURE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

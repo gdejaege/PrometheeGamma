@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Views.DataTabViews.DataTabView &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=039e1c02" />
+    <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for Views.DataTabViews.DataTabView</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="p">(</span><span class="n">CTkButton</span><span class="p">,</span> <span class="n">CTkLabel</span><span class="p">,</span> <span class="n">CTkFrame</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">Resources.ScrollableFrames.HVScrollableFrame</span> <span class="kn">import</span> <span class="n">HVScrollableFrame</span>
+
+
+<div class="viewcode-block" id="DataTabView">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView">[docs]</a>
+<span class="k">class</span> <span class="nc">DataTabView</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to display the content of the data tab</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    listener : ViewListener</span>
+<span class="sd">        the listener of this view</span>
+<span class="sd">    row : int</span>
+<span class="sd">        row coordinate for grid method</span>
+<span class="sd">    col : int</span>
+<span class="sd">        column coordinate for grid method</span>
+<span class="sd">    openFileButton : CTkButton</span>
+<span class="sd">        a button to open data file</span>
+<span class="sd">    dataNoteLabel : CTkLabel</span>
+<span class="sd">        a label to display a note</span>
+<span class="sd">    scrollableFrame : HVScrollableFrame</span>
+<span class="sd">        a scrollable frame (vertically and horizontally) for the data table</span>
+<span class="sd">    table : CTkFrame</span>
+<span class="sd">        the data table frame</span>
+<span class="sd">    criteriaLabel : CTkLabel</span>
+<span class="sd">        a label to display &quot;Criteria:&quot;</span>
+<span class="sd">    weightsLabel : CTkLabel</span>
+<span class="sd">        a label to display &quot;Weights:&quot;</span>
+<span class="sd">    typesLabel : CTkLabel</span>
+<span class="sd">        a label to display &quot;Preference functions:&quot;</span>
+<span class="sd">    pcLabel : CTkLabel</span>
+<span class="sd">        a label to display &quot;Pc:&quot;</span>
+<span class="sd">    qcLabel : CTkLabel</span>
+<span class="sd">        a label to display &quot;Qc:&quot;</span>
+<span class="sd">    buttonAddCriterion : CTkButton</span>
+<span class="sd">        a button to add a criterion</span>
+<span class="sd">    buttonAddUnit : CTkButton</span>
+<span class="sd">        a button to add an alternative</span>
+<span class="sd">    buttonDeleteCriterion : CTkButton</span>
+<span class="sd">        a button to delete a criterion</span>
+<span class="sd">    buttonDeleteUnit : CTkButton</span>
+<span class="sd">        a button to delete an alternative</span>
+<span class="sd">    </span>
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DataTabView.ViewListener">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.ViewListener">[docs]</a>
+    <span class="k">class</span> <span class="nc">ViewListener</span><span class="p">:</span>
+<div class="viewcode-block" id="DataTabView.ViewListener.openFile">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.ViewListener.openFile">[docs]</a>
+        <span class="k">def</span> <span class="nf">openFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DataTabView.ViewListener.addCriterionColumn">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.ViewListener.addCriterionColumn">[docs]</a>
+        <span class="k">def</span> <span class="nf">addCriterionColumn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DataTabView.ViewListener.addUnitRow">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.ViewListener.addUnitRow">[docs]</a>
+        <span class="k">def</span> <span class="nf">addUnitRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DataTabView.ViewListener.deleteCriterion">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.ViewListener.deleteCriterion">[docs]</a>
+        <span class="k">def</span> <span class="nf">deleteCriterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DataTabView.ViewListener.deleteUnit">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.ViewListener.deleteUnit">[docs]</a>
+        <span class="k">def</span> <span class="nf">deleteUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">pass</span></div>
+</div>
+
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the parent master frame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">row</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># header</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">openFileButton</span> <span class="o">=</span> <span class="n">CTkButton</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Open a file&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#6cffff&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span> <span class="n">corner_radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">openFile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataNoteLabel</span> <span class="o">=</span> <span class="n">CTkLabel</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Only csv files are accepted&quot;</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span> <span class="n">corner_radius</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        
+        <span class="c1"># Table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span> <span class="o">=</span> <span class="n">HVScrollableFrame</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="o">.</span><span class="n">frame</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">criteriaLabel</span> <span class="o">=</span> <span class="n">CTkLabel</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Criteria:&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weightsLabel</span> <span class="o">=</span> <span class="n">CTkLabel</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Weights:&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">typesLabel</span> <span class="o">=</span> <span class="n">CTkLabel</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Preference Functions:&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pcLabel</span> <span class="o">=</span> <span class="n">CTkLabel</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Pc:&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qcLabel</span> <span class="o">=</span> <span class="n">CTkLabel</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Qc:&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAddCriterion</span> <span class="o">=</span> <span class="n">CTkButton</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Add a criterion&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">addCriterion</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAddUnit</span> <span class="o">=</span> <span class="n">CTkButton</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Add an alternative&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">addUnit</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonDeleteCriterion</span> <span class="o">=</span> <span class="n">CTkButton</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Delete a criterion&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deleteCriterion</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonDeleteUnit</span> <span class="o">=</span> <span class="n">CTkButton</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Delete an alternative&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deleteUnit</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DataTabView.setListener">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.setListener">[docs]</a>
+    <span class="k">def</span> <span class="nf">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">ViewListener</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the listener</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        l : ViewListener</span>
+<span class="sd">            the new listener</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span> <span class="o">=</span> <span class="n">l</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.show">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the view   </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">openFileButton</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataNoteLabel</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollableFrame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">criteriaLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weightsLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">typesLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pcLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qcLabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">row</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAddCriterion</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAddUnit</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;e&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonDeleteCriterion</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonDeleteUnit</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.getViewCData">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.getViewCData">[docs]</a>
+    <span class="k">def</span> <span class="nf">getViewCData</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the needed view information to place a criterion column</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of CTkFrame and int</span>
+<span class="sd">            (table, row, col), the master frame and the grid coordinates for criterion column</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.getViewUData">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.getViewUData">[docs]</a>
+    <span class="k">def</span> <span class="nf">getViewUData</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span><span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the needed view information to place a unit row</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of CTkFrame and int</span>
+<span class="sd">            (table, row, col), the master frame and the grid coordinates for unit row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.openFile">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.openFile">[docs]</a>
+    <span class="k">def</span> <span class="nf">openFile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle click on openFileButton</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.addCriterion">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.addCriterion">[docs]</a>
+    <span class="k">def</span> <span class="nf">addCriterion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle click on buttonAddCriterion</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">addCriterionColumn</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span></div>
+
+
+    
+<div class="viewcode-block" id="DataTabView.shiftRight">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.shiftRight">[docs]</a>
+    <span class="k">def</span> <span class="nf">shiftRight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shift right buttons add and delete criterion and update col</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAddCriterion</span><span class="o">.</span><span class="n">grid_configure</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonDeleteCriterion</span><span class="o">.</span><span class="n">grid_configure</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.shiftLeft">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.shiftLeft">[docs]</a>
+    <span class="k">def</span> <span class="nf">shiftLeft</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shift left buttons add and delete criterion and update col</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAddCriterion</span><span class="o">.</span><span class="n">grid_configure</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonDeleteCriterion</span><span class="o">.</span><span class="n">grid_configure</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.shiftUp">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.shiftUp">[docs]</a>
+    <span class="k">def</span> <span class="nf">shiftUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shift up buttons add and delete unit and update row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAddUnit</span><span class="o">.</span><span class="n">grid_configure</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonDeleteUnit</span><span class="o">.</span><span class="n">grid_configure</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.shiftDown">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.shiftDown">[docs]</a>
+    <span class="k">def</span> <span class="nf">shiftDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shift down buttons add and delete unit and update row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAddUnit</span><span class="o">.</span><span class="n">grid_configure</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonDeleteUnit</span><span class="o">.</span><span class="n">grid_configure</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.addUnit">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.addUnit">[docs]</a>
+    <span class="k">def</span> <span class="nf">addUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle click on buttonAddUnit</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">addUnitRow</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.deleteCriterion">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.deleteCriterion">[docs]</a>
+    <span class="k">def</span> <span class="nf">deleteCriterion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle click on buttonDeleteCriterion</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">deleteCriterion</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="DataTabView.deleteUnit">
+<a class="viewcode-back" href="../../../Views.DataTabViews.html#Views.DataTabViews.DataTabView.DataTabView.deleteUnit">[docs]</a>
+    <span class="k">def</span> <span class="nf">deleteUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle click on buttonDeleteUnit</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">deleteUnit</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">PROMETHEE Gamma GUI app</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">src</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Luka BONHEURE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
