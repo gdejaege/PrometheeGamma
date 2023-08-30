@@ -1,0 +1,5 @@
+A built-in preference learning module available in the "Help for Parameters" tab.
+This module implements an algorithm for determining value ranges for the 3 parameters specific to the PROMETHEE gamma method, based on a small number of peer comparisons to be evaluated by the user.
+The maximum number of comparisons is 10 (or less if the number of available alternatives does not allow 10 different comparisons).
+Comparisons are selected at random.
+The user can choose to evaluate fewer than 10 comparisons, by clicking on the "confirm" button instead of the "next" button.
