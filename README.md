@@ -5,6 +5,12 @@ The aim of this project is the realization of a GUI application allowing to visu
 This application applies the PROMETHEE γ method, developed in the article by Gilles DEJAEGERE and Yves DE SMET: "Promethee γ: a new Promethee based method for partial ranking based on valued coalitions of monocriterion net flow scores" (https://doi.org/10.1002/mcda.1805). <br/>
 It displays the results in 3 different ways, as a matrix, as an orthogonal graph and as a ranking, while allowing the impact of the 3 parameters specific to the method to be visualized. The application also offers help in determining these 3 parameters, thanks to a small number of peer comparisons evaluated by the user.
 
+
+## Documentation
+
+You can find the html documentation in "./Docs/build/html". Please, open the index.html file in your browser to access to the documentation. <br/>
+
+
 ## Poetry
 
 The Python packaging and dependency management software poetry (https://python-poetry.org/) is used in this project. <br/>
