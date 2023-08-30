@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>promethee_gamma_gui.Views.DataTabViews.UnitRow &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=039e1c02" />
+    <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for promethee_gamma_gui.Views.DataTabViews.UnitRow</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="p">(</span><span class="n">CTkEntry</span><span class="p">,</span> <span class="n">DoubleVar</span><span class="p">)</span>
+
+<span class="c1">#from Models.DataTabModels.Alternative import Alternative</span>
+<span class="kn">from</span> <span class="nn">...Models.DataTabModels.Alternative</span> <span class="kn">import</span> <span class="n">Alternative</span>
+
+
+<div class="viewcode-block" id="UnitRow">
+<a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.UnitRow.UnitRow">[docs]</a>
+<span class="k">class</span> <span class="nc">UnitRow</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to display the row of a unit (an alternative)</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    master : CTkFrame</span>
+<span class="sd">        the master frame</span>
+<span class="sd">    row : int</span>
+<span class="sd">        the row for grid coordinate of the UnitRow</span>
+<span class="sd">    col : int</span>
+<span class="sd">        the column for grid coordinate of the UnitRow</span>
+<span class="sd">    alternative : Alternative</span>
+<span class="sd">        the alternative of which it is the row</span>
+<span class="sd">    nameEntry : CTkEntry</span>
+<span class="sd">        the entry to modify the altenative name</span>
+<span class="sd">    valuesEntries : list[CTkEntry]</span>
+<span class="sd">        a list that will contain all entries to modify evaluations of the altenative</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">alternative</span><span class="p">:</span><span class="n">Alternative</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the master frame</span>
+<span class="sd">        row : int</span>
+<span class="sd">            the row for grid coordinate of the UnitRow</span>
+<span class="sd">        col : int</span>
+<span class="sd">            the column for grid coordinate of the UnitRow</span>
+<span class="sd">        alternative : Alternative</span>
+<span class="sd">            the alternative of which it is the row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">=</span><span class="n">master</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row</span> <span class="o">=</span> <span class="n">row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="n">col</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alternative</span> <span class="o">=</span> <span class="n">alternative</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nameEntry</span> <span class="o">=</span> <span class="n">CTkEntry</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">alternative</span><span class="o">.</span><span class="n">getName</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valueEntries</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">alternative</span><span class="o">.</span><span class="n">getSize</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valueEntries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CTkEntry</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">alternative</span><span class="o">.</span><span class="n">getEvaluation</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">))</span>
+
+    
+<div class="viewcode-block" id="UnitRow.show">
+<a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.UnitRow.UnitRow.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nameEntry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;e&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alternative</span><span class="o">.</span><span class="n">getSize</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valueEntries</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span></div>
+
+
+    
+<div class="viewcode-block" id="UnitRow.add_column">
+<a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.UnitRow.UnitRow.add_column">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="n">DoubleVar</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a column to the row</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : DoubleVar</span>
+<span class="sd">            The value to add in the last column</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valueEntries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CTkEntry</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valueEntries</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="UnitRow.destroy">
+<a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.UnitRow.UnitRow.destroy">[docs]</a>
+    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Destroy the row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nameEntry</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueEntries</span><span class="p">:</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="UnitRow.del_column">
+<a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.UnitRow.UnitRow.del_column">[docs]</a>
+    <span class="k">def</span> <span class="nf">del_column</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Destroy the last column of the row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valueEntries</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valueEntries</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">-=</span> <span class="mi">1</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">PROMETHEE Gamma GUI app</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">src</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Luka BONHEURE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

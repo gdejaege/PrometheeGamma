@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css?v=039e1c02" />
+    <script src="../../../../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
+<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_tkagg</span> <span class="kn">import</span> <span class="p">(</span><span class="n">FigureCanvasTkAgg</span><span class="p">,</span> <span class="n">NavigationToolbar2Tk</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="OrthogonalGraphView">
+<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView.OrthogonalGraphView">[docs]</a>
+<span class="k">class</span> <span class="nc">OrthogonalGraphView</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to display the orthogonal graph of results of PROMETHEE Gamma method</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    master : CTKFrame</span>
+<span class="sd">        the master frame</span>
+<span class="sd">    fig : Figure</span>
+<span class="sd">        the matplotlib figure that will contain the orthogonal graph</span>
+<span class="sd">    canvasOgraph : FigureCanvasTkAgg</span>
+<span class="sd">        the canvas container that will contain the figure</span>
+<span class="sd">    toolbar : NavigationToolbar2Tk</span>
+<span class="sd">        the matplotlib navigation toolbar</span>
+<span class="sd">    xb : list</span>
+<span class="sd">        the list of x coordinates of blue points</span>
+<span class="sd">    xg : list</span>
+<span class="sd">        the list of x coordinates of green points</span>
+<span class="sd">    xr : list</span>
+<span class="sd">        the list of x coordinates of red points</span>
+<span class="sd">    yb : list</span>
+<span class="sd">        the list of y coordinates of blue points</span>
+<span class="sd">    yg : list</span>
+<span class="sd">        the list of y coordinates of green points</span>
+<span class="sd">    yr : list</span>
+<span class="sd">        the list of y coordinates of red points</span>
+<span class="sd">    matrixGamma : list</span>
+<span class="sd">        the matrix gamma of PROMETHEE Gamma method</span>
+<span class="sd">    matrixResults : list</span>
+<span class="sd">        the result matrix of PROMETHEE Gamma method</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">mGamma</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">mResults</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the master frame</span>
+<span class="sd">        mGamma : list</span>
+<span class="sd">            the matrix gamma of PROMETHEE Gamma method</span>
+<span class="sd">        mResults : list</span>
+<span class="sd">            the result matrix of PROMETHEE Gamma method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="n">master</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvasOgraph</span> <span class="o">=</span> <span class="n">FigureCanvasTkAgg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span> <span class="o">=</span> <span class="n">NavigationToolbar2Tk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvasOgraph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="n">pack_toolbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xb</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xg</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xr</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yb</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yg</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yr</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span> <span class="o">=</span> <span class="n">mGamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matrixResults</span> <span class="o">=</span> <span class="n">mResults</span>
+
+    
+<div class="viewcode-block" id="OrthogonalGraphView.show">
+<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView.OrthogonalGraphView.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the view</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvasOgraph</span><span class="o">.</span><span class="n">get_tk_widget</span><span class="p">()</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">makePoints</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">makeGraph</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvasOgraph</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
+        
+
+<div class="viewcode-block" id="OrthogonalGraphView.reshresh">
+<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView.OrthogonalGraphView.reshresh">[docs]</a>
+    <span class="k">def</span> <span class="nf">reshresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mGamma</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">mResults</span><span class="p">:</span><span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresh the view</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mGamma : list</span>
+<span class="sd">            the matrix gamma of PROMETHEE Gamma method</span>
+<span class="sd">        mResults : list</span>
+<span class="sd">            the result matrix of PROMETHEE Gamma method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span> <span class="o">=</span> <span class="n">mGamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matrixResults</span> <span class="o">=</span> <span class="n">mResults</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">makePoints</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">makeGraph</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvasOgraph</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
+
+        
+<div class="viewcode-block" id="OrthogonalGraphView.makePoints">
+<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView.OrthogonalGraphView.makePoints">[docs]</a>
+    <span class="k">def</span> <span class="nf">makePoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make the list of points coordinates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clearList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixResults</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">xb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">yb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">elif</span><span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixResults</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">xg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">yg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">elif</span><span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixResults</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;J&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">xr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">yr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">])</span></div>
+
+
+    
+<div class="viewcode-block" id="OrthogonalGraphView.makeGraph">
+<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView.OrthogonalGraphView.makeGraph">[docs]</a>
+    <span class="k">def</span> <span class="nf">makeGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make the graph</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yg</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yr</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yb</span><span class="p">,</span> <span class="s1">&#39;bo&#39;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;γij&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;γji&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+
+        <span class="n">redPoints</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Circle</span><span class="p">([],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Incomparability&quot;</span><span class="p">)</span>
+        <span class="n">bluePoints</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Circle</span><span class="p">([],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Preference&quot;</span><span class="p">)</span>
+        <span class="n">greenPoints</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Circle</span><span class="p">([],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Indifference&quot;</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">redPoints</span><span class="p">,</span> <span class="n">bluePoints</span><span class="p">,</span> <span class="n">greenPoints</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="OrthogonalGraphView.clearList">
+<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView.OrthogonalGraphView.clearList">[docs]</a>
+    <span class="k">def</span> <span class="nf">clearList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear the lists xb, xg, xr, yb, yg and yr</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xb</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xg</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xr</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yb</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yg</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yr</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="OrthogonalGraphView.save">
+<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.OrthogonalGraphView.OrthogonalGraphView.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the graph</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            the name of the save file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../index.html">PROMETHEE Gamma GUI app</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">src</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Luka BONHEURE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
