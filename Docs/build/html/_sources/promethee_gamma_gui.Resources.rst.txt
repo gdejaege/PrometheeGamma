@@ -12,6 +12,14 @@ Subpackages
 Submodules
 ----------
 
+promethee\_gamma\_gui.Resources.Lock module
+-------------------------------------------
+
+.. automodule:: promethee_gamma_gui.Resources.Lock
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 promethee\_gamma\_gui.Resources.Menu module
 -------------------------------------------
 
