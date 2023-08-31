@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=039e1c02" />
-    <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
    
@@ -44,9 +44,7 @@
 <span class="kn">from</span> <span class="nn">..PrometheeGamma</span> <span class="kn">import</span> <span class="n">PrometheeGamma</span>
 
 
-<div class="viewcode-block" id="PreferenceLearning">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning">[docs]</a>
-<span class="k">class</span> <span class="nc">PreferenceLearning</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceLearning"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning">[docs]</a><span class="k">class</span> <span class="nc">PreferenceLearning</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to implement a preference learning algorithm</span>
 
@@ -90,9 +88,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">search</span> <span class="o">=</span> <span class="n">ItSearch</span><span class="p">()</span>
 
     
-<div class="viewcode-block" id="PreferenceLearning.setAlternatives">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.setAlternatives">[docs]</a>
-    <span class="k">def</span> <span class="nf">setAlternatives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alternatives</span><span class="p">:</span><span class="nb">list</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferenceLearning.setAlternatives"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.setAlternatives">[docs]</a>    <span class="k">def</span> <span class="nf">setAlternatives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alternatives</span><span class="p">:</span><span class="nb">list</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the alternatives list</span>
 
 <span class="sd">        Parameters</span>
@@ -103,10 +99,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span> <span class="o">=</span> <span class="n">alternatives</span></div>
 
 
-
-<div class="viewcode-block" id="PreferenceLearning.selectFirstQuestion">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.selectFirstQuestion">[docs]</a>
-    <span class="k">def</span> <span class="nf">selectFirstQuestion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferenceLearning.selectFirstQuestion"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.selectFirstQuestion">[docs]</a>    <span class="k">def</span> <span class="nf">selectFirstQuestion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Select the first peer comparison at random</span>
 
 <span class="sd">        Returns</span>
@@ -126,12 +119,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">questions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itSearch</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">question</span></div>
-
     
 
-<div class="viewcode-block" id="PreferenceLearning.selectNextQuestion">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.selectNextQuestion">[docs]</a>
-    <span class="k">def</span> <span class="nf">selectNextQuestion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferenceLearning.selectNextQuestion"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.selectNextQuestion">[docs]</a>    <span class="k">def</span> <span class="nf">selectNextQuestion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Select a non already selected peer comparison at random</span>
 
 <span class="sd">        Returns</span>
@@ -149,12 +139,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">questions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itSearch</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">question</span></div>
-
     
 
-<div class="viewcode-block" id="PreferenceLearning.itSearch">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.itSearch">[docs]</a>
-    <span class="k">def</span> <span class="nf">itSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rst</span><span class="p">:</span><span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceLearning.itSearch"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.itSearch">[docs]</a>    <span class="k">def</span> <span class="nf">itSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rst</span><span class="p">:</span><span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make an iteration of iterative search or or restart the whole search if rst is True</span>
 
 <span class="sd">        Parameters</span>
@@ -172,12 +159,9 @@
             <span class="p">(</span><span class="n">rI</span><span class="p">,</span> <span class="n">rJ</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">computeRangeOfThresholdsForOneQuestion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">questions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">addPair</span><span class="p">(</span><span class="n">rI</span><span class="p">,</span> <span class="n">rJ</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
-
     
 
-<div class="viewcode-block" id="PreferenceLearning.getResults">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.getResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">getResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferenceLearning.getResults"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.getResults">[docs]</a>    <span class="k">def</span> <span class="nf">getResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the results of the search</span>
 
 <span class="sd">        Returns</span>
@@ -186,12 +170,9 @@
 <span class="sd">            the results of the search, i.e. (Imin, Imax, Jmin, Jmax, Pmin, Pmax)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">getState</span><span class="p">()</span></div>
-
     
 
-<div class="viewcode-block" id="PreferenceLearning.computeRangeOfThresholdsForOneQuestion">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.computeRangeOfThresholdsForOneQuestion">[docs]</a>
-    <span class="k">def</span> <span class="nf">computeRangeOfThresholdsForOneQuestion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span><span class="nb">tuple</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferenceLearning.computeRangeOfThresholdsForOneQuestion"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.computeRangeOfThresholdsForOneQuestion">[docs]</a>    <span class="k">def</span> <span class="nf">computeRangeOfThresholdsForOneQuestion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span><span class="nb">tuple</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute a range of possible thresholds for one peer comparison</span>
 
 <span class="sd">        Parameters</span>
@@ -227,9 +208,7 @@
             <span class="n">rJ</span> <span class="o">=</span> <span class="n">RangeJ</span><span class="p">(</span><span class="n">xJ</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Pmax</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">)</span>
             <span class="n">rI</span> <span class="o">=</span> <span class="n">rJ</span>
             <span class="c1"># !!! J &lt;= [Jmin, Jmax] ; I &lt;= J</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">rI</span><span class="p">,</span> <span class="n">rJ</span><span class="p">,</span> <span class="n">preference</span><span class="p">)</span></div>
-</div>
-
+        <span class="k">return</span> <span class="p">(</span><span class="n">rI</span><span class="p">,</span> <span class="n">rJ</span><span class="p">,</span> <span class="n">preference</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>
@@ -288,7 +267,7 @@
       &copy;2023, Luka BONHEURE.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
     </div>

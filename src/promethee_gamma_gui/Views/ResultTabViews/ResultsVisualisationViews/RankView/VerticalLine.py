@@ -4,8 +4,6 @@ from matplotlib.patches import Arc
 import numpy as np
 from math import atan, degrees
 
-#from Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView import AlternativeView
-#from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 from .AlternativeView import AlternativeView
 from .....Resources.ThreadCommunication import Ticket, TicketPurpose
 
@@ -18,10 +16,8 @@ class VerticalLine:
         a representation of an alternative
     a2 : AlternativeView
         a representation of an alternative
-    x : list or None
-        the list of x coordinates of points between the 2 alternativeView
-    y : list or None
-        the list of y coordinates of points between the 2 alternativeView
+    sections : list of tuple
+        the sections of the lines. Each section can be a straight line or a circular arc. 
     """
 
     def __init__(self, a1:AlternativeView, a2:AlternativeView):
@@ -36,8 +32,6 @@ class VerticalLine:
         try:
             self.a1 = a1
             self.a2 = a2
-            #self.y = None
-            #self.x = None
             self.sections = []
         except SystemExit:
             raise SystemExit()

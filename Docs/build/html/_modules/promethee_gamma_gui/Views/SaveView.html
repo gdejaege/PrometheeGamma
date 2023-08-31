@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>promethee_gamma_gui.Views.SaveView &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=039e1c02" />
-    <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
    
@@ -36,9 +36,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<div class="viewcode-block" id="SaveView">
-<a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView">[docs]</a>
-<span class="k">class</span> <span class="nc">SaveView</span><span class="p">(</span><span class="n">CTkToplevel</span><span class="p">):</span>
+<div class="viewcode-block" id="SaveView"><a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView">[docs]</a><span class="k">class</span> <span class="nc">SaveView</span><span class="p">(</span><span class="n">CTkToplevel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to display a save window to allow to the user to select elements to save</span>
 
@@ -67,16 +65,12 @@
 <span class="sd">        a button to cancel save and quit the save view</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SaveView.Listener">
-<a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.Listener">[docs]</a>
-    <span class="k">class</span> <span class="nc">Listener</span><span class="p">:</span>
+<div class="viewcode-block" id="SaveView.Listener"><a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.Listener">[docs]</a>    <span class="k">class</span> <span class="nc">Listener</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        An interface for the listener of this class</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SaveView.Listener.saveInDirectory">
-<a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.Listener.saveInDirectory">[docs]</a>
-        <span class="k">def</span> <span class="nf">saveInDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">view</span><span class="p">:</span><span class="n">CTkToplevel</span><span class="p">):</span>
+<div class="viewcode-block" id="SaveView.Listener.saveInDirectory"><a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.Listener.saveInDirectory">[docs]</a>        <span class="k">def</span> <span class="nf">saveInDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">view</span><span class="p">:</span><span class="n">CTkToplevel</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;Save the project in a new directory of name &quot;name&quot; located in &quot;directory&quot;</span>
 
 <span class="sd">            Parameters</span>
@@ -88,9 +82,7 @@
 <span class="sd">            view : SaveView, a CTkTopLevel</span>
 <span class="sd">                the save view</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">pass</span></div>
-</div>
-
+            <span class="k">pass</span></div></div>
 
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">saveDict</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="n">parentDirectory</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">fg_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -119,9 +111,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">listener</span> <span class="o">=</span> <span class="kc">None</span>
 
 
-<div class="viewcode-block" id="SaveView.setListener">
-<a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.setListener">[docs]</a>
-    <span class="k">def</span> <span class="nf">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">Listener</span><span class="p">):</span>
+<div class="viewcode-block" id="SaveView.setListener"><a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.setListener">[docs]</a>    <span class="k">def</span> <span class="nf">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">Listener</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the listener</span>
 
 <span class="sd">        Parameters</span>
@@ -132,10 +122,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">listener</span> <span class="o">=</span> <span class="n">l</span></div>
 
 
-
-<div class="viewcode-block" id="SaveView.show">
-<a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.show">[docs]</a>
-    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SaveView.show"><a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the view</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -157,10 +144,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cancelButton</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">r</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span></div>
 
 
-
-<div class="viewcode-block" id="SaveView.selectDirectory">
-<a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.selectDirectory">[docs]</a>
-    <span class="k">def</span> <span class="nf">selectDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SaveView.selectDirectory"><a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.selectDirectory">[docs]</a>    <span class="k">def</span> <span class="nf">selectDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Select a save directory</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;../Projects&quot;</span><span class="p">):</span>
@@ -169,10 +153,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="SaveView.save">
-<a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SaveView.save"><a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle click on save button</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
@@ -184,17 +165,12 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">saveInDirectory</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div>
 
-
     
-<div class="viewcode-block" id="SaveView.cancel">
-<a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.cancel">[docs]</a>
-    <span class="k">def</span> <span class="nf">cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SaveView.cancel"><a class="viewcode-back" href="../../../promethee_gamma_gui.Views.html#promethee_gamma_gui.Views.SaveView.SaveView.cancel">[docs]</a>    <span class="k">def</span> <span class="nf">cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle click on cancel button</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Warning&quot;</span><span class="p">,</span> <span class="s2">&quot;The project was not saved.&quot;</span><span class="p">)</span></div>
-</div>
-
+        <span class="n">msg</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Warning&quot;</span><span class="p">,</span> <span class="s2">&quot;The project was not saved.&quot;</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>
@@ -253,7 +229,7 @@
       &copy;2023, Luka BONHEURE.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
     </div>

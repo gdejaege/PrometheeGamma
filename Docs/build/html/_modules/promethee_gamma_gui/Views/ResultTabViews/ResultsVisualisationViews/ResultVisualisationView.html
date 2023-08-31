@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css?v=039e1c02" />
-    <script src="../../../../../_static/documentation_options.js?v=2709fde1"></script>
-    <script src="../../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/alabaster.css" />
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
    
@@ -32,9 +32,7 @@
 <span></span><span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">CTkTabview</span>
 
 
-<div class="viewcode-block" id="ResultVisualisationView">
-<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView">[docs]</a>
-<span class="k">class</span> <span class="nc">ResultVisualisationView</span><span class="p">:</span>
+<div class="viewcode-block" id="ResultVisualisationView"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView">[docs]</a><span class="k">class</span> <span class="nc">ResultVisualisationView</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to visualise the results of PROMETHEE Gamma method</span>
 
@@ -64,18 +62,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">rankGraphTab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Ranking&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ResultVisualisationView.show">
-<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.show">[docs]</a>
-    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ResultVisualisationView.show"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the main frame</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">relx</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">relwidth</span><span class="o">=</span><span class="mf">0.96</span><span class="p">,</span> <span class="n">relheight</span><span class="o">=</span><span class="mf">0.96</span><span class="p">,</span> <span class="n">bordermode</span><span class="o">=</span><span class="s1">&#39;inside&#39;</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="ResultVisualisationView.getTextBoxMaster">
-<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.getTextBoxMaster">[docs]</a>
-    <span class="k">def</span> <span class="nf">getTextBoxMaster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ResultVisualisationView.getTextBoxMaster"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.getTextBoxMaster">[docs]</a>    <span class="k">def</span> <span class="nf">getTextBoxMaster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the master frame of textbox tab</span>
 
 <span class="sd">        Returns</span>
@@ -84,12 +77,9 @@
 <span class="sd">            the master frame of textbox tab</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">textboxTab</span></div>
-
     
 
-<div class="viewcode-block" id="ResultVisualisationView.getOrthogonalGraphMaster">
-<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.getOrthogonalGraphMaster">[docs]</a>
-    <span class="k">def</span> <span class="nf">getOrthogonalGraphMaster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ResultVisualisationView.getOrthogonalGraphMaster"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.getOrthogonalGraphMaster">[docs]</a>    <span class="k">def</span> <span class="nf">getOrthogonalGraphMaster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the master frame of orthogonal graph tab</span>
 
 <span class="sd">        Returns</span>
@@ -98,12 +88,9 @@
 <span class="sd">            the master frame of orthogonal graph tab</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ographTab</span></div>
-
     
 
-<div class="viewcode-block" id="ResultVisualisationView.getRankGraphMaster">
-<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.getRankGraphMaster">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRankGraphMaster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ResultVisualisationView.getRankGraphMaster"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.getRankGraphMaster">[docs]</a>    <span class="k">def</span> <span class="nf">getRankGraphMaster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the master frame of rank graph tab</span>
 
 <span class="sd">        Returns</span>
@@ -112,17 +99,12 @@
 <span class="sd">            the master frame of rank graph tab</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rankGraphTab</span></div>
-
     
 
-<div class="viewcode-block" id="ResultVisualisationView.destroy">
-<a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.destroy">[docs]</a>
-    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ResultVisualisationView.destroy"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView.ResultVisualisationView.destroy">[docs]</a>    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Destroy the result visualisation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
-</div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div></div>
 </pre></div>
 
           </div>
@@ -181,7 +163,7 @@
       &copy;2023, Luka BONHEURE.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
     </div>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>promethee_gamma_gui.Models.DataTabModels.PreferenceFunction &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=039e1c02" />
-    <script src="../../../../_static/documentation_options.js?v=2709fde1"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
    
@@ -32,9 +32,7 @@
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="p">(</span><span class="n">IntVar</span><span class="p">,</span> <span class="n">DoubleVar</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PreferenceFunction">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction">[docs]</a>
-<span class="k">class</span> <span class="nc">PreferenceFunction</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceFunction"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction">[docs]</a><span class="k">class</span> <span class="nc">PreferenceFunction</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represent the preference funtion used by the Promethee Gamma method</span>
 
@@ -66,9 +64,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">qc</span> <span class="o">=</span> <span class="n">q</span>
 
 
-<div class="viewcode-block" id="PreferenceFunction.getP">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getP">[docs]</a>
-    <span class="k">def</span> <span class="nf">getP</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DoubleVar</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceFunction.getP"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getP">[docs]</a>    <span class="k">def</span> <span class="nf">getP</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DoubleVar</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the preference threshold in a DoubleVar object</span>
 
 <span class="sd">        Returns</span>
@@ -77,12 +73,9 @@
 <span class="sd">            the preference threshold in the preference function (in a DoubleVar)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pc</span></div>
-
     
 
-<div class="viewcode-block" id="PreferenceFunction.getP_float">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getP_float">[docs]</a>
-    <span class="k">def</span> <span class="nf">getP_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceFunction.getP_float"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getP_float">[docs]</a>    <span class="k">def</span> <span class="nf">getP_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the preference threshold</span>
 
 <span class="sd">        Returns</span>
@@ -91,12 +84,9 @@
 <span class="sd">            the preference threshold in the preference function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pc</span><span class="o">.</span><span class="n">get</span><span class="p">()</span></div>
-
     
 
-<div class="viewcode-block" id="PreferenceFunction.getQ">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getQ">[docs]</a>
-    <span class="k">def</span> <span class="nf">getQ</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferenceFunction.getQ"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getQ">[docs]</a>    <span class="k">def</span> <span class="nf">getQ</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the indifference threshold in a DoubleVar object</span>
 
 <span class="sd">        Returns</span>
@@ -105,12 +95,9 @@
 <span class="sd">            the indifference threshold in the preference function (in a DoubleVar)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qc</span></div>
-
     
 
-<div class="viewcode-block" id="PreferenceFunction.getQ_float">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getQ_float">[docs]</a>
-    <span class="k">def</span> <span class="nf">getQ_float</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferenceFunction.getQ_float"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getQ_float">[docs]</a>    <span class="k">def</span> <span class="nf">getQ_float</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the indifference threshold</span>
 
 <span class="sd">        Returns</span>
@@ -119,12 +106,9 @@
 <span class="sd">            the indifference threshold in the preference function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qc</span><span class="o">.</span><span class="n">get</span><span class="p">()</span></div>
-
     
 
-<div class="viewcode-block" id="PreferenceFunction.getType">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getType">[docs]</a>
-    <span class="k">def</span> <span class="nf">getType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferenceFunction.getType"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getType">[docs]</a>    <span class="k">def</span> <span class="nf">getType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the type of the preference function in an IntVar object</span>
 
 <span class="sd">        Returns</span>
@@ -135,10 +119,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span></div>
 
 
-
-<div class="viewcode-block" id="PreferenceFunction.getType_int">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getType_int">[docs]</a>
-    <span class="k">def</span> <span class="nf">getType_int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceFunction.getType_int"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.getType_int">[docs]</a>    <span class="k">def</span> <span class="nf">getType_int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the type of the preference function</span>
 
 <span class="sd">        Returns</span>
@@ -149,10 +130,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">get</span><span class="p">()</span></div>
 
 
-
-<div class="viewcode-block" id="PreferenceFunction.set_type">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.set_type">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_type</span><span class="p">:</span><span class="n">IntVar</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span><span class="n">DoubleVar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span><span class="n">DoubleVar</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceFunction.set_type"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.set_type">[docs]</a>    <span class="k">def</span> <span class="nf">set_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_type</span><span class="p">:</span><span class="n">IntVar</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span><span class="n">DoubleVar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span><span class="n">DoubleVar</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the function</span>
 
 <span class="sd">        Parameters</span>
@@ -169,10 +147,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">qc</span> <span class="o">=</span> <span class="n">q</span></div>
 
 
-
-<div class="viewcode-block" id="PreferenceFunction.set_qc">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.set_qc">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_qc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_qc</span><span class="p">:</span><span class="n">DoubleVar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceFunction.set_qc"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.set_qc">[docs]</a>    <span class="k">def</span> <span class="nf">set_qc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_qc</span><span class="p">:</span><span class="n">DoubleVar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the indifference parameter</span>
 
 <span class="sd">        Parameters</span>
@@ -183,10 +158,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">qc</span> <span class="o">=</span> <span class="n">new_qc</span></div>
 
 
-
-<div class="viewcode-block" id="PreferenceFunction.set_pc">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.set_pc">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_pc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_pc</span><span class="p">:</span><span class="n">DoubleVar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceFunction.set_pc"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.set_pc">[docs]</a>    <span class="k">def</span> <span class="nf">set_pc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_pc</span><span class="p">:</span><span class="n">DoubleVar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the preference parameter</span>
 
 <span class="sd">        Parameters</span>
@@ -197,10 +169,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pc</span> <span class="o">=</span> <span class="n">new_pc</span></div>
 
 
-
-<div class="viewcode-block" id="PreferenceFunction.compute_preference">
-<a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.compute_preference">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_preference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="PreferenceFunction.compute_preference"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.PreferenceFunction.PreferenceFunction.compute_preference">[docs]</a>    <span class="k">def</span> <span class="nf">compute_preference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the preference value</span>
 
 <span class="sd">        Parameters</span>
@@ -242,9 +211,7 @@
         <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span> <span class="c1"># Gaussian</span>
             <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">preference</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">value</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">preference</span></div>
-</div>
-
+        <span class="k">return</span> <span class="n">preference</span></div></div>
 </pre></div>
 
           </div>
@@ -303,7 +270,7 @@
       &copy;2023, Luka BONHEURE.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
     </div>
