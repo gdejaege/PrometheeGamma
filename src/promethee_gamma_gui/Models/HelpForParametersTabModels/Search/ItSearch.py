@@ -6,7 +6,7 @@ from math import sqrt
 from ..Range import RangeI, RangeJ
 
 INFINITY = maxsize
-"""The infinity (in the computer meaning)"""
+"""The infinity (in computer terms)"""
 
 
 class ItSearch:

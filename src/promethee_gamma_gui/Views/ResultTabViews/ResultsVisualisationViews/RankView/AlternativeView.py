@@ -62,6 +62,10 @@ class AlternativeView:
             the radius of the circle that represents the alternative
         """
         return self.radius
+    
+
+    def getBigRaius(self):
+        return self.radius + self.lineSpace
 
 
     def getXY(self):

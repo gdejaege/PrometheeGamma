@@ -3,7 +3,7 @@ from customtkinter import (CTkLabel, DoubleVar, CTkEntry, CTkSlider, StringVar, 
 
 
 INFINITY = maxsize
-"""The infinity (in the computer meaning)"""
+"""The infinity (in computer terms)"""
 
 class ResultTabView:
     """
