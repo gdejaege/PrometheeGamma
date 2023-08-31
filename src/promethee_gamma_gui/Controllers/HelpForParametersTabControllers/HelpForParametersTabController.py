@@ -1,18 +1,10 @@
-"""
-from Controllers.HelpForParametersTabControllers.PreferenceLearningController import PreferenceLearningController
-from Custom.CustomController import CustomController
-from Views.HelpForParametersTabViews.HelpForParametersTabView import HelpForParametersTabView
-from Models.DataTabModels.DataTabModel import DataTabModel
-from Models.PrometheeGamma import PrometheeGamma
-"""
 from .PreferenceLearningController import PreferenceLearningController
 from ...Custom import CustomController
 from ...Views.HelpForParametersTabViews.HelpForParametersTabView import HelpForParametersTabView
 from ...Models.DataTabModels.DataTabModel import DataTabModel
 from ...Models.PrometheeGamma import PrometheeGamma
-#from Custom import CustomController
-#from Views import HelpForParametersTabView
-#from Models import DataTabModel, PrometheeGamma
+from ...Resources.Lock import Lock
+
 
 class HelpForParametersTabController(HelpForParametersTabView.ViewListener, PreferenceLearningController.Listener, CustomController.Listener):
     """
@@ -32,15 +24,13 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener, Pref
         the controller that controls the custom module. This is a sub controller of this class
     listerer : HelpForParametersTabController.Listener
         the listener of this class
-
+    lock : Lock
+        a lock to synchronizes different parts of the app
     """
     
     class Listener:
         """
         An interface for the listener of this class
-
-        Methods
-        -------
         """
 
         def applyResultsOfHelp(self, results):
@@ -54,7 +44,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener, Pref
             pass
 
 
-    def __init__(self, master, dataTabModel:DataTabModel, prometheeGamma:PrometheeGamma) -> None:
+    def __init__(self, master, dataTabModel:DataTabModel, prometheeGamma:PrometheeGamma, lock:Lock) -> None:
         """
         Parameters
         ----------
@@ -72,6 +62,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener, Pref
         self.preferenceLearningController = None
         self.customController = None
         self.listener = None
+        self.lock = lock
 
 
     def setListener(self, l:Listener):
@@ -96,7 +87,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener, Pref
         """
         self.helpForParametersTabView.hide()
         master = self.helpForParametersTabView.getMaster()
-        self.preferenceLearningController = PreferenceLearningController(master, self.dataTabModel, self.prometheeGamma)
+        self.preferenceLearningController = PreferenceLearningController(master, self.dataTabModel, self.prometheeGamma, self.lock)
         self.preferenceLearningController.setListener(self)
         self.preferenceLearningController.showView()
 

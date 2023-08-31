@@ -35,12 +35,8 @@
 <span class="kn">from</span> <span class="nn">...Models.DataTabModels.DataTabModel</span> <span class="kn">import</span> <span class="n">DataTabModel</span>
 <span class="kn">from</span> <span class="nn">...Views.DataTabViews</span> <span class="kn">import</span> <span class="n">DataTabView</span><span class="p">,</span> <span class="n">CriterionColumn</span><span class="p">,</span> <span class="n">UnitRow</span>
 <span class="kn">from</span> <span class="nn">...Resources.Reader</span> <span class="kn">import</span> <span class="n">Reader</span>
+<span class="kn">from</span> <span class="nn">...Resources.Lock</span> <span class="kn">import</span> <span class="n">Lock</span>
 
-<span class="c1">#from Models.DataTabModels.DataTabModel import DataTabModel</span>
-<span class="c1">#from Views.DataTabViews.DataTabView import DataTabView</span>
-<span class="c1">#from Views.DataTabViews.CriterionColumn import CriterionColumn</span>
-<span class="c1">#from Views.DataTabViews.UnitRow import UnitRow</span>
-<span class="c1">#from Resources.Reader import Reader</span>
 
 <div class="viewcode-block" id="DataTabController"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.DataTabControllers.html#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController">[docs]</a><span class="k">class</span> <span class="nc">DataTabController</span><span class="p">(</span><span class="n">DataTabView</span><span class="o">.</span><span class="n">ViewListener</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -58,10 +54,11 @@
 <span class="sd">        the list that will contain all criterion column</span>
 <span class="sd">    unitsRows : list[UnitRow]</span>
 <span class="sd">        the list that will contain all unit row</span>
-
+<span class="sd">    lock : Lock</span>
+<span class="sd">        a lock to synchronizes different parts of the app</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">lock</span><span class="p">:</span><span class="n">Lock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -71,11 +68,12 @@
 <span class="sd">            the root window</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span> <span class="o">=</span> <span class="n">DataTabModel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span> <span class="o">=</span> <span class="n">DataTabModel</span><span class="p">(</span><span class="n">lock</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span> <span class="o">=</span> <span class="n">DataTabView</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">lock</span>
 
 
 <div class="viewcode-block" id="DataTabController.showView"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.DataTabControllers.html#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.showView">[docs]</a>    <span class="k">def</span> <span class="nf">showView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -139,7 +137,8 @@
             <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getAlternative</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
             <span class="n">ur</span> <span class="o">=</span> <span class="n">UnitRow</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
             <span class="n">ur</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ur</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ur</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="DataTabController.addCriterionColumn"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.DataTabControllers.html#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.addCriterionColumn">[docs]</a>    <span class="k">def</span> <span class="nf">addCriterionColumn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -160,7 +159,8 @@
         <span class="n">cc</span> <span class="o">=</span> <span class="n">CriterionColumn</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
         <span class="n">cc</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">addOneColumnToAllUnits</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addOneColumnToAllUnits</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">()</span></div>
 
     
 <div class="viewcode-block" id="DataTabController.deleteCriterion"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.DataTabControllers.html#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.deleteCriterion">[docs]</a>    <span class="k">def</span> <span class="nf">deleteCriterion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -171,7 +171,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">criteriaColums</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">deleteCriterion</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">shiftLeft</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">deleteOneColumnInAllUnits</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deleteOneColumnInAllUnits</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">()</span></div>
         
     
 <div class="viewcode-block" id="DataTabController.addUnitRow"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.DataTabControllers.html#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.addUnitRow">[docs]</a>    <span class="k">def</span> <span class="nf">addUnitRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -191,7 +192,8 @@
         <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">getAlternative</span><span class="p">()</span>
         <span class="n">ur</span> <span class="o">=</span> <span class="n">UnitRow</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
         <span class="n">ur</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ur</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ur</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="DataTabController.deleteUnit"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.DataTabControllers.html#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.deleteUnit">[docs]</a>    <span class="k">def</span> <span class="nf">deleteUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -201,7 +203,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">deleteAlternative</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">shiftUp</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dataTabView</span><span class="o">.</span><span class="n">shiftUp</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="DataTabController.addOneColumnToAllUnits"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.DataTabControllers.html#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.addOneColumnToAllUnits">[docs]</a>    <span class="k">def</span> <span class="nf">addOneColumnToAllUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -237,7 +240,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">deleteCriterion</span><span class="p">()</span>
         <span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unitsRows</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">deleteUnit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">clearAll</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="o">.</span><span class="n">clearAll</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="DataTabController.getModel"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.DataTabControllers.html#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.getModel">[docs]</a>    <span class="k">def</span> <span class="nf">getModel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataTabModel</span><span class="p">:</span>

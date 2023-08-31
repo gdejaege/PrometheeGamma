@@ -36,6 +36,7 @@
 <span class="kn">from</span> <span class="nn">...Models.HelpForParametersTabModels.preferenceLearning</span> <span class="kn">import</span> <span class="n">PreferenceLearning</span>
 <span class="kn">from</span> <span class="nn">...Models.DataTabModels.DataTabModel</span> <span class="kn">import</span> <span class="n">DataTabModel</span>
 <span class="kn">from</span> <span class="nn">...Models.PrometheeGamma</span> <span class="kn">import</span> <span class="n">PrometheeGamma</span>
+<span class="kn">from</span> <span class="nn">...Resources.Lock</span> <span class="kn">import</span> <span class="n">Lock</span>
 
 
 <span class="c1"># Constants</span>
@@ -60,7 +61,8 @@
 <span class="sd">        the list of questions asked of the user</span>
 <span class="sd">    listener : PreferenceLearningController.Listener</span>
 <span class="sd">        the listener of this class</span>
-
+<span class="sd">    lock : Lock</span>
+<span class="sd">        a lock to synchronizes different parts of the app</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PreferenceLearningController.Listener"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.HelpForParametersTabControllers.html#promethee_gamma_gui.Controllers.HelpForParametersTabControllers.PreferenceLearningController.PreferenceLearningController.Listener">[docs]</a>    <span class="k">class</span> <span class="nc">Listener</span><span class="p">:</span>
@@ -86,7 +88,7 @@
             <span class="k">pass</span></div></div>
 
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">dataTabModel</span><span class="p">:</span><span class="n">DataTabModel</span><span class="p">,</span> <span class="n">prometheeGamma</span><span class="p">:</span><span class="n">PrometheeGamma</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">dataTabModel</span><span class="p">:</span><span class="n">DataTabModel</span><span class="p">,</span> <span class="n">prometheeGamma</span><span class="p">:</span><span class="n">PrometheeGamma</span><span class="p">,</span> <span class="n">lock</span><span class="p">:</span><span class="n">Lock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -105,6 +107,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">questions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">listener</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">numberOfQuestions</span> <span class="o">=</span> <span class="n">MAX_NUMBER_OF_QUESTIONS</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">lock</span>
 
 
 <div class="viewcode-block" id="PreferenceLearningController.setListener"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.HelpForParametersTabControllers.html#promethee_gamma_gui.Controllers.HelpForParametersTabControllers.PreferenceLearningController.PreferenceLearningController.setListener">[docs]</a>    <span class="k">def</span> <span class="nf">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">Listener</span><span class="p">):</span>
@@ -207,10 +210,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate the questions. If it is not possible, show an error message to the user</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span><span class="o">.</span><span class="n">isComputed</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preferenceLearningView</span><span class="o">.</span><span class="n">resetResults</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preferenceLearningView</span><span class="o">.</span><span class="n">createQuestionsTab</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">questions</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selectFirstQuestion</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">isLocked</span><span class="p">():</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Synchronization error&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;The data was modified after the results were loaded. Please click on the &quot;Reload results&quot; button in the results tab.&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">preferenceLearningView</span><span class="o">.</span><span class="n">resetResults</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">preferenceLearningView</span><span class="o">.</span><span class="n">createQuestionsTab</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">questions</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">selectFirstQuestion</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">msg</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;No results&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;The results of the promethee gamma method are required for the algorithm. Please click on the &quot;Obtain results&quot; button in the &quot;result tab&quot;.&#39;</span><span class="p">)</span></div>
 

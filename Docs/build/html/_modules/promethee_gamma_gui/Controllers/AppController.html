@@ -35,17 +35,6 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">from Controllers.HelpController import HelpController</span>
-<span class="sd">from Controllers.DataTabControllers.DataTabController import DataTabController</span>
-<span class="sd">from Controllers.ResultTabControllers.ResultTabController import ResultTabController</span>
-<span class="sd">from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController</span>
-<span class="sd">from Models.PrometheeGamma import PrometheeGamma</span>
-<span class="sd">from Views.AppView import AppView</span>
-<span class="sd">from Views.SaveView import SaveView</span>
-<span class="sd">from Views.AboutView import AboutView</span>
-<span class="sd">from Resources.Reader import Reader</span>
-<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">.HelpController</span> <span class="kn">import</span> <span class="n">HelpController</span>
 <span class="kn">from</span> <span class="nn">.DataTabControllers.DataTabController</span> <span class="kn">import</span> <span class="n">DataTabController</span>
 <span class="kn">from</span> <span class="nn">.ResultTabControllers.ResultTabController</span> <span class="kn">import</span> <span class="n">ResultTabController</span>
@@ -53,6 +42,7 @@
 <span class="kn">from</span> <span class="nn">..Models.PrometheeGamma</span> <span class="kn">import</span> <span class="n">PrometheeGamma</span>
 <span class="kn">from</span> <span class="nn">..Views</span> <span class="kn">import</span> <span class="n">AppView</span><span class="p">,</span> <span class="n">SaveView</span><span class="p">,</span> <span class="n">AboutView</span>
 <span class="kn">from</span> <span class="nn">..Resources.Reader</span> <span class="kn">import</span> <span class="n">Reader</span>
+<span class="kn">from</span> <span class="nn">..Resources.Lock</span> <span class="kn">import</span> <span class="n">Lock</span>
 
 
 <div class="viewcode-block" id="AppController"><a class="viewcode-back" href="../../../promethee_gamma_gui.Controllers.html#promethee_gamma_gui.Controllers.AppController.AppController">[docs]</a><span class="k">class</span> <span class="nc">AppController</span><span class="p">(</span><span class="n">AppView</span><span class="o">.</span><span class="n">ViewListener</span><span class="p">,</span> <span class="n">SaveView</span><span class="o">.</span><span class="n">Listener</span><span class="p">,</span> <span class="n">ResultTabController</span><span class="o">.</span><span class="n">Listener</span><span class="p">,</span> <span class="n">HelpForParametersTabController</span><span class="o">.</span><span class="n">Listener</span><span class="p">):</span>
@@ -83,7 +73,8 @@
 <span class="sd">        the directory name in which to save project</span>
 <span class="sd">    helpController : HelpController</span>
 <span class="sd">        the controller of help menu</span>
-
+<span class="sd">    lock : Lock</span>
+<span class="sd">        a lock to synchronizes different parts of the app</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -101,6 +92,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">save_parentDirectory</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save_nameDirectory</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">helpController</span> <span class="o">=</span> <span class="n">HelpController</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="AppController.run"><a class="viewcode-back" href="../../../promethee_gamma_gui.Controllers.html#promethee_gamma_gui.Controllers.AppController.AppController.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -122,7 +114,7 @@
 <span class="sd">        master : CTkFrame</span>
 <span class="sd">            the master frame for the data tab</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabController</span> <span class="o">=</span> <span class="n">DataTabController</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">appView</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataTabController</span> <span class="o">=</span> <span class="n">DataTabController</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">appView</span><span class="p">,</span> <span class="n">lock</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataTabController</span><span class="o">.</span><span class="n">showView</span><span class="p">()</span></div>
 
 
@@ -148,7 +140,7 @@
 <span class="sd">            the master frame for the helpForParameters tab</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dataTabModel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabController</span><span class="o">.</span><span class="n">getModel</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">helpForParametersTabController</span> <span class="o">=</span> <span class="n">HelpForParametersTabController</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">dataTabModel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">helpForParametersTabController</span> <span class="o">=</span> <span class="n">HelpForParametersTabController</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">dataTabModel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span><span class="p">,</span> <span class="n">lock</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">helpForParametersTabController</span><span class="o">.</span><span class="n">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">helpForParametersTabController</span><span class="o">.</span><span class="n">showView</span><span class="p">()</span></div>
 
@@ -168,7 +160,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">load</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">resultTabController</span><span class="o">.</span><span class="n">loadResultsVisualisation</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">computeResults</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">computeResults</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">unlock</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="AppController.computeResults"><a class="viewcode-back" href="../../../promethee_gamma_gui.Controllers.html#promethee_gamma_gui.Controllers.AppController.AppController.computeResults">[docs]</a>    <span class="k">def</span> <span class="nf">computeResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -331,7 +324,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">resultTabController</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataTabController</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">appView</span><span class="o">.</span><span class="n">setTab</span><span class="p">(</span><span class="s2">&quot;Data&quot;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">appView</span><span class="o">.</span><span class="n">setTab</span><span class="p">(</span><span class="s2">&quot;Data&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">unlock</span><span class="p">()</span></div>
         
 
 <div class="viewcode-block" id="AppController.save"><a class="viewcode-back" href="../../../promethee_gamma_gui.Controllers.html#promethee_gamma_gui.Controllers.AppController.AppController.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

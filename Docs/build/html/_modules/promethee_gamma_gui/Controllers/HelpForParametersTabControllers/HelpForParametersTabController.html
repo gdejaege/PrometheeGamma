@@ -29,21 +29,13 @@
           <div class="body" role="main">
             
   <h1>Source code for promethee_gamma_gui.Controllers.HelpForParametersTabControllers.HelpForParametersTabController</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">from Controllers.HelpForParametersTabControllers.PreferenceLearningController import PreferenceLearningController</span>
-<span class="sd">from Custom.CustomController import CustomController</span>
-<span class="sd">from Views.HelpForParametersTabViews.HelpForParametersTabView import HelpForParametersTabView</span>
-<span class="sd">from Models.DataTabModels.DataTabModel import DataTabModel</span>
-<span class="sd">from Models.PrometheeGamma import PrometheeGamma</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">.PreferenceLearningController</span> <span class="kn">import</span> <span class="n">PreferenceLearningController</span>
+<span></span><span class="kn">from</span> <span class="nn">.PreferenceLearningController</span> <span class="kn">import</span> <span class="n">PreferenceLearningController</span>
 <span class="kn">from</span> <span class="nn">...Custom</span> <span class="kn">import</span> <span class="n">CustomController</span>
 <span class="kn">from</span> <span class="nn">...Views.HelpForParametersTabViews.HelpForParametersTabView</span> <span class="kn">import</span> <span class="n">HelpForParametersTabView</span>
 <span class="kn">from</span> <span class="nn">...Models.DataTabModels.DataTabModel</span> <span class="kn">import</span> <span class="n">DataTabModel</span>
 <span class="kn">from</span> <span class="nn">...Models.PrometheeGamma</span> <span class="kn">import</span> <span class="n">PrometheeGamma</span>
-<span class="c1">#from Custom import CustomController</span>
-<span class="c1">#from Views import HelpForParametersTabView</span>
-<span class="c1">#from Models import DataTabModel, PrometheeGamma</span>
+<span class="kn">from</span> <span class="nn">...Resources.Lock</span> <span class="kn">import</span> <span class="n">Lock</span>
+
 
 <div class="viewcode-block" id="HelpForParametersTabController"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.HelpForParametersTabControllers.html#promethee_gamma_gui.Controllers.HelpForParametersTabControllers.HelpForParametersTabController.HelpForParametersTabController">[docs]</a><span class="k">class</span> <span class="nc">HelpForParametersTabController</span><span class="p">(</span><span class="n">HelpForParametersTabView</span><span class="o">.</span><span class="n">ViewListener</span><span class="p">,</span> <span class="n">PreferenceLearningController</span><span class="o">.</span><span class="n">Listener</span><span class="p">,</span> <span class="n">CustomController</span><span class="o">.</span><span class="n">Listener</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -63,15 +55,13 @@
 <span class="sd">        the controller that controls the custom module. This is a sub controller of this class</span>
 <span class="sd">    listerer : HelpForParametersTabController.Listener</span>
 <span class="sd">        the listener of this class</span>
-
+<span class="sd">    lock : Lock</span>
+<span class="sd">        a lock to synchronizes different parts of the app</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
 <div class="viewcode-block" id="HelpForParametersTabController.Listener"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.HelpForParametersTabControllers.html#promethee_gamma_gui.Controllers.HelpForParametersTabControllers.HelpForParametersTabController.HelpForParametersTabController.Listener">[docs]</a>    <span class="k">class</span> <span class="nc">Listener</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        An interface for the listener of this class</span>
-
-<span class="sd">        Methods</span>
-<span class="sd">        -------</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="HelpForParametersTabController.Listener.applyResultsOfHelp"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.HelpForParametersTabControllers.html#promethee_gamma_gui.Controllers.HelpForParametersTabControllers.HelpForParametersTabController.HelpForParametersTabController.Listener.applyResultsOfHelp">[docs]</a>        <span class="k">def</span> <span class="nf">applyResultsOfHelp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
@@ -85,7 +75,7 @@
             <span class="k">pass</span></div></div>
 
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">dataTabModel</span><span class="p">:</span><span class="n">DataTabModel</span><span class="p">,</span> <span class="n">prometheeGamma</span><span class="p">:</span><span class="n">PrometheeGamma</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">dataTabModel</span><span class="p">:</span><span class="n">DataTabModel</span><span class="p">,</span> <span class="n">prometheeGamma</span><span class="p">:</span><span class="n">PrometheeGamma</span><span class="p">,</span> <span class="n">lock</span><span class="p">:</span><span class="n">Lock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -103,6 +93,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">preferenceLearningController</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">customController</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">listener</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">lock</span>
 
 
 <div class="viewcode-block" id="HelpForParametersTabController.setListener"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.HelpForParametersTabControllers.html#promethee_gamma_gui.Controllers.HelpForParametersTabControllers.HelpForParametersTabController.HelpForParametersTabController.setListener">[docs]</a>    <span class="k">def</span> <span class="nf">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">Listener</span><span class="p">):</span>
@@ -127,7 +118,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">helpForParametersTabView</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
         <span class="n">master</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">helpForParametersTabView</span><span class="o">.</span><span class="n">getMaster</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">preferenceLearningController</span> <span class="o">=</span> <span class="n">PreferenceLearningController</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferenceLearningController</span> <span class="o">=</span> <span class="n">PreferenceLearningController</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preferenceLearningController</span><span class="o">.</span><span class="n">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preferenceLearningController</span><span class="o">.</span><span class="n">showView</span><span class="p">()</span></div>
 

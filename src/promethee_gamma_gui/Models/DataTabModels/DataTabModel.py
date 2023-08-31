@@ -1,9 +1,8 @@
 from customtkinter import (StringVar, IntVar, DoubleVar)
 
-#from Models.DataTabModels.Alternative import Alternative
-#from Models.DataTabModels.Criterion import Criterion
 from .Alternative import Alternative
 from .Criterion import Criterion
+from ...Resources.Lock import Lock
 
 
 class DataTabModel:
@@ -16,12 +15,14 @@ class DataTabModel:
         the list of alternatives. The index correspond to the row number.
     criteria : list of Criterion
         the list of criteria. The index correspond to the column number.
-
+    lock : Lock
+        a lock to synchronizes different parts of the app
     """
     
-    def __init__(self) -> None:
+    def __init__(self, lock) -> None:
         self.alternatives = []
         self.criteria = []
+        self.lock = lock
 
 
     def getCriterion(self, index=-1) -> Criterion:
@@ -73,10 +74,15 @@ class DataTabModel:
         """
 
         name = StringVar(master=master, value="Criterion"+ str(len(self.criteria)+1))
+        name.trace_add("write", self.lock.lock)
         weight = DoubleVar(master=master, value=0.0)
+        weight.trace_add("write", self.lock.lock)
         f = IntVar(master=master, value=1)
+        f.trace_add("write", self.lock.lock)
         p = DoubleVar(master=master, value=1.0)
+        p.trace_add("write", self.lock.lock)
         q = DoubleVar(master=master, value=0.0)
+        q.trace_add("write", self.lock.lock)
         c = Criterion(name=name, weight=weight, pfType=f, p=p, q=q)
         self.criteria.append(c)
 
@@ -94,9 +100,11 @@ class DataTabModel:
             the tkinter master frame to link StringVar and DoubleVar
         """
         name = StringVar(master=master, value="Alternative" + str(len(self.alternatives)+1))
+        name.trace_add("write", self.lock.lock)
         data = []
         for i in range(len(self.criteria)):
             val = DoubleVar(master=master, value=0.0)
+            val.trace_add("write", self.lock.lock)
             data.append(val)
         a = Alternative(name=name, evaluations=data)
         self.alternatives.append(a)
@@ -188,10 +196,12 @@ class DataTabModel:
             the list of alternative evaluation for each criterion
         """
         n = StringVar(master=master, value=name)
+        n.trace_add("write", self.lock.lock)
         l = []
         for d in data:
             val = float(d)
             e = DoubleVar(master=master, value=val)
+            e.trace_add("write", self.lock.lock)
             l.append(e)
         a = Alternative(name=n, evaluations=l)
         self.alternatives.append(a)
@@ -219,12 +229,17 @@ class DataTabModel:
         q = None
         for i in range(len(criteriaNames)):
             name = StringVar(master=master, value=criteriaNames[i])
+            name.trace_add("write", self.lock.lock)
             weight = DoubleVar(master=master, value=float(criteriaWeights[i]))
+            weight.trace_add("write", self.lock.lock)
             pfType = IntVar(master=master, value=int(criteriaPreferenceFunctionType[i]))
+            pfType.trace_add("write", self.lock.lock)
             if(criteriaP != None):
                 p = DoubleVar(master=master, value=float(criteriaP[i]))
+                p.trace_add("write", self.lock.lock)
             if(criteriaQ != None):
                 q = DoubleVar(master=master, value=float(criteriaQ[i]))
+                q.trace_add("write", self.lock.lock)
             c = Criterion(name=name, weight=weight, pfType=pfType, p=p, q=q)
             self.criteria.append(c)
 
@@ -241,6 +256,7 @@ class DataTabModel:
         """
         for i in range(len(self.alternatives)):
             val = DoubleVar(master=master, value=0.0)
+            val.trace_add("write", self.lock.lock)
             self.alternatives[i].addEvaluations(evaluation=val)
 
     

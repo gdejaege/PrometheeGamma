@@ -40,7 +40,7 @@
 <span id="promethee-gamma-gui-controllers-datatabcontrollers-datatabcontroller-module"></span><h2>promethee_gamma_gui.Controllers.DataTabControllers.DataTabController module<a class="headerlink" href="#module-promethee_gamma_gui.Controllers.DataTabControllers.DataTabController" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.</span></span><span class="sig-name descname"><span class="pre">DataTabController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Controllers/DataTabControllers/DataTabController.html#DataTabController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.</span></span><span class="sig-name descname"><span class="pre">DataTabController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Lock</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Controllers/DataTabControllers/DataTabController.html#DataTabController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.DataTabView.DataTabView.ViewListener" title="promethee_gamma_gui.Views.DataTabViews.DataTabView.DataTabView.ViewListener"><code class="xref py py-class docutils literal notranslate"><span class="pre">ViewListener</span></code></a></p>
 <p>A class to control the data tab</p>
 <dl class="py attribute">
@@ -94,6 +94,17 @@
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.UnitRow.UnitRow" title="promethee_gamma_gui.Views.DataTabViews.UnitRow.UnitRow">UnitRow</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.lock">
+<span class="sig-name descname"><span class="pre">lock</span></span><a class="headerlink" href="#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.lock" title="Permalink to this definition">¶</a></dt>
+<dd><p>a lock to synchronizes different parts of the app</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Lock</p>
 </dd>
 </dl>
 </dd></dl>

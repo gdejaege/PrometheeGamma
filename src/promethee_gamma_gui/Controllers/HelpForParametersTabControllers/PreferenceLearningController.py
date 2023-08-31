@@ -5,6 +5,7 @@ from ...Views.HelpForParametersTabViews.PreferenceLearningView import Preference
 from ...Models.HelpForParametersTabModels.preferenceLearning import PreferenceLearning
 from ...Models.DataTabModels.DataTabModel import DataTabModel
 from ...Models.PrometheeGamma import PrometheeGamma
+from ...Resources.Lock import Lock
 
 
 # Constants
@@ -29,7 +30,8 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         the list of questions asked of the user
     listener : PreferenceLearningController.Listener
         the listener of this class
-
+    lock : Lock
+        a lock to synchronizes different parts of the app
     """
 
     class Listener:
@@ -55,7 +57,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
             pass
 
 
-    def __init__(self, master, dataTabModel:DataTabModel, prometheeGamma:PrometheeGamma) -> None:
+    def __init__(self, master, dataTabModel:DataTabModel, prometheeGamma:PrometheeGamma, lock:Lock) -> None:
         """
         Parameters
         ----------
@@ -74,6 +76,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         self.questions = []
         self.listener = None
         self.numberOfQuestions = MAX_NUMBER_OF_QUESTIONS
+        self.lock = lock
 
 
     def setListener(self, l:Listener):
@@ -176,10 +179,13 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         """Generate the questions. If it is not possible, show an error message to the user
         """
         if self.prometheeGamma.isComputed():
-            self.preferenceLearningView.resetResults()
-            self.preferenceLearningView.createQuestionsTab()
-            self.questions.clear()
-            self.selectFirstQuestion()
+            if self.lock.isLocked():
+                msg.showerror(title="Synchronization error", message='The data was modified after the results were loaded. Please click on the "Reload results" button in the results tab.')
+            else:
+                self.preferenceLearningView.resetResults()
+                self.preferenceLearningView.createQuestionsTab()
+                self.questions.clear()
+                self.selectFirstQuestion()
         else:
             msg.showerror(title="No results", message='The results of the promethee gamma method are required for the algorithm. Please click on the "Obtain results" button in the "result tab".')
 

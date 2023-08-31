@@ -1,9 +1,3 @@
-"""
-from Controllers.ResultTabControllers.ResultsVisualisationControllers.ResultVisualisationController import ResultVisualisationController
-from Models.ResultTabModel import ResultTabModel
-from Views.ResultTabViews.ResultTabView import ResultTabView
-from Resources.Reader import Reader
-"""
 from .ResultsVisualisationControllers.ResultVisualisationController import ResultVisualisationController
 from ...Models.ResultTabModel import ResultTabModel
 from ...Views.ResultTabViews.ResultTabView import ResultTabView
@@ -24,7 +18,6 @@ class ResultTabController(ResultTabView.ViewListener):
         the listener of this class
     resultsVisualisationController : ResultVisualisationController
         the controller that control visualisation of results. It is a sub controller of this class
-
     """
 
     class Listener:

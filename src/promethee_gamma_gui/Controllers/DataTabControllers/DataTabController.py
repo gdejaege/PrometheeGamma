@@ -4,12 +4,8 @@ import os
 from ...Models.DataTabModels.DataTabModel import DataTabModel
 from ...Views.DataTabViews import DataTabView, CriterionColumn, UnitRow
 from ...Resources.Reader import Reader
+from ...Resources.Lock import Lock
 
-#from Models.DataTabModels.DataTabModel import DataTabModel
-#from Views.DataTabViews.DataTabView import DataTabView
-#from Views.DataTabViews.CriterionColumn import CriterionColumn
-#from Views.DataTabViews.UnitRow import UnitRow
-#from Resources.Reader import Reader
 
 class DataTabController(DataTabView.ViewListener):
     """
@@ -27,10 +23,11 @@ class DataTabController(DataTabView.ViewListener):
         the list that will contain all criterion column
     unitsRows : list[UnitRow]
         the list that will contain all unit row
-
+    lock : Lock
+        a lock to synchronizes different parts of the app
     """
 
-    def __init__(self, master, root) -> None:
+    def __init__(self, master, root, lock:Lock) -> None:
         """
         Parameters
         ----------
@@ -40,11 +37,12 @@ class DataTabController(DataTabView.ViewListener):
             the root window
         """
         self.root = root
-        self.dataTabModel = DataTabModel()
+        self.dataTabModel = DataTabModel(lock)
         self.dataTabView = DataTabView(master=master)
         self.dataTabView.setListener(self)
         self.criteriaColums = []
         self.unitsRows = []
+        self.lock = lock
 
 
     def showView(self) -> None:
@@ -109,6 +107,7 @@ class DataTabController(DataTabView.ViewListener):
             ur = UnitRow(master=master, row=row, col=col, alternative=a)
             ur.show()
             self.unitsRows.append(ur)
+        self.lock.lock()
 
 
     def addCriterionColumn(self, master, row:int, col:int) -> None:
@@ -130,6 +129,7 @@ class DataTabController(DataTabView.ViewListener):
         cc.show(row, col)
         self.criteriaColums.append(cc)
         self.addOneColumnToAllUnits(master=master)
+        self.lock.lock()
 
     
     def deleteCriterion(self) -> None:
@@ -141,6 +141,7 @@ class DataTabController(DataTabView.ViewListener):
             self.dataTabModel.deleteCriterion()
             self.dataTabView.shiftLeft()
             self.deleteOneColumnInAllUnits()
+            self.lock.lock()
         
     
     def addUnitRow(self, master, row: int, col: int) -> None:
@@ -161,6 +162,7 @@ class DataTabController(DataTabView.ViewListener):
         ur = UnitRow(master=master, row=row, col=col, alternative=a)
         ur.show()
         self.unitsRows.append(ur)
+        self.lock.lock()
 
 
     def deleteUnit(self) -> None:
@@ -171,6 +173,7 @@ class DataTabController(DataTabView.ViewListener):
             self.unitsRows.pop()
             self.dataTabModel.deleteAlternative()
             self.dataTabView.shiftUp()
+            self.lock.lock()
 
 
     def addOneColumnToAllUnits(self, master) -> None:
@@ -207,6 +210,7 @@ class DataTabController(DataTabView.ViewListener):
         while(len(self.unitsRows)>0):
             self.deleteUnit()
         self.dataTabModel.clearAll()
+        self.lock.lock()
 
 
     def getModel(self) -> DataTabModel:

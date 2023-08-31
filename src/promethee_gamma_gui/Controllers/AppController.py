@@ -4,17 +4,6 @@ from tkinter import IntVar
 import os
 import platform
 
-"""
-from Controllers.HelpController import HelpController
-from Controllers.DataTabControllers.DataTabController import DataTabController
-from Controllers.ResultTabControllers.ResultTabController import ResultTabController
-from Controllers.HelpForParametersTabControllers.HelpForParametersTabController import HelpForParametersTabController
-from Models.PrometheeGamma import PrometheeGamma
-from Views.AppView import AppView
-from Views.SaveView import SaveView
-from Views.AboutView import AboutView
-from Resources.Reader import Reader
-"""
 from .HelpController import HelpController
 from .DataTabControllers.DataTabController import DataTabController
 from .ResultTabControllers.ResultTabController import ResultTabController
@@ -22,6 +11,7 @@ from .HelpForParametersTabControllers.HelpForParametersTabController import Help
 from ..Models.PrometheeGamma import PrometheeGamma
 from ..Views import AppView, SaveView, AboutView
 from ..Resources.Reader import Reader
+from ..Resources.Lock import Lock
 
 
 class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController.Listener, HelpForParametersTabController.Listener):
@@ -52,7 +42,8 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         the directory name in which to save project
     helpController : HelpController
         the controller of help menu
-
+    lock : Lock
+        a lock to synchronizes different parts of the app
     """
 
     def __init__(self) -> None:
@@ -70,6 +61,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         self.save_parentDirectory = None
         self.save_nameDirectory = None
         self.helpController = HelpController()
+        self.lock = Lock()
 
 
     def run(self) -> None:
@@ -91,7 +83,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         master : CTkFrame
             the master frame for the data tab
         """
-        self.dataTabController = DataTabController(master=master, root=self.appView)
+        self.dataTabController = DataTabController(master=master, root=self.appView, lock=self.lock)
         self.dataTabController.showView()
 
 
@@ -117,7 +109,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
             the master frame for the helpForParameters tab
         """
         dataTabModel = self.dataTabController.getModel()
-        self.helpForParametersTabController = HelpForParametersTabController(master, dataTabModel, self.prometheeGamma)
+        self.helpForParametersTabController = HelpForParametersTabController(master, dataTabModel, self.prometheeGamma, lock=self.lock)
         self.helpForParametersTabController.setListener(self)
         self.helpForParametersTabController.showView()
 
@@ -138,6 +130,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
             if load:
                 self.resultTabController.loadResultsVisualisation()
             self.computeResults()
+            self.lock.unlock()
 
 
     def computeResults(self) -> None:
@@ -301,6 +294,7 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
         self.prometheeGamma.reset()
         self.dataTabController.reset()
         self.appView.setTab("Data")
+        self.lock.unlock()
         
 
     def save(self):
