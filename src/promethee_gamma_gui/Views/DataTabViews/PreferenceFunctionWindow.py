@@ -44,9 +44,10 @@ class PreferenceFunctionWindow:
         self.textVar = textvar
 
         self.radioButtonList = []
+        self.radioButtonList : list[CTkRadioButton]
         for i in self.typesDict.keys():
             text = "type " + str(i) + ": " + self.typesDict[i]
-            r = CTkRadioButton(master=self.root, text=text, command=self.radiobutton_event, variable=self.radioVar, value=i)
+            r = CTkRadioButton(master=self.root, text=text, command=self.radiobutton_event, variable=self.radioVar, value=i, text_color="black")
             self.radioButtonList.append(r)
 
 
@@ -58,7 +59,7 @@ class PreferenceFunctionWindow:
         r = 1
         c = 0
         for i in range(len(self.radioButtonList)):
-            self.radioButtonList[i].grid(row=r, column=c)
+            self.radioButtonList[i].grid(row=r, column=c, sticky="n")
             c += 1
             if i == 2:
                 r = 3
@@ -80,6 +81,8 @@ class PreferenceFunctionWindow:
         (x, y) = self.usual()
         ax1.plot(x, y, 'b')
         ax1.axis([-0.2, 95, 0, 1.2])
+        ax1.set_xlabel('dc(ai, aj)')
+        ax1.set_ylabel('Fc')
         ax1.set_xticks([0])
 
         # Plot u-shape function
@@ -87,8 +90,10 @@ class PreferenceFunctionWindow:
         ax2.set_title("U-shape")
         (x, y) = self.u_shape()
         ax2.plot(x, y, 'b')
-        ax2.text(49.5, -0.05, "q")
+        ax2.text(49.5, -0.05, "qc")
         ax2.axis([0, 95, 0, 1.2])
+        ax2.set_xlabel('dc(ai, aj)')
+        ax2.set_ylabel('Fc')
         ax2.set_xticks([0])
 
         # Plot vshape function
@@ -99,7 +104,9 @@ class PreferenceFunctionWindow:
         ax3.plot([50,50], [0,1], 'b--', markersize=0.1)
         ax3.axis([0, 95, 0, 1.2])
         ax3.set_xticks([0])
-        ax3.text(49.5, -0.05, "p")
+        ax3.text(49.5, -0.05, "pc")
+        ax3.set_xlabel('dc(ai, aj)')
+        ax3.set_ylabel('Fc')
 
         # Display fig1
         canvas1 = FigureCanvasTkAgg(fig1, master=self.root)
@@ -121,8 +128,10 @@ class PreferenceFunctionWindow:
         ax4.plot([63,63], [0,0.5], 'b--', markersize=0.1)
         ax4.axis([0, 95, 0, 1.2])
         ax4.set_xticks([0])
-        ax4.text(33.5, -0.05, "q")
-        ax4.text(62.5, -0.05, "p")
+        ax4.text(33.5, -0.05, "qc")
+        ax4.text(62.5, -0.05, "pc")
+        ax4.set_xlabel('dc(ai, aj)')
+        ax4.set_ylabel('Fc')
 
         # Plot linear function
         ax5 = fig2.add_subplot(1,3,2)
@@ -132,8 +141,10 @@ class PreferenceFunctionWindow:
         ax5.plot([65,65], [0,1], 'b--', markersize=0.1)
         ax5.axis([0, 95, 0, 1.2])
         ax5.set_xticks([0])
-        ax5.text(34.5, -0.05, "q")
-        ax5.text(64.5, -0.05, "p")
+        ax5.text(34.5, -0.05, "qc")
+        ax5.text(64.5, -0.05, "pc")
+        ax5.set_xlabel('dc(ai, aj)')
+        ax5.set_ylabel('Fc')
 
         # Plot gaussian function
         ax6 = fig2.add_subplot(1,3,3)
@@ -142,6 +153,8 @@ class PreferenceFunctionWindow:
         ax6.plot(x, y, 'b')
         ax6.set_xticks([0])
         ax6.axis([0, 3.9, 0, 1.2])
+        ax6.set_xlabel('dc(ai, aj)')
+        ax6.set_ylabel('Fc')
 
         # Display fig2
         canvas2 = FigureCanvasTkAgg(fig2, master=self.root)

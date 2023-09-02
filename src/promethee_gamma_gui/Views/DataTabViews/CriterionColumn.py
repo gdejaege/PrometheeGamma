@@ -72,7 +72,7 @@ class CriterionColumn:
     def buttonTypeEvent(self):
         """Handle click event on the typePfButton
         """
-        w = CTkToplevel(self.master)
+        w = CTkToplevel(self.master, fg_color="white")
         if platform.system() == 'Windows':
             w.grab_set()
             w.focus_set()
