@@ -30,7 +30,6 @@
             
   <h1>Source code for promethee_gamma_gui.Resources.Reader</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">tkinter.messagebox</span> <span class="k">as</span> <span class="nn">msg</span>
 
 
 <div class="viewcode-block" id="Reader"><a class="viewcode-back" href="../../../promethee_gamma_gui.Resources.html#promethee_gamma_gui.Resources.Reader.Reader">[docs]</a><span class="k">class</span> <span class="nc">Reader</span><span class="p">:</span>
@@ -49,7 +48,13 @@
 <span class="sd">            the data tab master frame</span>
 <span class="sd">        dataModel : DataTabModel</span>
 <span class="sd">            the data tab model</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            if a ValueError occurs in converting str to float or int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">criteriaP</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">criteriaQ</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
@@ -68,8 +73,17 @@
             <span class="k">elif</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span><span class="p">):</span>
                 <span class="n">criteriaQ</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">dataModel</span><span class="o">.</span><span class="n">createAlternative</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-        <span class="n">dataModel</span><span class="o">.</span><span class="n">createCriteria</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">criteriaNames</span><span class="p">,</span> <span class="n">criteriaWeights</span><span class="p">,</span> <span class="n">criteriaPreferenceFunctionType</span><span class="p">,</span> <span class="n">criteriaP</span><span class="p">,</span> <span class="n">criteriaQ</span><span class="p">)</span></div>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">dataModel</span><span class="o">.</span><span class="n">createAlternative</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">error</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dataModel</span><span class="o">.</span><span class="n">createCriteria</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">criteriaNames</span><span class="p">,</span> <span class="n">criteriaWeights</span><span class="p">,</span> <span class="n">criteriaPreferenceFunctionType</span><span class="p">,</span> <span class="n">criteriaP</span><span class="p">,</span> <span class="n">criteriaQ</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Reader.readParameters"><a class="viewcode-back" href="../../../promethee_gamma_gui.Resources.html#promethee_gamma_gui.Resources.Reader.Reader.readParameters">[docs]</a>    <span class="k">def</span> <span class="nf">readParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>

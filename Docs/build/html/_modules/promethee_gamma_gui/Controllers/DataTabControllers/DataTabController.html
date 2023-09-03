@@ -30,6 +30,7 @@
             
   <h1>Source code for promethee_gamma_gui.Controllers.DataTabControllers.DataTabController</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span> <span class="k">as</span> <span class="n">fd</span>
+<span class="kn">import</span> <span class="nn">tkinter.messagebox</span> <span class="k">as</span> <span class="nn">msg</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">from</span> <span class="nn">...Models.DataTabModels.DataTabModel</span> <span class="kn">import</span> <span class="n">DataTabModel</span>
@@ -114,9 +115,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">clearTable</span><span class="p">()</span>
         <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">()</span>
-        <span class="n">r</span><span class="o">.</span><span class="n">readData</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="p">)</span>
-        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fillDataTable</span><span class="p">()</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">readData</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Value Error&quot;</span><span class="p">,</span> <span class="s2">&quot;An error has occured in conversion string to integer or floating point number. The values concerned were set to their default values.&quot;</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fillDataTable</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="DataTabController.fillDataTable"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Controllers.DataTabControllers.html#promethee_gamma_gui.Controllers.DataTabControllers.DataTabController.DataTabController.fillDataTable">[docs]</a>    <span class="k">def</span> <span class="nf">fillDataTable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

@@ -229,19 +229,31 @@
 <span class="sd">            the tkinter master frame to link StringVar and DoubleVar</span>
 <span class="sd">        name : str</span>
 <span class="sd">            the name of the new alternative</span>
-<span class="sd">        data : list[float]</span>
+<span class="sd">        data : list of str</span>
 <span class="sd">            the list of alternative evaluation for each criterion</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            if a ValueError occurs in converting str to float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="n">n</span><span class="o">.</span><span class="n">trace_add</span><span class="p">(</span><span class="s2">&quot;write&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
         <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="n">error</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">e</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
             <span class="n">e</span><span class="o">.</span><span class="n">trace_add</span><span class="p">(</span><span class="s2">&quot;write&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
             <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">Alternative</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">evaluations</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="DataTabModel.createCriteria"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.DataTabModel.DataTabModel.createCriteria">[docs]</a>    <span class="k">def</span> <span class="nf">createCriteria</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">criteriaNames</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">criteriaWeights</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">criteriaPreferenceFunctionType</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">criteriaP</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">criteriaQ</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -261,24 +273,52 @@
 <span class="sd">            list of preference threshold in preference function</span>
 <span class="sd">        criteriaQ : list[str]</span>
 <span class="sd">            list of indifference threshold in preference function</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            if a ValueError occurs in converting str to float or int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">p</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">q</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">convertError</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">criteriaNames</span><span class="p">)):</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">criteriaNames</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">name</span><span class="o">.</span><span class="n">trace_add</span><span class="p">(</span><span class="s2">&quot;write&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
-            <span class="n">weight</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">criteriaWeights</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">criteriaWeights</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="n">convertError</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
             <span class="n">weight</span><span class="o">.</span><span class="n">trace_add</span><span class="p">(</span><span class="s2">&quot;write&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
-            <span class="n">pfType</span> <span class="o">=</span> <span class="n">IntVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">criteriaPreferenceFunctionType</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">criteriaPreferenceFunctionType</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">convertError</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">pfType</span> <span class="o">=</span> <span class="n">IntVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
             <span class="n">pfType</span><span class="o">.</span><span class="n">trace_add</span><span class="p">(</span><span class="s2">&quot;write&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
             <span class="k">if</span><span class="p">(</span><span class="n">criteriaP</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
-                <span class="n">p</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">criteriaP</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">criteriaP</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="mf">1.0</span>
+                    <span class="n">convertError</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
                 <span class="n">p</span><span class="o">.</span><span class="n">trace_add</span><span class="p">(</span><span class="s2">&quot;write&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
             <span class="k">if</span><span class="p">(</span><span class="n">criteriaQ</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
-                <span class="n">q</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">criteriaQ</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">criteriaQ</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="mf">0.0</span>
+                    <span class="n">convertError</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
                 <span class="n">q</span><span class="o">.</span><span class="n">trace_add</span><span class="p">(</span><span class="s2">&quot;write&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">lock</span><span class="p">)</span>
             <span class="n">c</span> <span class="o">=</span> <span class="n">Criterion</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">pfType</span><span class="o">=</span><span class="n">pfType</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="n">q</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">convertError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="DataTabModel.addOneEvaluationInAllAlternatives"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.DataTabModel.DataTabModel.addOneEvaluationInAllAlternatives">[docs]</a>    <span class="k">def</span> <span class="nf">addOneEvaluationInAllAlternatives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
