@@ -1,17 +1,14 @@
 from customtkinter import IntVar
 import random
+from sys import maxsize
 
-"""
-from Models.PrometheeGamma import PrometheeGamma
-from Models.HelpForParametersTabModels.Range.Range import Range
-from Models.HelpForParametersTabModels.Range.RangeI import RangeI
-from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
-from Models.HelpForParametersTabModels.Search.ItSearch import ItSearch
-"""
 from .Range import Range, RangeI, RangeJ
 from .Search import ItSearch
 from ..PrometheeGamma import PrometheeGamma
 
+
+INFINITY = maxsize
+"""The infinity (in computer terms)"""
 
 class PreferenceLearning:
     """
@@ -154,27 +151,23 @@ class PreferenceLearning:
         a2 = self.alternatives.index(a2_t)
         preference = pref.get()
         if preference == 2:
-            preference = 1 # Because of abs, max and min, it's all the same
+            preference = 1 # No difference for parameters T_I, T_J and P_f
         matrixGamma = self.prometheeGamma.getMatrixGamma()
         Pmin = 1
-        Pmax = 100
+        Pmax = INFINITY
         rI = None
         rJ = None
-        y = abs(matrixGamma[a1][a2] - matrixGamma[a2][a1])
         if preference == 0: # indifference
-            xI = max(matrixGamma[a1][a2], matrixGamma[a2][a1])
-            rI = RangeI(xI, y, Pmax, Pmin)
+            rI = RangeI(matrixGamma[a1][a2], matrixGamma[a2][a1], Pmax, Pmin) # T_I >= [Imin, Imax]
             rJ = rI
-            # !!! I >= [Imin, Imax] ; J >= I
         elif preference == 1: # preference
-            xI = max(matrixGamma[a1][a2], matrixGamma[a2][a1])
-            xJ = min(matrixGamma[a1][a2], matrixGamma[a2][a1])
-            rI = RangeI(xI, y, Pmax, Pmin)
-            rJ = RangeJ(xJ, y, Pmax, Pmin)
-            # !!! I <= [Imin, Imax] ; J >= [Jmin, Jmax] ; J >= I
+            rI = RangeI(matrixGamma[a1][a2], matrixGamma[a2][a1], Pmax, Pmin) # T_I <= [Imin, Imax]
+            rJ = RangeJ(matrixGamma[a1][a2], matrixGamma[a2][a1], Pmax, Pmin) # T_J >= [Jmin, Jmax]
         elif preference == -1: # incomparability
-            xJ = min(matrixGamma[a1][a2], matrixGamma[a2][a1])
-            rJ = RangeJ(xJ, y, Pmax, Pmin)
+            rJ = RangeJ(matrixGamma[a1][a2], matrixGamma[a2][a1], Pmax, Pmin) # T_J <= [Jmin, Jmax]
             rI = rJ
-            # !!! J <= [Jmin, Jmax] ; I <= J
+        if rI is not None and rJ is not None:
+            print("gammas values = ", matrixGamma[a1][a2], matrixGamma[a2][a1])
+            rI.print()
+            rJ.print()
         return (rI, rJ, preference)

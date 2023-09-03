@@ -1,9 +1,8 @@
 from sys import maxsize
 from math import sqrt
 
-#from Models.HelpForParametersTabModels.Range.RangeI import RangeI
-#from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ
-from ..Range import RangeI, RangeJ
+from ..Range import RangeI, RangeJ, Range
+
 
 INFINITY = maxsize
 """The infinity (in computer terms)"""
@@ -27,11 +26,11 @@ class ItSearch:
         lowest possible value for P
     Pmax : float
         highest possible value for P
-    listOfRangeI : list[RangeI]
+    listOfRangeI : list of Range
         the list of range of I computed from user answers
-    listOfRangeJ : list[RangeJ]
+    listOfRangeJ : list of Range
         the list of range of J computed from user answers
-    listOfPreference : list[int]
+    listOfPreference : list of int
         the list of preference indicators from user answers
     """
 
@@ -40,21 +39,17 @@ class ItSearch:
         Parameters
         ----------
         Imin : float, optional
-            lowest possible value for I (default is 0.0)
+            lowest possible value for T_I (default is 0.0)
         Imax : float, optional
-            highest possible value for I (default is 1.0)
+            highest possible value for T_I (default is 1.0)
         Jmin : float, optional
-            lowest possible value for J (default is 0.0)
+            lowest possible value for T_J (default is 0.0)
         Jmax : float, optional
-            highest possible value for J (default is 1.0)
+            highest possible value for T_J (default is 1.0)
         Pmin : float, optional
-            lowest possible value for P (default is 1.0)
+            lowest possible value for P_f (default is 1.0)
         Pmax : float, optional
-            highest possible value for P (default is INFINITY)
-        resolveIncomparability(rJ:RangeJ)
-            resolve incomparability
-        increasePminJ(rJ:RangeJ)
-            increase the Pmin value if possible (with J range) (if not, call resolveConflict())
+            highest possible value for P_f (default is INFINITY)
         """
         self.Imin = Imin
         self.Imax = Imax
@@ -78,7 +73,7 @@ class ItSearch:
         return (self.Imin, self.Imax, self.Jmin, self.Jmax, self.Pmin, self.Pmax)
 
 
-    def addPair(self, rI:RangeI, rJ:RangeJ, preference:int):
+    def addPair(self, rI, rJ, preference:int):
         """Add a pair of I range and J range and the related preference indicator
 
         Parameters
@@ -102,38 +97,41 @@ class ItSearch:
         rI = self.listOfRangeI[-1]
         rJ = self.listOfRangeJ[-1]
         if pref == 0:
-            # I >= [Imin, Imax] ; J >= I
+            self.verifyPmin(rI)
+            # T_I >= [Imin, Imax] ; T_J >= T_I
             self.resolveIndifference(rI)
         elif pref == -1:
-            # J <= [Jmin, Jmax] ; I <= J
+            self.verifyPmin(rJ)
+            # T_J <= [Jmin, Jmax] ; T_I <= T_J
             self.resolveIncomparability(rJ)
         elif pref == 1:
-            # I <= [Imin, Imax] ; J >= [Jmin, Jmax] ; J >= I
+            # T_I <= [Imin, Imax] ; T_J >= [Jmin, Jmax] ; T_J >= T_I
             self.resolvePreference(rI, rJ)
     
+
+    def verifyPmin(self, r):
+        """Set Pmin if neccessary for the new range
+        """
+        pmin = r.getPmin()
+        if pmin > self.Pmin and pmin <= self.Pmax:
+            self.Pmin = pmin
+            print("pmin change")
+        elif pmin > self.Pmax:
+            self.resolveConflict()
+
 
     def resolveIndifference(self, rI:RangeI):
         """Resolve indifference
 
-        I >= [i_min, i_max] ; J >= I
+        T_I >= [i_min, i_max] ; T_J >= T_I
 
         we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
 
-        And we have rI = [i_min, i_max] from the new pair
+        And we have rI = [i_min, i_max] from the new pair. i_min depends of Pmax and i_max depends of Pmin
+
+        [Imin, Imax] >= [i_min, i_max] <=> Imin >= i_max
 
         we have to compare the 2 range and resolve any conflict
-
-        So, we must have [Imin, Imax] >= [i_min, i_max]
-
-        <=> Imin >= i_min and Imax >= i_max
-
-        - If the 2 inequalities are satisfied, there's nothing to do ;
-        - If Imax < i_min, there is a conflict ;
-        - If Imax >= i_max but Imin < i_min, we can set Imin to i_min: Imin = i_min ;
-        - If Imin >= i_min but Imax < i_max, we must reduce i_max to Imax, so increase Pmin ; if we can no longer increase Pmin, there is a conflict.
-        - If Imin < i_min and Imax < i_max, we can combine the 2 solution above.
-        
-        If we can no longer use these solutions, there is a conflict.
 
         In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.
 
@@ -142,19 +140,45 @@ class ItSearch:
         rI : RangeI
             a range of I values
         """
+        i_min = rI.getValForP(self.Pmax)
+        i_max = rI.getValForP(self.Pmin)
         
-        if self.Imin >= rI.getValMin() and self.Imax >= rI.getValMax():
+        if self.Imin >= i_max:
             # There is nothing to do
             return
-        elif self.Imax < rI.getValMin():
+        elif self.Imax < i_min: # incompatible
             self.resolveConflict()
-        elif self.Imax >= rI.getValMax() and self.Imin < rI.getValMin():
-            self.Imin = rI.getValMin()
-        elif self.Imin >= rI.getValMin() and self.Imax < rI.getValMax():
+            return
+        elif self.Imax >= i_max:
+            if self.Jmax >= i_max:
+                self.Imin = i_max # update Imin
+                self.Jmin = max(self.Imin, self.Jmin)
+            elif self.Jmax >= i_min:
+                self.Imin = self.Jmax # update Imin
+                self.Jmin = self.Jmax
+                # Increase Pmin to decrease i_max such that i_max = Imin
+                self.increasePminI(rI)
+            else:
+                self.resolveConflict()
+                return
+        elif self.Imax >= i_min and self.Imin >= i_min:
+            # Increase Pmin to decrease i_max such that i_max = Imin
             self.increasePminI(rI)
-        elif self.Imin < rI.getValMin() and self.Imax < rI.getValMax():
-            self.Imin = rI.getValMin()
-            self.increasePminI(rI)
+        elif self.Imax >= i_min and self.Imin < i_min:
+            dist = self.Imax - i_min
+            if self.Jmax >= i_min + dist/2:
+                self.Imin = i_min + dist/2 # update Imin
+                self.Jmin = max(self.Imin, self.Jmin)
+                # Increase Pmin to decrease i_max such that i_max = Imin
+                self.increasePminI(rI)
+            elif self.Jmax >= i_min:
+                self.Imin = self.Jmax # update Imin
+                self.Jmin = self.Jmax
+                # Increase Pmin to decrease i_max such that i_max = Imin
+                self.increasePminI(rI)
+            else:
+                self.resolveConflict()
+                return
         
         self.resolveConstraints(True) # We check that all constraints are still satisfied, and if not, we solve the constraints
 
@@ -166,7 +190,7 @@ class ItSearch:
 
         <=> Pmin = y/(rI.max - x)
 
-        rI.max must be equal to Imax 
+        rI.max must be equal to Imin
 
         Parameters
         ----------
@@ -175,10 +199,10 @@ class ItSearch:
         """
         x = rI.getX()
         y = rI.getY()
-        if (self.Imax - x) <= 0:
+        if (self.Imin - x) <= 0:
             pmin = INFINITY
         else:
-            pmin = y/(self.Imax - x)
+            pmin = y/(self.Imin - x)
         if pmin <= self.Pmax:
             self.Pmin = pmin
         else:
@@ -188,25 +212,15 @@ class ItSearch:
     def resolveIncomparability(self, rJ:RangeJ):
         """Resolve incomparability
 
-        J <= [Jmin, Jmax] ; I <= J
+        T_J <= [j_min, j_max] ; I <= J
 
-        we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
+        we have a known [Jmin, Jmax] from previous pair(s) or strarting value ([0,1] in this case)
 
-        And we have rJ = [j_min, j_max] from the new pair
+        And we have rJ = [j_min, j_max] from the new pair. j_min depends of Pmin and j_max depends of Pmax
+
+        [Jmin, Jmax] <= [j_min, j_max] <=> Jmax <= j_min
 
         we have to compare the 2 range and resolve any conflict
-
-        So, we must have [Jmin, Jmax] <= [j_min, j_max]
-
-        <=> Jmin <= j_min and Jmax <= j_max
-
-        - If the 2 inequalities are satisfied, there's nothing to do ;
-        - If Jmin > j_max, there is a conflict ;
-        - If Jmin <= j_min but Jmax > j_max, we can set Jmax to j_max: Jmax = j_max ;
-        - If Jmax <= j_max but Jmin > j_min, we must increase j_min to Jmin, so increase Pmin ; if we can no longer increase Pmin, there is a conflict.
-        - If Jmin > j_min and Jmax > j_max, we can combine the 2 solution above.
-        
-        If we can no longer use these solutions, there is a conflict.
 
         In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.
 
@@ -215,19 +229,45 @@ class ItSearch:
         rJ : RangeJ
             a range of J values
         """
-
-        if self.Jmin <= rJ.getValMin() and self.Jmax <= rJ.getValMax():
+        j_min = rJ.getValForP(self.Pmin)
+        j_max = rJ.getValForP(self.Pmax)
+        
+        if self.Jmax <= j_min:
             # There is nothing to do
             return
-        elif self.Jmin > rJ.getValMax():
+        elif self.Jmin > j_max: # incompatible
             self.resolveConflict()
-        elif self.Jmin <= rJ.getValMin() and self.Jmax > rJ.getValMax():
-            self.Jmax = rJ.getValMax()
-        elif self.Jmax <= rJ.getValMax() and self.Jmin > rJ.getValMin():
+            return
+        elif self.Jmin <= j_min:
+            if self.Imin <= j_min:
+                self.Jmax = j_min # update Jmax
+                self.Imax = min(self.Jmax, self.Imax) # T_I <= T_J
+            elif self.Imin <= j_max:
+                self.Jmax = self.Imin # update Jmax
+                self.Imax = self.Imin
+                # Increase Pmin to increase j_min such that j_min = Jmax
+                self.increasePminJ(rJ)
+            else:
+                self.resolveConflict()
+                return
+        elif self.Jmin <= j_max and self.Jmax <= j_max:
+            # Increase Pmin to increase j_min such that j_min = Jmax
             self.increasePminJ(rJ)
-        elif self.Jmin > rJ.getValMin() and self.Jmax > rJ.getValMax():
-            self.Jmax = rJ.getValMax()
-            self.increasePminJ(rJ)
+        elif self.Jmin <= j_max and self.Jmax > j_max:
+            dist = j_max - self.Jmin
+            if self.Imin <= j_max - dist/2:
+                self.Jmax = j_max - dist/2 # update Jmax
+                self.Imax = min(self.Jmax, self.Imax) # T_I <= T_J
+                # Increase Pmin to increase j_min such that j_min = Jmax
+                self.increasePminJ(rJ)
+            elif self.Imin <= j_max:
+                self.Jmax = self.Imin # update Imin
+                self.Imax = self.Imin
+                # Increase Pmin to increase j_min such that j_min = Jmax
+                self.increasePminJ(rJ)
+            else:
+                self.resolveConflict()
+                return
 
         self.resolveConstraints(True) # We check that all constraints are still satisfied, and if not, we solve the constraints
 
@@ -239,7 +279,7 @@ class ItSearch:
 
         <=> Pmin = y/(x - rJ.min)
 
-        rJ.min must be equal to Jmin 
+        rJ.min must be equal to Jmax
 
         Parameters
         ----------
@@ -248,10 +288,10 @@ class ItSearch:
         """
         x = rJ.getX()
         y = rJ.getY()
-        if (x - self.Jmin) <= 0:
+        if (x - self.Jmax) <= 0:
             pmin = INFINITY
         else:
-            pmin = y/(self.Jmin - x)
+            pmin = y/(self.Jmax - x)
         if pmin <= self.Pmax:
             self.Pmin = pmin
         else:
@@ -261,50 +301,30 @@ class ItSearch:
     def resolvePreference(self, rI:RangeI, rJ:RangeJ):
         """Resolve preference
 
-        I <= [i_min, i_max] ; J >= [j_min, j_max] ; J >= I
+        T_I <= [i_min, i_max] ; T_J >= [j_min, j_max] ; J >= I
 
         There are 2 parts in this resolution.
 
-        1. I <= [i_min, i_max]
+        1. T_I <= [i_min, i_max]
 
         we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
 
-        And we have rI = [i_min, i_max] from the new pair
+        And we have rI = [i_min, i_max] from the new pair. i_min depends of Pmax and i_max depends of Pmin
+
+        [Imin, Imax] <= [i_min, i_max] <=> Imax <= i_min
 
         we have to compare the 2 range and resolve any conflict
 
-        So, we must have [Imin, Imax] <= [i_min, i_max]
 
-        <=> Imin <= i_min and Imax <= i_max
+        2. T_J >= [j_min, j_max]
 
-        - If the 2 inequalities are satisfied, there's nothing to do ;
-        - If Imin > i_max, there is a conflict ;
-        - If Imin <= i_min but Imax > i_max, we can set Imax to i_max: Imax = i_max ;
-        - If Imax <= i_max but Imin > i_min, we can increase i_min to Imin, so decrease Pmax ; if we can no longer decrease Pmax, there is a conflict.
-        - If Imin > i_min and Imax > i_max, we can combine the 2 solution above.
-        
-        If we can no longer use these solutions, there is a conflict.
+        we have a known [Jmin, Jmax] from previous pair(s) or strarting value ([0,1] in this case)
 
+        And we have rJ = [j_min, j_max] from the new pair. j_min depends of Pmin and j_max depends of Pmax
 
-        2. J >= [j_min, j_max]
-
-        we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
-
-        And we have rJ = [j_min, j_max] from the new pair
+        [Jmin, Jmax] >= [j_min, j_max] <=> Jmin >= j_max
 
         we have to compare the 2 range and resolve any conflict
-
-        So, we must have [Jmin, Jmax] >= [j_min, j_max]
-
-        <=> Jmin >= j_min and Jmax >= j_max
-
-        - If the 2 inequalities are satisfied, there's nothing to do ;
-        - If Jmax < j_min, there is a conflict ;
-        - If Jmax >= j_max but Jmin < j_min, we can set Jmin to j_min: Jmin = j_min ;
-        - If Jmin >= j_min but Jmax < j_max, we must decrease j_max to Jmax, so decrease Pmax ; if we can no longer increase Pmin, there is a conflict.
-        - If Jmin < j_min and Jmax < j_max, we can combine the 2 solution above.
-        
-        If we can no longer use these solutions, there is a conflict.
 
         In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.
 
@@ -315,98 +335,86 @@ class ItSearch:
         rJ : RangeJ
             a range of J values
         """
-
-        # part 1
-        self.ILErI(rI)
-
-        # part 2
-        self.JGErJ(rJ)
-
+        self.ILErI(rI) # part 1
+        self.JGErJ(rJ) # part 2
         self.resolveConstraints(True) # We check that all constraints are still satisfied, and if not, we solve the constraints
 
 
     def ILErI(self, rI:RangeI):
-        """Resolve preference, part 1 : I <= rI
+        """Resolve preference, part 1 : T_I <= rI
 
-        I <= [i_min, i_max]
+        T_I <= [i_min, i_max]
 
         we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
 
-        And we have rI = [i_min, i_max] from the new pair
+        And we have rI = [i_min, i_max] from the new pair. i_min depends of Pmax and i_max depends of Pmin
+
+        [Imin, Imax] <= [i_min, i_max] <=> Imax <= i_min
 
         we have to compare the 2 range and resolve any conflict
-
-        So, we must have [Imin, Imax] <= [i_min, i_max]
-
-        <=> Imin <= i_min and Imax <= i_max
-
-        - If the 2 inequalities are satisfied, there's nothing to do ;
-        - If Imin > i_max, there is a conflict ;
-        - If Imin <= i_min but Imax > i_max, we can set Imax to i_max: Imax = i_max ;
-        - If Imax <= i_max but Imin > i_min, we can increase i_min to Imin, so decrease Pmax ; if we can no longer decrease Pmax, there is a conflict.
-        - If Imin > i_min and Imax > i_max, we can combine the 2 solution above. 
-        
-        If we can no longer use these solutions, there is a conflict.
 
         Parameters
         ----------
         rI : RangeI
             a range of I values
         """
-        if self.Imin <= rI.getValMin() and self.Imax <= rI.getValMax():
+        i_min = rI.getValForP(self.Pmax)
+        i_max = rI.getValForP(self.Pmin)
+        
+        if self.Imax <= i_min:
             # There is nothing to do
             return
-        elif self.Imin > rI.getValMax():
+        elif self.Imin > i_max: # incompatible
             self.resolveConflict()
-        elif self.Imin <= rI.getValMin() and self.Imax > rI.getValMax():
-            self.Imax = rI.getValMax()
-        elif self.Imax <= rI.getValMax() and self.Imin > rI.getValMin():
+            return
+        elif self.Imin <= i_min:
+            self.Imax = i_min # update Imax
+        elif self.Imin <= i_max and self.Imax <= i_max:
+            # Decrease Pmax to increase i_min such that i_min = Imax
             self.decreasePmaxI(rI)
-        elif self.Imin > rI.getValMin() and self.Imax > rI.getValMax():
-            self.Imax = rI.getValMax()
+        elif self.Imin <= i_max and self.Imax > i_max:
+            dist = i_max - self.Imin
+            self.Imax = i_max - dist/2 # update Imax
+            # Decrease Pmax to increase i_min such that i_min = Imax
             self.decreasePmaxI(rI)
 
         
     def JGErJ(self, rJ:RangeJ):
-        """Resolve preference, part 2 : J >= rJ
+        """Resolve preference, part 2 : T_J >= rJ
 
-        J >= [j_min, j_max]
+        T_J >= [j_min, j_max]
 
-        we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)
+        we have a known [Jmin, Jmax] from previous pair(s) or strarting value ([0,1] in this case)
 
-        And we have rJ = [j_min, j_max] from the new pair
+        And we have rJ = [j_min, j_max] from the new pair. j_min depends of Pmin and j_max depends of Pmax
+
+        [Jmin, Jmax] >= [j_min, j_max] <=> Jmin >= j_max
 
         we have to compare the 2 range and resolve any conflict
-
-        So, we must have [Jmin, Jmax] >= [j_min, j_max]
-
-        <=> Jmin >= j_min and Jmax >= j_max
-
-        - If the 2 inequalities are satisfied, there's nothing to do ;
-        - If Jmax < j_min, there is a conflict ;
-        - If Jmax >= j_max but Jmin < j_min, we can set Jmin to j_min: Jmin = j_min ;
-        - If Jmin >= j_min but Jmax < j_max, we must decrease j_max to Jmax, so decrease Pmax ; if we can no longer increase Pmin, there is a conflict.
-        - If Jmin < j_min and Jmax < j_max, we can combine the 2 solution above.
-        
-        If we can no longer use these solutions, there is a conflict.
 
         Parameters
         ----------
         rJ : RangeJ
             a range of J values
         """
-
-        if self.Jmin >= rJ.getValMin() and self.Jmax >= rJ.getValMax():
+        j_min = rJ.getValForP(self.Pmin)
+        j_max = rJ.getValForP(self.Pmax)
+        
+        if self.Jmin >= j_max:
             # There is nothing to do
             return
-        elif self.Jmax < rJ.getValMin():
+        elif self.Jmax < j_min: # incompatible
             self.resolveConflict()
-        elif self.Jmax >= rJ.getValMax() and self.Jmin < rJ.getValMin():
-            self.Jmin = rJ.getValMin()
-        elif self.Jmin >= rJ.getValMin() and self.Jmax < rJ.getValMax():
+            return
+        elif self.Jmax >= j_max:
+            self.Jmin = j_max # update Jmin
+        elif self.Jmax >= j_min and self.Jmin >= j_min:
+            # Decrease Pmax to decrease j_max such that j_max = Jmin
             self.decreasePmaxJ(rJ)
-        elif self.Jmin < rJ.getValMin() and self.Jmax < rJ.getValMax():
-            self.Jmin = rJ.getValMin()
+        elif self.Jmax >= j_min and self.Jmin < j_min:
+            dist = self.Jmax - j_min
+            self.Jmin = j_min + dist/2 # update Jmin
+            # Decrease Pmax to decrease j_max such that j_max = Jmin
             self.decreasePmaxJ(rJ)
 
 
@@ -417,7 +425,7 @@ class ItSearch:
 
         <=> Pmax = y/(rI.min - x)
 
-        rI.min must be equal to Imin
+        rI.min must be equal to Imax
 
         Parameters
         ----------
@@ -426,10 +434,10 @@ class ItSearch:
         """
         x = rI.getX()
         y = rI.getY()
-        if (self.Imin - x) <= 0:
+        if (self.Imax - x) <= 0:
             pmax = INFINITY
         else:
-            pmax = y/(self.Imin - x)
+            pmax = y/(self.Imax - x)
         if pmax >= self.Pmin:
             self.Pmax = pmax
         else:
@@ -443,7 +451,7 @@ class ItSearch:
 
         <=> Pmax = y/(x - rJ.max)
 
-        rJ.max must be equal to Jmax
+        rJ.max must be equal to Jmin
 
         Parameters
         ----------
@@ -452,10 +460,10 @@ class ItSearch:
         """
         x = rJ.getX()
         y = rJ.getY()
-        if (x - self.Jmax) <= 0:
+        if (x - self.Jmin) <= 0:
             pmax = INFINITY
         else:
-            pmax = y/(self.Jmax - x)
+            pmax = y/(self.Jmin - x)
         if pmax >= self.Pmin:
             self.Pmax = pmax
         else:
@@ -474,7 +482,7 @@ class ItSearch:
         Parameters
         ----------
         s : bool
-            indicator of whether resolveConflict() has already been performed or not (True if already performed, False otherwise)
+            indicator of whether resolveConflict() has already been performed or not (True if not already performed, False otherwise)
         """
         parameters = (self.Imin, self.Imax, self.Jmin, self.Jmax)
         for param in parameters:
@@ -486,6 +494,10 @@ class ItSearch:
             self.Pmin = 1.0
         if self.Pmax < 1:
             self.Pmax = 1.0
+
+        if s:
+            self.verifyIndifferences()
+            self.verifyIncomparabilities()
 
         if self.Imin > self.Imax:
             if s:
@@ -516,8 +528,6 @@ class ItSearch:
             if s:
                 self.resolveConflict()
             else:
-                # another method than the average?
-                # print("Jmax < Imin")
                 self.Jmax = (self.Jmax + self.Imin)/2
                 self.Imin = self.Jmax
         elif self.Jmin < self.Imin and self.Jmax >= self.Imax:
@@ -611,6 +621,12 @@ class ItSearch:
             avgJ += valueJ
         avgI /= len(self.listOfRangeI)
         avgJ /= len(self.listOfRangeI)
+
+        # !!! T_I <= T_J !!!
+        if avgI > avgJ:
+            avg = (avgI+avgJ)/2
+            avgI = avg
+            avgJ = avg
         return avgI, avgJ
     
 
@@ -636,16 +652,22 @@ class ItSearch:
         for i in range(len(self.listOfRangeI)):
             valueI = self.listOfRangeI[i].getValForP(p)
             valueJ = self.listOfRangeJ[i].getValForP(p)
+            gammaValues = self.listOfRangeI[i].getGammaValues()
+            gammaSum = gammaValues[0] + gammaValues[1]
             if self.listOfPreference[i] == 0:
+                error = 0
                 if valueI > avgI:
-                    fitI += (avgI-valueI)**2
-                if valueI > avgJ:
-                    fitJ += (avgJ-valueI)**2
+                    error = valueI - avgI
+                if avgI + avgJ < gammaSum:
+                    error = max(error, gammaSum - (avgI+avgJ))
+                fitI += error**2
             elif self.listOfPreference[i] == -1:
+                error = 0
                 if valueJ < avgJ:
-                    fitJ += (avgJ-valueI)**2
-                if valueJ < avgI:
-                    fitI += (avgI-valueJ)**2
+                    error = avgJ - valueJ
+                if avgI + avgJ > gammaSum:
+                    error = max(error, (avgI+avgJ) - gammaSum)
+                fitJ += error**2
             elif self.listOfPreference[i] == 1:
                 if valueI < avgI:
                     fitI += (avgI-valueI)**2
@@ -654,3 +676,65 @@ class ItSearch:
         fitI = sqrt(fitI)
         fitJ = sqrt(fitJ)
         return fitI, fitJ
+    
+
+    def verifyIndifferences(self):
+        """Verify that T_I + T_J >= gammaij + gammaji for each indifference
+        """
+        for i, pref in enumerate(self.listOfPreference):
+            if pref == 0:
+                rI = self.listOfRangeI[i]
+                rI:RangeI
+                gammaValues = rI.getGammaValues()
+                gammaSum = gammaValues[0] + gammaValues[1]
+                if self.Imin + self.Jmin >= gammaSum:
+                    # ok, nothing to do
+                    pass
+                elif self.Imax + self.Jmax >= gammaSum:
+                    # Increase Imin and Jmin for that Imin + Jmin = gammaij + gammaji
+                    val = gammaSum - (self.Imin + self.Jmin)
+                    if self.Imin + val/2 <= self.Imax and self.Jmin + val/2 <= self.Jmax:
+                        self.Imin += val/2
+                        self.Jmin += val/2
+                    elif self.Imin + val/2 > self.Imax:
+                        self.Jmin += val - (self.Imax-self.Imin)
+                        self.Imin = self.Imax
+                    elif self.Jmin + val/2 > self.Jmax:
+                        self.Imin += val - (self.Jmax-self.Jmin)
+                        self.Jmin = self.Jmax
+                else:
+                    self.resolveConflict()
+                    break
+        print("Imin, Imax, Jmin, Jmax = ", self.Imin, self.Imax, self.Jmin, self.Jmax)
+
+
+    def verifyIncomparabilities(self):
+        """Verify that T_I + T_J <= gammaij + gammaji for each incomparability
+        """
+        for i, pref in enumerate(self.listOfPreference):
+            if pref == -1:
+                rJ = self.listOfRangeJ[i]
+                rJ:RangeJ
+                gammaValues = rJ.getGammaValues()
+                gammaSum = gammaValues[0] + gammaValues[1]
+                if self.Imax + self.Jmax <= gammaSum:
+                    # ok, nothing to do
+                    pass
+                elif self.Imin + self.Jmin <= gammaSum:
+                    # Decrease Imax and Jmax for that Imax + Jmax = gammaij + gammaji
+                    val = (self.Imax + self.Jmax) - gammaSum
+                    if self.Imax - val/2 >= self.Imin and self.Jmax - val/2 >= self.Jmin:
+                        self.Imax -= val/2
+                        self.Jmax -= val/2
+                    elif self.Imax - val/2 < self.Imin:
+                        self.Jmax -= val - (self.Imax-self.Imin)
+                        self.Imax = self.Imin
+                    elif self.Jmax - val/2 < self.Jmin:
+                        self.Imax -= val - (self.Jmax-self.Jmin)
+                        self.Jmax = self.Jmin
+                else:
+                    self.resolveConflict()
+                    break
+        print("Imin, Imax, Jmin, Jmax = ", self.Imin, self.Imax, self.Jmin, self.Jmax)
+
+

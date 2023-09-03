@@ -116,19 +116,19 @@ class Range:
     def print(self):
         """Print the extreme values of the range
         """
-        if type(self.min) is float:
-            print("Min=", self.min)
-        else:
+        if isinstance(self.min, Range):
             print("Min=", self.min.getValMin())
-        if type(self.max) is float:
-            print("Max=", self.max)
         else:
+            print("Min=", self.min)
+        if isinstance(self.max, Range):
             print("Max=", self.max.getValMax())
+        else:
+            print("Max=", self.max)
 
 
     # operator <
     def __lt__(self, r):
-        if type(r) is Range:
+        if isinstance(r, Range):
             return self.max < r.getValMin()
         else: 
             return self.max < r
@@ -136,7 +136,7 @@ class Range:
 
     # operator <=
     def __le__(self, r):
-        if type(r) is Range:
+        if isinstance(r, Range):
             return self.max <= r.getValMin() or (self.max <= r.getValMax() and self.min <= r.getValMin())
         else: 
             return self.max <= r or (self.max >= r and self.min <= r)
@@ -144,7 +144,7 @@ class Range:
 
     # operator ==
     def __eq__(self, r):
-        if type(r) is Range:
+        if isinstance(r, Range):
             return self.max == r.getValMax() and self.min == r.getValMin()
         else:
             return self.min <= r and self.max >= r
@@ -152,7 +152,7 @@ class Range:
 
     # operator !=
     def __ne__(self, r):
-        if type(r) is Range:
+        if isinstance(r, Range):
             return not(self.max == r.getValMax() and self.min == r.getValMin())
         else:
             return not(self.min <= r and self.max >= r)
@@ -160,7 +160,7 @@ class Range:
 
     # operator >
     def __gt__(self, r):
-        if type(r) is Range:
+        if isinstance(r, Range):
             return self.min > r.getValMax()
         else: 
             return self.min > r
@@ -168,7 +168,7 @@ class Range:
 
     # operator >=
     def __ge__(self, r):
-        if type(r) is Range:
+        if isinstance(r, Range):
             return self.min >= r.getValMax() or (self.min >= r.getValMin() and self.max >= r.getValMax())
         else: 
             return self.min >= r or (self.max >= r and self.min <= r)

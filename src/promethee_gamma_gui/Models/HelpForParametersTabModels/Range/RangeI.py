@@ -16,30 +16,43 @@ class RangeI(Range):
         maximum value of P, the preference parameter of PROMETHEE Gamma method
     Pmin : float
         minimum value of P, the preference parameter of PROMETHEE Gamma method
-
+    gamma_values : tuple of float
+        (gamma_ij, gamma_ji)
     """
 
-    def __init__(self, x:float, y:float, Pmax:float, Pmin:float) -> None:
+    def __init__(self, gammaij:float, gammaji:float, Pmax:float, Pmin:float) -> None:
         """
         Parameters
         ----------
-        x : float
-            max(gamma_ij, gamma_ji)
-        y : float
-            abs(gamma_ij - gamma_ji)
+        gammaij : float
+            gamma_ij
+        gammaji : float
+            gamma_ji
         Pmax : float
             maximum value of P, the preference parameter of PROMETHEE Gamma method
         Pmin : float
             minimum value of P, the preference parameter of PROMETHEE Gamma method
         """
-
-        self.x = x
-        self.y = y
+        self.x = max(gammaij, gammaji)
+        self.y = abs(gammaij - gammaji)
         self.Pmax = Pmax
         self.Pmin = Pmin
+        self.gamma_values = (gammaij, gammaji)
+        valMax = self.x + self.y/self.Pmin
+        if valMax > 1:
+            self.Pmin = self.y/(1-self.x)
+            valMax = 1
+            print("pmin = ", self.Pmin)
         valMin = max(0.0,min(self.x + self.y/self.Pmax, 1.0))
-        valMax = max(0.0,min(self.x + self.y/self.Pmin, 1.0))
         super().__init__(valMin, valMax)
+
+
+    def getGammaValues(self):
+        return self.gamma_values
+    
+
+    def getPmin(self):
+        return self.Pmin
 
 
     def getX(self) -> float:
