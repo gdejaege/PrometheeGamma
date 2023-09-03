@@ -40,9 +40,11 @@ class RangeJ(Range):
         self.gamma_values = (gammaij, gammaji)
         valMin = self.x - self.y/self.Pmin
         if valMin < 0:
-            self.Pmin = self.y/self.x
+            if self.x == 0:
+                self.Pmin = self.Pmax
+            else:
+                self.Pmin = self.y/self.x
             valMin = 0
-            print("pmin = ", self.Pmin)
         valMax = max(0.0,min(self.x - self.y/self.Pmax,1.0))
         super().__init__(valMin, valMax)
 

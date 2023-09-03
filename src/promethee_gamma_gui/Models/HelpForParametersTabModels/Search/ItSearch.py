@@ -115,7 +115,6 @@ class ItSearch:
         pmin = r.getPmin()
         if pmin > self.Pmin and pmin <= self.Pmax:
             self.Pmin = pmin
-            print("pmin change")
         elif pmin > self.Pmax:
             self.resolveConflict()
 
@@ -484,6 +483,11 @@ class ItSearch:
         s : bool
             indicator of whether resolveConflict() has already been performed or not (True if not already performed, False otherwise)
         """
+
+        if s:
+            self.verifyIndifferences()
+            self.verifyIncomparabilities()
+
         parameters = (self.Imin, self.Imax, self.Jmin, self.Jmax)
         for param in parameters:
             if param < 0:
@@ -494,10 +498,6 @@ class ItSearch:
             self.Pmin = 1.0
         if self.Pmax < 1:
             self.Pmax = 1.0
-
-        if s:
-            self.verifyIndifferences()
-            self.verifyIncomparabilities()
 
         if self.Imin > self.Imax:
             if s:
@@ -705,7 +705,6 @@ class ItSearch:
                 else:
                     self.resolveConflict()
                     break
-        print("Imin, Imax, Jmin, Jmax = ", self.Imin, self.Imax, self.Jmin, self.Jmax)
 
 
     def verifyIncomparabilities(self):
@@ -735,6 +734,5 @@ class ItSearch:
                 else:
                     self.resolveConflict()
                     break
-        print("Imin, Imax, Jmin, Jmax = ", self.Imin, self.Imax, self.Jmin, self.Jmax)
 
 

@@ -166,8 +166,4 @@ class PreferenceLearning:
         elif preference == -1: # incomparability
             rJ = RangeJ(matrixGamma[a1][a2], matrixGamma[a2][a1], Pmax, Pmin) # T_J <= [Jmin, Jmax]
             rI = rJ
-        if rI is not None and rJ is not None:
-            print("gammas values = ", matrixGamma[a1][a2], matrixGamma[a2][a1])
-            rI.print()
-            rJ.print()
         return (rI, rJ, preference)

@@ -2,10 +2,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.patches import Arc
 
-#from Views.ResultTabViews.ResultsVisualisationViews.RankView.AlternativeView import AlternativeView
-#from Resources.ThreadCommunication import (Ticket, TicketPurpose)
 from .AlternativeView import AlternativeView
 from .....Resources.ThreadCommunication import Ticket, TicketPurpose
+
 
 SPACE = 100
 """The space between the center of 2 circles that represent alternatives"""
@@ -47,6 +46,11 @@ class HorizontalLine:
 
     def createLine(self):
         """Create an horizontal line between alternatives a1 and a2
+
+        Raises
+        ------
+        SystemExit
+            if a SystemExit occurs.
         """
         try:
             xy1 = self.a1.getXY()
@@ -78,6 +82,11 @@ class HorizontalLine:
             a queue to store the message
         color : Color
             the line color
+
+        Raises
+        ------
+        SystemExit
+            if a SystemExit occurs.
         """
         try:
             if self.arc:
@@ -101,6 +110,11 @@ class HorizontalLine:
             a queue to store the message
         color : Color
             the line color
+
+        Raises
+        ------
+        SystemExit
+            if a SystemExit occurs.
         """
         try:
             xy1 = self.a1.getXY()

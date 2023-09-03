@@ -44,8 +44,12 @@ class VerticalLine:
         ----------
         alternatives : list of AlternativeView
             a list of alternative representations in order to avoid them
+
+        Raises
+        ------
+        SystemExit
+            if a SystemExit occurs.
         """
-        
         try:
             xy1 = self.a1.getXY()
             xy2 = self.a2.getXY()
@@ -131,21 +135,30 @@ class VerticalLine:
         -------
         float
             the theta value
+
+        Raises
+        ------
+        SystemExit
+            if a SystemExit occurs.
         """
-        if coord[0] != center[0]:
-            rad = atan(abs(coord[1]-center[1])/abs(coord[0]-center[0])) # arctan(y/x)
-            deg = degrees(rad) # radians to degrees
-        else:
-            deg = 90
-        if coord[0] >= center[0] and coord[1] >= center[1]: # 1st quadrant
-            theta = deg
-        elif coord[0] < center[0] and coord[1] < center[1]: # 3rd quadrant
-            theta = deg + 180
-        elif coord[0] < center[0] and coord[1] >= center[1]: # 2nd quadrant
-            theta = 180 - deg
-        elif coord[0] >= center[0] and coord[1] < center[1]: # 4rd quadrant
-            theta = 360 - deg
-        return theta
+        try:
+            if coord[0] != center[0]:
+                rad = atan(abs(coord[1]-center[1])/abs(coord[0]-center[0])) # arctan(y/x)
+                deg = degrees(rad) # radians to degrees
+            else:
+                deg = 90
+            if coord[0] >= center[0] and coord[1] >= center[1]: # 1st quadrant
+                theta = deg
+            elif coord[0] < center[0] and coord[1] < center[1]: # 3rd quadrant
+                theta = deg + 180
+            elif coord[0] < center[0] and coord[1] >= center[1]: # 2nd quadrant
+                theta = 180 - deg
+            elif coord[0] >= center[0] and coord[1] < center[1]: # 4rd quadrant
+                theta = 360 - deg
+            return theta
+        except SystemExit:
+            raise SystemExit()
+        
 
 
     def makeArc(self, start:tuple, end:tuple, alternative:AlternativeView):
@@ -159,19 +172,27 @@ class VerticalLine:
             (xe, ye), the coordinates of the other end of the circular arc
         alternative : AlternativeView
             the alternative to avoid
-        """
-        xy = alternative.getXY()
-        t1 = self.theta(start, xy)
-        t2 = self.theta(end, xy)
 
-        if abs(t1 - t2) <= 180:
-            theta1 = min(t1,t2)
-            theta2 = max(t1,t2)
-        else:
-            theta1 = max(t1,t2)
-            theta2 = min(t1,t2)
-        arc = {"xy":alternative.getXY(), "radius":alternative.getBigRaius(), "angle":0, "theta1":theta1, "theta2":theta2}
-        return ("arc", arc)
+        Raises
+        ------
+        SystemExit
+            if a SystemExit occurs.
+        """
+        try:
+            xy = alternative.getXY()
+            t1 = self.theta(start, xy)
+            t2 = self.theta(end, xy)
+
+            if abs(t1 - t2) <= 180:
+                theta1 = min(t1,t2)
+                theta2 = max(t1,t2)
+            else:
+                theta1 = max(t1,t2)
+                theta2 = min(t1,t2)
+            arc = {"xy":alternative.getXY(), "radius":alternative.getBigRaius(), "angle":0, "theta1":theta1, "theta2":theta2}
+            return ("arc", arc)
+        except SystemExit:
+            raise SystemExit()
     
 
     def draw(self, frame, queue, color):
@@ -185,6 +206,11 @@ class VerticalLine:
             a queue to store the message
         color : Color
             the line color
+
+        Raises
+        ------
+        SystemExit
+            if a SystemExit occurs.
         """
         try:
             for s in self.sections:

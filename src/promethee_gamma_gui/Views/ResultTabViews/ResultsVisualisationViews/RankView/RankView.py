@@ -36,6 +36,16 @@ class RankView:
             """
             pass
 
+        def checkBoxEventAll(self, alternativesDict):
+            """Handle "All" checkBox event
+
+            Parameters
+            ----------
+            alternativeDict : dict
+                the dictionnary of alternatives names for selection
+            """
+            pass
+
 
     def __init__(self, master:CTkFrame, root:CTk) -> None:
         """
@@ -99,8 +109,8 @@ class RankView:
         aList : list
             the list of alternative names
         """
-
         self.alternatives = {}
+        self.alternatives["ALL ALTERNATIVES"] = IntVar(master=self.rightFrame, value=1)
         for a in aList:
             self.alternatives[a] = IntVar(master=self.rightFrame, value=1)
 
@@ -108,14 +118,23 @@ class RankView:
     def BuildCheckBoxes(self):
         """Build the checkBoxes for alternatives selection
         """
-
         self.checkBoxList.clear()
-        row=0
+        row=1
         for key in self.alternatives.keys():
-            box = CTkCheckBox(master=self.rightFrame, text=key, text_color="#000000", variable=self.alternatives[key], command=self.listener.checkBoxEvent)
-            box.grid(row=row, column=0, sticky="w", padx=5, pady=(5,0))
-            row+=1
+            if key == "ALL ALTERNATIVES":
+                box = CTkCheckBox(master=self.rightFrame, text="ALL", text_color="#000000", variable=self.alternatives[key], command=self.checkBoxEventAll)
+                box.grid(row=0, column=0, sticky="w", padx=5, pady=(5,0))
+            else:
+                box = CTkCheckBox(master=self.rightFrame, text=key, text_color="#000000", variable=self.alternatives[key], command=self.listener.checkBoxEvent)
+                box.grid(row=row, column=0, sticky="w", padx=5, pady=(5,0))
+                row+=1
             self.checkBoxList.append(box)
+
+
+    def checkBoxEventAll(self):
+        """Handle "All" checkBox event
+        """
+        self.listener.checkBoxEventAll(self.alternatives)
 
 
     def setListener(self, l:ViewListener):
@@ -171,6 +190,13 @@ class RankView:
 
 
     def makeGraph(self, matrixResults:list) -> None:
+        """Add lines to the graph and draw it
+
+        Parameters
+        ----------
+        matrixResults : list
+            the result matrix of PROMETHEE Gamma method
+        """
         try:
             self.add_lines(matrixResults)
             ticket = Ticket(ticketType=TicketPurpose.CANVAS_DRAW, ticketValue=None)
@@ -181,8 +207,15 @@ class RankView:
 
 
     def computeSize(self, r:list):
-        width = 100
-        height = 100
+        """Compute the size of the canvas
+
+        Parameters
+        ----------
+        r : list
+            ranked list of alternatives
+        """
+        width = 2*SPACE
+        height = 2*SPACE
         self.graphName.clear()
 
         h = 0
@@ -200,9 +233,19 @@ class RankView:
                 width = w
         if h > height:
             height = h
+
+        if width > 2*height:
+            wspace = SPACE
+            hspace = 2*SPACE + 0.1*height
+        elif height > 2*width:
+            wspace = 2*SPACE + 0.1*width
+            hspace = SPACE
+        else : 
+            wspace = SPACE + 0.1*width
+            hspace = SPACE + 0.1*height
         
-        self.leftScrollFrame.resize(1.3 * width + 5 * SPACE, 1.3 * height + SPACE)
-        self.ax.axis([0, width, 0, height])
+        self.leftScrollFrame.resize(1.4 *(width + wspace) + SPACE, 1.4 * (height + hspace) + SPACE)
+        self.ax.axis([0, width+wspace, 0, height+hspace])
         return width, height
                     
 
@@ -243,6 +286,11 @@ class RankView:
         ----------
         matrixResults : list
             the result matrix of PROMETHEE Gamma method
+
+        Raises
+        ------
+        SystemExit
+            if a SystemExit occurs.
         """
         try:
             for i in range(len(matrixResults)):
@@ -258,6 +306,22 @@ class RankView:
 
 
     def draw_line(self, a:AlternativeView, b:AlternativeView, color):
+        """Draw a line between alternatives a and b
+
+        Parameters
+        ----------
+        a : AlternativeView
+            a representation of an alternative on the graph
+        b : AlternativeView
+            a representation of an alternative on the graph
+        color : Color
+            the line color
+        
+        Raises
+        ------
+        SystemExit
+            if a SystemExit occurs.
+        """
         try:
             xya = a.getXY()
             xyb = b.getXY()
@@ -275,10 +339,14 @@ class RankView:
 
 
     def makeLegend(self):
+        """Add legend to the graph
+        """
         redLine = mlines.Line2D([], [], color='red', label='Incomparability lines')
         greenLine = mlines.Line2D([], [], color='green', label='Indifference lines')
-        self.ax.legend(handles=[redLine, greenLine], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+        self.ax.legend(handles=[redLine, greenLine], loc='upper right')
 
 
     def save(self, filename):
+        """Save the graph in filename
+        """
         self.fig.savefig(filename)

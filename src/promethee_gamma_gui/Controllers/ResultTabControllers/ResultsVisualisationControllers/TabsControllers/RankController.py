@@ -84,6 +84,21 @@ class RankController(RankView.ViewListener):
         self.rankView.drawCanvas(self.ranked, matrixResults)
 
 
+    def checkBoxEventAll(self, alternativeDict:dict):
+        """Handle of "ALL" checkBoxEvent in the selection view
+
+        Parameters
+        ----------
+        alternativeDict : dict
+            the dictionnary of alternatives names for selection
+        """
+        val = alternativeDict["ALL ALTERNATIVES"].get()
+        for key in alternativeDict.keys():
+            alternativeDict[key].set(val)
+        self.checkBoxEvent()
+
+
+
     def buildRankedAlternatives(self) -> None:
         """Rank alternatives from scores
         """
