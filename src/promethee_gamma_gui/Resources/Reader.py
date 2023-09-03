@@ -1,5 +1,4 @@
 import os
-import tkinter.messagebox as msg
 
 
 class Reader:
@@ -18,7 +17,13 @@ class Reader:
             the data tab master frame
         dataModel : DataTabModel
             the data tab model
+
+        Raises
+        ------
+        ValueError
+            if a ValueError occurs in converting str to float or int
         """
+        error = False
         criteriaP = None
         criteriaQ = None
         for line in file:
@@ -37,8 +42,17 @@ class Reader:
             elif(temp[0] == 'q'):
                 criteriaQ = temp[1:]
             else:
-                dataModel.createAlternative(master, temp[0], temp[1:])
-        dataModel.createCriteria(master, criteriaNames, criteriaWeights, criteriaPreferenceFunctionType, criteriaP, criteriaQ)
+                try:
+                    dataModel.createAlternative(master, temp[0], temp[1:])
+                except ValueError:
+                    error = True
+        try:
+            dataModel.createCriteria(master, criteriaNames, criteriaWeights, criteriaPreferenceFunctionType, criteriaP, criteriaQ)
+        except ValueError:
+            error = True
+        finally:
+            if error:
+                raise ValueError()
 
 
     def readParameters(self, file, model):

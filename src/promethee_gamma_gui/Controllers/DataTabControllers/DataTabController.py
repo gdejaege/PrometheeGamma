@@ -1,4 +1,5 @@
 from tkinter import filedialog as fd
+import tkinter.messagebox as msg
 import os
 
 from ...Models.DataTabModels.DataTabModel import DataTabModel
@@ -83,9 +84,13 @@ class DataTabController(DataTabView.ViewListener):
         self.clearTable()
         file = open(filename, "r")
         r = Reader()
-        r.readData(file, master, self.dataTabModel)
-        file.close()
-        self.fillDataTable()
+        try:
+            r.readData(file, master, self.dataTabModel)
+        except ValueError:
+            msg.showwarning("Value Error", "An error has occured in conversion string to integer or floating point number. The values concerned were set to their default values.")
+        finally:
+            file.close()
+            self.fillDataTable()
 
 
     def fillDataTable(self) -> None:

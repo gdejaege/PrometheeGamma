@@ -198,19 +198,31 @@ class DataTabModel:
             the tkinter master frame to link StringVar and DoubleVar
         name : str
             the name of the new alternative
-        data : list[float]
+        data : list of str
             the list of alternative evaluation for each criterion
+
+        Raises
+        ------
+        ValueError
+            if a ValueError occurs in converting str to float
         """
+        error = False
         n = StringVar(master=master, value=name)
         n.trace_add("write", self.lock.lock)
         l = []
         for d in data:
-            val = float(d)
+            try:
+                val = float(d)
+            except ValueError:
+                val = 0.0
+                error = True
             e = DoubleVar(master=master, value=val)
             e.trace_add("write", self.lock.lock)
             l.append(e)
         a = Alternative(name=n, evaluations=l)
         self.alternatives.append(a)
+        if error:
+            raise ValueError()
 
 
     def createCriteria(self, master, criteriaNames:list, criteriaWeights:list, criteriaPreferenceFunctionType:list, criteriaP:list, criteriaQ:list) -> None:
@@ -230,24 +242,52 @@ class DataTabModel:
             list of preference threshold in preference function
         criteriaQ : list[str]
             list of indifference threshold in preference function
+
+        Raises
+        ------
+        ValueError
+            if a ValueError occurs in converting str to float or int
         """
         p = None
         q = None
+        convertError = False
         for i in range(len(criteriaNames)):
             name = StringVar(master=master, value=criteriaNames[i])
             name.trace_add("write", self.lock.lock)
-            weight = DoubleVar(master=master, value=float(criteriaWeights[i]))
+            try:
+                val = float(criteriaWeights[i])
+            except:
+                val = 0.0
+                convertError = True
+            weight = DoubleVar(master=master, value=val)
             weight.trace_add("write", self.lock.lock)
-            pfType = IntVar(master=master, value=int(criteriaPreferenceFunctionType[i]))
+            try:
+                val = int(criteriaPreferenceFunctionType[i])
+            except:
+                val = 1
+                convertError = True
+            pfType = IntVar(master=master, value=val)
             pfType.trace_add("write", self.lock.lock)
             if(criteriaP != None):
-                p = DoubleVar(master=master, value=float(criteriaP[i]))
+                try:
+                    val = float(criteriaP[i])
+                except:
+                    val = 1.0
+                    convertError = True
+                p = DoubleVar(master=master, value=val)
                 p.trace_add("write", self.lock.lock)
             if(criteriaQ != None):
-                q = DoubleVar(master=master, value=float(criteriaQ[i]))
+                try:
+                    val = float(criteriaQ[i])
+                except:
+                    val = 0.0
+                    convertError = True
+                q = DoubleVar(master=master, value=val)
                 q.trace_add("write", self.lock.lock)
             c = Criterion(name=name, weight=weight, pfType=pfType, p=p, q=q)
             self.criteria.append(c)
+        if convertError:
+            raise ValueError()
 
 
     def addOneEvaluationInAllAlternatives(self, master) -> None:
