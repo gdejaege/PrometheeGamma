@@ -1,9 +1,3 @@
-"""
-from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.OrthogonalGraphController import OrthogonalGraphController
-from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.TextboxController import TextboxController
-from Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.RankController import RankController
-from Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView import ResultVisualisationView
-"""
 from .TabsControllers import OrthogonalGraphController, TextboxController, RankController
 from ....Views.ResultTabViews.ResultsVisualisationViews.ResultVisualisationView import ResultVisualisationView
 
@@ -28,7 +22,6 @@ class ResultVisualisationController:
         the controller for the textbox part
     rankController : RankController
         the controller for the rank graph part
-
     """
 
     def __init__(self, master, models:tuple, root) -> None:

@@ -13,7 +13,6 @@ class PreferenceFunction:
         the preference threshold in the preference function
     qc : DoubleVar
         the indifference threshold in the preference function
-
     """
 
     def __init__(self, type:IntVar=None, p:DoubleVar=None, q:DoubleVar=None):

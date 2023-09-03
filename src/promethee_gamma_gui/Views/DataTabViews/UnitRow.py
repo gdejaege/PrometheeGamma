@@ -1,6 +1,5 @@
 from customtkinter import (CTkEntry, DoubleVar)
 
-#from Models.DataTabModels.Alternative import Alternative
 from ...Models.DataTabModels.Alternative import Alternative
 
 

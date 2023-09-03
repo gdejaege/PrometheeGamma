@@ -111,6 +111,11 @@ class ItSearch:
 
     def verifyPmin(self, r):
         """Set Pmin if neccessary for the new range
+
+        Parameters
+        ----------
+        r : RangeI or RangeJ
+            the range of the new pair comparison
         """
         pmin = r.getPmin()
         if pmin > self.Pmin and pmin <= self.Pmax:
@@ -483,7 +488,6 @@ class ItSearch:
         s : bool
             indicator of whether resolveConflict() has already been performed or not (True if not already performed, False otherwise)
         """
-
         if s:
             self.verifyIndifferences()
             self.verifyIncomparabilities()
@@ -575,7 +579,6 @@ class ItSearch:
                 p += 0.1
 
             p = round(p, 2)
-            
             if p > 100.0:
                 p = INFINITY
                 avgI, avgJ = self.averageIandJ(p)
@@ -595,7 +598,6 @@ class ItSearch:
         self.Jmax = bestJ
         self.Pmin = p
         self.Pmax = p
-
         self.resolveConstraints(False)
 
 

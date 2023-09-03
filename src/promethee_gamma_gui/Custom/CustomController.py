@@ -8,14 +8,6 @@
 ### otherwise the link with the rest of the application will be broken.   ###
 #############################################################################
 
-"""
-from Models.PrometheeGamma import PrometheeGamma
-from Models.DataTabModels.DataTabModel import DataTabModel
-
-from Custom.CustomView import CustomView
-from Custom.CustomModel import CustomModel
-"""
-
 from ..Models.PrometheeGamma import PrometheeGamma
 from ..Models.DataTabModels.DataTabModel import DataTabModel
 from .CustomView import CustomView
@@ -40,17 +32,11 @@ class CustomController(CustomView.ViewListener):
         the view of the custom module
     customModel : CustomModel
         the model of the custom module
-
-    Methods
-    -------
     """
 
     class Listener:
         """
         An interface for the listener
-
-        Methods
-        -------
         """
 
         def apply(self, results): # !!! Warning !!! The name (and arguments) of this method cannot be modified
@@ -59,7 +45,7 @@ class CustomController(CustomView.ViewListener):
             Parameters
             ----------
             results : tuple of float
-                (I,J,P) where I, J and P are the values of the 3 parameters of PROMETHEE Gamma method
+                (Ti, Tj, Pf) where Ti, Tj and Pf are the values of the 3 parameters of PROMETHEE Gamma method
             """
             pass
         
@@ -132,7 +118,7 @@ class CustomController(CustomView.ViewListener):
         (Imin, Imax, Jmin, Jmax, Pmin, Pmax) = self.customModel.getValues()
 
         # You can write code here to format results correctly
-        # results must be in the form : (I,J,P) where I, J and P are the values of the 3 parameters of PROMETHEE Gamma method, in float
+        # results must be in the form : (Ti, Tj, Pf) where Ti, Tj and Pf are the values of the 3 parameters of PROMETHEE Gamma method, in float
         # example:
         results = (Imin, Jmin, Pmin)
 

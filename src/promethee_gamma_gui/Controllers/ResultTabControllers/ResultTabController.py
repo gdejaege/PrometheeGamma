@@ -221,7 +221,6 @@ class ResultTabController(ResultTabView.ViewListener):
         file : io
             the file in which to save the parameters
         """
-
         file.write("Parameters\n\n")
 
         i = self.resultTabModel.getTi_float()

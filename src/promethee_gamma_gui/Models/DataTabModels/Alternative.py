@@ -10,10 +10,9 @@ class Alternative:
         the alternative name
     evaluations : list[DoubleVar]
         the list of alternative evaluation for each criterion
-
     """
     
-    def __init__(self, name:StringVar=None, evaluations=[]) -> None:
+    def __init__(self, name:StringVar=None, evaluations:list=[]) -> None:
         """
         Parameters
         ----------
@@ -22,7 +21,6 @@ class Alternative:
         evaluations : list, optional
             the list of alternative evaluation for each criterion (default is a void list)
         """
-
         self.name = name
         self.evaluations = evaluations
 
@@ -35,7 +33,6 @@ class Alternative:
         name : StringVar
             the new alternative name
         """
-
         self.name = name
 
 
@@ -47,7 +44,6 @@ class Alternative:
         evaluation : DoubleVar
             the evaluation to add
         """
-
         self.evaluations.append(evaluation)
 
 
@@ -61,31 +57,28 @@ class Alternative:
         index : int, optional
             the index of the evaluation that must be deleted (default is -1)
         """
-
         self.evaluations.pop(index)
 
     
     def getName(self) -> StringVar:
         """Return the name in a StringVar object
 
-        Return
-        ------
-        name : StringVar
+        Returns
+        -------
+        StringVar
             the alternative name
         """
-
         return self.name
     
 
     def getName_str(self) -> str:
         """Return the name in str
 
-        Return
-        ------
-        name : str
+        Returns
+        -------
+        str
             the alternative name (in str)
         """
-
         return self.name.get()
     
 
@@ -97,12 +90,11 @@ class Alternative:
         index : int
             the index of the evaluation that must be returned (default is -1)
         
-        Return
-        ------
-        evaluations[index] : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the evaluation at position index in the list evaluations
         """
-
         return self.evaluations[index]
     
     
@@ -114,22 +106,20 @@ class Alternative:
         index : int
             the index of the evaluation that must be returned (default is -1)
         
-        Return
-        ------
-        evaluations[index].get() : float
+        Returns
+        -------
+        float
             the evaluation at position index in the list evaluations (in float)
         """
-
         return self.evaluations[index].get()
 
 
     def getSize(self) -> int:
         """Return the size of the alternative, i.e. the number of evaluations for this alternative
 
-        Return
-        ------
-        len(evaluations) : int
+        Returns
+        -------
+        int
             the length of the evaluations list
         """
-        
         return len(self.evaluations)

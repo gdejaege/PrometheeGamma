@@ -1,5 +1,4 @@
 from customtkinter import (CTk, CTkTabview, CTkButton, CTkFrame)
-#from Resources.Menu import Menu
 from ..Resources.Menu import Menu
 
 class AppView(CTk):

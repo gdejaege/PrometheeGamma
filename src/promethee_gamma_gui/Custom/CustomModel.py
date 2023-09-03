@@ -4,11 +4,9 @@
 ### Edit it as you wish.                                                  ###
 #############################################################################
 
-#from Models.PrometheeGamma import PrometheeGamma
-#from Models.DataTabModels.DataTabModel import DataTabModel
-
 from ..Models.PrometheeGamma import PrometheeGamma
 from ..Models.DataTabModels.DataTabModel import DataTabModel
+
 
 class CustomModel:
     """
@@ -21,20 +19,17 @@ class CustomModel:
     dataTabModel : DataTabModel
         the model that keep input data in memory
     Imin :float
-        the minimum value for the parameter I
+        the minimum value for the parameter Ti
     Imax :float
-        the maximum value for the parameter I
+        the maximum value for the parameter Ti
     Jmin :float
-        the minimum value for the parameter J
+        the minimum value for the parameter Tj
     Jmax :float
-        the maximum value for the parameter J
+        the maximum value for the parameter Tj
     Pmin :float
-        the minimum value for the parameter P
+        the minimum value for the parameter Pf
     Pmax :float
-        the maximum value for the parameter P
-
-    Methods
-    -------
+        the maximum value for the parameter Pf
     """
 
     def __init__(self, prometheeGamma:PrometheeGamma, dataTabModel:DataTabModel) -> None:
@@ -82,9 +77,9 @@ class CustomModel:
     def getValues(self):
         """Example of funtion to get results
 
-        Return
-        ------
-        (self.Imin, self.Imax, self.Jmin, self.Jmax, self.Pmin, self.Pmax) : tuple
+        Returns
+        -------
+        tuple of float
             the results obtained with the model
         """
         return (self.Imin, self.Imax, self.Jmin, self.Jmax, self.Pmin, self.Pmax)

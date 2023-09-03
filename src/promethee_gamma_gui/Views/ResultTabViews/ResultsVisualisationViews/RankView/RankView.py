@@ -25,6 +25,43 @@ class RankView:
     """
     A class to display the rank graph of alternatives
 
+    Attributes
+    ----------
+    root : CTk
+        the root window of the app
+    leftScrollFrame : ResizableScrollableFrame
+        a resisable vertically and horizontally scrollable frame for the canvas that contains the graph
+    leftFrame : CTkFrame
+        the master frame for the canvas that contains the graph
+    rightScrollFrame : VScrollableFrame
+        a vertical scrollable frame for the selection view
+    rightFrame : CTkFrame
+        the master frame for the selection view
+    fig : Figure
+        the matplotlib figure for the graph
+    ax : Axes
+        the matplotlib axes to draw the graph
+    canvas : FigureCanvasTkAgg
+        the canvas that contains the figure
+    toolbar : NavigationToolbar2Tk
+        the matplotlib navigation toolbar
+    checkBoxList : list of CTkCheckBox
+        the list of checkboxes for selection
+    alternatives : dict of str:Intvar
+        a dictionnary that contains alternatives names as key and an Intvar as item. 
+        It is used for selection : if the IntVar value is set to 1, the alternative is showed, otherwise the alternative is hided.
+    listener : ViewListener
+        the listener of this view
+    construction : dict of str:AlternativeView
+        a dictionnary to link alternatives to their representation
+    graphName : list of list of str
+        a representation of the graph in list with alternatives names as items
+    als : list of AlternativeView
+        a list that contains all AlternativeViews
+    queueMessage : Queue
+        A queue to transmit messages from secondary thread to main thread
+    thread : Thread
+        a secondary thread to computes graph lines
     """
 
     class ViewListener:
@@ -75,10 +112,6 @@ class RankView:
         self.construction = {}
         self.graphName = []
         self.als = []
-        self.xmin = 1000000
-        self.ymin = 50
-        self.xmax = 0
-        self.ymax = 100
 
         self.queueMessage = Queue()
         self.root.bind("<<CheckMsgRankView>>", self.checkQueue)

@@ -10,7 +10,6 @@ class Range:
         the lowest value in the range or a range
     max : float | Range
         the highest value in the range or a range
-
     """
 
     def __init__(self, min=None, max=None) -> None:

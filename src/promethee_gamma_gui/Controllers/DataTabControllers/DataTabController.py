@@ -19,9 +19,9 @@ class DataTabController(DataTabView.ViewListener):
         the model for the data tab
     dataTabView : DataTabView
         the view of the data tab
-    criteriaColumns : list[CriterionColumn]
+    criteriaColumns : list of CriterionColumn
         the list that will contain all criterion column
-    unitsRows : list[UnitRow]
+    unitsRows : list of UnitRow
         the list that will contain all unit row
     lock : Lock
         a lock to synchronizes different parts of the app

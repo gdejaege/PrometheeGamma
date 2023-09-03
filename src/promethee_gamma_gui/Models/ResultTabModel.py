@@ -12,9 +12,8 @@ class ResultTabModel:
         the incomparability threshold of the PROMETHEE Gamma method
     preferenceParameter : DoubleVar
         the preference parameter of the PROMETHEE Gamma method
-    scores : dict[int]
+    scores : dict of str:int
         a dictionnary of scores for each alternative in order to rank alternatives
-
     """
 
     def __init__(self, master) -> None:
@@ -24,11 +23,11 @@ class ResultTabModel:
         master : CTkFrame
             a tkinter master frame to link the DoubleVar
         """
-
         # Parameters
         self.indifferenceThreshold = DoubleVar(master=master, value=0.0)
         self.incomparabilityThreshold = DoubleVar(master=master, value=0.0)
         self.preferenceParameter = DoubleVar(master=master, value=1.0)
+        
         # Scores for rank
         self.scores = {}
 
@@ -137,7 +136,7 @@ class ResultTabModel:
 
         Parameters
         ----------
-        alternativesNames : list[str]
+        alternativesNames : list of str
             the list of altrenatives names
         """
         self.scores.clear()

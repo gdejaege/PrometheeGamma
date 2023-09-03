@@ -20,7 +20,6 @@ class RankController(RankView.ViewListener):
         the view of the rank tab
     ranked : list of Alternative
         a sorted list of ranked alternatives
-
     """
 
     def __init__(self, master, prometheeGamma:PrometheeGamma, resultTabModel:ResultTabModel, dataTabModel:DataTabModel, root) -> None:
@@ -41,10 +40,8 @@ class RankController(RankView.ViewListener):
         self.dataTabModel = dataTabModel
         self.resultTabModel = resultTabModel
         self.prometheeGamma = prometheeGamma
-        
         self.rankView = RankView(master, root)
         self.rankView.setListener(self)
-
         self.ranked = []
 
 
@@ -96,7 +93,6 @@ class RankController(RankView.ViewListener):
         for key in alternativeDict.keys():
             alternativeDict[key].set(val)
         self.checkBoxEvent()
-
 
 
     def buildRankedAlternatives(self) -> None:

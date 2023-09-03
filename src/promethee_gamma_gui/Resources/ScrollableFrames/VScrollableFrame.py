@@ -17,7 +17,6 @@ class VScrollableFrame(CTkFrame):
         the vertical scrollbar
     canvas_window : int
         id of canvas window that contain the innerFrame
-
     """
     
     def __init__(self, master, bg_color="#ffffff", fg_color="#ffffff"):
@@ -32,7 +31,6 @@ class VScrollableFrame(CTkFrame):
         fg_color : str
             the foreground color
         """
-
         self.canvas = CTkCanvas(self, borderwidth=0, background=bg_color, highlightbackground=bg_color, highlightcolor=bg_color)
         self.innerFrame = CTkFrame(self.canvas, bg_color=bg_color, fg_color=fg_color, border_color=fg_color)
         self.vsb = CTkScrollbar(self, orientation="vertical", command=self.canvas.yview)

@@ -2,8 +2,6 @@ from tkinter import *
 from customtkinter import (CTkEntry, CTkButton, CTkToplevel)
 import platform
 
-#from Models.DataTabModels.Criterion import Criterion
-#from Views.DataTabViews.PreferenceFunctionWindow import PreferenceFunctionWindow
 from ...Models.DataTabModels.Criterion import Criterion
 from .PreferenceFunctionWindow import PreferenceFunctionWindow
 

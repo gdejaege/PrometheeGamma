@@ -18,17 +18,11 @@ class CustomView:
         the listener of this view
     quitButton : CTkButton
         the quit button, to quit the custom module
-
-    Methods
-    -------
     """
 
     class ViewListener:
         """
         An interface for the listener of this view
-
-        Methods
-        -------
         """
 
         def reset(self):

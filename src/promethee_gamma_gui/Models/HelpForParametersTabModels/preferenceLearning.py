@@ -24,13 +24,7 @@ class PreferenceLearning:
     master : CTkFrame
         the master frame
     alternatives : list of Alternative
-        the list of all laternatives
-    Irange : Range
-        a range of value for parameter I
-    Jrange : Range
-        a range of value for parameter J
-    Prange : Range
-        a range of value for parameter P
+        the list of all aternatives
     questions : list
         a list of peer comparisons: [(a1, a2, preference), (a1, a2, preference), ... ]
     listOfPairs : list of tuple of Aternative
@@ -44,11 +38,6 @@ class PreferenceLearning:
         self.prometheeGamma = prometheeGamma
         self.master = master
         self.alternatives = []
-        
-        # Init values
-        self.Irange = Range(0.0, 1.0)
-        self.Jrange = Range(0.0, 1.0)
-        self.Prange = Range(1.0, 100.0)
         self.questions = []
         self.listOfPairs = []
         self.search = ItSearch()

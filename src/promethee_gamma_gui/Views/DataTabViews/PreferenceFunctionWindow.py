@@ -20,9 +20,6 @@ class PreferenceFunctionWindow:
         a variable that contains the current preference function type name
     radioButtonList : list of CTkRadioButton
         a list that contains all radio buttons
-
-    Methods
-    -------
     """
 
     def __init__(self, master:CTkToplevel, textvar:StringVar, intvar:IntVar, typesDict:dict) -> None:

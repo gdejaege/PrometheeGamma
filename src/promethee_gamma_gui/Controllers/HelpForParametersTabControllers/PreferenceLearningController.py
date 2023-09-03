@@ -30,6 +30,8 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
         the list of questions asked of the user
     listener : PreferenceLearningController.Listener
         the listener of this class
+    numberOfQuestions : int
+        the maximum number of questions
     lock : Lock
         a lock to synchronizes different parts of the app
     """
@@ -132,10 +134,7 @@ class PreferenceLearningController(PreferenceLearningView.ViewListener):
                 j = i
             else:
                 j = Jmax
-        if Pmin == Pmax:
-            p = Pmin
-        else:
-            p = (Pmin + Pmax)/2
+        p = Pmin
         self.listener.apply((i, j, p))
 
 

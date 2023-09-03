@@ -1,6 +1,5 @@
 from customtkinter import (CTkButton, CTkLabel, CTkFrame)
 
-#from Resources.ScrollableFrames.HVScrollableFrame import HVScrollableFrame
 from ...Resources.ScrollableFrames.HVScrollableFrame import HVScrollableFrame
 
 

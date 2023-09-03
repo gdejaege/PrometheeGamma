@@ -1,6 +1,5 @@
 from customtkinter import (CTkFrame, CTkCanvas, CTkScrollbar)
 
-#from Resources.ScrollableFrames.VScrollableFrame import VScrollableFrame
 from .VScrollableFrame import VScrollableFrame
 
 
@@ -12,7 +11,6 @@ class HVScrollableFrame(VScrollableFrame):
     ----------
     hsb : CTkScrollbar
         the horizontal scrollbar
-
     """
 
     def __init__(self, master, bg_color="#ffffff", fg_color="#ffffff"):

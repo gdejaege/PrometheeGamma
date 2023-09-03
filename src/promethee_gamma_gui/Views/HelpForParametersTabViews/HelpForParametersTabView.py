@@ -1,7 +1,4 @@
-from customtkinter import (CTkLabel, CTkButton, CTkRadioButton, IntVar, CTkFrame, CTkCanvas, CTkScrollbar, CTkScrollableFrame)
-
-#from Models.DataTabModels.Alternative import Alternative
-from ...Models.DataTabModels.Alternative import Alternative
+from customtkinter import (CTkLabel, CTkButton)
 
 
 class HelpForParametersTabView:

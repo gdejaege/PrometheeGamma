@@ -1,4 +1,3 @@
-#from Models.HelpForParametersTabModels.Range.Range import Range
 from .Range import Range
 
 
@@ -50,10 +49,24 @@ class RangeJ(Range):
 
 
     def getGammaValues(self):
+        """Return the gamma values (gamma_ij, gamma_ji)
+
+        Returns
+        -------
+        tuple of float
+            (gamma_ij, gamma_ji)
+        """
         return self.gamma_values
     
 
     def getPmin(self):
+        """Return the minimum value for Pf
+
+        Returns
+        -------
+        float
+            Pmin
+        """
         return self.Pmin
 
 

@@ -12,7 +12,6 @@ class TextboxController:
         the view to display the result matrix
     model : PrometheeGamma
         the Promethee Gamma model, needed to obtain the content to display (the result matrix)
-    
     """
 
     def __init__(self, master, model:PrometheeGamma) -> None:

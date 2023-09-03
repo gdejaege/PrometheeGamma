@@ -1,6 +1,5 @@
 from customtkinter import (StringVar, IntVar, DoubleVar)
 
-#from Models.DataTabModels.PreferenceFunction import PreferenceFunction
 from .PreferenceFunction import PreferenceFunction
 
 
@@ -22,7 +21,6 @@ class Criterion:
         the list of phi_c_i (phi_c_list[i] = φc(ai) = (1/n-1) * ∑_{j=1}^{n} (πc_ij - πc_ji))
     column : list of float
         list of alternatives evaluation for this criterion
-
     """
 
     def __init__(self, name:StringVar, weight:DoubleVar, pfType:IntVar=None, p:DoubleVar=None, q:DoubleVar=None) -> None:
@@ -40,7 +38,6 @@ class Criterion:
         q : DoubleVar, optional
             the indifference threshold in preference function for this criterion (default is None)
         """
-
         self.name = name
         self.weight = weight
         self.preferenceFunction = PreferenceFunction(type=pfType, p=p, q=q)  # init the preference function
@@ -76,9 +73,9 @@ class Criterion:
     def getName_str(self) -> str:
         """Return the name of the criterion
 
-        Return
-        ------
-        name.get() : str
+        Returns
+        -------
+        str
             the criterion name (in str)
         """
         return self.name.get()
@@ -87,9 +84,9 @@ class Criterion:
     def getWeight_float(self) -> float:
         """Return the weight of the criterion
 
-        Return
-        ------
-        weight.get() : float
+        Returns
+        -------
+        float
             the criterion weight (in float)
         """
         return self.weight.get()
@@ -98,9 +95,9 @@ class Criterion:
     def getName(self) -> StringVar:
         """Return the criterion name in a StringVar object
 
-        Return
-        ------
-        name : StringVar
+        Returns
+        -------
+        StringVar
             the criterion name (in a StringVar)
         """
         return self.name
@@ -109,9 +106,9 @@ class Criterion:
     def getWeight(self) -> DoubleVar:
         """Return the criterion weight in a DoubleVar object
 
-        Return
-        ------
-        weight : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the criterion weight (in a DoubleVar)
         """
         return self.weight
@@ -120,9 +117,9 @@ class Criterion:
     def getPf_int(self) -> int:
         """Return the type of the preference function
 
-        Return
-        ------
-        preferenceFunction.type.get() : int
+        Returns
+        -------
+        int
             the type of the preference function used for this criterion (in int)
         """
         return self.preferenceFunction.getType_int()
@@ -131,9 +128,9 @@ class Criterion:
     def getPf(self) -> IntVar:
         """Return the type of the preference function in a IntVar object
 
-        Return
-        ------
-        preferenceFunction.type : Intvar
+        Returns
+        -------
+        Intvar
             the type of the preference function used for this criterion (in a IntVar)
         """
         return self.preferenceFunction.getType()
@@ -142,9 +139,9 @@ class Criterion:
     def getP(self) -> DoubleVar:
         """Return the preference threshold of the preference function in a DoubleVar object
 
-        Return
-        ------
-        preferenceFunction.pc : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the preference threshold of the preference function used for this criterion (in a DoubleVar)
         """
         return self.preferenceFunction.getP()
@@ -153,9 +150,9 @@ class Criterion:
     def getP_float(self) -> float:
         """Return the preference threshold of the preference function
 
-        Return
-        ------
-        preferenceFunction.pc : float
+        Returns
+        -------
+        float
             the preference threshold of the preference function used for this criterion
         """
         return self.preferenceFunction.getP_float()
@@ -164,11 +161,10 @@ class Criterion:
     def getQ(self) -> DoubleVar:
         """Return the indifference threshold of the preference function in a DoubleVar object
 
-        Return
-        ------
-        preferenceFunction.qc : DoubleVar
+        Returns
+        -------
+        DoubleVar
             the indifference threshold of the preference function used for this criterion (in a DoubleVar)
-
         """
         return self.preferenceFunction.getQ()
     
@@ -176,11 +172,10 @@ class Criterion:
     def getQ_float(self) -> DoubleVar:
         """Return the indifference threshold of the preference function
 
-        Return
-        ------
-        preferenceFunction.qc : float
+        Returns
+        -------
+        float
             the indifference threshold of the preference function used for this criterion
-
         """
         return self.preferenceFunction.getQ_float()
 
@@ -242,9 +237,9 @@ class Criterion:
         phi list: [φc(a1), φc(a2), ..., φc(ai), ..., φc(an)] where φc(ai): the mono-criterion net flow of ai on criterion c
         and n the number of alternatives
 
-        Return
-        ------
-        phi_c_list : list
+        Returns
+        -------
+        list
             the list of phi_c_i (phi_c_list[i] = φc(ai) = (1/n-1) * ∑_{j=1}^{n} (πc_ij - πc_ji))
         """
         return self.phi_c_list
@@ -264,9 +259,9 @@ class Criterion:
         j : int
             the index of the alternative j in the column
 
-        Return
-        ------
-        val : float
+        Returns
+        -------
+        float
             the value of γc_ij
         """
         val = 0.0

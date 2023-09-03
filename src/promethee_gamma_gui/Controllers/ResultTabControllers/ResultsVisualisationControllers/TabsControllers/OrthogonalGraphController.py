@@ -11,7 +11,6 @@ class OrthogonalGraphController:
         the model for Promethee Gamma method. It contains the results of the method
     orthogonalGraphView : OrthogonalGraphView
         the view to display the orthogonal graph
-
     """
 
     def __init__(self, master, model:PrometheeGamma) -> None:
@@ -23,7 +22,6 @@ class OrthogonalGraphController:
         model : PrometheeGamma
             the model for Promethee Gamma method. It contains the results of the method
         """
-
         self.model = model
         matrixGamma = self.model.getMatrixGamma()
         matrixResults = self.model.getMatrixResults()

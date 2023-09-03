@@ -19,7 +19,13 @@ class DataTabModel:
         a lock to synchronizes different parts of the app
     """
     
-    def __init__(self, lock) -> None:
+    def __init__(self, lock:Lock) -> None:
+        """
+        Parameters
+        ----------
+        lock : Lock
+            a lock to synchronizes different parts of the app
+        """
         self.alternatives = []
         self.criteria = []
         self.lock = lock
@@ -33,9 +39,9 @@ class DataTabModel:
         index : int, optional
             the index of criterion that must be returned (default is -1)
 
-        Return
-        ------
-        criteria[index] : Criterion
+        Returns
+        -------
+        Criterion
             the criterion at position index in the criteria list
         """
         return self.criteria[index]
@@ -49,9 +55,9 @@ class DataTabModel:
         index : int, optional
             the index of alternative that must be returned (default is -1)
 
-        Return
-        ------
-        alternatives[index] : Alternative
+        Returns
+        -------
+        Alternative
             the alternative at position index in the alternatives list
         """
         return self.alternatives[index]

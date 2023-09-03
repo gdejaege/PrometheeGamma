@@ -1,6 +1,5 @@
 from customtkinter import (CTkLabel, CTkButton)
 
-#from Views.HelpForParametersTabViews.QuestionsTabView import QuestionsTabView
 from .QuestionsTabView import QuestionsTabView
 
 
@@ -36,8 +35,6 @@ class PreferenceLearningView(QuestionsTabView.Listener):
         a button to quit preference learning view
     row : int
         the row for positionning elements with grid method
-    endCtrl : bool
-        control variable to keep in memory the state of the algorithm (ended or not ended)
     listener : ViewListener
         the listener of this view
     """
@@ -97,14 +94,13 @@ class PreferenceLearningView(QuestionsTabView.Listener):
         self.generateButton = CTkButton(master=self.master, text="Generate questions", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.generate)
         self.confirmButton = CTkButton(master=self.master, text="Confirm", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.confirm)
         self.nextButton = CTkButton(master=self.master, text="Next", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.next)
-        self.Ilabel = CTkLabel(master=self.master, text="I = 0 - 1", text_color="#000000")
-        self.Jlabel = CTkLabel(master=self.master, text="J = 0 - 1", text_color="#000000")
-        self.Plabel = CTkLabel(master=self.master, text="P = 1 - infinity", text_color="#000000")
+        self.Ilabel = CTkLabel(master=self.master, text="Ti = 0 - 1", text_color="#000000")
+        self.Jlabel = CTkLabel(master=self.master, text="Tj = 0 - 1", text_color="#000000")
+        self.Plabel = CTkLabel(master=self.master, text="Pf = 1 - infinity", text_color="#000000")
         self.applyButton = CTkButton(master=self.master, text="Use results in result tab", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.apply)
         self.cancelButton = CTkButton(master=self.master, text="Cancel", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.cancel)
         self.quitButton = CTkButton(master=self.master, text="Quit", fg_color="#6cffff", text_color="#000000", corner_radius=5, command=self.quit)
         self.row = 0
-        self.endCtrl = False
         self.listener = None
 
 
@@ -170,9 +166,9 @@ class PreferenceLearningView(QuestionsTabView.Listener):
     def resetResults(self):
         """Reset the results (reset labels)
         """
-        self.Ilabel.configure(text="I = 0 - 1")
-        self.Jlabel.configure(text="J = 0 - 1")
-        self.Plabel.configure(text="P = 1 - infinity")
+        self.Ilabel.configure(text="Ti = 0 - 1")
+        self.Jlabel.configure(text="Tj = 0 - 1")
+        self.Plabel.configure(text="Pf = 1 - infinity")
         self.Ilabel.update()
         self.Jlabel.update()
         self.Plabel.update()
@@ -215,20 +211,20 @@ class PreferenceLearningView(QuestionsTabView.Listener):
         Pmin = round(Pmin,2)
         Pmax = round(Pmax,2)
         if Imin == Imax:
-            Itext = "I = " + str(Imin)
+            Itext = "Ti = " + str(Imin)
         else:
-            Itext = "I = " + str(Imin) + " - " + str(Imax)
+            Itext = "Ti = " + str(Imin) + " - " + str(Imax)
         if Jmin == Jmax:
-            Jtext = "J = " + str(Jmin)
+            Jtext = "Tj = " + str(Jmin)
         else:
-            Jtext = "J = " + str(Jmin) + " - " + str(Jmax)
+            Jtext = "Tj = " + str(Jmin) + " - " + str(Jmax)
         if Pmin == Pmax:
             if Pmin > 100:
-                Ptext = "P = infinity"
+                Ptext = "Pf = infinity"
             else:
-                Ptext = "P = " + str(Pmin)
+                Ptext = "Pf = " + str(Pmin)
         else:
-            Ptext = "P = " + str(Pmin) + " - "
+            Ptext = "Pf = " + str(Pmin) + " - "
             if Pmax > 100.0:
                 Ptext += "infinity"
             else:

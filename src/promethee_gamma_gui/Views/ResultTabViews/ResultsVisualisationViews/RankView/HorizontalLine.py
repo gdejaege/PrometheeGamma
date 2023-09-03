@@ -13,6 +13,8 @@ class HorizontalLine:
     """
     A class to draw an horizontal line between two AlternativeView in the rank graph
 
+    Attributes
+    ----------
     a1 : alternativeView
         a representation of an alternative
     a2 : AlternativeView

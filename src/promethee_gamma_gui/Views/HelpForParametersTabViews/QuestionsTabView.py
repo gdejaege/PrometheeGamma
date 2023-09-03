@@ -2,7 +2,6 @@ from customtkinter import (CTkTabview, CTkLabel, CTkRadioButton, IntVar)
 import tkinter as tk
 import platform
 
-#from Models.DataTabModels.Alternative import Alternative
 from ...Models.DataTabModels.Alternative import Alternative
 
 
@@ -128,7 +127,6 @@ class QuestionsTabView(CTkTabview):
         value : IntVar
             the radioButton variable thath will contain the answer
         """
-
         if platform.system() == 'Windows':
             r1 = CTkRadioButton(master=master, text=nameA1 + " I " + nameA2, text_color="#000000", command=self.radioButtonEvent, variable=value, value=0)
             r2 = CTkRadioButton(master=master, text=nameA1 + " J " + nameA2, text_color="#000000", command=self.radioButtonEvent, variable=value, value=-1)

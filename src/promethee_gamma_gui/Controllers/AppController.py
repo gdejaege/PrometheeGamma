@@ -216,12 +216,12 @@ class AppController(AppView.ViewListener, SaveView.Listener, ResultTabController
     def applyResultsOfHelp(self, results):
         """Apply the results obtained in the helpForParameters tab in the result tab
 
-        i.e. modify the values of I, J and P in the result tab accordingly to their values in the helpForParameters tab
+        i.e. modify the values of Ti, Tj and Pf in the result tab accordingly to their values in the helpForParameters tab
 
         Parameters
         ----------
         results : tuple of float
-            results = (I, J, P), the values of the 3 parameters of PROMETHEE Gamma method
+            results = (Ti, Tj, Pf), the values of the 3 parameters of PROMETHEE Gamma method
         """
         self.resultTabController.applyResults(results)
         self.appView.setTab("Results")

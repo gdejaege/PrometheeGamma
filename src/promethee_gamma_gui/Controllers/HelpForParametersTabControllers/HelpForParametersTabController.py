@@ -50,7 +50,7 @@ class HelpForParametersTabController(HelpForParametersTabView.ViewListener, Pref
         ----------
         master : CTkFrame
             the master frame
-            dataTabModel : DataTabModel
+        dataTabModel : DataTabModel
             the model that keep input data in memory
         prometheeGamma : PrometheeGamma
             the model for PROMETHEE Gamma method

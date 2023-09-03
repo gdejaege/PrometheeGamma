@@ -1,5 +1,3 @@
-#from Models.DataTabModels.DataTabModel import DataTabModel
-#from Models.ResultTabModel import ResultTabModel
 from .DataTabModels import DataTabModel
 from .ResultTabModel import ResultTabModel
 
@@ -25,7 +23,6 @@ class PrometheeGamma:
         the model that contains the data of the method
     resultTabModel : ResultTabModel
         the model that contain the parameters needed for the method
-
     """
 
     def __init__(self) -> None:
@@ -34,7 +31,6 @@ class PrometheeGamma:
         self.matrixJ = []
         self.matrixP = []
         self.matrixResults = []
-
         self.dataTabModel = None
         self.resultTabModel = None
 
@@ -47,7 +43,6 @@ class PrometheeGamma:
         model : DataTabModel
             the new dataTabModel
         """
-
         self.dataTabModel = model
 
 
@@ -63,6 +58,13 @@ class PrometheeGamma:
 
 
     def isComputed(self) -> bool:
+        """Test if the results was already computed or not
+
+        Returns
+        -------
+        bool
+            True if the results was computed, False if not
+        """
         return len(self.matrixGamma) > 0
 
 
@@ -166,24 +168,10 @@ class PrometheeGamma:
 
     def ComputeMatrixIJP(self) -> None:
         """Compute matrixI, matrixJ and matrixP
-
-        This method exists only for a aim of efficientness. 
-        It gives equivalent results with successively applying computeMatrixI(), computeMatrixJ and computeMatrixP(), but more rapidly.
         """
-        self.clearMatrixIJP()
-        Ti = self.resultTabModel.getTi_float()
-        Tj = self.resultTabModel.getTj_float()
-        Pf = self.resultTabModel.getPf_float()
-        for i in range(len(self.matrixGamma)):
-            self.matrixI.append([])
-            self.matrixJ.append([])
-            self.matrixP.append([])
-            for j in range(len(self.matrixGamma)):
-                gij = self.matrixGamma[i][j]
-                gji = self.matrixGamma[j][i]
-                self.matrixI[i].append(Ti - max(gij, gji))
-                self.matrixP[i].append((gij - gji)/Pf)
-                self.matrixJ[i].append(min(gij, gji) - Tj)
+        self.computeMatrixI()
+        self.computeMatrixJ()
+        self.computeMatrixP()
 
 
     def computeMatrixResults(self) -> None:

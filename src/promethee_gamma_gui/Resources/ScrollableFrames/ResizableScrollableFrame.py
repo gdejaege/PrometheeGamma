@@ -1,4 +1,3 @@
-#from Resources.ScrollableFrames.HVScrollableFrame import HVScrollableFrame
 from .HVScrollableFrame import HVScrollableFrame
 
 
@@ -12,7 +11,6 @@ class ResizableScrollableFrame(HVScrollableFrame):
         the minimal width (in pixel) of the inner frame
     minHeight : int
         the minimal height (in pixel) of the inner frame
-
     """
 
     def __init__(self, master, bg_color="#ffffff", fg_color="#ffffff"):
