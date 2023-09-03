@@ -38,10 +38,6 @@
 </section>
 <section id="module-promethee_gamma_gui.Custom.CustomController">
 <span id="promethee-gamma-gui-custom-customcontroller-module"></span><h2>promethee_gamma_gui.Custom.CustomController module<a class="headerlink" href="#module-promethee_gamma_gui.Custom.CustomController" title="Permalink to this heading">¶</a></h2>
-<p>from Models.PrometheeGamma import PrometheeGamma
-from Models.DataTabModels.DataTabModel import DataTabModel</p>
-<p>from Custom.CustomView import CustomView
-from Custom.CustomModel import CustomModel</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Custom.CustomController.CustomController">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">promethee_gamma_gui.Custom.CustomController.</span></span><span class="sig-name descname"><span class="pre">CustomController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prometheeGamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.html#promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma" title="promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma"><span class="pre">PrometheeGamma</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataTabModel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.DataTabModel.DataTabModel" title="promethee_gamma_gui.Models.DataTabModels.DataTabModel.DataTabModel"><span class="pre">DataTabModel</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Custom/CustomController.html#CustomController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Custom.CustomController.CustomController" title="Permalink to this definition">¶</a></dt>
@@ -124,7 +120,7 @@ from Custom.CustomModel import CustomModel</p>
 <dd><p>apply the results in the result tab</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>results</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – (I,J,P) where I, J and P are the values of the 3 parameters of PROMETHEE Gamma method</p>
+<dd class="field-odd"><p><strong>results</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – (Ti, Tj, Pf) where Ti, Tj and Pf are the values of the 3 parameters of PROMETHEE Gamma method</p>
 </dd>
 </dl>
 </dd></dl>
@@ -204,7 +200,7 @@ from Custom.CustomModel import CustomModel</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Custom.CustomModel.CustomModel.Imin">
 <span class="sig-name descname"><span class="pre">Imin</span></span><a class="headerlink" href="#promethee_gamma_gui.Custom.CustomModel.CustomModel.Imin" title="Permalink to this definition">¶</a></dt>
-<dd><p>the minimum value for the parameter I</p>
+<dd><p>the minimum value for the parameter Ti</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -215,7 +211,7 @@ from Custom.CustomModel import CustomModel</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Custom.CustomModel.CustomModel.Imax">
 <span class="sig-name descname"><span class="pre">Imax</span></span><a class="headerlink" href="#promethee_gamma_gui.Custom.CustomModel.CustomModel.Imax" title="Permalink to this definition">¶</a></dt>
-<dd><p>the maximum value for the parameter I</p>
+<dd><p>the maximum value for the parameter Ti</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -226,7 +222,7 @@ from Custom.CustomModel import CustomModel</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Custom.CustomModel.CustomModel.Jmin">
 <span class="sig-name descname"><span class="pre">Jmin</span></span><a class="headerlink" href="#promethee_gamma_gui.Custom.CustomModel.CustomModel.Jmin" title="Permalink to this definition">¶</a></dt>
-<dd><p>the minimum value for the parameter J</p>
+<dd><p>the minimum value for the parameter Tj</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -237,7 +233,7 @@ from Custom.CustomModel import CustomModel</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Custom.CustomModel.CustomModel.Jmax">
 <span class="sig-name descname"><span class="pre">Jmax</span></span><a class="headerlink" href="#promethee_gamma_gui.Custom.CustomModel.CustomModel.Jmax" title="Permalink to this definition">¶</a></dt>
-<dd><p>the maximum value for the parameter J</p>
+<dd><p>the maximum value for the parameter Tj</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -248,7 +244,7 @@ from Custom.CustomModel import CustomModel</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Custom.CustomModel.CustomModel.Pmin">
 <span class="sig-name descname"><span class="pre">Pmin</span></span><a class="headerlink" href="#promethee_gamma_gui.Custom.CustomModel.CustomModel.Pmin" title="Permalink to this definition">¶</a></dt>
-<dd><p>the minimum value for the parameter P</p>
+<dd><p>the minimum value for the parameter Pf</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -259,7 +255,7 @@ from Custom.CustomModel import CustomModel</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Custom.CustomModel.CustomModel.Pmax">
 <span class="sig-name descname"><span class="pre">Pmax</span></span><a class="headerlink" href="#promethee_gamma_gui.Custom.CustomModel.CustomModel.Pmax" title="Permalink to this definition">¶</a></dt>
-<dd><p>the maximum value for the parameter P</p>
+<dd><p>the maximum value for the parameter Pf</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -279,10 +275,10 @@ from Custom.CustomModel import CustomModel</p>
 <dd><p>Example of funtion to get results</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>(self.Imin, self.Imax, self.Jmin, self.Jmax, self.Pmin, self.Pmax)</strong> – the results obtained with the model</p>
+<dd class="field-odd"><p>the results obtained with the model</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
 </dd>
 </dl>
 </dd></dl>

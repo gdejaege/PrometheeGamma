@@ -29,8 +29,7 @@
           <div class="body" role="main">
             
   <h1>Source code for promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ</h1><div class="highlight"><pre>
-<span></span><span class="c1">#from Models.HelpForParametersTabModels.Range.Range import Range</span>
-<span class="kn">from</span> <span class="nn">.Range</span> <span class="kn">import</span> <span class="n">Range</span>
+<span></span><span class="kn">from</span> <span class="nn">.Range</span> <span class="kn">import</span> <span class="n">Range</span>
 
 
 <div class="viewcode-block" id="RangeJ"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ">[docs]</a><span class="k">class</span> <span class="nc">RangeJ</span><span class="p">(</span><span class="n">Range</span><span class="p">):</span>
@@ -47,29 +46,59 @@
 <span class="sd">        maximum value of P, the preference parameter of PROMETHEE Gamma method</span>
 <span class="sd">    Pmin : float</span>
 <span class="sd">        minimum value of P, the preference parameter of PROMETHEE Gamma method</span>
-
+<span class="sd">    gamma_values : tuple of float</span>
+<span class="sd">        (gamma_ij, gamma_ji)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">Pmax</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">:</span><span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gammaij</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">gammaji</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">Pmax</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">:</span><span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        x : float</span>
-<span class="sd">            min(gamma_ij, gamma_ji)</span>
-<span class="sd">        y : float</span>
-<span class="sd">            abs(gamma_ij - gamma_ji)</span>
+<span class="sd">        gammaij : float</span>
+<span class="sd">            gamma_ij</span>
+<span class="sd">        gammaji : float</span>
+<span class="sd">            gamma_ji</span>
 <span class="sd">        Pmax : float</span>
 <span class="sd">            maximum value of P, the preference parameter of PROMETHEE Gamma method</span>
 <span class="sd">        Pmin : float</span>
 <span class="sd">            minimum value of P, the preference parameter of PROMETHEE Gamma method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">gammaij</span><span class="p">,</span> <span class="n">gammaji</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">gammaij</span> <span class="o">-</span> <span class="n">gammaji</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="o">=</span> <span class="n">Pmin</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span> <span class="o">=</span> <span class="n">Pmax</span>
-        <span class="n">valMin</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">,</span><span class="mf">1.0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma_values</span> <span class="o">=</span> <span class="p">(</span><span class="n">gammaij</span><span class="p">,</span> <span class="n">gammaji</span><span class="p">)</span>
+        <span class="n">valMin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span>
+        <span class="k">if</span> <span class="n">valMin</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">valMin</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">valMax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">,</span><span class="mf">1.0</span><span class="p">))</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">valMin</span><span class="p">,</span> <span class="n">valMax</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="RangeJ.getGammaValues"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.getGammaValues">[docs]</a>    <span class="k">def</span> <span class="nf">getGammaValues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the gamma values (gamma_ij, gamma_ji)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of float</span>
+<span class="sd">            (gamma_ij, gamma_ji)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_values</span></div>
+    
+
+<div class="viewcode-block" id="RangeJ.getPmin"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.getPmin">[docs]</a>    <span class="k">def</span> <span class="nf">getPmin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the minimum value for Pf</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Pmin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span></div>
 
 
 <div class="viewcode-block" id="RangeJ.getX"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ.getX">[docs]</a>    <span class="k">def</span> <span class="nf">getX</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

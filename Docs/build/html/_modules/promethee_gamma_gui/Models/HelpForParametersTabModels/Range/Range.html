@@ -41,7 +41,6 @@
 <span class="sd">        the lowest value in the range or a range</span>
 <span class="sd">    max : float | Range</span>
 <span class="sd">        the highest value in the range or a range</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -147,19 +146,19 @@
 <div class="viewcode-block" id="Range.print"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.Range.Range.print">[docs]</a>    <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Print the extreme values of the range</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Min=&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">Range</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Min=&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">getValMin</span><span class="p">())</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Max=&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Max=&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">getValMax</span><span class="p">())</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Min=&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">Range</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Max=&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">getValMax</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Max=&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">)</span></div>
 
 
     <span class="c1"># operator &lt;</span>
     <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Range</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Range</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&lt;</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span> 
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&lt;</span> <span class="n">r</span>
@@ -167,7 +166,7 @@
 
     <span class="c1"># operator &lt;=</span>
     <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Range</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Range</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMin</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span> 
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&gt;=</span> <span class="n">r</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">)</span>
@@ -175,7 +174,7 @@
 
     <span class="c1"># operator ==</span>
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Range</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Range</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">==</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">==</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&gt;=</span> <span class="n">r</span>
@@ -183,7 +182,7 @@
 
     <span class="c1"># operator !=</span>
     <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Range</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Range</span><span class="p">):</span>
             <span class="k">return</span> <span class="ow">not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">==</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">==</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMin</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="ow">not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&gt;=</span> <span class="n">r</span><span class="p">)</span>
@@ -191,7 +190,7 @@
 
     <span class="c1"># operator &gt;</span>
     <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Range</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Range</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span> 
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&gt;</span> <span class="n">r</span>
@@ -199,7 +198,7 @@
 
     <span class="c1"># operator &gt;=</span>
     <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Range</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Range</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&gt;=</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&gt;=</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&gt;=</span> <span class="n">r</span><span class="o">.</span><span class="n">getValMax</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span> 
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&gt;=</span> <span class="n">r</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">&gt;=</span> <span class="n">r</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">)</span></div>

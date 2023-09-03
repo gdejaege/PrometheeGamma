@@ -40,7 +40,7 @@
 <span id="promethee-gamma-gui-models-datatabmodels-alternative-module"></span><h2>promethee_gamma_gui.Models.DataTabModels.Alternative module<a class="headerlink" href="#module-promethee_gamma_gui.Models.DataTabModels.Alternative" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.DataTabModels.Alternative.Alternative">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">promethee_gamma_gui.Models.DataTabModels.Alternative.</span></span><span class="sig-name descname"><span class="pre">Alternative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">StringVar</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/DataTabModels/Alternative.html#Alternative"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.DataTabModels.Alternative.Alternative" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">promethee_gamma_gui.Models.DataTabModels.Alternative.</span></span><span class="sig-name descname"><span class="pre">Alternative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">StringVar</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/DataTabModels/Alternative.html#Alternative"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.DataTabModels.Alternative.Alternative" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class represents an alternative (a unit) for the Promethee Gamma application</p>
 <dl class="py attribute">
@@ -97,7 +97,7 @@
 <dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – the index of the evaluation that must be returned (default is -1)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>evaluations[index]</strong> – the evaluation at position index in the list evaluations</p>
+<dd class="field-even"><p>the evaluation at position index in the list evaluations</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>DoubleVar</p>
@@ -114,7 +114,7 @@
 <dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – the index of the evaluation that must be returned (default is -1)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>evaluations[index].get()</strong> – the evaluation at position index in the list evaluations (in float)</p>
+<dd class="field-even"><p>the evaluation at position index in the list evaluations (in float)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -128,7 +128,7 @@
 <dd><p>Return the name in a StringVar object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> – the alternative name</p>
+<dd class="field-odd"><p>the alternative name</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>StringVar</p>
@@ -142,7 +142,7 @@
 <dd><p>Return the name in str</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> – the alternative name (in str)</p>
+<dd class="field-odd"><p>the alternative name (in str)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
@@ -156,7 +156,7 @@
 <dd><p>Return the size of the alternative, i.e. the number of evaluations for this alternative</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>len(evaluations)</strong> – the length of the evaluations list</p>
+<dd class="field-odd"><p>the length of the evaluations list</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
@@ -291,7 +291,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the criterion name in a StringVar object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> – the criterion name (in a StringVar)</p>
+<dd class="field-odd"><p>the criterion name (in a StringVar)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>StringVar</p>
@@ -305,7 +305,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the name of the criterion</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name.get()</strong> – the criterion name (in str)</p>
+<dd class="field-odd"><p>the criterion name (in str)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
@@ -319,7 +319,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the preference threshold of the preference function in a DoubleVar object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>preferenceFunction.pc</strong> – the preference threshold of the preference function used for this criterion (in a DoubleVar)</p>
+<dd class="field-odd"><p>the preference threshold of the preference function used for this criterion (in a DoubleVar)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>DoubleVar</p>
@@ -333,7 +333,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the preference threshold of the preference function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>preferenceFunction.pc</strong> – the preference threshold of the preference function used for this criterion</p>
+<dd class="field-odd"><p>the preference threshold of the preference function used for this criterion</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -347,7 +347,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the type of the preference function in a IntVar object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>preferenceFunction.type</strong> – the type of the preference function used for this criterion (in a IntVar)</p>
+<dd class="field-odd"><p>the type of the preference function used for this criterion (in a IntVar)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Intvar</p>
@@ -361,7 +361,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the type of the preference function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>preferenceFunction.type.get()</strong> – the type of the preference function used for this criterion (in int)</p>
+<dd class="field-odd"><p>the type of the preference function used for this criterion (in int)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
@@ -375,7 +375,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the indifference threshold of the preference function in a DoubleVar object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>preferenceFunction.qc</strong> – the indifference threshold of the preference function used for this criterion (in a DoubleVar)</p>
+<dd class="field-odd"><p>the indifference threshold of the preference function used for this criterion (in a DoubleVar)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>DoubleVar</p>
@@ -389,7 +389,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the indifference threshold of the preference function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>preferenceFunction.qc</strong> – the indifference threshold of the preference function used for this criterion</p>
+<dd class="field-odd"><p>the indifference threshold of the preference function used for this criterion</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -403,7 +403,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the criterion weight in a DoubleVar object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>weight</strong> – the criterion weight (in a DoubleVar)</p>
+<dd class="field-odd"><p>the criterion weight (in a DoubleVar)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>DoubleVar</p>
@@ -417,7 +417,7 @@ and dc(ai, aj) = fc(ai) - fc(aj ) is the difference between the evaluations of a
 <dd><p>Return the weight of the criterion</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>weight.get()</strong> – the criterion weight (in float)</p>
+<dd class="field-odd"><p>the criterion weight (in float)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -440,7 +440,7 @@ where wc is the weight associated to the criterion</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>val</strong> – the value of γc_ij</p>
+<dd class="field-even"><p>the value of γc_ij</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
@@ -456,7 +456,7 @@ where wc is the weight associated to the criterion</p>
 and n the number of alternatives</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>phi_c_list</strong> – the list of phi_c_i (phi_c_list[i] = φc(ai) = (1/n-1) * ∑_{j=1}^{n} (πc_ij - πc_ji))</p>
+<dd class="field-odd"><p>the list of phi_c_i (phi_c_list[i] = φc(ai) = (1/n-1) * ∑_{j=1}^{n} (πc_ij - πc_ji))</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
@@ -492,7 +492,7 @@ and n the number of alternatives</p>
 <span id="promethee-gamma-gui-models-datatabmodels-datatabmodel-module"></span><h2>promethee_gamma_gui.Models.DataTabModels.DataTabModel module<a class="headerlink" href="#module-promethee_gamma_gui.Models.DataTabModels.DataTabModel" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.DataTabModels.DataTabModel.DataTabModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">promethee_gamma_gui.Models.DataTabModels.DataTabModel.</span></span><span class="sig-name descname"><span class="pre">DataTabModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lock</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/DataTabModels/DataTabModel.html#DataTabModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.DataTabModels.DataTabModel.DataTabModel" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">promethee_gamma_gui.Models.DataTabModels.DataTabModel.</span></span><span class="sig-name descname"><span class="pre">DataTabModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Resources.html#promethee_gamma_gui.Resources.Lock.Lock" title="promethee_gamma_gui.Resources.Lock.Lock"><span class="pre">Lock</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/DataTabModels/DataTabModel.html#DataTabModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.DataTabModels.DataTabModel.DataTabModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A class to create alternatives and criteria, and keep them in memory</p>
 <dl class="py attribute">
@@ -662,7 +662,7 @@ and n the number of alternatives</p>
 <dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – the index of alternative that must be returned (default is -1)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>alternatives[index]</strong> – the alternative at position index in the alternatives list</p>
+<dd class="field-even"><p>the alternative at position index in the alternatives list</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#promethee_gamma_gui.Models.DataTabModels.Alternative.Alternative" title="promethee_gamma_gui.Models.DataTabModels.Alternative.Alternative">Alternative</a></p>
@@ -707,7 +707,7 @@ and n the number of alternatives</p>
 <dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – the index of criterion that must be returned (default is -1)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>criteria[index]</strong> – the criterion at position index in the criteria list</p>
+<dd class="field-even"><p>the criterion at position index in the criteria list</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion" title="promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion">Criterion</a></p>

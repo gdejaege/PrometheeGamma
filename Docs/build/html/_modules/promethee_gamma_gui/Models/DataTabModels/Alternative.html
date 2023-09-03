@@ -41,10 +41,9 @@
 <span class="sd">        the alternative name</span>
 <span class="sd">    evaluations : list[DoubleVar]</span>
 <span class="sd">        the list of alternative evaluation for each criterion</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="n">StringVar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluations</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="n">StringVar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluations</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -53,7 +52,6 @@
 <span class="sd">        evaluations : list, optional</span>
 <span class="sd">            the list of alternative evaluation for each criterion (default is a void list)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evaluations</span> <span class="o">=</span> <span class="n">evaluations</span>
 
@@ -66,7 +64,6 @@
 <span class="sd">        name : StringVar</span>
 <span class="sd">            the new alternative name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span></div>
 
 
@@ -78,7 +75,6 @@
 <span class="sd">        evaluation : DoubleVar</span>
 <span class="sd">            the evaluation to add</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">evaluations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluation</span><span class="p">)</span></div>
 
 
@@ -92,31 +88,28 @@
 <span class="sd">        index : int, optional</span>
 <span class="sd">            the index of the evaluation that must be deleted (default is -1)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">evaluations</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="Alternative.getName"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Alternative.Alternative.getName">[docs]</a>    <span class="k">def</span> <span class="nf">getName</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StringVar</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the name in a StringVar object</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        name : StringVar</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        StringVar</span>
 <span class="sd">            the alternative name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
     
 
 <div class="viewcode-block" id="Alternative.getName_str"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Alternative.Alternative.getName_str">[docs]</a>    <span class="k">def</span> <span class="nf">getName_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the name in str</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        name : str</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
 <span class="sd">            the alternative name (in str)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">get</span><span class="p">()</span></div>
     
 
@@ -128,12 +121,11 @@
 <span class="sd">        index : int</span>
 <span class="sd">            the index of the evaluation that must be returned (default is -1)</span>
 <span class="sd">        </span>
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        evaluations[index] : DoubleVar</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DoubleVar</span>
 <span class="sd">            the evaluation at position index in the list evaluations</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluations</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
     
     
@@ -145,24 +137,22 @@
 <span class="sd">        index : int</span>
 <span class="sd">            the index of the evaluation that must be returned (default is -1)</span>
 <span class="sd">        </span>
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        evaluations[index].get() : float</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
 <span class="sd">            the evaluation at position index in the list evaluations (in float)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluations</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Alternative.getSize"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Alternative.Alternative.getSize">[docs]</a>    <span class="k">def</span> <span class="nf">getSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the size of the alternative, i.e. the number of evaluations for this alternative</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        len(evaluations) : int</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
 <span class="sd">            the length of the evaluations list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluations</span><span class="p">)</span></div></div>
 </pre></div>
 

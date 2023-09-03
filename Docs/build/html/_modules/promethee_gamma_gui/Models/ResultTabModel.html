@@ -43,9 +43,8 @@
 <span class="sd">        the incomparability threshold of the PROMETHEE Gamma method</span>
 <span class="sd">    preferenceParameter : DoubleVar</span>
 <span class="sd">        the preference parameter of the PROMETHEE Gamma method</span>
-<span class="sd">    scores : dict[int]</span>
+<span class="sd">    scores : dict of str:int</span>
 <span class="sd">        a dictionnary of scores for each alternative in order to rank alternatives</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -55,11 +54,11 @@
 <span class="sd">        master : CTkFrame</span>
 <span class="sd">            a tkinter master frame to link the DoubleVar</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="c1"># Parameters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">indifferenceThreshold</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">incomparabilityThreshold</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preferenceParameter</span> <span class="o">=</span> <span class="n">DoubleVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        
         <span class="c1"># Scores for rank</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -168,7 +167,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        alternativesNames : list[str]</span>
+<span class="sd">        alternativesNames : list of str</span>
 <span class="sd">            the list of altrenatives names</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>

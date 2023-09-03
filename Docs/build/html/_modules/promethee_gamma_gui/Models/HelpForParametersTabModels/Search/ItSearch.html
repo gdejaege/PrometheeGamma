@@ -32,9 +32,8 @@
 <span></span><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">maxsize</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
 
-<span class="c1">#from Models.HelpForParametersTabModels.Range.RangeI import RangeI</span>
-<span class="c1">#from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ</span>
-<span class="kn">from</span> <span class="nn">..Range</span> <span class="kn">import</span> <span class="n">RangeI</span><span class="p">,</span> <span class="n">RangeJ</span>
+<span class="kn">from</span> <span class="nn">..Range</span> <span class="kn">import</span> <span class="n">RangeI</span><span class="p">,</span> <span class="n">RangeJ</span><span class="p">,</span> <span class="n">Range</span>
+
 
 <span class="n">INFINITY</span> <span class="o">=</span> <span class="n">maxsize</span>
 <span class="sd">&quot;&quot;&quot;The infinity (in computer terms)&quot;&quot;&quot;</span>
@@ -58,11 +57,11 @@
 <span class="sd">        lowest possible value for P</span>
 <span class="sd">    Pmax : float</span>
 <span class="sd">        highest possible value for P</span>
-<span class="sd">    listOfRangeI : list[RangeI]</span>
+<span class="sd">    listOfRangeI : list of Range</span>
 <span class="sd">        the list of range of I computed from user answers</span>
-<span class="sd">    listOfRangeJ : list[RangeJ]</span>
+<span class="sd">    listOfRangeJ : list of Range</span>
 <span class="sd">        the list of range of J computed from user answers</span>
-<span class="sd">    listOfPreference : list[int]</span>
+<span class="sd">    listOfPreference : list of int</span>
 <span class="sd">        the list of preference indicators from user answers</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -71,21 +70,17 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        Imin : float, optional</span>
-<span class="sd">            lowest possible value for I (default is 0.0)</span>
+<span class="sd">            lowest possible value for T_I (default is 0.0)</span>
 <span class="sd">        Imax : float, optional</span>
-<span class="sd">            highest possible value for I (default is 1.0)</span>
+<span class="sd">            highest possible value for T_I (default is 1.0)</span>
 <span class="sd">        Jmin : float, optional</span>
-<span class="sd">            lowest possible value for J (default is 0.0)</span>
+<span class="sd">            lowest possible value for T_J (default is 0.0)</span>
 <span class="sd">        Jmax : float, optional</span>
-<span class="sd">            highest possible value for J (default is 1.0)</span>
+<span class="sd">            highest possible value for T_J (default is 1.0)</span>
 <span class="sd">        Pmin : float, optional</span>
-<span class="sd">            lowest possible value for P (default is 1.0)</span>
+<span class="sd">            lowest possible value for P_f (default is 1.0)</span>
 <span class="sd">        Pmax : float, optional</span>
-<span class="sd">            highest possible value for P (default is INFINITY)</span>
-<span class="sd">        resolveIncomparability(rJ:RangeJ)</span>
-<span class="sd">            resolve incomparability</span>
-<span class="sd">        increasePminJ(rJ:RangeJ)</span>
-<span class="sd">            increase the Pmin value if possible (with J range) (if not, call resolveConflict())</span>
+<span class="sd">            highest possible value for P_f (default is INFINITY)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">=</span> <span class="n">Imin</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="n">Imax</span>
@@ -109,7 +104,7 @@
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ItSearch.addPair"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.addPair">[docs]</a>    <span class="k">def</span> <span class="nf">addPair</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rI</span><span class="p">:</span><span class="n">RangeI</span><span class="p">,</span> <span class="n">rJ</span><span class="p">:</span><span class="n">RangeJ</span><span class="p">,</span> <span class="n">preference</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="ItSearch.addPair"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.addPair">[docs]</a>    <span class="k">def</span> <span class="nf">addPair</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rI</span><span class="p">,</span> <span class="n">rJ</span><span class="p">,</span> <span class="n">preference</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a pair of I range and J range and the related preference indicator</span>
 
 <span class="sd">        Parameters</span>
@@ -133,38 +128,45 @@
         <span class="n">rI</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeI</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">rJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeJ</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">pref</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># I &gt;= [Imin, Imax] ; J &gt;= I</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verifyPmin</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span>
+            <span class="c1"># T_I &gt;= [Imin, Imax] ; T_J &gt;= T_I</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resolveIndifference</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">pref</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="c1"># J &lt;= [Jmin, Jmax] ; I &lt;= J</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verifyPmin</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span>
+            <span class="c1"># T_J &lt;= [Jmin, Jmax] ; T_I &lt;= T_J</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resolveIncomparability</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">pref</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="c1"># I &lt;= [Imin, Imax] ; J &gt;= [Jmin, Jmax] ; J &gt;= I</span>
+            <span class="c1"># T_I &lt;= [Imin, Imax] ; T_J &gt;= [Jmin, Jmax] ; T_J &gt;= T_I</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resolvePreference</span><span class="p">(</span><span class="n">rI</span><span class="p">,</span> <span class="n">rJ</span><span class="p">)</span></div>
     
+
+<div class="viewcode-block" id="ItSearch.verifyPmin"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.verifyPmin">[docs]</a>    <span class="k">def</span> <span class="nf">verifyPmin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set Pmin if neccessary for the new range</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        r : RangeI or RangeJ</span>
+<span class="sd">            the range of the new pair comparison</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pmin</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">getPmin</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">pmin</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="ow">and</span> <span class="n">pmin</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="o">=</span> <span class="n">pmin</span>
+        <span class="k">elif</span> <span class="n">pmin</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="ItSearch.resolveIndifference"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.resolveIndifference">[docs]</a>    <span class="k">def</span> <span class="nf">resolveIndifference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rI</span><span class="p">:</span><span class="n">RangeI</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve indifference</span>
 
-<span class="sd">        I &gt;= [i_min, i_max] ; J &gt;= I</span>
+<span class="sd">        T_I &gt;= [i_min, i_max] ; T_J &gt;= T_I</span>
 
 <span class="sd">        we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</span>
 
-<span class="sd">        And we have rI = [i_min, i_max] from the new pair</span>
+<span class="sd">        And we have rI = [i_min, i_max] from the new pair. i_min depends of Pmax and i_max depends of Pmin</span>
+
+<span class="sd">        [Imin, Imax] &gt;= [i_min, i_max] &lt;=&gt; Imin &gt;= i_max</span>
 
 <span class="sd">        we have to compare the 2 range and resolve any conflict</span>
-
-<span class="sd">        So, we must have [Imin, Imax] &gt;= [i_min, i_max]</span>
-
-<span class="sd">        &lt;=&gt; Imin &gt;= i_min and Imax &gt;= i_max</span>
-
-<span class="sd">        - If the 2 inequalities are satisfied, there&#39;s nothing to do ;</span>
-<span class="sd">        - If Imax &lt; i_min, there is a conflict ;</span>
-<span class="sd">        - If Imax &gt;= i_max but Imin &lt; i_min, we can set Imin to i_min: Imin = i_min ;</span>
-<span class="sd">        - If Imin &gt;= i_min but Imax &lt; i_max, we must reduce i_max to Imax, so increase Pmin ; if we can no longer increase Pmin, there is a conflict.</span>
-<span class="sd">        - If Imin &lt; i_min and Imax &lt; i_max, we can combine the 2 solution above.</span>
-<span class="sd">        </span>
-<span class="sd">        If we can no longer use these solutions, there is a conflict.</span>
 
 <span class="sd">        In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.</span>
 
@@ -173,19 +175,45 @@
 <span class="sd">        rI : RangeI</span>
 <span class="sd">            a range of I values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">i_min</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">)</span>
+        <span class="n">i_max</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">)</span>
         
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&gt;=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&gt;=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&gt;=</span> <span class="n">i_max</span><span class="p">:</span>
             <span class="c1"># There is nothing to do</span>
             <span class="k">return</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&lt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">():</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&lt;</span> <span class="n">i_min</span><span class="p">:</span> <span class="c1"># incompatible</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&gt;=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&gt;=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&lt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&gt;=</span> <span class="n">i_max</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">i_max</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">=</span> <span class="n">i_max</span> <span class="c1"># update Imin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">i_min</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="c1"># update Imin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span>
+                <span class="c1"># Increase Pmin to decrease i_max such that i_max = Imin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">increasePminI</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
+                <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&gt;=</span> <span class="n">i_min</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&gt;=</span> <span class="n">i_min</span><span class="p">:</span>
+            <span class="c1"># Increase Pmin to decrease i_max such that i_max = Imin</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">increasePminI</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&lt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">increasePminI</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&gt;=</span> <span class="n">i_min</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;</span> <span class="n">i_min</span><span class="p">:</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">-</span> <span class="n">i_min</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">i_min</span> <span class="o">+</span> <span class="n">dist</span><span class="o">/</span><span class="mi">2</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">=</span> <span class="n">i_min</span> <span class="o">+</span> <span class="n">dist</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># update Imin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">)</span>
+                <span class="c1"># Increase Pmin to decrease i_max such that i_max = Imin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">increasePminI</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">i_min</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="c1"># update Imin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span>
+                <span class="c1"># Increase Pmin to decrease i_max such that i_max = Imin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">increasePminI</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
+                <span class="k">return</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">resolveConstraints</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># We check that all constraints are still satisfied, and if not, we solve the constraints</span></div>
 
@@ -197,7 +225,7 @@
 
 <span class="sd">        &lt;=&gt; Pmin = y/(rI.max - x)</span>
 
-<span class="sd">        rI.max must be equal to Imax </span>
+<span class="sd">        rI.max must be equal to Imin</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -206,10 +234,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">pmin</span> <span class="o">=</span> <span class="n">INFINITY</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">pmin</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">pmin</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pmin</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="o">=</span> <span class="n">pmin</span>
         <span class="k">else</span><span class="p">:</span>
@@ -219,25 +247,15 @@
 <div class="viewcode-block" id="ItSearch.resolveIncomparability"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.resolveIncomparability">[docs]</a>    <span class="k">def</span> <span class="nf">resolveIncomparability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rJ</span><span class="p">:</span><span class="n">RangeJ</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve incomparability</span>
 
-<span class="sd">        J &lt;= [Jmin, Jmax] ; I &lt;= J</span>
+<span class="sd">        T_J &lt;= [j_min, j_max] ; I &lt;= J</span>
 
-<span class="sd">        we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</span>
+<span class="sd">        we have a known [Jmin, Jmax] from previous pair(s) or strarting value ([0,1] in this case)</span>
 
-<span class="sd">        And we have rJ = [j_min, j_max] from the new pair</span>
+<span class="sd">        And we have rJ = [j_min, j_max] from the new pair. j_min depends of Pmin and j_max depends of Pmax</span>
+
+<span class="sd">        [Jmin, Jmax] &lt;= [j_min, j_max] &lt;=&gt; Jmax &lt;= j_min</span>
 
 <span class="sd">        we have to compare the 2 range and resolve any conflict</span>
-
-<span class="sd">        So, we must have [Jmin, Jmax] &lt;= [j_min, j_max]</span>
-
-<span class="sd">        &lt;=&gt; Jmin &lt;= j_min and Jmax &lt;= j_max</span>
-
-<span class="sd">        - If the 2 inequalities are satisfied, there&#39;s nothing to do ;</span>
-<span class="sd">        - If Jmin &gt; j_max, there is a conflict ;</span>
-<span class="sd">        - If Jmin &lt;= j_min but Jmax &gt; j_max, we can set Jmax to j_max: Jmax = j_max ;</span>
-<span class="sd">        - If Jmax &lt;= j_max but Jmin &gt; j_min, we must increase j_min to Jmin, so increase Pmin ; if we can no longer increase Pmin, there is a conflict.</span>
-<span class="sd">        - If Jmin &gt; j_min and Jmax &gt; j_max, we can combine the 2 solution above.</span>
-<span class="sd">        </span>
-<span class="sd">        If we can no longer use these solutions, there is a conflict.</span>
 
 <span class="sd">        In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.</span>
 
@@ -246,19 +264,45 @@
 <span class="sd">        rJ : RangeJ</span>
 <span class="sd">            a range of J values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&lt;=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
+        <span class="n">j_min</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">)</span>
+        <span class="n">j_max</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&lt;=</span> <span class="n">j_min</span><span class="p">:</span>
             <span class="c1"># There is nothing to do</span>
             <span class="k">return</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&gt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&gt;</span> <span class="n">j_max</span><span class="p">:</span> <span class="c1"># incompatible</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&lt;=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&gt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;=</span> <span class="n">j_min</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;=</span> <span class="n">j_min</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">=</span> <span class="n">j_min</span> <span class="c1"># update Jmax</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span><span class="p">)</span> <span class="c1"># T_I &lt;= T_J</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;=</span> <span class="n">j_max</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="c1"># update Jmax</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span>
+                <span class="c1"># Increase Pmin to increase j_min such that j_min = Jmax</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">increasePminJ</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
+                <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;=</span> <span class="n">j_max</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&lt;=</span> <span class="n">j_max</span><span class="p">:</span>
+            <span class="c1"># Increase Pmin to increase j_min such that j_min = Jmax</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">increasePminJ</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&gt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">increasePminJ</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;=</span> <span class="n">j_max</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;</span> <span class="n">j_max</span><span class="p">:</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">j_max</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;=</span> <span class="n">j_max</span> <span class="o">-</span> <span class="n">dist</span><span class="o">/</span><span class="mi">2</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">=</span> <span class="n">j_max</span> <span class="o">-</span> <span class="n">dist</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># update Jmax</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span><span class="p">)</span> <span class="c1"># T_I &lt;= T_J</span>
+                <span class="c1"># Increase Pmin to increase j_min such that j_min = Jmax</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">increasePminJ</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;=</span> <span class="n">j_max</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="c1"># update Imin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span>
+                <span class="c1"># Increase Pmin to increase j_min such that j_min = Jmax</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">increasePminJ</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
+                <span class="k">return</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">resolveConstraints</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># We check that all constraints are still satisfied, and if not, we solve the constraints</span></div>
 
@@ -270,7 +314,7 @@
 
 <span class="sd">        &lt;=&gt; Pmin = y/(x - rJ.min)</span>
 
-<span class="sd">        rJ.min must be equal to Jmin </span>
+<span class="sd">        rJ.min must be equal to Jmax</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -279,10 +323,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">pmin</span> <span class="o">=</span> <span class="n">INFINITY</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">pmin</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">pmin</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pmin</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="o">=</span> <span class="n">pmin</span>
         <span class="k">else</span><span class="p">:</span>
@@ -292,50 +336,30 @@
 <div class="viewcode-block" id="ItSearch.resolvePreference"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.resolvePreference">[docs]</a>    <span class="k">def</span> <span class="nf">resolvePreference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rI</span><span class="p">:</span><span class="n">RangeI</span><span class="p">,</span> <span class="n">rJ</span><span class="p">:</span><span class="n">RangeJ</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve preference</span>
 
-<span class="sd">        I &lt;= [i_min, i_max] ; J &gt;= [j_min, j_max] ; J &gt;= I</span>
+<span class="sd">        T_I &lt;= [i_min, i_max] ; T_J &gt;= [j_min, j_max] ; J &gt;= I</span>
 
 <span class="sd">        There are 2 parts in this resolution.</span>
 
-<span class="sd">        1. I &lt;= [i_min, i_max]</span>
+<span class="sd">        1. T_I &lt;= [i_min, i_max]</span>
 
 <span class="sd">        we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</span>
 
-<span class="sd">        And we have rI = [i_min, i_max] from the new pair</span>
+<span class="sd">        And we have rI = [i_min, i_max] from the new pair. i_min depends of Pmax and i_max depends of Pmin</span>
+
+<span class="sd">        [Imin, Imax] &lt;= [i_min, i_max] &lt;=&gt; Imax &lt;= i_min</span>
 
 <span class="sd">        we have to compare the 2 range and resolve any conflict</span>
 
-<span class="sd">        So, we must have [Imin, Imax] &lt;= [i_min, i_max]</span>
 
-<span class="sd">        &lt;=&gt; Imin &lt;= i_min and Imax &lt;= i_max</span>
+<span class="sd">        2. T_J &gt;= [j_min, j_max]</span>
 
-<span class="sd">        - If the 2 inequalities are satisfied, there&#39;s nothing to do ;</span>
-<span class="sd">        - If Imin &gt; i_max, there is a conflict ;</span>
-<span class="sd">        - If Imin &lt;= i_min but Imax &gt; i_max, we can set Imax to i_max: Imax = i_max ;</span>
-<span class="sd">        - If Imax &lt;= i_max but Imin &gt; i_min, we can increase i_min to Imin, so decrease Pmax ; if we can no longer decrease Pmax, there is a conflict.</span>
-<span class="sd">        - If Imin &gt; i_min and Imax &gt; i_max, we can combine the 2 solution above.</span>
-<span class="sd">        </span>
-<span class="sd">        If we can no longer use these solutions, there is a conflict.</span>
+<span class="sd">        we have a known [Jmin, Jmax] from previous pair(s) or strarting value ([0,1] in this case)</span>
 
+<span class="sd">        And we have rJ = [j_min, j_max] from the new pair. j_min depends of Pmin and j_max depends of Pmax</span>
 
-<span class="sd">        2. J &gt;= [j_min, j_max]</span>
-
-<span class="sd">        we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</span>
-
-<span class="sd">        And we have rJ = [j_min, j_max] from the new pair</span>
+<span class="sd">        [Jmin, Jmax] &gt;= [j_min, j_max] &lt;=&gt; Jmin &gt;= j_max</span>
 
 <span class="sd">        we have to compare the 2 range and resolve any conflict</span>
-
-<span class="sd">        So, we must have [Jmin, Jmax] &gt;= [j_min, j_max]</span>
-
-<span class="sd">        &lt;=&gt; Jmin &gt;= j_min and Jmax &gt;= j_max</span>
-
-<span class="sd">        - If the 2 inequalities are satisfied, there&#39;s nothing to do ;</span>
-<span class="sd">        - If Jmax &lt; j_min, there is a conflict ;</span>
-<span class="sd">        - If Jmax &gt;= j_max but Jmin &lt; j_min, we can set Jmin to j_min: Jmin = j_min ;</span>
-<span class="sd">        - If Jmin &gt;= j_min but Jmax &lt; j_max, we must decrease j_max to Jmax, so decrease Pmax ; if we can no longer increase Pmin, there is a conflict.</span>
-<span class="sd">        - If Jmin &lt; j_min and Jmax &lt; j_max, we can combine the 2 solution above.</span>
-<span class="sd">        </span>
-<span class="sd">        If we can no longer use these solutions, there is a conflict.</span>
 
 <span class="sd">        In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.</span>
 
@@ -346,98 +370,86 @@
 <span class="sd">        rJ : RangeJ</span>
 <span class="sd">            a range of J values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># part 1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ILErI</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span>
-
-        <span class="c1"># part 2</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">JGErJ</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">ILErI</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span> <span class="c1"># part 1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">JGErJ</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span> <span class="c1"># part 2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resolveConstraints</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># We check that all constraints are still satisfied, and if not, we solve the constraints</span></div>
 
 
 <div class="viewcode-block" id="ItSearch.ILErI"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.ILErI">[docs]</a>    <span class="k">def</span> <span class="nf">ILErI</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rI</span><span class="p">:</span><span class="n">RangeI</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve preference, part 1 : I &lt;= rI</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve preference, part 1 : T_I &lt;= rI</span>
 
-<span class="sd">        I &lt;= [i_min, i_max]</span>
+<span class="sd">        T_I &lt;= [i_min, i_max]</span>
 
 <span class="sd">        we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</span>
 
-<span class="sd">        And we have rI = [i_min, i_max] from the new pair</span>
+<span class="sd">        And we have rI = [i_min, i_max] from the new pair. i_min depends of Pmax and i_max depends of Pmin</span>
+
+<span class="sd">        [Imin, Imax] &lt;= [i_min, i_max] &lt;=&gt; Imax &lt;= i_min</span>
 
 <span class="sd">        we have to compare the 2 range and resolve any conflict</span>
-
-<span class="sd">        So, we must have [Imin, Imax] &lt;= [i_min, i_max]</span>
-
-<span class="sd">        &lt;=&gt; Imin &lt;= i_min and Imax &lt;= i_max</span>
-
-<span class="sd">        - If the 2 inequalities are satisfied, there&#39;s nothing to do ;</span>
-<span class="sd">        - If Imin &gt; i_max, there is a conflict ;</span>
-<span class="sd">        - If Imin &lt;= i_min but Imax &gt; i_max, we can set Imax to i_max: Imax = i_max ;</span>
-<span class="sd">        - If Imax &lt;= i_max but Imin &gt; i_min, we can increase i_min to Imin, so decrease Pmax ; if we can no longer decrease Pmax, there is a conflict.</span>
-<span class="sd">        - If Imin &gt; i_min and Imax &gt; i_max, we can combine the 2 solution above. </span>
-<span class="sd">        </span>
-<span class="sd">        If we can no longer use these solutions, there is a conflict.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        rI : RangeI</span>
 <span class="sd">            a range of I values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&lt;=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
+        <span class="n">i_min</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">)</span>
+        <span class="n">i_max</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&lt;=</span> <span class="n">i_min</span><span class="p">:</span>
             <span class="c1"># There is nothing to do</span>
             <span class="k">return</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&gt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&gt;</span> <span class="n">i_max</span><span class="p">:</span> <span class="c1"># incompatible</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&gt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&lt;=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&gt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;=</span> <span class="n">i_min</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="n">i_min</span> <span class="c1"># update Imax</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;=</span> <span class="n">i_max</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&lt;=</span> <span class="n">i_max</span><span class="p">:</span>
+            <span class="c1"># Decrease Pmax to increase i_min such that i_min = Imax</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">decreasePmaxI</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&gt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&gt;</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">&lt;=</span> <span class="n">i_max</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">&gt;</span> <span class="n">i_max</span><span class="p">:</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">i_max</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="n">i_max</span> <span class="o">-</span> <span class="n">dist</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># update Imax</span>
+            <span class="c1"># Decrease Pmax to increase i_min such that i_min = Imax</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">decreasePmaxI</span><span class="p">(</span><span class="n">rI</span><span class="p">)</span></div>
 
         
 <div class="viewcode-block" id="ItSearch.JGErJ"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.JGErJ">[docs]</a>    <span class="k">def</span> <span class="nf">JGErJ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rJ</span><span class="p">:</span><span class="n">RangeJ</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve preference, part 2 : J &gt;= rJ</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve preference, part 2 : T_J &gt;= rJ</span>
 
-<span class="sd">        J &gt;= [j_min, j_max]</span>
+<span class="sd">        T_J &gt;= [j_min, j_max]</span>
 
-<span class="sd">        we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</span>
+<span class="sd">        we have a known [Jmin, Jmax] from previous pair(s) or strarting value ([0,1] in this case)</span>
 
-<span class="sd">        And we have rJ = [j_min, j_max] from the new pair</span>
+<span class="sd">        And we have rJ = [j_min, j_max] from the new pair. j_min depends of Pmin and j_max depends of Pmax</span>
+
+<span class="sd">        [Jmin, Jmax] &gt;= [j_min, j_max] &lt;=&gt; Jmin &gt;= j_max</span>
 
 <span class="sd">        we have to compare the 2 range and resolve any conflict</span>
-
-<span class="sd">        So, we must have [Jmin, Jmax] &gt;= [j_min, j_max]</span>
-
-<span class="sd">        &lt;=&gt; Jmin &gt;= j_min and Jmax &gt;= j_max</span>
-
-<span class="sd">        - If the 2 inequalities are satisfied, there&#39;s nothing to do ;</span>
-<span class="sd">        - If Jmax &lt; j_min, there is a conflict ;</span>
-<span class="sd">        - If Jmax &gt;= j_max but Jmin &lt; j_min, we can set Jmin to j_min: Jmin = j_min ;</span>
-<span class="sd">        - If Jmin &gt;= j_min but Jmax &lt; j_max, we must decrease j_max to Jmax, so decrease Pmax ; if we can no longer increase Pmin, there is a conflict.</span>
-<span class="sd">        - If Jmin &lt; j_min and Jmax &lt; j_max, we can combine the 2 solution above.</span>
-<span class="sd">        </span>
-<span class="sd">        If we can no longer use these solutions, there is a conflict.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        rJ : RangeJ</span>
 <span class="sd">            a range of J values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&gt;=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
+        <span class="n">j_min</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">)</span>
+        <span class="n">j_max</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&gt;=</span> <span class="n">j_max</span><span class="p">:</span>
             <span class="c1"># There is nothing to do</span>
             <span class="k">return</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&lt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">():</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&lt;</span> <span class="n">j_min</span><span class="p">:</span> <span class="c1"># incompatible</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&gt;=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&lt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">j_max</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">=</span> <span class="n">j_max</span> <span class="c1"># update Jmin</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">j_min</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&gt;=</span> <span class="n">j_min</span><span class="p">:</span>
+            <span class="c1"># Decrease Pmax to decrease j_max such that j_max = Jmin</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">decreasePmaxJ</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&lt;</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMax</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getValMin</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">j_min</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;</span> <span class="n">j_min</span><span class="p">:</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">-</span> <span class="n">j_min</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">=</span> <span class="n">j_min</span> <span class="o">+</span> <span class="n">dist</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># update Jmin</span>
+            <span class="c1"># Decrease Pmax to decrease j_max such that j_max = Jmin</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">decreasePmaxJ</span><span class="p">(</span><span class="n">rJ</span><span class="p">)</span></div>
 
 
@@ -448,7 +460,7 @@
 
 <span class="sd">        &lt;=&gt; Pmax = y/(rI.min - x)</span>
 
-<span class="sd">        rI.min must be equal to Imin</span>
+<span class="sd">        rI.min must be equal to Imax</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -457,10 +469,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">pmax</span> <span class="o">=</span> <span class="n">INFINITY</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">pmax</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">pmax</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pmax</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span> <span class="o">=</span> <span class="n">pmax</span>
         <span class="k">else</span><span class="p">:</span>
@@ -474,7 +486,7 @@
 
 <span class="sd">        &lt;=&gt; Pmax = y/(x - rJ.max)</span>
 
-<span class="sd">        rJ.max must be equal to Jmax</span>
+<span class="sd">        rJ.max must be equal to Jmin</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -483,10 +495,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">pmax</span> <span class="o">=</span> <span class="n">INFINITY</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">pmax</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">pmax</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pmax</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span> <span class="o">=</span> <span class="n">pmax</span>
         <span class="k">else</span><span class="p">:</span>
@@ -505,8 +517,12 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        s : bool</span>
-<span class="sd">            indicator of whether resolveConflict() has already been performed or not (True if already performed, False otherwise)</span>
+<span class="sd">            indicator of whether resolveConflict() has already been performed or not (True if not already performed, False otherwise)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verifyIndifferences</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verifyIncomparabilities</span><span class="p">()</span>
+
         <span class="n">parameters</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">param</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -547,8 +563,6 @@
             <span class="k">if</span> <span class="n">s</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># another method than the average?</span>
-                <span class="c1"># print(&quot;Jmax &lt; Imin&quot;)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span><span class="p">:</span>
@@ -596,7 +610,6 @@
                 <span class="n">p</span> <span class="o">+=</span> <span class="mf">0.1</span>
 
             <span class="n">p</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-            
             <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mf">100.0</span><span class="p">:</span>
                 <span class="n">p</span> <span class="o">=</span> <span class="n">INFINITY</span>
                 <span class="n">avgI</span><span class="p">,</span> <span class="n">avgJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">averageIandJ</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -616,7 +629,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">=</span> <span class="n">bestJ</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span> <span class="o">=</span> <span class="n">p</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span> <span class="o">=</span> <span class="n">p</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">resolveConstraints</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
 
@@ -642,6 +654,12 @@
             <span class="n">avgJ</span> <span class="o">+=</span> <span class="n">valueJ</span>
         <span class="n">avgI</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeI</span><span class="p">)</span>
         <span class="n">avgJ</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeI</span><span class="p">)</span>
+
+        <span class="c1"># !!! T_I &lt;= T_J !!!</span>
+        <span class="k">if</span> <span class="n">avgI</span> <span class="o">&gt;</span> <span class="n">avgJ</span><span class="p">:</span>
+            <span class="n">avg</span> <span class="o">=</span> <span class="p">(</span><span class="n">avgI</span><span class="o">+</span><span class="n">avgJ</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+            <span class="n">avgI</span> <span class="o">=</span> <span class="n">avg</span>
+            <span class="n">avgJ</span> <span class="o">=</span> <span class="n">avg</span>
         <span class="k">return</span> <span class="n">avgI</span><span class="p">,</span> <span class="n">avgJ</span></div>
     
 
@@ -667,16 +685,22 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeI</span><span class="p">)):</span>
             <span class="n">valueI</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeI</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
             <span class="n">valueJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeJ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getValForP</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">gammaValues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeI</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getGammaValues</span><span class="p">()</span>
+            <span class="n">gammaSum</span> <span class="o">=</span> <span class="n">gammaValues</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">gammaValues</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfPreference</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="k">if</span> <span class="n">valueI</span> <span class="o">&gt;</span> <span class="n">avgI</span><span class="p">:</span>
-                    <span class="n">fitI</span> <span class="o">+=</span> <span class="p">(</span><span class="n">avgI</span><span class="o">-</span><span class="n">valueI</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-                <span class="k">if</span> <span class="n">valueI</span> <span class="o">&gt;</span> <span class="n">avgJ</span><span class="p">:</span>
-                    <span class="n">fitJ</span> <span class="o">+=</span> <span class="p">(</span><span class="n">avgJ</span><span class="o">-</span><span class="n">valueI</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+                    <span class="n">error</span> <span class="o">=</span> <span class="n">valueI</span> <span class="o">-</span> <span class="n">avgI</span>
+                <span class="k">if</span> <span class="n">avgI</span> <span class="o">+</span> <span class="n">avgJ</span> <span class="o">&lt;</span> <span class="n">gammaSum</span><span class="p">:</span>
+                    <span class="n">error</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">gammaSum</span> <span class="o">-</span> <span class="p">(</span><span class="n">avgI</span><span class="o">+</span><span class="n">avgJ</span><span class="p">))</span>
+                <span class="n">fitI</span> <span class="o">+=</span> <span class="n">error</span><span class="o">**</span><span class="mi">2</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfPreference</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="k">if</span> <span class="n">valueJ</span> <span class="o">&lt;</span> <span class="n">avgJ</span><span class="p">:</span>
-                    <span class="n">fitJ</span> <span class="o">+=</span> <span class="p">(</span><span class="n">avgJ</span><span class="o">-</span><span class="n">valueI</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-                <span class="k">if</span> <span class="n">valueJ</span> <span class="o">&lt;</span> <span class="n">avgI</span><span class="p">:</span>
-                    <span class="n">fitI</span> <span class="o">+=</span> <span class="p">(</span><span class="n">avgI</span><span class="o">-</span><span class="n">valueJ</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+                    <span class="n">error</span> <span class="o">=</span> <span class="n">avgJ</span> <span class="o">-</span> <span class="n">valueJ</span>
+                <span class="k">if</span> <span class="n">avgI</span> <span class="o">+</span> <span class="n">avgJ</span> <span class="o">&gt;</span> <span class="n">gammaSum</span><span class="p">:</span>
+                    <span class="n">error</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="p">(</span><span class="n">avgI</span><span class="o">+</span><span class="n">avgJ</span><span class="p">)</span> <span class="o">-</span> <span class="n">gammaSum</span><span class="p">)</span>
+                <span class="n">fitJ</span> <span class="o">+=</span> <span class="n">error</span><span class="o">**</span><span class="mi">2</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfPreference</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">valueI</span> <span class="o">&lt;</span> <span class="n">avgI</span><span class="p">:</span>
                     <span class="n">fitI</span> <span class="o">+=</span> <span class="p">(</span><span class="n">avgI</span><span class="o">-</span><span class="n">valueI</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
@@ -684,7 +708,67 @@
                     <span class="n">fitJ</span> <span class="o">+=</span> <span class="p">(</span><span class="n">avgJ</span><span class="o">-</span><span class="n">valueI</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
         <span class="n">fitI</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">fitI</span><span class="p">)</span>
         <span class="n">fitJ</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">fitJ</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">fitI</span><span class="p">,</span> <span class="n">fitJ</span></div></div>
+        <span class="k">return</span> <span class="n">fitI</span><span class="p">,</span> <span class="n">fitJ</span></div>
+    
+
+<div class="viewcode-block" id="ItSearch.verifyIndifferences"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.verifyIndifferences">[docs]</a>    <span class="k">def</span> <span class="nf">verifyIndifferences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verify that T_I + T_J &gt;= gammaij + gammaji for each indifference</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pref</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listOfPreference</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pref</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">rI</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeI</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">rI</span><span class="p">:</span><span class="n">RangeI</span>
+                <span class="n">gammaValues</span> <span class="o">=</span> <span class="n">rI</span><span class="o">.</span><span class="n">getGammaValues</span><span class="p">()</span>
+                <span class="n">gammaSum</span> <span class="o">=</span> <span class="n">gammaValues</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">gammaValues</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&gt;=</span> <span class="n">gammaSum</span><span class="p">:</span>
+                    <span class="c1"># ok, nothing to do</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&gt;=</span> <span class="n">gammaSum</span><span class="p">:</span>
+                    <span class="c1"># Increase Imin and Jmin for that Imin + Jmin = gammaij + gammaji</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">gammaSum</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">+</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">+</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">+=</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">+=</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">+</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">+=</span> <span class="n">val</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imax</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">+</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">+=</span> <span class="n">val</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
+                    <span class="k">break</span></div>
+
+
+<div class="viewcode-block" id="ItSearch.verifyIncomparabilities"><a class="viewcode-back" href="../../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.Search.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.verifyIncomparabilities">[docs]</a>    <span class="k">def</span> <span class="nf">verifyIncomparabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verify that T_I + T_J &lt;= gammaij + gammaji for each incomparability</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pref</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listOfPreference</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pref</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">rJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listOfRangeJ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">rJ</span><span class="p">:</span><span class="n">RangeJ</span>
+                <span class="n">gammaValues</span> <span class="o">=</span> <span class="n">rJ</span><span class="o">.</span><span class="n">getGammaValues</span><span class="p">()</span>
+                <span class="n">gammaSum</span> <span class="o">=</span> <span class="n">gammaValues</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">gammaValues</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">&lt;=</span> <span class="n">gammaSum</span><span class="p">:</span>
+                    <span class="c1"># ok, nothing to do</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span> <span class="o">&lt;=</span> <span class="n">gammaSum</span><span class="p">:</span>
+                    <span class="c1"># Decrease Imax and Jmax for that Imax + Jmax = gammaij + gammaji</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">)</span> <span class="o">-</span> <span class="n">gammaSum</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">-</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">-</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">-=</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">-=</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">-</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">-=</span> <span class="n">val</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imax</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imin</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">-</span> <span class="n">val</span><span class="o">/</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span> <span class="o">-=</span> <span class="n">val</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">resolveConflict</span><span class="p">()</span>
+                    <span class="k">break</span></div></div>
+
+
 </pre></div>
 
           </div>

@@ -50,7 +50,13 @@
 <span class="sd">        a lock to synchronizes different parts of the app</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lock</span><span class="p">:</span><span class="n">Lock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        lock : Lock</span>
+<span class="sd">            a lock to synchronizes different parts of the app</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">criteria</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">lock</span>
@@ -64,9 +70,9 @@
 <span class="sd">        index : int, optional</span>
 <span class="sd">            the index of criterion that must be returned (default is -1)</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        criteria[index] : Criterion</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Criterion</span>
 <span class="sd">            the criterion at position index in the criteria list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">criteria</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
@@ -80,9 +86,9 @@
 <span class="sd">        index : int, optional</span>
 <span class="sd">            the index of alternative that must be returned (default is -1)</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        alternatives[index] : Alternative</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Alternative</span>
 <span class="sd">            the alternative at position index in the alternatives list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>

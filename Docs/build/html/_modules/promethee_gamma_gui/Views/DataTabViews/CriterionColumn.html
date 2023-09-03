@@ -33,8 +33,6 @@
 <span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="p">(</span><span class="n">CTkEntry</span><span class="p">,</span> <span class="n">CTkButton</span><span class="p">,</span> <span class="n">CTkToplevel</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 
-<span class="c1">#from Models.DataTabModels.Criterion import Criterion</span>
-<span class="c1">#from Views.DataTabViews.PreferenceFunctionWindow import PreferenceFunctionWindow</span>
 <span class="kn">from</span> <span class="nn">...Models.DataTabModels.Criterion</span> <span class="kn">import</span> <span class="n">Criterion</span>
 <span class="kn">from</span> <span class="nn">.PreferenceFunctionWindow</span> <span class="kn">import</span> <span class="n">PreferenceFunctionWindow</span>
 
@@ -103,7 +101,7 @@
 <div class="viewcode-block" id="CriterionColumn.buttonTypeEvent"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.CriterionColumn.CriterionColumn.buttonTypeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">buttonTypeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle click event on the typePfButton</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">w</span> <span class="o">=</span> <span class="n">CTkToplevel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">CTkToplevel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
             <span class="n">w</span><span class="o">.</span><span class="n">grab_set</span><span class="p">()</span>
             <span class="n">w</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>

@@ -56,6 +56,43 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to display the rank graph of alternatives</span>
 
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    root : CTk</span>
+<span class="sd">        the root window of the app</span>
+<span class="sd">    leftScrollFrame : ResizableScrollableFrame</span>
+<span class="sd">        a resisable vertically and horizontally scrollable frame for the canvas that contains the graph</span>
+<span class="sd">    leftFrame : CTkFrame</span>
+<span class="sd">        the master frame for the canvas that contains the graph</span>
+<span class="sd">    rightScrollFrame : VScrollableFrame</span>
+<span class="sd">        a vertical scrollable frame for the selection view</span>
+<span class="sd">    rightFrame : CTkFrame</span>
+<span class="sd">        the master frame for the selection view</span>
+<span class="sd">    fig : Figure</span>
+<span class="sd">        the matplotlib figure for the graph</span>
+<span class="sd">    ax : Axes</span>
+<span class="sd">        the matplotlib axes to draw the graph</span>
+<span class="sd">    canvas : FigureCanvasTkAgg</span>
+<span class="sd">        the canvas that contains the figure</span>
+<span class="sd">    toolbar : NavigationToolbar2Tk</span>
+<span class="sd">        the matplotlib navigation toolbar</span>
+<span class="sd">    checkBoxList : list of CTkCheckBox</span>
+<span class="sd">        the list of checkboxes for selection</span>
+<span class="sd">    alternatives : dict of str:Intvar</span>
+<span class="sd">        a dictionnary that contains alternatives names as key and an Intvar as item. </span>
+<span class="sd">        It is used for selection : if the IntVar value is set to 1, the alternative is showed, otherwise the alternative is hided.</span>
+<span class="sd">    listener : ViewListener</span>
+<span class="sd">        the listener of this view</span>
+<span class="sd">    construction : dict of str:AlternativeView</span>
+<span class="sd">        a dictionnary to link alternatives to their representation</span>
+<span class="sd">    graphName : list of list of str</span>
+<span class="sd">        a representation of the graph in list with alternatives names as items</span>
+<span class="sd">    als : list of AlternativeView</span>
+<span class="sd">        a list that contains all AlternativeViews</span>
+<span class="sd">    queueMessage : Queue</span>
+<span class="sd">        A queue to transmit messages from secondary thread to main thread</span>
+<span class="sd">    thread : Thread</span>
+<span class="sd">        a secondary thread to computes graph lines</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="RankView.ViewListener"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener">[docs]</a>    <span class="k">class</span> <span class="nc">ViewListener</span><span class="p">:</span>
@@ -64,6 +101,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="RankView.ViewListener.checkBoxEvent"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener.checkBoxEvent">[docs]</a>        <span class="k">def</span> <span class="nf">checkBoxEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;Handle checkBox events</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="RankView.ViewListener.checkBoxEventAll"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.ViewListener.checkBoxEventAll">[docs]</a>        <span class="k">def</span> <span class="nf">checkBoxEventAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alternativesDict</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Handle &quot;All&quot; checkBox event</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            alternativeDict : dict</span>
+<span class="sd">                the dictionnary of alternatives names for selection</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">pass</span></div></div>
 
@@ -96,10 +143,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">construction</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graphName</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">als</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xmin</span> <span class="o">=</span> <span class="mi">1000000</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ymin</span> <span class="o">=</span> <span class="mi">50</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xmax</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ymax</span> <span class="o">=</span> <span class="mi">100</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">queueMessage</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;CheckMsgRankView&gt;&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkQueue</span><span class="p">)</span>
@@ -130,8 +173,8 @@
 <span class="sd">        aList : list</span>
 <span class="sd">            the list of alternative names</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="p">[</span><span class="s2">&quot;ALL ALTERNATIVES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">IntVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rightFrame</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">aList</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">IntVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rightFrame</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
@@ -139,14 +182,23 @@
 <div class="viewcode-block" id="RankView.BuildCheckBoxes"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.BuildCheckBoxes">[docs]</a>    <span class="k">def</span> <span class="nf">BuildCheckBoxes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the checkBoxes for alternatives selection</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">checkBoxList</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="n">row</span><span class="o">=</span><span class="mi">0</span>
+        <span class="n">row</span><span class="o">=</span><span class="mi">1</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">box</span> <span class="o">=</span> <span class="n">CTkCheckBox</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rightFrame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">checkBoxEvent</span><span class="p">)</span>
-            <span class="n">box</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-            <span class="n">row</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;ALL ALTERNATIVES&quot;</span><span class="p">:</span>
+                <span class="n">box</span> <span class="o">=</span> <span class="n">CTkCheckBox</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rightFrame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;ALL&quot;</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checkBoxEventAll</span><span class="p">)</span>
+                <span class="n">box</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">box</span> <span class="o">=</span> <span class="n">CTkCheckBox</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rightFrame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">checkBoxEvent</span><span class="p">)</span>
+                <span class="n">box</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+                <span class="n">row</span><span class="o">+=</span><span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">checkBoxList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">box</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RankView.checkBoxEventAll"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.checkBoxEventAll">[docs]</a>    <span class="k">def</span> <span class="nf">checkBoxEventAll</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle &quot;All&quot; checkBox event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">checkBoxEventAll</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="RankView.setListener"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.setListener">[docs]</a>    <span class="k">def</span> <span class="nf">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">ViewListener</span><span class="p">):</span>
@@ -202,6 +254,13 @@
 
 
 <div class="viewcode-block" id="RankView.makeGraph"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.makeGraph">[docs]</a>    <span class="k">def</span> <span class="nf">makeGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrixResults</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add lines to the graph and draw it</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        matrixResults : list</span>
+<span class="sd">            the result matrix of PROMETHEE Gamma method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_lines</span><span class="p">(</span><span class="n">matrixResults</span><span class="p">)</span>
             <span class="n">ticket</span> <span class="o">=</span> <span class="n">Ticket</span><span class="p">(</span><span class="n">ticketType</span><span class="o">=</span><span class="n">TicketPurpose</span><span class="o">.</span><span class="n">CANVAS_DRAW</span><span class="p">,</span> <span class="n">ticketValue</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
@@ -212,8 +271,15 @@
 
 
 <div class="viewcode-block" id="RankView.computeSize"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.computeSize">[docs]</a>    <span class="k">def</span> <span class="nf">computeSize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span><span class="nb">list</span><span class="p">):</span>
-        <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the size of the canvas</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        r : list</span>
+<span class="sd">            ranked list of alternatives</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">SPACE</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">SPACE</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graphName</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span>
@@ -231,9 +297,19 @@
                 <span class="n">width</span> <span class="o">=</span> <span class="n">w</span>
         <span class="k">if</span> <span class="n">h</span> <span class="o">&gt;</span> <span class="n">height</span><span class="p">:</span>
             <span class="n">height</span> <span class="o">=</span> <span class="n">h</span>
+
+        <span class="k">if</span> <span class="n">width</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">*</span><span class="n">height</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="n">SPACE</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">SPACE</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">height</span>
+        <span class="k">elif</span> <span class="n">height</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">*</span><span class="n">width</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">SPACE</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">width</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="n">SPACE</span>
+        <span class="k">else</span> <span class="p">:</span> 
+            <span class="n">wspace</span> <span class="o">=</span> <span class="n">SPACE</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">width</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="n">SPACE</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">height</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">leftScrollFrame</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mf">1.3</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">SPACE</span><span class="p">,</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="n">height</span> <span class="o">+</span> <span class="n">SPACE</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">leftScrollFrame</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mf">1.4</span> <span class="o">*</span><span class="p">(</span><span class="n">width</span> <span class="o">+</span> <span class="n">wspace</span><span class="p">)</span> <span class="o">+</span> <span class="n">SPACE</span><span class="p">,</span> <span class="mf">1.4</span> <span class="o">*</span> <span class="p">(</span><span class="n">height</span> <span class="o">+</span> <span class="n">hspace</span><span class="p">)</span> <span class="o">+</span> <span class="n">SPACE</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">+</span><span class="n">wspace</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="n">hspace</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span></div>
                     
 
@@ -274,6 +350,11 @@
 <span class="sd">        ----------</span>
 <span class="sd">        matrixResults : list</span>
 <span class="sd">            the result matrix of PROMETHEE Gamma method</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        SystemExit</span>
+<span class="sd">            if a SystemExit occurs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matrixResults</span><span class="p">)):</span>
@@ -289,6 +370,22 @@
 
 
 <div class="viewcode-block" id="RankView.draw_line"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.draw_line">[docs]</a>    <span class="k">def</span> <span class="nf">draw_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span><span class="n">AlternativeView</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">AlternativeView</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Draw a line between alternatives a and b</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        a : AlternativeView</span>
+<span class="sd">            a representation of an alternative on the graph</span>
+<span class="sd">        b : AlternativeView</span>
+<span class="sd">            a representation of an alternative on the graph</span>
+<span class="sd">        color : Color</span>
+<span class="sd">            the line color</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        SystemExit</span>
+<span class="sd">            if a SystemExit occurs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">xya</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">getXY</span><span class="p">()</span>
             <span class="n">xyb</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">getXY</span><span class="p">()</span>
@@ -306,12 +403,16 @@
 
 
 <div class="viewcode-block" id="RankView.makeLegend"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.makeLegend">[docs]</a>    <span class="k">def</span> <span class="nf">makeLegend</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add legend to the graph</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">redLine</span> <span class="o">=</span> <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Incomparability lines&#39;</span><span class="p">)</span>
         <span class="n">greenLine</span> <span class="o">=</span> <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Indifference lines&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">redLine</span><span class="p">,</span> <span class="n">greenLine</span><span class="p">],</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">redLine</span><span class="p">,</span> <span class="n">greenLine</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="RankView.save"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.RankView.RankView.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the graph in filename</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div></div>
 </pre></div>
 

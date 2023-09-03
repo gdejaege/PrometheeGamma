@@ -35,11 +35,9 @@
 <span class="c1">### Edit it as you wish.                                                  ###</span>
 <span class="c1">#############################################################################</span>
 
-<span class="c1">#from Models.PrometheeGamma import PrometheeGamma</span>
-<span class="c1">#from Models.DataTabModels.DataTabModel import DataTabModel</span>
-
 <span class="kn">from</span> <span class="nn">..Models.PrometheeGamma</span> <span class="kn">import</span> <span class="n">PrometheeGamma</span>
 <span class="kn">from</span> <span class="nn">..Models.DataTabModels.DataTabModel</span> <span class="kn">import</span> <span class="n">DataTabModel</span>
+
 
 <div class="viewcode-block" id="CustomModel"><a class="viewcode-back" href="../../../promethee_gamma_gui.Custom.html#promethee_gamma_gui.Custom.CustomModel.CustomModel">[docs]</a><span class="k">class</span> <span class="nc">CustomModel</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -52,20 +50,17 @@
 <span class="sd">    dataTabModel : DataTabModel</span>
 <span class="sd">        the model that keep input data in memory</span>
 <span class="sd">    Imin :float</span>
-<span class="sd">        the minimum value for the parameter I</span>
+<span class="sd">        the minimum value for the parameter Ti</span>
 <span class="sd">    Imax :float</span>
-<span class="sd">        the maximum value for the parameter I</span>
+<span class="sd">        the maximum value for the parameter Ti</span>
 <span class="sd">    Jmin :float</span>
-<span class="sd">        the minimum value for the parameter J</span>
+<span class="sd">        the minimum value for the parameter Tj</span>
 <span class="sd">    Jmax :float</span>
-<span class="sd">        the maximum value for the parameter J</span>
+<span class="sd">        the maximum value for the parameter Tj</span>
 <span class="sd">    Pmin :float</span>
-<span class="sd">        the minimum value for the parameter P</span>
+<span class="sd">        the minimum value for the parameter Pf</span>
 <span class="sd">    Pmax :float</span>
-<span class="sd">        the maximum value for the parameter P</span>
-
-<span class="sd">    Methods</span>
-<span class="sd">    -------</span>
+<span class="sd">        the maximum value for the parameter Pf</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prometheeGamma</span><span class="p">:</span><span class="n">PrometheeGamma</span><span class="p">,</span> <span class="n">dataTabModel</span><span class="p">:</span><span class="n">DataTabModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -113,9 +108,9 @@
 <div class="viewcode-block" id="CustomModel.getValues"><a class="viewcode-back" href="../../../promethee_gamma_gui.Custom.html#promethee_gamma_gui.Custom.CustomModel.CustomModel.getValues">[docs]</a>    <span class="k">def</span> <span class="nf">getValues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Example of funtion to get results</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        (self.Imin, self.Imax, self.Jmin, self.Jmax, self.Pmin, self.Pmax) : tuple</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple of float</span>
 <span class="sd">            the results obtained with the model</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Imin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Imax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Jmax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pmax</span><span class="p">)</span></div></div>

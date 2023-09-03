@@ -29,9 +29,7 @@
           <div class="body" role="main">
             
   <h1>Source code for promethee_gamma_gui.Models.PrometheeGamma</h1><div class="highlight"><pre>
-<span></span><span class="c1">#from Models.DataTabModels.DataTabModel import DataTabModel</span>
-<span class="c1">#from Models.ResultTabModel import ResultTabModel</span>
-<span class="kn">from</span> <span class="nn">.DataTabModels</span> <span class="kn">import</span> <span class="n">DataTabModel</span>
+<span></span><span class="kn">from</span> <span class="nn">.DataTabModels</span> <span class="kn">import</span> <span class="n">DataTabModel</span>
 <span class="kn">from</span> <span class="nn">.ResultTabModel</span> <span class="kn">import</span> <span class="n">ResultTabModel</span>
 
 
@@ -56,7 +54,6 @@
 <span class="sd">        the model that contains the data of the method</span>
 <span class="sd">    resultTabModel : ResultTabModel</span>
 <span class="sd">        the model that contain the parameters needed for the method</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -65,7 +62,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">matrixJ</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">matrixP</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">matrixResults</span> <span class="o">=</span> <span class="p">[]</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resultTabModel</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -78,7 +74,6 @@
 <span class="sd">        model : DataTabModel</span>
 <span class="sd">            the new dataTabModel</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span> <span class="o">=</span> <span class="n">model</span></div>
 
 
@@ -94,6 +89,13 @@
 
 
 <div class="viewcode-block" id="PrometheeGamma.isComputed"><a class="viewcode-back" href="../../../promethee_gamma_gui.Models.html#promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma.isComputed">[docs]</a>    <span class="k">def</span> <span class="nf">isComputed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test if the results was already computed or not</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the results was computed, False if not</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
 
@@ -197,24 +199,10 @@
 
 <div class="viewcode-block" id="PrometheeGamma.ComputeMatrixIJP"><a class="viewcode-back" href="../../../promethee_gamma_gui.Models.html#promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma.ComputeMatrixIJP">[docs]</a>    <span class="k">def</span> <span class="nf">ComputeMatrixIJP</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute matrixI, matrixJ and matrixP</span>
-
-<span class="sd">        This method exists only for a aim of efficientness. </span>
-<span class="sd">        It gives equivalent results with successively applying computeMatrixI(), computeMatrixJ and computeMatrixP(), but more rapidly.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clearMatrixIJP</span><span class="p">()</span>
-        <span class="n">Ti</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resultTabModel</span><span class="o">.</span><span class="n">getTi_float</span><span class="p">()</span>
-        <span class="n">Tj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resultTabModel</span><span class="o">.</span><span class="n">getTj_float</span><span class="p">()</span>
-        <span class="n">Pf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resultTabModel</span><span class="o">.</span><span class="n">getPf_float</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matrixI</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matrixJ</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">matrixP</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">)):</span>
-                <span class="n">gij</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
-                <span class="n">gji</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">matrixI</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Ti</span> <span class="o">-</span> <span class="nb">max</span><span class="p">(</span><span class="n">gij</span><span class="p">,</span> <span class="n">gji</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">matrixP</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">gij</span> <span class="o">-</span> <span class="n">gji</span><span class="p">)</span><span class="o">/</span><span class="n">Pf</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">matrixJ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">gij</span><span class="p">,</span> <span class="n">gji</span><span class="p">)</span> <span class="o">-</span> <span class="n">Tj</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computeMatrixI</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computeMatrixJ</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computeMatrixP</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="PrometheeGamma.computeMatrixResults"><a class="viewcode-back" href="../../../promethee_gamma_gui.Models.html#promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma.computeMatrixResults">[docs]</a>    <span class="k">def</span> <span class="nf">computeMatrixResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

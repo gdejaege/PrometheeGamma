@@ -156,13 +156,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#module-promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning">promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.INFINITY"><code class="docutils literal notranslate"><span class="pre">INFINITY</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.prometheeGamma"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning.prometheeGamma</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.master"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning.master</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.alternatives"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning.alternatives</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.Irange"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning.Irange</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.Jrange"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning.Jrange</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.Prange"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning.Prange</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.questions"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning.questions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.listOfPairs"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning.listOfPairs</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning.search"><code class="docutils literal notranslate"><span class="pre">PreferenceLearning.search</span></code></a></li>
@@ -274,8 +272,6 @@ such as the gamma matrix and the matrix of results</p>
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma.ComputeMatrixIJP">
 <span class="sig-name descname"><span class="pre">ComputeMatrixIJP</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/PrometheeGamma.html#PrometheeGamma.ComputeMatrixIJP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma.ComputeMatrixIJP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute matrixI, matrixJ and matrixP</p>
-<p>This method exists only for a aim of efficientness.
-It gives equivalent results with successively applying computeMatrixI(), computeMatrixJ and computeMatrixP(), but more rapidly.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -370,7 +366,16 @@ It gives equivalent results with successively applying computeMatrixI(), compute
 <dl class="py method">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma.isComputed">
 <span class="sig-name descname"><span class="pre">isComputed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/PrometheeGamma.html#PrometheeGamma.isComputed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma.isComputed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test if the results was already computed or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the results was computed, False if not</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.PrometheeGamma.PrometheeGamma.reset">
@@ -449,7 +454,7 @@ It gives equivalent results with successively applying computeMatrixI(), compute
 <dd><p>a dictionnary of scores for each alternative in order to rank alternatives</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a> of str:int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -569,7 +574,7 @@ It gives equivalent results with successively applying computeMatrixI(), compute
 <dd><p>Init the scores at zero</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>alternativesNames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – the list of altrenatives names</p>
+<dd class="field-odd"><p><strong>alternativesNames</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – the list of altrenatives names</p>
 </dd>
 </dl>
 </dd></dl>

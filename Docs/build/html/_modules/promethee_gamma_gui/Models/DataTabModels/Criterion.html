@@ -31,7 +31,6 @@
   <h1>Source code for promethee_gamma_gui.Models.DataTabModels.Criterion</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="p">(</span><span class="n">StringVar</span><span class="p">,</span> <span class="n">IntVar</span><span class="p">,</span> <span class="n">DoubleVar</span><span class="p">)</span>
 
-<span class="c1">#from Models.DataTabModels.PreferenceFunction import PreferenceFunction</span>
 <span class="kn">from</span> <span class="nn">.PreferenceFunction</span> <span class="kn">import</span> <span class="n">PreferenceFunction</span>
 
 
@@ -53,7 +52,6 @@
 <span class="sd">        the list of phi_c_i (phi_c_list[i] = φc(ai) = (1/n-1) * ∑_{j=1}^{n} (πc_ij - πc_ji))</span>
 <span class="sd">    column : list of float</span>
 <span class="sd">        list of alternatives evaluation for this criterion</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="n">StringVar</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span><span class="n">DoubleVar</span><span class="p">,</span> <span class="n">pfType</span><span class="p">:</span><span class="n">IntVar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span><span class="n">DoubleVar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span><span class="n">DoubleVar</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -71,7 +69,6 @@
 <span class="sd">        q : DoubleVar, optional</span>
 <span class="sd">            the indifference threshold in preference function for this criterion (default is None)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preferenceFunction</span> <span class="o">=</span> <span class="n">PreferenceFunction</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">pfType</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="n">q</span><span class="p">)</span>  <span class="c1"># init the preference function</span>
@@ -107,9 +104,9 @@
 <div class="viewcode-block" id="Criterion.getName_str"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getName_str">[docs]</a>    <span class="k">def</span> <span class="nf">getName_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the name of the criterion</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        name.get() : str</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
 <span class="sd">            the criterion name (in str)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">get</span><span class="p">()</span></div>
@@ -118,9 +115,9 @@
 <div class="viewcode-block" id="Criterion.getWeight_float"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getWeight_float">[docs]</a>    <span class="k">def</span> <span class="nf">getWeight_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the weight of the criterion</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        weight.get() : float</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
 <span class="sd">            the criterion weight (in float)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">get</span><span class="p">()</span></div>
@@ -129,9 +126,9 @@
 <div class="viewcode-block" id="Criterion.getName"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getName">[docs]</a>    <span class="k">def</span> <span class="nf">getName</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StringVar</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the criterion name in a StringVar object</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        name : StringVar</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        StringVar</span>
 <span class="sd">            the criterion name (in a StringVar)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
@@ -140,9 +137,9 @@
 <div class="viewcode-block" id="Criterion.getWeight"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getWeight">[docs]</a>    <span class="k">def</span> <span class="nf">getWeight</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DoubleVar</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the criterion weight in a DoubleVar object</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        weight : DoubleVar</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DoubleVar</span>
 <span class="sd">            the criterion weight (in a DoubleVar)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span></div>
@@ -151,9 +148,9 @@
 <div class="viewcode-block" id="Criterion.getPf_int"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getPf_int">[docs]</a>    <span class="k">def</span> <span class="nf">getPf_int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the type of the preference function</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        preferenceFunction.type.get() : int</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
 <span class="sd">            the type of the preference function used for this criterion (in int)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferenceFunction</span><span class="o">.</span><span class="n">getType_int</span><span class="p">()</span></div>
@@ -162,9 +159,9 @@
 <div class="viewcode-block" id="Criterion.getPf"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getPf">[docs]</a>    <span class="k">def</span> <span class="nf">getPf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IntVar</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the type of the preference function in a IntVar object</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        preferenceFunction.type : Intvar</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Intvar</span>
 <span class="sd">            the type of the preference function used for this criterion (in a IntVar)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferenceFunction</span><span class="o">.</span><span class="n">getType</span><span class="p">()</span></div>
@@ -173,9 +170,9 @@
 <div class="viewcode-block" id="Criterion.getP"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getP">[docs]</a>    <span class="k">def</span> <span class="nf">getP</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DoubleVar</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the preference threshold of the preference function in a DoubleVar object</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        preferenceFunction.pc : DoubleVar</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DoubleVar</span>
 <span class="sd">            the preference threshold of the preference function used for this criterion (in a DoubleVar)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferenceFunction</span><span class="o">.</span><span class="n">getP</span><span class="p">()</span></div>
@@ -184,9 +181,9 @@
 <div class="viewcode-block" id="Criterion.getP_float"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getP_float">[docs]</a>    <span class="k">def</span> <span class="nf">getP_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the preference threshold of the preference function</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        preferenceFunction.pc : float</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
 <span class="sd">            the preference threshold of the preference function used for this criterion</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferenceFunction</span><span class="o">.</span><span class="n">getP_float</span><span class="p">()</span></div>
@@ -195,11 +192,10 @@
 <div class="viewcode-block" id="Criterion.getQ"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getQ">[docs]</a>    <span class="k">def</span> <span class="nf">getQ</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DoubleVar</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the indifference threshold of the preference function in a DoubleVar object</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        preferenceFunction.qc : DoubleVar</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DoubleVar</span>
 <span class="sd">            the indifference threshold of the preference function used for this criterion (in a DoubleVar)</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferenceFunction</span><span class="o">.</span><span class="n">getQ</span><span class="p">()</span></div>
     
@@ -207,11 +203,10 @@
 <div class="viewcode-block" id="Criterion.getQ_float"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.DataTabModels.html#promethee_gamma_gui.Models.DataTabModels.Criterion.Criterion.getQ_float">[docs]</a>    <span class="k">def</span> <span class="nf">getQ_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DoubleVar</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the indifference threshold of the preference function</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        preferenceFunction.qc : float</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
 <span class="sd">            the indifference threshold of the preference function used for this criterion</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">preferenceFunction</span><span class="o">.</span><span class="n">getQ_float</span><span class="p">()</span></div>
 
@@ -273,9 +268,9 @@
 <span class="sd">        phi list: [φc(a1), φc(a2), ..., φc(ai), ..., φc(an)] where φc(ai): the mono-criterion net flow of ai on criterion c</span>
 <span class="sd">        and n the number of alternatives</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        phi_c_list : list</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
 <span class="sd">            the list of phi_c_i (phi_c_list[i] = φc(ai) = (1/n-1) * ∑_{j=1}^{n} (πc_ij - πc_ji))</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi_c_list</span></div>
@@ -295,9 +290,9 @@
 <span class="sd">        j : int</span>
 <span class="sd">            the index of the alternative j in the column</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        val : float</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
 <span class="sd">            the value of γc_ij</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">val</span> <span class="o">=</span> <span class="mf">0.0</span>

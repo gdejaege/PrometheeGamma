@@ -121,7 +121,7 @@
 <dd><p>the list of range of I computed from user answers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI">RangeI</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a> of <a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.Range.Range" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.Range.Range">Range</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -132,7 +132,7 @@
 <dd><p>the list of range of J computed from user answers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ">RangeJ</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a> of <a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.Range.Range" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.Range.Range">Range</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -143,7 +143,7 @@
 <dd><p>the list of preference indicators from user answers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -151,21 +151,12 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.ILErI">
 <span class="sig-name descname"><span class="pre">ILErI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rI</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI"><span class="pre">RangeI</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.ILErI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.ILErI" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resolve preference, part 1 : I &lt;= rI</p>
-<p>I &lt;= [i_min, i_max]</p>
+<dd><p>Resolve preference, part 1 : T_I &lt;= rI</p>
+<p>T_I &lt;= [i_min, i_max]</p>
 <p>we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</p>
-<p>And we have rI = [i_min, i_max] from the new pair</p>
+<p>And we have rI = [i_min, i_max] from the new pair. i_min depends of Pmax and i_max depends of Pmin</p>
+<p>[Imin, Imax] &lt;= [i_min, i_max] &lt;=&gt; Imax &lt;= i_min</p>
 <p>we have to compare the 2 range and resolve any conflict</p>
-<p>So, we must have [Imin, Imax] &lt;= [i_min, i_max]</p>
-<p>&lt;=&gt; Imin &lt;= i_min and Imax &lt;= i_max</p>
-<ul class="simple">
-<li><p>If the 2 inequalities are satisfied, there’s nothing to do ;</p></li>
-<li><p>If Imin &gt; i_max, there is a conflict ;</p></li>
-<li><p>If Imin &lt;= i_min but Imax &gt; i_max, we can set Imax to i_max: Imax = i_max ;</p></li>
-<li><p>If Imax &lt;= i_max but Imin &gt; i_min, we can increase i_min to Imin, so decrease Pmax ; if we can no longer decrease Pmax, there is a conflict.</p></li>
-<li><p>If Imin &gt; i_min and Imax &gt; i_max, we can combine the 2 solution above.</p></li>
-</ul>
-<p>If we can no longer use these solutions, there is a conflict.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rI</strong> (<a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI"><em>RangeI</em></a>) – a range of I values</p>
@@ -176,21 +167,12 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.JGErJ">
 <span class="sig-name descname"><span class="pre">JGErJ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rJ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ"><span class="pre">RangeJ</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.JGErJ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.JGErJ" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resolve preference, part 2 : J &gt;= rJ</p>
-<p>J &gt;= [j_min, j_max]</p>
-<p>we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</p>
-<p>And we have rJ = [j_min, j_max] from the new pair</p>
+<dd><p>Resolve preference, part 2 : T_J &gt;= rJ</p>
+<p>T_J &gt;= [j_min, j_max]</p>
+<p>we have a known [Jmin, Jmax] from previous pair(s) or strarting value ([0,1] in this case)</p>
+<p>And we have rJ = [j_min, j_max] from the new pair. j_min depends of Pmin and j_max depends of Pmax</p>
+<p>[Jmin, Jmax] &gt;= [j_min, j_max] &lt;=&gt; Jmin &gt;= j_max</p>
 <p>we have to compare the 2 range and resolve any conflict</p>
-<p>So, we must have [Jmin, Jmax] &gt;= [j_min, j_max]</p>
-<p>&lt;=&gt; Jmin &gt;= j_min and Jmax &gt;= j_max</p>
-<ul class="simple">
-<li><p>If the 2 inequalities are satisfied, there’s nothing to do ;</p></li>
-<li><p>If Jmax &lt; j_min, there is a conflict ;</p></li>
-<li><p>If Jmax &gt;= j_max but Jmin &lt; j_min, we can set Jmin to j_min: Jmin = j_min ;</p></li>
-<li><p>If Jmin &gt;= j_min but Jmax &lt; j_max, we must decrease j_max to Jmax, so decrease Pmax ; if we can no longer increase Pmin, there is a conflict.</p></li>
-<li><p>If Jmin &lt; j_min and Jmax &lt; j_max, we can combine the 2 solution above.</p></li>
-</ul>
-<p>If we can no longer use these solutions, there is a conflict.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rJ</strong> (<a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ"><em>RangeJ</em></a>) – a range of J values</p>
@@ -200,7 +182,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.addPair">
-<span class="sig-name descname"><span class="pre">addPair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rI</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI"><span class="pre">RangeI</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rJ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ"><span class="pre">RangeJ</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">preference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.addPair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.addPair" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">addPair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rJ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.addPair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.addPair" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a pair of I range and J range and the related preference indicator</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -236,7 +218,7 @@
 <dd><p>Decrease the Pmax value if possible (with I range) (if not, call resolveConflict())</p>
 <p>rI.min = x + y/Pmax</p>
 <p>&lt;=&gt; Pmax = y/(rI.min - x)</p>
-<p>rI.min must be equal to Imin</p>
+<p>rI.min must be equal to Imax</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rI</strong> (<a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI"><em>RangeI</em></a>) – a range of I values</p>
@@ -250,7 +232,7 @@
 <dd><p>Decrease the Pmax value if possible (with J range) (if not, call resolveConflict())</p>
 <p>rJ.max = x - y/Pmax</p>
 <p>&lt;=&gt; Pmax = y/(x - rJ.max)</p>
-<p>rJ.max must be equal to Jmax</p>
+<p>rJ.max must be equal to Jmin</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rJ</strong> (<a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ"><em>RangeJ</em></a>) – a range of J values</p>
@@ -299,7 +281,7 @@
 <dd><p>Increase the Pmin value if possible (with I range) (if not, call resolveConflict())</p>
 <p>rI.max = x + y/Pmin</p>
 <p>&lt;=&gt; Pmin = y/(rI.max - x)</p>
-<p>rI.max must be equal to Imax</p>
+<p>rI.max must be equal to Imin</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rI</strong> (<a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI"><em>RangeI</em></a>) – a range of I values</p>
@@ -313,7 +295,7 @@
 <dd><p>Increase the Pmin value if possible (with J range) (if not, call resolveConflict())</p>
 <p>rJ.min = x - y/Pmin</p>
 <p>&lt;=&gt; Pmin = y/(x - rJ.min)</p>
-<p>rJ.min must be equal to Jmin</p>
+<p>rJ.min must be equal to Jmax</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rJ</strong> (<a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ"><em>RangeJ</em></a>) – a range of J values</p>
@@ -340,7 +322,7 @@ there is one and only one optimum</p>
 <p>&lt;=&gt; Jmin &gt;= Imin and Jmax &gt;= Imax</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – indicator of whether resolveConflict() has already been performed or not (True if already performed, False otherwise)</p>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – indicator of whether resolveConflict() has already been performed or not (True if not already performed, False otherwise)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -349,20 +331,11 @@ there is one and only one optimum</p>
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.resolveIncomparability">
 <span class="sig-name descname"><span class="pre">resolveIncomparability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rJ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ"><span class="pre">RangeJ</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.resolveIncomparability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.resolveIncomparability" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve incomparability</p>
-<p>J &lt;= [Jmin, Jmax] ; I &lt;= J</p>
-<p>we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</p>
-<p>And we have rJ = [j_min, j_max] from the new pair</p>
+<p>T_J &lt;= [j_min, j_max] ; I &lt;= J</p>
+<p>we have a known [Jmin, Jmax] from previous pair(s) or strarting value ([0,1] in this case)</p>
+<p>And we have rJ = [j_min, j_max] from the new pair. j_min depends of Pmin and j_max depends of Pmax</p>
+<p>[Jmin, Jmax] &lt;= [j_min, j_max] &lt;=&gt; Jmax &lt;= j_min</p>
 <p>we have to compare the 2 range and resolve any conflict</p>
-<p>So, we must have [Jmin, Jmax] &lt;= [j_min, j_max]</p>
-<p>&lt;=&gt; Jmin &lt;= j_min and Jmax &lt;= j_max</p>
-<ul class="simple">
-<li><p>If the 2 inequalities are satisfied, there’s nothing to do ;</p></li>
-<li><p>If Jmin &gt; j_max, there is a conflict ;</p></li>
-<li><p>If Jmin &lt;= j_min but Jmax &gt; j_max, we can set Jmax to j_max: Jmax = j_max ;</p></li>
-<li><p>If Jmax &lt;= j_max but Jmin &gt; j_min, we must increase j_min to Jmin, so increase Pmin ; if we can no longer increase Pmin, there is a conflict.</p></li>
-<li><p>If Jmin &gt; j_min and Jmax &gt; j_max, we can combine the 2 solution above.</p></li>
-</ul>
-<p>If we can no longer use these solutions, there is a conflict.</p>
 <p>In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -375,20 +348,11 @@ there is one and only one optimum</p>
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.resolveIndifference">
 <span class="sig-name descname"><span class="pre">resolveIndifference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rI</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI"><span class="pre">RangeI</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.resolveIndifference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.resolveIndifference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve indifference</p>
-<p>I &gt;= [i_min, i_max] ; J &gt;= I</p>
+<p>T_I &gt;= [i_min, i_max] ; T_J &gt;= T_I</p>
 <p>we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</p>
-<p>And we have rI = [i_min, i_max] from the new pair</p>
+<p>And we have rI = [i_min, i_max] from the new pair. i_min depends of Pmax and i_max depends of Pmin</p>
+<p>[Imin, Imax] &gt;= [i_min, i_max] &lt;=&gt; Imin &gt;= i_max</p>
 <p>we have to compare the 2 range and resolve any conflict</p>
-<p>So, we must have [Imin, Imax] &gt;= [i_min, i_max]</p>
-<p>&lt;=&gt; Imin &gt;= i_min and Imax &gt;= i_max</p>
-<ul class="simple">
-<li><p>If the 2 inequalities are satisfied, there’s nothing to do ;</p></li>
-<li><p>If Imax &lt; i_min, there is a conflict ;</p></li>
-<li><p>If Imax &gt;= i_max but Imin &lt; i_min, we can set Imin to i_min: Imin = i_min ;</p></li>
-<li><p>If Imin &gt;= i_min but Imax &lt; i_max, we must reduce i_max to Imax, so increase Pmin ; if we can no longer increase Pmin, there is a conflict.</p></li>
-<li><p>If Imin &lt; i_min and Imax &lt; i_max, we can combine the 2 solution above.</p></li>
-</ul>
-<p>If we can no longer use these solutions, there is a conflict.</p>
 <p>In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -401,40 +365,22 @@ there is one and only one optimum</p>
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.resolvePreference">
 <span class="sig-name descname"><span class="pre">resolvePreference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rI</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI"><span class="pre">RangeI</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rJ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ"><span class="pre">RangeJ</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.resolvePreference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.resolvePreference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve preference</p>
-<p>I &lt;= [i_min, i_max] ; J &gt;= [j_min, j_max] ; J &gt;= I</p>
+<p>T_I &lt;= [i_min, i_max] ; T_J &gt;= [j_min, j_max] ; J &gt;= I</p>
 <p>There are 2 parts in this resolution.</p>
 <ol class="arabic simple">
-<li><p>I &lt;= [i_min, i_max]</p></li>
+<li><p>T_I &lt;= [i_min, i_max]</p></li>
 </ol>
 <p>we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</p>
-<p>And we have rI = [i_min, i_max] from the new pair</p>
+<p>And we have rI = [i_min, i_max] from the new pair. i_min depends of Pmax and i_max depends of Pmin</p>
+<p>[Imin, Imax] &lt;= [i_min, i_max] &lt;=&gt; Imax &lt;= i_min</p>
 <p>we have to compare the 2 range and resolve any conflict</p>
-<p>So, we must have [Imin, Imax] &lt;= [i_min, i_max]</p>
-<p>&lt;=&gt; Imin &lt;= i_min and Imax &lt;= i_max</p>
-<ul class="simple">
-<li><p>If the 2 inequalities are satisfied, there’s nothing to do ;</p></li>
-<li><p>If Imin &gt; i_max, there is a conflict ;</p></li>
-<li><p>If Imin &lt;= i_min but Imax &gt; i_max, we can set Imax to i_max: Imax = i_max ;</p></li>
-<li><p>If Imax &lt;= i_max but Imin &gt; i_min, we can increase i_min to Imin, so decrease Pmax ; if we can no longer decrease Pmax, there is a conflict.</p></li>
-<li><p>If Imin &gt; i_min and Imax &gt; i_max, we can combine the 2 solution above.</p></li>
-</ul>
-<p>If we can no longer use these solutions, there is a conflict.</p>
 <ol class="arabic simple" start="2">
-<li><p>J &gt;= [j_min, j_max]</p></li>
+<li><p>T_J &gt;= [j_min, j_max]</p></li>
 </ol>
-<p>we have a known [Imin, Imax] from previous pair(s) or strarting value ([0,1] in this case)</p>
-<p>And we have rJ = [j_min, j_max] from the new pair</p>
+<p>we have a known [Jmin, Jmax] from previous pair(s) or strarting value ([0,1] in this case)</p>
+<p>And we have rJ = [j_min, j_max] from the new pair. j_min depends of Pmin and j_max depends of Pmax</p>
+<p>[Jmin, Jmax] &gt;= [j_min, j_max] &lt;=&gt; Jmin &gt;= j_max</p>
 <p>we have to compare the 2 range and resolve any conflict</p>
-<p>So, we must have [Jmin, Jmax] &gt;= [j_min, j_max]</p>
-<p>&lt;=&gt; Jmin &gt;= j_min and Jmax &gt;= j_max</p>
-<ul class="simple">
-<li><p>If the 2 inequalities are satisfied, there’s nothing to do ;</p></li>
-<li><p>If Jmax &lt; j_min, there is a conflict ;</p></li>
-<li><p>If Jmax &gt;= j_max but Jmin &lt; j_min, we can set Jmin to j_min: Jmin = j_min ;</p></li>
-<li><p>If Jmin &gt;= j_min but Jmax &lt; j_max, we must decrease j_max to Jmax, so decrease Pmax ; if we can no longer increase Pmin, there is a conflict.</p></li>
-<li><p>If Jmin &lt; j_min and Jmax &lt; j_max, we can combine the 2 solution above.</p></li>
-</ul>
-<p>If we can no longer use these solutions, there is a conflict.</p>
 <p>In case of conflict, we look for the values of the 3 parameters that will minimize the mean conflict in the least squares sense.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -450,6 +396,29 @@ there is one and only one optimum</p>
 <dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.update">
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the search state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.verifyIncomparabilities">
+<span class="sig-name descname"><span class="pre">verifyIncomparabilities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.verifyIncomparabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.verifyIncomparabilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that T_I + T_J &lt;= gammaij + gammaji for each incomparability</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.verifyIndifferences">
+<span class="sig-name descname"><span class="pre">verifyIndifferences</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.verifyIndifferences"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.verifyIndifferences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that T_I + T_J &gt;= gammaij + gammaji for each indifference</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.verifyPmin">
+<span class="sig-name descname"><span class="pre">verifyPmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/promethee_gamma_gui/Models/HelpForParametersTabModels/Search/ItSearch.html#ItSearch.verifyPmin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#promethee_gamma_gui.Models.HelpForParametersTabModels.Search.ItSearch.ItSearch.verifyPmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Pmin if neccessary for the new range</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>r</strong> (<a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeI.RangeI"><em>RangeI</em></a><em> or </em><a class="reference internal" href="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.html#promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ" title="promethee_gamma_gui.Models.HelpForParametersTabModels.Range.RangeJ.RangeJ"><em>RangeJ</em></a>) – the range of the new pair comparison</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

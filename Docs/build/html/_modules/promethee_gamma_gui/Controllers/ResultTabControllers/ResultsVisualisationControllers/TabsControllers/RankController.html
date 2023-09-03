@@ -51,7 +51,6 @@
 <span class="sd">        the view of the rank tab</span>
 <span class="sd">    ranked : list of Alternative</span>
 <span class="sd">        a sorted list of ranked alternatives</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">prometheeGamma</span><span class="p">:</span><span class="n">PrometheeGamma</span><span class="p">,</span> <span class="n">resultTabModel</span><span class="p">:</span><span class="n">ResultTabModel</span><span class="p">,</span> <span class="n">dataTabModel</span><span class="p">:</span><span class="n">DataTabModel</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -72,10 +71,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dataTabModel</span> <span class="o">=</span> <span class="n">dataTabModel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resultTabModel</span> <span class="o">=</span> <span class="n">resultTabModel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span> <span class="o">=</span> <span class="n">prometheeGamma</span>
-        
         <span class="bp">self</span><span class="o">.</span><span class="n">rankView</span> <span class="o">=</span> <span class="n">RankView</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rankView</span><span class="o">.</span><span class="n">setListener</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">ranked</span> <span class="o">=</span> <span class="p">[]</span>
 
 
@@ -113,6 +110,20 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">matrixResults</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span><span class="o">.</span><span class="n">getMatrixResults</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rankView</span><span class="o">.</span><span class="n">drawCanvas</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ranked</span><span class="p">,</span> <span class="n">matrixResults</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RankController.checkBoxEventAll"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.html#promethee_gamma_gui.Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.RankController.RankController.checkBoxEventAll">[docs]</a>    <span class="k">def</span> <span class="nf">checkBoxEventAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alternativeDict</span><span class="p">:</span><span class="nb">dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle of &quot;ALL&quot; checkBoxEvent in the selection view</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        alternativeDict : dict</span>
+<span class="sd">            the dictionnary of alternatives names for selection</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">alternativeDict</span><span class="p">[</span><span class="s2">&quot;ALL ALTERNATIVES&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">alternativeDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">alternativeDict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkBoxEvent</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="RankController.buildRankedAlternatives"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.html#promethee_gamma_gui.Controllers.ResultTabControllers.ResultsVisualisationControllers.TabsControllers.RankController.RankController.buildRankedAlternatives">[docs]</a>    <span class="k">def</span> <span class="nf">buildRankedAlternatives</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

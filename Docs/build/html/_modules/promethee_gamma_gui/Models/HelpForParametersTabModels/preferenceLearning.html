@@ -31,18 +31,15 @@
   <h1>Source code for promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="n">IntVar</span>
 <span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">maxsize</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">from Models.PrometheeGamma import PrometheeGamma</span>
-<span class="sd">from Models.HelpForParametersTabModels.Range.Range import Range</span>
-<span class="sd">from Models.HelpForParametersTabModels.Range.RangeI import RangeI</span>
-<span class="sd">from Models.HelpForParametersTabModels.Range.RangeJ import RangeJ</span>
-<span class="sd">from Models.HelpForParametersTabModels.Search.ItSearch import ItSearch</span>
-<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">.Range</span> <span class="kn">import</span> <span class="n">Range</span><span class="p">,</span> <span class="n">RangeI</span><span class="p">,</span> <span class="n">RangeJ</span>
 <span class="kn">from</span> <span class="nn">.Search</span> <span class="kn">import</span> <span class="n">ItSearch</span>
 <span class="kn">from</span> <span class="nn">..PrometheeGamma</span> <span class="kn">import</span> <span class="n">PrometheeGamma</span>
 
+
+<span class="n">INFINITY</span> <span class="o">=</span> <span class="n">maxsize</span>
+<span class="sd">&quot;&quot;&quot;The infinity (in computer terms)&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PreferenceLearning"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Models.HelpForParametersTabModels.html#promethee_gamma_gui.Models.HelpForParametersTabModels.preferenceLearning.PreferenceLearning">[docs]</a><span class="k">class</span> <span class="nc">PreferenceLearning</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -58,13 +55,7 @@
 <span class="sd">    master : CTkFrame</span>
 <span class="sd">        the master frame</span>
 <span class="sd">    alternatives : list of Alternative</span>
-<span class="sd">        the list of all laternatives</span>
-<span class="sd">    Irange : Range</span>
-<span class="sd">        a range of value for parameter I</span>
-<span class="sd">    Jrange : Range</span>
-<span class="sd">        a range of value for parameter J</span>
-<span class="sd">    Prange : Range</span>
-<span class="sd">        a range of value for parameter P</span>
+<span class="sd">        the list of all aternatives</span>
 <span class="sd">    questions : list</span>
 <span class="sd">        a list of peer comparisons: [(a1, a2, preference), (a1, a2, preference), ... ]</span>
 <span class="sd">    listOfPairs : list of tuple of Aternative</span>
@@ -78,11 +69,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span> <span class="o">=</span> <span class="n">prometheeGamma</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="n">master</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span> <span class="o">=</span> <span class="p">[]</span>
-        
-        <span class="c1"># Init values</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Irange</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Jrange</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Prange</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">questions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">listOfPairs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">search</span> <span class="o">=</span> <span class="n">ItSearch</span><span class="p">()</span>
@@ -185,29 +171,21 @@
         <span class="n">a2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alternatives</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">a2_t</span><span class="p">)</span>
         <span class="n">preference</span> <span class="o">=</span> <span class="n">pref</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">preference</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">preference</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Because of abs, max and min, it&#39;s all the same</span>
+            <span class="n">preference</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># No difference for parameters T_I, T_J and P_f</span>
         <span class="n">matrixGamma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prometheeGamma</span><span class="o">.</span><span class="n">getMatrixGamma</span><span class="p">()</span>
         <span class="n">Pmin</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">Pmax</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">Pmax</span> <span class="o">=</span> <span class="n">INFINITY</span>
         <span class="n">rI</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">rJ</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">a2</span><span class="p">]</span> <span class="o">-</span> <span class="n">matrixGamma</span><span class="p">[</span><span class="n">a2</span><span class="p">][</span><span class="n">a1</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">preference</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># indifference</span>
-            <span class="n">xI</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">a2</span><span class="p">],</span> <span class="n">matrixGamma</span><span class="p">[</span><span class="n">a2</span><span class="p">][</span><span class="n">a1</span><span class="p">])</span>
-            <span class="n">rI</span> <span class="o">=</span> <span class="n">RangeI</span><span class="p">(</span><span class="n">xI</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Pmax</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">)</span>
+            <span class="n">rI</span> <span class="o">=</span> <span class="n">RangeI</span><span class="p">(</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">a2</span><span class="p">],</span> <span class="n">matrixGamma</span><span class="p">[</span><span class="n">a2</span><span class="p">][</span><span class="n">a1</span><span class="p">],</span> <span class="n">Pmax</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">)</span> <span class="c1"># T_I &gt;= [Imin, Imax]</span>
             <span class="n">rJ</span> <span class="o">=</span> <span class="n">rI</span>
-            <span class="c1"># !!! I &gt;= [Imin, Imax] ; J &gt;= I</span>
         <span class="k">elif</span> <span class="n">preference</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># preference</span>
-            <span class="n">xI</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">a2</span><span class="p">],</span> <span class="n">matrixGamma</span><span class="p">[</span><span class="n">a2</span><span class="p">][</span><span class="n">a1</span><span class="p">])</span>
-            <span class="n">xJ</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">a2</span><span class="p">],</span> <span class="n">matrixGamma</span><span class="p">[</span><span class="n">a2</span><span class="p">][</span><span class="n">a1</span><span class="p">])</span>
-            <span class="n">rI</span> <span class="o">=</span> <span class="n">RangeI</span><span class="p">(</span><span class="n">xI</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Pmax</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">)</span>
-            <span class="n">rJ</span> <span class="o">=</span> <span class="n">RangeJ</span><span class="p">(</span><span class="n">xJ</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Pmax</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">)</span>
-            <span class="c1"># !!! I &lt;= [Imin, Imax] ; J &gt;= [Jmin, Jmax] ; J &gt;= I</span>
+            <span class="n">rI</span> <span class="o">=</span> <span class="n">RangeI</span><span class="p">(</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">a2</span><span class="p">],</span> <span class="n">matrixGamma</span><span class="p">[</span><span class="n">a2</span><span class="p">][</span><span class="n">a1</span><span class="p">],</span> <span class="n">Pmax</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">)</span> <span class="c1"># T_I &lt;= [Imin, Imax]</span>
+            <span class="n">rJ</span> <span class="o">=</span> <span class="n">RangeJ</span><span class="p">(</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">a2</span><span class="p">],</span> <span class="n">matrixGamma</span><span class="p">[</span><span class="n">a2</span><span class="p">][</span><span class="n">a1</span><span class="p">],</span> <span class="n">Pmax</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">)</span> <span class="c1"># T_J &gt;= [Jmin, Jmax]</span>
         <span class="k">elif</span> <span class="n">preference</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="c1"># incomparability</span>
-            <span class="n">xJ</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">a2</span><span class="p">],</span> <span class="n">matrixGamma</span><span class="p">[</span><span class="n">a2</span><span class="p">][</span><span class="n">a1</span><span class="p">])</span>
-            <span class="n">rJ</span> <span class="o">=</span> <span class="n">RangeJ</span><span class="p">(</span><span class="n">xJ</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Pmax</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">)</span>
+            <span class="n">rJ</span> <span class="o">=</span> <span class="n">RangeJ</span><span class="p">(</span><span class="n">matrixGamma</span><span class="p">[</span><span class="n">a1</span><span class="p">][</span><span class="n">a2</span><span class="p">],</span> <span class="n">matrixGamma</span><span class="p">[</span><span class="n">a2</span><span class="p">][</span><span class="n">a1</span><span class="p">],</span> <span class="n">Pmax</span><span class="p">,</span> <span class="n">Pmin</span><span class="p">)</span> <span class="c1"># T_J &lt;= [Jmin, Jmax]</span>
             <span class="n">rI</span> <span class="o">=</span> <span class="n">rJ</span>
-            <span class="c1"># !!! J &lt;= [Jmin, Jmax] ; I &lt;= J</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">rI</span><span class="p">,</span> <span class="n">rJ</span><span class="p">,</span> <span class="n">preference</span><span class="p">)</span></div></div>
 </pre></div>
 

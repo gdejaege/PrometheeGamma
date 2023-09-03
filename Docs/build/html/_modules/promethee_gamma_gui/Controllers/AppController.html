@@ -247,12 +247,12 @@
 <div class="viewcode-block" id="AppController.applyResultsOfHelp"><a class="viewcode-back" href="../../../promethee_gamma_gui.Controllers.html#promethee_gamma_gui.Controllers.AppController.AppController.applyResultsOfHelp">[docs]</a>    <span class="k">def</span> <span class="nf">applyResultsOfHelp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply the results obtained in the helpForParameters tab in the result tab</span>
 
-<span class="sd">        i.e. modify the values of I, J and P in the result tab accordingly to their values in the helpForParameters tab</span>
+<span class="sd">        i.e. modify the values of Ti, Tj and Pf in the result tab accordingly to their values in the helpForParameters tab</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        results : tuple of float</span>
-<span class="sd">            results = (I, J, P), the values of the 3 parameters of PROMETHEE Gamma method</span>
+<span class="sd">            results = (Ti, Tj, Pf), the values of the 3 parameters of PROMETHEE Gamma method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resultTabController</span><span class="o">.</span><span class="n">applyResults</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">appView</span><span class="o">.</span><span class="n">setTab</span><span class="p">(</span><span class="s2">&quot;Results&quot;</span><span class="p">)</span></div>
