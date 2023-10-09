@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/alabaster.css" />
+    <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script src="../../../../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Arc</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">atan</span><span class="p">,</span> <span class="n">degrees</span>
+
+<span class="kn">from</span> <span class="nn">.AlternativeView</span> <span class="kn">import</span> <span class="n">AlternativeView</span>
+<span class="kn">from</span> <span class="nn">.....Resources.ThreadCommunication</span> <span class="kn">import</span> <span class="n">Ticket</span><span class="p">,</span> <span class="n">TicketPurpose</span>
+
+
+<div class="viewcode-block" id="VerticalLine"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine.VerticalLine">[docs]</a><span class="k">class</span> <span class="nc">VerticalLine</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to draw an vertical line between two AlternativeView in the rank graph</span>
+
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a1 : alternativeView</span>
+<span class="sd">        a representation of an alternative</span>
+<span class="sd">    a2 : AlternativeView</span>
+<span class="sd">        a representation of an alternative</span>
+<span class="sd">    sections : list of tuple</span>
+<span class="sd">        the sections of the lines. Each section can be a straight line or a circular arc. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a1</span><span class="p">:</span><span class="n">AlternativeView</span><span class="p">,</span> <span class="n">a2</span><span class="p">:</span><span class="n">AlternativeView</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        a1 : alternativeView</span>
+<span class="sd">            a representation of an alternative</span>
+<span class="sd">        a2 : AlternativeView</span>
+<span class="sd">            a representation of an alternative</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">a1</span> <span class="o">=</span> <span class="n">a1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">a2</span> <span class="o">=</span> <span class="n">a2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sections</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="VerticalLine.createLine"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine.VerticalLine.createLine">[docs]</a>    <span class="k">def</span> <span class="nf">createLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alternatives</span><span class="p">:</span><span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an vertical line between alternatives a1 and a2</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        alternatives : list of AlternativeView</span>
+<span class="sd">            a list of alternative representations in order to avoid them</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        SystemExit</span>
+<span class="sd">            if a SystemExit occurs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">xy1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a1</span><span class="o">.</span><span class="n">getXY</span><span class="p">()</span>
+            <span class="n">xy2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a2</span><span class="o">.</span><span class="n">getXY</span><span class="p">()</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a1</span><span class="o">.</span><span class="n">getRadius</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">xy1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># a1 is above a2</span>
+                <span class="n">x1</span> <span class="o">=</span> <span class="n">xy1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">y1</span> <span class="o">=</span> <span class="n">xy1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">x2</span> <span class="o">=</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">y2</span> <span class="o">=</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">x1</span> <span class="o">=</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">y1</span> <span class="o">=</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">x2</span> <span class="o">=</span> <span class="n">xy1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">y2</span> <span class="o">=</span> <span class="n">xy1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># keep only useful alternatives</span>
+            <span class="n">als</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alternatives</span><span class="p">:</span>
+                <span class="n">a</span> <span class="p">:</span> <span class="n">AlternativeView</span>
+                <span class="k">if</span> <span class="n">a</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a1</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a2</span><span class="p">:</span>
+                    <span class="n">axy</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">getXY</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">axy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">y2</span> <span class="ow">and</span> <span class="n">axy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">y1</span><span class="p">:</span>
+                        <span class="n">als</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            
+            <span class="n">ylength</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y2</span><span class="o">+</span><span class="n">radius</span><span class="p">,</span> <span class="n">y1</span><span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">ylength</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">ylength</span><span class="p">)</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;previous&quot;</span><span class="p">:</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="s2">&quot;current&quot;</span><span class="p">:</span><span class="s2">&quot;out&quot;</span><span class="p">}</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ylength</span><span class="p">):</span>
+                <span class="n">notIncluded</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">als</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">includeXY</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+                        <span class="n">current</span> <span class="o">=</span> <span class="n">a</span>
+                        <span class="n">notIncluded</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">break</span>
+                
+                <span class="c1"># Update the state</span>
+                <span class="k">if</span> <span class="n">notIncluded</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;current&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;in&quot;</span><span class="p">:</span>
+                        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;previous&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;in&quot;</span>
+                    <span class="k">else</span> <span class="p">:</span>
+                        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;previous&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;current&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;current&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;in&quot;</span><span class="p">:</span>
+                        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;previous&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;in&quot;</span>
+                    <span class="k">else</span> <span class="p">:</span>
+                        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;previous&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;current&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;in&quot;</span>
+
+                <span class="c1"># Make operation following state</span>
+                <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;current&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;in&quot;</span> <span class="ow">and</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;previous&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;out&quot;</span><span class="p">:</span>
+                    <span class="n">end</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]))</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="n">end</span>
+                <span class="k">elif</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;current&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;out&quot;</span> <span class="ow">and</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;previous&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;in&quot;</span><span class="p">:</span>
+                    <span class="n">end</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">makeArc</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">start</span><span class="p">]),</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">end</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">end</span><span class="p">]),</span> <span class="n">current</span><span class="p">))</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="n">end</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">start</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">start</span><span class="p">:]))</span>
+        <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">()</span></div>
+        
+
+<div class="viewcode-block" id="VerticalLine.theta"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine.VerticalLine.theta">[docs]</a>    <span class="k">def</span> <span class="nf">theta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">:</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">center</span><span class="p">:</span><span class="nb">tuple</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute theta value for x, y coordinates thanks to the center of the cicle.</span>
+
+<span class="sd">        The theta value is the angle in degrees between the horizontal axis passing through the center of the circle </span>
+<span class="sd">        and the straight line passing through the point with coordinates (x,y) and the center of the circle.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coord : tuple of int</span>
+<span class="sd">            (x, y), coordinates of a point tangent to the circle</span>
+<span class="sd">        center : tuple of int</span>
+<span class="sd">            (xc, yc), center of the circle</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            the theta value</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        SystemExit</span>
+<span class="sd">            if a SystemExit occurs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">rad</span> <span class="o">=</span> <span class="n">atan</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="c1"># arctan(y/x)</span>
+                <span class="n">deg</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span> <span class="c1"># radians to degrees</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">deg</span> <span class="o">=</span> <span class="mi">90</span>
+            <span class="k">if</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># 1st quadrant</span>
+                <span class="n">theta</span> <span class="o">=</span> <span class="n">deg</span>
+            <span class="k">elif</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># 3rd quadrant</span>
+                <span class="n">theta</span> <span class="o">=</span> <span class="n">deg</span> <span class="o">+</span> <span class="mi">180</span>
+            <span class="k">elif</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># 2nd quadrant</span>
+                <span class="n">theta</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">-</span> <span class="n">deg</span>
+            <span class="k">elif</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># 4rd quadrant</span>
+                <span class="n">theta</span> <span class="o">=</span> <span class="mi">360</span> <span class="o">-</span> <span class="n">deg</span>
+            <span class="k">return</span> <span class="n">theta</span>
+        <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">()</span></div>
+        
+
+
+<div class="viewcode-block" id="VerticalLine.makeArc"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine.VerticalLine.makeArc">[docs]</a>    <span class="k">def</span> <span class="nf">makeArc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">alternative</span><span class="p">:</span><span class="n">AlternativeView</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute data to draw an arc of circle between start and end coordinates. The center of the arc is the center of the AlternativeView</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        start : tuple</span>
+<span class="sd">            (xs, ys), the coordinates of one end of the circular arc</span>
+<span class="sd">        end : tuple</span>
+<span class="sd">            (xe, ye), the coordinates of the other end of the circular arc</span>
+<span class="sd">        alternative : AlternativeView</span>
+<span class="sd">            the alternative to avoid</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        SystemExit</span>
+<span class="sd">            if a SystemExit occurs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">xy</span> <span class="o">=</span> <span class="n">alternative</span><span class="o">.</span><span class="n">getXY</span><span class="p">()</span>
+            <span class="n">t1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">xy</span><span class="p">)</span>
+            <span class="n">t2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">xy</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">180</span><span class="p">:</span>
+                <span class="n">theta1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">)</span>
+                <span class="n">theta2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">theta1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">)</span>
+                <span class="n">theta2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">)</span>
+            <span class="n">arc</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;xy&quot;</span><span class="p">:</span><span class="n">alternative</span><span class="o">.</span><span class="n">getXY</span><span class="p">(),</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span><span class="n">alternative</span><span class="o">.</span><span class="n">getBigRaius</span><span class="p">(),</span> <span class="s2">&quot;angle&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;theta1&quot;</span><span class="p">:</span><span class="n">theta1</span><span class="p">,</span> <span class="s2">&quot;theta2&quot;</span><span class="p">:</span><span class="n">theta2</span><span class="p">}</span>
+            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;arc&quot;</span><span class="p">,</span> <span class="n">arc</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">()</span></div>
+    
+
+<div class="viewcode-block" id="VerticalLine.draw"><a class="viewcode-back" href="../../../../../../promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.html#promethee_gamma_gui.Views.ResultTabViews.ResultsVisualisationViews.RankView.VerticalLine.VerticalLine.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate event(s) to draw the line</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        frame : CTk</span>
+<span class="sd">            the frame that will generate the event</span>
+<span class="sd">        queue : Queue</span>
+<span class="sd">            a queue to store the message</span>
+<span class="sd">        color : Color</span>
+<span class="sd">            the line color</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        SystemExit</span>
+<span class="sd">            if a SystemExit occurs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span>
+                    <span class="n">ticket</span> <span class="o">=</span> <span class="n">Ticket</span><span class="p">(</span><span class="n">ticketType</span><span class="o">=</span><span class="n">TicketPurpose</span><span class="o">.</span><span class="n">MATPLOTLIB_AX_PLOT</span><span class="p">,</span> <span class="n">ticketValue</span><span class="o">=</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="p">))</span>
+                    <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">ticket</span><span class="p">)</span>
+                    <span class="n">frame</span><span class="o">.</span><span class="n">event_generate</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;CheckMsgRankView&gt;&gt;&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;arc&quot;</span><span class="p">:</span>
+                    <span class="n">arc</span> <span class="o">=</span> <span class="n">Arc</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;xy&quot;</span><span class="p">],</span> <span class="mi">2</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;radius&quot;</span><span class="p">],</span> <span class="mi">2</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;radius&quot;</span><span class="p">],</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">theta1</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;theta1&quot;</span><span class="p">],</span> <span class="n">theta2</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;theta2&quot;</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+                    <span class="n">ticket</span> <span class="o">=</span> <span class="n">Ticket</span><span class="p">(</span><span class="n">ticketType</span><span class="o">=</span><span class="n">TicketPurpose</span><span class="o">.</span><span class="n">MATPLOTLIB_AX_ADD_PATCH</span><span class="p">,</span> <span class="n">ticketValue</span><span class="o">=</span><span class="n">arc</span><span class="p">)</span>
+                    <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">ticket</span><span class="p">)</span>
+                    <span class="n">frame</span><span class="o">.</span><span class="n">event_generate</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;CheckMsgRankView&gt;&gt;&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">PROMETHEE Gamma GUI app</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../modules.html">src</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Luka BONHEURE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

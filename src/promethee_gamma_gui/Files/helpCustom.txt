@@ -1,0 +1,2 @@
+A custom module available in the "Help for Parameters" tab.
+Please, edit this help if you use the custom module.

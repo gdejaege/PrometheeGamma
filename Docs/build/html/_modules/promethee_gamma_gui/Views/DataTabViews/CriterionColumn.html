@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>promethee_gamma_gui.Views.DataTabViews.CriterionColumn &#8212; PROMETHEE Gamma GUI app 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for promethee_gamma_gui.Views.DataTabViews.CriterionColumn</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">customtkinter</span> <span class="kn">import</span> <span class="p">(</span><span class="n">CTkEntry</span><span class="p">,</span> <span class="n">CTkButton</span><span class="p">,</span> <span class="n">CTkToplevel</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+
+<span class="kn">from</span> <span class="nn">...Models.DataTabModels.Criterion</span> <span class="kn">import</span> <span class="n">Criterion</span>
+<span class="kn">from</span> <span class="nn">.PreferenceFunctionWindow</span> <span class="kn">import</span> <span class="n">PreferenceFunctionWindow</span>
+
+
+<span class="n">TYPEDICT</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span><span class="s2">&quot;Usual&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="s2">&quot;U-shape&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="s2">&quot;V-shape&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span><span class="s2">&quot;Linear&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="s2">&quot;Gaussian&quot;</span><span class="p">}</span>
+<span class="sd">&quot;&quot;&quot;a dictionnary to link each type of preference function with a number&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CriterionColumn"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.CriterionColumn.CriterionColumn">[docs]</a><span class="k">class</span> <span class="nc">CriterionColumn</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to display a criterion column in PROMETHEE Gamma GUI application</span>
+
+<span class="sd">    master : CTkFrame</span>
+<span class="sd">        the master frame</span>
+<span class="sd">    pfType : IntVar</span>
+<span class="sd">        the type of the preference function used for this criterion</span>
+<span class="sd">    nameEntry : CTkEntry</span>
+<span class="sd">        the entry to modify the criterion name</span>
+<span class="sd">    weightEntry : CTkEntry</span>
+<span class="sd">        the entry to modify the criterion weight</span>
+<span class="sd">    typePfTextButton : StringVar</span>
+<span class="sd">        the variable text associated with the typePfButton</span>
+<span class="sd">    typePfButton : CTkButton</span>
+<span class="sd">        button that opens a PrefenceFunctionWindow to select a preference function</span>
+<span class="sd">    pcEntry : CTkEntry</span>
+<span class="sd">        the entry to modify the preference threshold associated to the preference function</span>
+<span class="sd">    qcEntry : CTkEntry</span>
+<span class="sd">        the entry to modify the indifference threshold associated to the preference function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">criterion</span><span class="p">:</span><span class="n">Criterion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        master : CTkFrame</span>
+<span class="sd">            the master frame</span>
+<span class="sd">        criterion : Criterion</span>
+<span class="sd">            the criterion of wich this class represents the column</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span> <span class="o">=</span> <span class="n">master</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pfType</span> <span class="o">=</span> <span class="n">criterion</span><span class="o">.</span><span class="n">getPf</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nameEntry</span> <span class="o">=</span> <span class="n">CTkEntry</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">criterion</span><span class="o">.</span><span class="n">getName</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weightEntry</span> <span class="o">=</span> <span class="n">CTkEntry</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">criterion</span><span class="o">.</span><span class="n">getWeight</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">typePfTextButton</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">TYPEDICT</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pfType</span><span class="o">.</span><span class="n">get</span><span class="p">()])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">typePfButton</span> <span class="o">=</span> <span class="n">CTkButton</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">typePfTextButton</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">buttonTypeEvent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pcEntry</span> <span class="o">=</span> <span class="n">CTkEntry</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">criterion</span><span class="o">.</span><span class="n">getP</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qcEntry</span> <span class="o">=</span> <span class="n">CTkEntry</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">criterion</span><span class="o">.</span><span class="n">getQ</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="CriterionColumn.show"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.CriterionColumn.CriterionColumn.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show the column</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row : int</span>
+<span class="sd">            the current row to place the CriterionColumn in the frame</span>
+<span class="sd">        col : int</span>
+<span class="sd">            the current column to place the CriterionColumn in the frame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nameEntry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weightEntry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">typePfButton</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pcEntry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qcEntry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="o">+</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CriterionColumn.buttonTypeEvent"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.CriterionColumn.CriterionColumn.buttonTypeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">buttonTypeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle click event on the typePfButton</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">CTkToplevel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="n">fg_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">grab_set</span><span class="p">()</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Preference functions&quot;</span><span class="p">)</span>
+        <span class="n">pfw</span> <span class="o">=</span> <span class="n">PreferenceFunctionWindow</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">textvar</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">typePfTextButton</span><span class="p">,</span> <span class="n">intvar</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pfType</span><span class="p">,</span> <span class="n">typesDict</span><span class="o">=</span><span class="n">TYPEDICT</span><span class="p">)</span>
+        <span class="n">pfw</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="CriterionColumn.destroy"><a class="viewcode-back" href="../../../../promethee_gamma_gui.Views.DataTabViews.html#promethee_gamma_gui.Views.DataTabViews.CriterionColumn.CriterionColumn.destroy">[docs]</a>    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Destroy (erase and forget) the column</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nameEntry</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weightEntry</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">typePfButton</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pcEntry</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qcEntry</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">PROMETHEE Gamma GUI app</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">src</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Luka BONHEURE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
