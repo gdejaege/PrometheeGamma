@@ -1,0 +1,3 @@
+This graph does not directly represent the results of the method, but shows a component of it. 
+Red, green and blue dots respectively represent couples of alternatives for which an incomparable, indifference or preference relation holds.
+This graph allows you to quickly visualize the proportion of each relation.

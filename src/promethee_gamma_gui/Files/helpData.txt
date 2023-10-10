@@ -1,0 +1,4 @@
+You can load a csv file containing all (or some) of the data required for the method with the "Open file" button. 
+You can also directly add or delete alternatives or criteria with the corresponding buttons. 
+You can change the type of preference function for each criterion with the corresponding button in the column for each criterion. 
+Indifference and preference thresholds are displayed regardless of the type of preference function chosen, but are ignored if the chosen preference function does not include these thresholds.
