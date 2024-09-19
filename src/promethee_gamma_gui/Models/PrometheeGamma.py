@@ -67,6 +67,13 @@ class PrometheeGamma:
         """
         return len(self.matrixGamma) > 0
 
+    def getPrometheeGammaParameters(self) -> dict:
+        res = {}
+        if self.resultTabModel is not None:
+            res["Ti"] = self.resultTabModel.getTi_float()
+            res["Tj"] = self.resultTabModel.getTj_float()
+            res["Pf"] = self.resultTabModel.getPf_float()
+        return res
 
     def getMatrixGamma(self) -> list:
         """Return the Gamma Matrix

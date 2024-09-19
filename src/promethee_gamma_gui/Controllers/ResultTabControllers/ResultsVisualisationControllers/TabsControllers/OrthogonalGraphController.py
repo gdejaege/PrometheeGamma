@@ -25,7 +25,8 @@ class OrthogonalGraphController:
         self.model = model
         matrixGamma = self.model.getMatrixGamma()
         matrixResults = self.model.getMatrixResults()
-        self.orthogonalGraphView = OrthogonalGraphView(master, matrixGamma, matrixResults)
+        parameters = self.model.getPrometheeGammaParameters()
+        self.orthogonalGraphView = OrthogonalGraphView(master, matrixGamma, matrixResults, parameters)
 
 
     def showView(self) -> None:
@@ -39,7 +40,8 @@ class OrthogonalGraphController:
         """
         matrixGamma = self.model.getMatrixGamma()
         matrixResults = self.model.getMatrixResults()
-        self.orthogonalGraphView.reshresh(matrixGamma, matrixResults)
+        parameters = self.model.getPrometheeGammaParameters()
+        self.orthogonalGraphView.reshresh(matrixGamma, matrixResults, parameters)
 
 
     def saveOgraph(self, directory:str):
